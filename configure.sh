@@ -24,9 +24,9 @@ SCRIPTPATH=$(cd "$(dirname "$0")" && pwd)
 
 echo $SCRIPTPATH
 
-cp $SCRIPTPATH/bin/libn*.so /usr/local/lib
-ldconfig
-cp -R $SCRIPTPATH/include/* /usr/include/
+sudo cp $SCRIPTPATH/bin/libn*.so /usr/local/lib
+sudo ldconfig
+sudo cp -R $SCRIPTPATH/include/* /usr/include/
 cd ../
 
 SCRIPTPATH=$(cd "$(dirname "$0")" && pwd)
