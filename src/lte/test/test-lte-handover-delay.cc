@@ -114,7 +114,7 @@ LteHandoverDelayTestCase::DoRun ()
   p2pHelper.SetDeviceAttribute ("Mtu", UintegerValue (1500));
   p2pHelper.SetChannelAttribute ("Delay", TimeValue (Seconds (0.010)));
 
-  NetDeviceContainer inetDevs = p2pHelper.Install (epcHelper->GetPgwNode (),
+  NetDeviceContainer inetDevs = p2pHelper.Install (epcHelper->GetUpfNode (),
       remoteHosts.Get (0));
 
   Ipv4AddressHelper addrHelper;

@@ -52,7 +52,7 @@ Milestone 4 (M4) release of the LENA project (December 15, 2011)
   - PDCP
 + EPC data plane:
   - S1-U interface with GTP-U tunneling
-  - SGW/PGW node
+  - SMF/UPF node
   - TFT classifiers
   - mapping of EPS bearers to Radio Bearers
   - integration with ns-3 Ipv4 and ns-3 applications

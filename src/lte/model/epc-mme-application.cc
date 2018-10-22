@@ -38,7 +38,7 @@ NS_LOG_COMPONENT_DEFINE ("EpcMmeApplication");
 NS_OBJECT_ENSURE_REGISTERED (EpcMmeApplication);
 
 EpcMmeApplication::EpcMmeApplication ()
-  : m_s11SapSgw (0)
+  : m_s11SapSmf (0)
 {
   NS_LOG_FUNCTION (this);
   m_s1apSapMme = new MemberEpcS1apSapMme<EpcMmeApplication> (this);
@@ -84,9 +84,9 @@ EpcMmeApplication::SetS1apSapMmeProvider(EpcS1apSapMmeProvider* provider)
 
 
 void 
-EpcMmeApplication::SetS11SapSgw (EpcS11SapSgw * s)
+EpcMmeApplication::SetS11SapSmf (EpcS11SapSmf * s)
 {
-  m_s11SapSgw = s;
+  m_s11SapSmf = s;
 }
 
 EpcS11SapMme* 
@@ -142,7 +142,7 @@ EpcMmeApplication::DoInitialUeMessage (uint64_t mmeUeS1Id, uint16_t enbUeS1Id, u
   std::map<uint64_t, Ptr<UeInfo> >::iterator it = m_ueInfoMap.find (imsi);
   NS_ASSERT_MSG (it != m_ueInfoMap.end (), "could not find any UE with IMSI " << imsi);
   it->second->cellId = gci;
-  EpcS11SapSgw::CreateSessionRequestMessage msg;
+  EpcS11SapSmf::CreateSessionRequestMessage msg;
   msg.imsi = imsi;
   msg.uli.gci = gci;
   //std::cout << "sjkang1021---------->" <<std::endl;
@@ -151,7 +151,7 @@ EpcMmeApplication::DoInitialUeMessage (uint64_t mmeUeS1Id, uint16_t enbUeS1Id, u
        bit != it->second->bearersToBeActivated.end ();
        ++bit)
     {
-      EpcS11SapSgw::BearerContextToBeCreated bearerContext;
+      EpcS11SapSmf::BearerContextToBeCreated bearerContext;
       bearerContext.epsBearerId =  bit->bearerId;
       NS_LOG_INFO("Mme: sending as bearerId " << (uint32_t) bit->bearerId);
       bearerContext.bearerLevelQos = bit->bearer; 
@@ -159,7 +159,7 @@ EpcMmeApplication::DoInitialUeMessage (uint64_t mmeUeS1Id, uint16_t enbUeS1Id, u
       //std::cout << "sjkang1021---------->" <<std::endl;
       msg.bearerContextsToBeCreated.push_back (bearerContext);
     }
-  m_s11SapSgw->CreateSessionRequest (msg);
+  m_s11SapSmf->CreateSessionRequest (msg);
 }
 
 void 
@@ -181,11 +181,11 @@ EpcMmeApplication::DoPathSwitchRequest (uint64_t enbUeS1Id, uint64_t mmeUeS1Id, 
   it->second->cellId = gci;
   it->second->enbUeS1Id = enbUeS1Id;
 
-  EpcS11SapSgw::ModifyBearerRequestMessage msg;
+  EpcS11SapSmf::ModifyBearerRequestMessage msg;
   msg.teid = imsi; // trick to avoid the need for allocating TEIDs on the S11 interface
   msg.uli.gci = gci;
   // bearer modification is not supported for now
-  m_s11SapSgw->ModifyBearerRequest (msg);
+  m_s11SapSmf->ModifyBearerRequest (msg);
 }
 
 
@@ -204,8 +204,8 @@ EpcMmeApplication::DoCreateSessionResponse (EpcS11SapMme::CreateSessionResponseM
       EpcS1apSapEnb::ErabToBeSetupItem erab;
       erab.erabId = bit->epsBearerId;
       erab.erabLevelQosParameters = bit->bearerLevelQos;
-      erab.transportLayerAddress = bit->sgwFteid.address;
-      erab.sgwTeid = bit->sgwFteid.teid;      
+      erab.transportLayerAddress = bit->smfFteid.address;
+      erab.smfTeid = bit->smfFteid.teid;      
       erabToBeSetupList.push_back (erab);
     }
   std::map<uint64_t, Ptr<UeInfo> >::iterator it = m_ueInfoMap.find (imsi);
@@ -244,18 +244,18 @@ EpcMmeApplication::DoErabReleaseIndication (uint64_t mmeUeS1Id, uint16_t enbUeS1
   std::map<uint64_t, Ptr<UeInfo> >::iterator it = m_ueInfoMap.find (imsi);
   NS_ASSERT_MSG (it != m_ueInfoMap.end (), "could not find any UE with IMSI " << imsi);
 
-  EpcS11SapSgw::DeleteBearerCommandMessage msg;
+  EpcS11SapSmf::DeleteBearerCommandMessage msg;
   // trick to avoid the need for allocating TEIDs on the S11 interface
   msg.teid = imsi;
 
   for (std::list<EpcS1apSapMme::ErabToBeReleasedIndication>::iterator bit = erabToBeReleaseIndication.begin (); bit != erabToBeReleaseIndication.end (); ++bit)
     {
-      EpcS11SapSgw::BearerContextToBeRemoved bearerContext;
+      EpcS11SapSmf::BearerContextToBeRemoved bearerContext;
       bearerContext.epsBearerId =  bit->erabId;
       msg.bearerContextsToBeRemoved.push_back (bearerContext);
     }
-  //Delete Bearer command towards epc-sgw-pgw-application
-  m_s11SapSgw->DeleteBearerCommand (msg);
+  //Delete Bearer command towards epc-smf-upf-application
+  m_s11SapSmf->DeleteBearerCommand (msg);
 }
 
 void
@@ -265,7 +265,7 @@ EpcMmeApplication::DoDeleteBearerRequest (EpcS11SapMme::DeleteBearerRequestMessa
   uint64_t imsi = msg.teid;
   std::map<uint64_t, Ptr<UeInfo> >::iterator it = m_ueInfoMap.find (imsi);
   NS_ASSERT_MSG (it != m_ueInfoMap.end (), "could not find any UE with IMSI " << imsi);
-  EpcS11SapSgw::DeleteBearerResponseMessage res;
+  EpcS11SapSmf::DeleteBearerResponseMessage res;
 
   res.teid = imsi;
 
@@ -273,14 +273,14 @@ EpcMmeApplication::DoDeleteBearerRequest (EpcS11SapMme::DeleteBearerRequestMessa
        bit != msg.bearerContextsRemoved.end ();
        ++bit)
     {
-      EpcS11SapSgw::BearerContextRemovedSgwPgw bearerContext;
+      EpcS11SapSmf::BearerContextRemovedSmfUpf bearerContext;
       bearerContext.epsBearerId = bit->epsBearerId;
       res.bearerContextsRemoved.push_back (bearerContext);
 
       RemoveBearer (it->second, bearerContext.epsBearerId); //schedules function to erase, context of de-activated bearer
     }
-  //schedules Delete Bearer Response towards epc-sgw-pgw-application
-  m_s11SapSgw->DeleteBearerResponse (res);
+  //schedules Delete Bearer Response towards epc-smf-upf-application
+  m_s11SapSmf->DeleteBearerResponse (res);
 }
 
 void EpcMmeApplication::RemoveBearer (Ptr<UeInfo> ueInfo, uint8_t epsBearerId)
