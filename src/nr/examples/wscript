@@ -1,0 +1,57 @@
+## -*- Mode: python; py-indent-offset: 4; indent-tabs-mode: nil; coding: utf-8; -*-
+
+def build(bld):
+    obj = bld.create_ns3_program('lena-cqi-threshold',
+                                 ['nr'])
+    obj.source = 'lena-cqi-threshold.cc'
+    obj = bld.create_ns3_program('lena-dual-stripe',
+                                 ['nr'])
+    obj.source = 'lena-dual-stripe.cc'
+    obj = bld.create_ns3_program('lena-fading',
+                                 ['nr'])
+    obj.source = 'lena-fading.cc'
+    obj = bld.create_ns3_program('lena-intercell-interference',
+                                 ['nr'])
+    obj.source = 'lena-intercell-interference.cc'
+    obj = bld.create_ns3_program('lena-pathloss-traces',
+                                 ['nr'])
+    obj.source = 'lena-pathloss-traces.cc'
+    obj = bld.create_ns3_program('lena-profiling',
+                                 ['nr'])
+    obj.source = 'lena-profiling.cc'
+    obj = bld.create_ns3_program('lena-rem',
+                                 ['nr'])
+    obj.source = 'lena-rem.cc'
+    obj = bld.create_ns3_program('lena-rem-sector-antenna',
+                                 ['nr'])
+    obj.source = 'lena-rem-sector-antenna.cc'
+    obj = bld.create_ns3_program('lena-rlc-traces',
+                                 ['nr'])
+    obj.source = 'lena-rlc-traces.cc'
+    obj = bld.create_ns3_program('lena-simple',
+                                 ['nr'])
+    obj.source = 'lena-simple.cc'
+    obj = bld.create_ns3_program('lena-simple-ngc',
+                                 ['nr'])
+    obj.source = 'lena-simple-ngc.cc'
+    obj = bld.create_ns3_program('lena-deactivate-bearer',
+                                 ['nr'])
+    obj.source = 'lena-deactivate-bearer.cc'
+    obj = bld.create_ns3_program('lena-x2-handover',
+                                 ['nr'])
+    obj.source = 'lena-x2-handover.cc'
+    obj = bld.create_ns3_program('lena-x2-handover-measures',
+                                 ['nr'])
+    obj.source = 'lena-x2-handover-measures.cc'
+    obj = bld.create_ns3_program('lena-simple-ngc-emu',
+                                 ['nr', 'emu'])
+    obj.source = 'lena-simple-ngc-emu.cc'
+    obj = bld.create_ns3_program('lena-frequency-reuse',
+                                 ['nr'])
+    obj.source = 'lena-frequency-reuse.cc'
+    obj = bld.create_ns3_program('lena-distributed-ffr',
+                                 ['nr'])
+    obj.source = 'lena-distributed-ffr.cc'
+    obj = bld.create_ns3_program('lena-uplink-power-control',
+                                 ['nr'])
+    obj.source = 'lena-uplink-power-control.cc'

@@ -23,7 +23,7 @@
 #include "ns3/log.h"
 #include "ns3/simulator.h"
 
-#include "ns3/mc-ue-pdcp.h"
+#include "ns3/mw-mc-ue-pdcp.h"
 #include "ns3/lte-pdcp-header.h"
 #include "ns3/lte-pdcp-sap.h"
 #include "ns3/lte-pdcp-tag.h"

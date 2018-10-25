@@ -238,7 +238,7 @@ MmWaveBearerStatsCalculator::UlRxPdu (uint16_t cellId, uint64_t imsi, uint16_t r
       m_ulRxPackets[p]++;
       m_ulRxData[p] += packetSize;
 
-      Uint64StatsMap::iterator it = m_ulDelay.find (p);
+      MUint64StatsMap::iterator it = m_ulDelay.find (p);
       if (it == m_ulDelay.end ())
         {
           NS_LOG_DEBUG (this << " Creating UL stats calculators for IMSI " << p.m_imsi << " and LCID " << (uint32_t) p.m_lcId);
@@ -280,7 +280,7 @@ MmWaveBearerStatsCalculator::DlRxPdu (uint16_t cellId, uint64_t imsi, uint16_t r
       m_dlRxPackets[p]++;
       m_dlRxData[p] += packetSize;
 
-      Uint64StatsMap::iterator it = m_dlDelay.find (p);
+      MUint64StatsMap::iterator it = m_dlDelay.find (p);
       if (it == m_dlDelay.end ())
         {
           NS_LOG_DEBUG (this << " Creating DL stats calculators for IMSI " << p.m_imsi << " and LCID " << (uint32_t) p.m_lcId);
@@ -359,7 +359,7 @@ MmWaveBearerStatsCalculator::WriteUlResults (std::ofstream& outFile)
   // Get the unique IMSI / LCID list
 
   std::vector < ImsiLcidPair_t > pairVector;
-  for (Uint32Map::iterator it = m_ulTxPackets.begin (); it != m_ulTxPackets.end (); ++it)
+  for (MUint32Map::iterator it = m_ulTxPackets.begin (); it != m_ulTxPackets.end (); ++it)
     {
       if (find (pairVector.begin (), pairVector.end (), (*it).first) == pairVector.end ())
         {
@@ -404,7 +404,7 @@ MmWaveBearerStatsCalculator::WriteDlResults (std::ofstream& outFile)
 
   // Get the unique IMSI list
   std::vector < ImsiLcidPair_t > pairVector;
-  for (Uint32Map::iterator it = m_dlTxPackets.begin (); it != m_dlTxPackets.end (); ++it)
+  for (MUint32Map::iterator it = m_dlTxPackets.begin (); it != m_dlTxPackets.end (); ++it)
     {
       if (find (pairVector.begin (), pairVector.end (), (*it).first) == pairVector.end ())
         {
@@ -518,7 +518,7 @@ MmWaveBearerStatsCalculator::GetUlDelay (uint64_t imsi, uint8_t lcid)
 {
   NS_LOG_FUNCTION (this << imsi << (uint16_t) lcid);
   ImsiLcidPair_t p (imsi, lcid);
-  Uint64StatsMap::iterator it = m_ulDelay.find (p);
+  MUint64StatsMap::iterator it = m_ulDelay.find (p);
   if (it == m_ulDelay.end ())
     {
       NS_LOG_ERROR ("UL delay for " << imsi << " - " << (uint16_t) lcid << " not found");
@@ -534,7 +534,7 @@ MmWaveBearerStatsCalculator::GetUlDelayStats (uint64_t imsi, uint8_t lcid)
   NS_LOG_FUNCTION (this << imsi << (uint16_t) lcid);
   ImsiLcidPair_t p (imsi, lcid);
   std::vector<double> stats;
-  Uint64StatsMap::iterator it = m_ulDelay.find (p);
+  MUint64StatsMap::iterator it = m_ulDelay.find (p);
   if (it == m_ulDelay.end ())
     {
       stats.push_back (0.0);
@@ -557,7 +557,7 @@ MmWaveBearerStatsCalculator::GetUlPduSizeStats (uint64_t imsi, uint8_t lcid)
   NS_LOG_FUNCTION (this << imsi << (uint16_t) lcid);
   ImsiLcidPair_t p (imsi, lcid);
   std::vector<double> stats;
-  Uint32StatsMap::iterator it = m_ulPduSize.find (p);
+  MUint32StatsMap::iterator it = m_ulPduSize.find (p);
   if (it == m_ulPduSize.end ())
     {
       stats.push_back (0.0);
@@ -627,7 +627,7 @@ MmWaveBearerStatsCalculator::GetDlDelay (uint64_t imsi, uint8_t lcid)
 {
   NS_LOG_FUNCTION (this << imsi << (uint16_t) lcid);
   ImsiLcidPair_t p (imsi, lcid);
-  Uint64StatsMap::iterator it = m_dlDelay.find (p);
+  MUint64StatsMap::iterator it = m_dlDelay.find (p);
   if (it == m_dlDelay.end ())
     {
       NS_LOG_ERROR ("DL delay for " << imsi << " not found");
@@ -642,7 +642,7 @@ MmWaveBearerStatsCalculator::GetDlDelayStats (uint64_t imsi, uint8_t lcid)
   NS_LOG_FUNCTION (this << imsi << (uint16_t) lcid);
   ImsiLcidPair_t p (imsi, lcid);
   std::vector<double> stats;
-  Uint64StatsMap::iterator it = m_dlDelay.find (p);
+  MUint64StatsMap::iterator it = m_dlDelay.find (p);
   if (it == m_dlDelay.end ())
     {
       stats.push_back (0.0);
@@ -665,7 +665,7 @@ MmWaveBearerStatsCalculator::GetDlPduSizeStats (uint64_t imsi, uint8_t lcid)
   NS_LOG_FUNCTION (this << imsi << (uint16_t) lcid);
   ImsiLcidPair_t p (imsi, lcid);
   std::vector<double> stats;
-  Uint32StatsMap::iterator it = m_dlPduSize.find (p);
+  MUint32StatsMap::iterator it = m_dlPduSize.find (p);
   if (it == m_dlPduSize.end ())
     {
       stats.push_back (0.0);
