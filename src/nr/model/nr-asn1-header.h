@@ -33,11 +33,11 @@ namespace ns3 {
  * to ASN.1 syntax, as defined in ITU-T  X-691.
  * IMPORTANT: The encoding is done following the UNALIGNED variant.
  */
-class Asn1Header : public Header
+class NrAsn1Header : public Header
 {
 public:
-  Asn1Header ();
-  virtual ~Asn1Header ();
+  NrAsn1Header ();
+  virtual ~NrAsn1Header ();
 
   /**
    * \brief Get the type ID.

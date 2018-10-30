@@ -24,7 +24,7 @@
 #include "ns3/net-device-container.h"
 #include "ns3/simple-channel.h"
 #include "ns3/node-container.h"
-#include "ns3/radio-bearer-stats-calculator.h"
+#include "ns3/nr-radio-bearer-stats-calculator.h"
 
 #include "ns3/nr-pdcp.h"
 #include "ns3/nr-rlc.h"

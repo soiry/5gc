@@ -37,7 +37,7 @@ NS_LOG_COMPONENT_DEFINE ("NgcGtpuTest");
 EpsGtpuTestSuite::EpsGtpuTestSuite ()
   : TestSuite ("ngc-gtpu", SYSTEM)
 {
-  AddTestCase (new EpsGtpuHeaderTestCase (), TestCase::QUICK);
+  AddTestCase (new EpsNrGtpuHeaderTestCase (), TestCase::QUICK);
 }
 
 static EpsGtpuTestSuite epsGtpuTestSuite;
@@ -47,23 +47,23 @@ static EpsGtpuTestSuite epsGtpuTestSuite;
  * TestCase
  */
 
-EpsGtpuHeaderTestCase::EpsGtpuHeaderTestCase ()
+EpsNrGtpuHeaderTestCase::EpsNrGtpuHeaderTestCase ()
   : TestCase ("Check header coding and decoding")
 {
-  NS_LOG_INFO ("Creating EpsGtpuHeaderTestCase");
+  NS_LOG_INFO ("Creating EpsNrGtpuHeaderTestCase");
 }
 
-EpsGtpuHeaderTestCase::~EpsGtpuHeaderTestCase ()
+EpsNrGtpuHeaderTestCase::~EpsNrGtpuHeaderTestCase ()
 {
 }
 
 void
-EpsGtpuHeaderTestCase::DoRun (void)
+EpsNrGtpuHeaderTestCase::DoRun (void)
 {
   LogLevel logLevel = (LogLevel)(LOG_PREFIX_FUNC | LOG_PREFIX_TIME | LOG_LEVEL_ALL);
 
   LogComponentEnable ("NgcGtpuTest", logLevel);
-  GtpuHeader h1;
+  NrGtpuHeader h1;
   h1.SetExtensionHeaderFlag (true);
   h1.SetLength (1234);
   h1.SetMessageType (123);
@@ -77,7 +77,7 @@ EpsGtpuHeaderTestCase::DoRun (void)
   h1.SetVersion (123);
 
   Packet p;
-  GtpuHeader h2;
+  NrGtpuHeader h2;
   p.AddHeader (h1);
   p.RemoveHeader (h2);
 

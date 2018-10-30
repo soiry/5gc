@@ -62,8 +62,8 @@ public:
    * \param checkPointEventList
    * \param checkPointEventListName
    * \param useUdp true if UDP is to be used, false if TCP is to be used
-   * \param schedulerType type of scheduler to be used (e.g. "ns3::PfFfMacScheduler")
-   * \param handoverAlgorithmType type of handover algorithm to be used (e.g. "ns3::A3RsrpHandoverAlgorithm")
+   * \param schedulerType type of scheduler to be used (e.g. "ns3::NrPfFfMacScheduler")
+   * \param handoverAlgorithmType type of handover algorithm to be used (e.g. "ns3::NrA3RsrpHandoverAlgorithm")
    * \param admitHo
    * \param useIdealRrc true if ideal RRC is to be used, false if real RRC is to be used
    *
@@ -206,17 +206,17 @@ NrX2HandoverMeasuresTestCase::DoRun ()
   m_nrHelper->SetAttribute ("UseIdealRrc", BooleanValue (m_useIdealRrc));
   m_nrHelper->SetSchedulerType (m_schedulerType);
 
-  if (m_handoverAlgorithmType == "ns3::A2A4RsrqHandoverAlgorithm")
+  if (m_handoverAlgorithmType == "ns3::NrA2A4RsrqHandoverAlgorithm")
     {
-      m_nrHelper->SetHandoverAlgorithmType ("ns3::A2A4RsrqHandoverAlgorithm");
+      m_nrHelper->SetHandoverAlgorithmType ("ns3::NrA2A4RsrqHandoverAlgorithm");
       m_nrHelper->SetHandoverAlgorithmAttribute ("ServingCellThreshold",
                                                   UintegerValue (30));
       m_nrHelper->SetHandoverAlgorithmAttribute ("NeighbourCellOffset",
                                                   UintegerValue (1));
     }
-  else if (m_handoverAlgorithmType == "ns3::A3RsrpHandoverAlgorithm")
+  else if (m_handoverAlgorithmType == "ns3::NrA3RsrpHandoverAlgorithm")
     {
-      m_nrHelper->SetHandoverAlgorithmType ("ns3::A3RsrpHandoverAlgorithm");
+      m_nrHelper->SetHandoverAlgorithmType ("ns3::NrA3RsrpHandoverAlgorithm");
       m_nrHelper->SetHandoverAlgorithmAttribute ("Hysteresis",
                                                   DoubleValue (1.5));
       m_nrHelper->SetHandoverAlgorithmAttribute ("TimeToTrigger",
@@ -663,8 +663,8 @@ NrX2HandoverMeasuresTestSuite::NrX2HandoverMeasuresTestSuite ()
 
 
   int32_t useIdealRrc;
-  std::string sched = "ns3::PfFfMacScheduler";
-  std::string ho = "ns3::A2A4RsrqHandoverAlgorithm";
+  std::string sched = "ns3::NrPfFfMacScheduler";
+  std::string ho = "ns3::NrA2A4RsrqHandoverAlgorithm";
   for (useIdealRrc = 1; useIdealRrc >= 0; --useIdealRrc)
     {
       //                                          nEnbs, nUes, nDBearers, celist, name, useUdp, sched, ho, admitHo, idealRrc
@@ -679,7 +679,7 @@ NrX2HandoverMeasuresTestSuite::NrX2HandoverMeasuresTestSuite ()
       AddTestCase (new NrX2HandoverMeasuresTestCase (4,   1,    2,    cel3, cel3name, true, sched, ho, true, useIdealRrc), TestCase::TAKES_FOREVER);
     }
 
-  sched = "ns3::RrFfMacScheduler";
+  sched = "ns3::NrRrFfMacScheduler";
   for (useIdealRrc = 1; useIdealRrc >= 0; --useIdealRrc)
     {
       //                                          nEnbs, nUes, nDBearers, celist, name, useUdp, sched, admitHo, idealRrc
@@ -688,8 +688,8 @@ NrX2HandoverMeasuresTestSuite::NrX2HandoverMeasuresTestSuite ()
       AddTestCase (new NrX2HandoverMeasuresTestCase (4,   1,    0,    cel3, cel3name, true, sched, ho, true, useIdealRrc), TestCase::TAKES_FOREVER);
     }
 
-  ho = "ns3::A3RsrpHandoverAlgorithm";
-  sched = "ns3::PfFfMacScheduler";
+  ho = "ns3::NrA3RsrpHandoverAlgorithm";
+  sched = "ns3::NrPfFfMacScheduler";
   for (useIdealRrc = 1; useIdealRrc >= 0; --useIdealRrc)
     {
       //                                          nEnbs, nUes, nDBearers, celist, name, useUdp, sched, admitHo, idealRrc
@@ -698,7 +698,7 @@ NrX2HandoverMeasuresTestSuite::NrX2HandoverMeasuresTestSuite ()
       AddTestCase (new NrX2HandoverMeasuresTestCase (4,   1,    0,    cel3, cel3name, true, sched, ho, true, useIdealRrc), TestCase::TAKES_FOREVER);
     }
 
-  sched = "ns3::RrFfMacScheduler";
+  sched = "ns3::NrRrFfMacScheduler";
   for (useIdealRrc = 1; useIdealRrc >= 0; --useIdealRrc)
     {
       //                                          nEnbs, nUes, nDBearers, celist, name, useUdp, sched, admitHo, idealRrc

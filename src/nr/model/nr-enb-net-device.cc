@@ -87,11 +87,11 @@ TypeId NrEnbNetDevice::GetTypeId (void)
                    PointerValue (),
                    MakePointerAccessor (&NrEnbNetDevice::m_mac),
                    MakePointerChecker <NrEnbMac> ())
-    .AddAttribute ("FfMacScheduler",
+    .AddAttribute ("NrFfMacScheduler",
                    "The scheduler associated to this EnbNetDevice",
                    PointerValue (),
                    MakePointerAccessor (&NrEnbNetDevice::m_scheduler),
-                   MakePointerChecker <FfMacScheduler> ())
+                   MakePointerChecker <NrFfMacScheduler> ())
     .AddAttribute ("NrEnbPhy",
                    "The PHY associated to this EnbNetDevice",
                    PointerValue (),

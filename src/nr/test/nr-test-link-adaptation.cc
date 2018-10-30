@@ -192,7 +192,7 @@ NrLinkAdaptationTestCase::DoRun (void)
   // Create Devices and install them in the Nodes (eNB and UE)
   NetDeviceContainer enbDevs;
   NetDeviceContainer ueDevs;
-  nrHelper->SetSchedulerType ("ns3::RrFfMacScheduler");
+  nrHelper->SetSchedulerType ("ns3::NrRrFfMacScheduler");
   enbDevs = nrHelper->InstallEnbDevice (enbNodes);
   ueDevs = nrHelper->InstallUeDevice (ueNodes);
 

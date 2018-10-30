@@ -74,10 +74,10 @@ struct pssFlowPerf_t
  * \ingroup ff-api
  * \brief Implements the SCHED SAP and CSCHED SAP for a Priority Set scheduler
  *
- * This class implements the interface defined by the FfMacScheduler abstract class
+ * This class implements the interface defined by the NrFfMacScheduler abstract class
  */
 
-class PssFfMacScheduler : public FfMacScheduler
+class NrPssFfMacScheduler : public NrFfMacScheduler
 {
 public:
   /**
@@ -85,18 +85,18 @@ public:
    *
    * Creates the MAC Scheduler interface implementation
    */
-  PssFfMacScheduler ();
+  NrPssFfMacScheduler ();
 
   /**
    * Destructor
    */
-  virtual ~PssFfMacScheduler ();
+  virtual ~NrPssFfMacScheduler ();
 
   // inherited from Object
   virtual void DoDispose (void);
   static TypeId GetTypeId (void);
 
-  // inherited from FfMacScheduler
+  // inherited from NrFfMacScheduler
   virtual void SetFfMacCschedSapUser (FfMacCschedSapUser* s);
   virtual void SetFfMacSchedSapUser (FfMacSchedSapUser* s);
   virtual FfMacCschedSapProvider* GetFfMacCschedSapProvider ();

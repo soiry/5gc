@@ -39,11 +39,11 @@ using namespace ns3;
 * is equal among users is consistent with the definition of token bank fair  
 * queue scheduling
 */
-class LenaFdTbfqFfMacSchedulerTestCase1 : public TestCase
+class LenaNrFdTbfqFfMacSchedulerTestCase1 : public TestCase
 {
 public:
-  LenaFdTbfqFfMacSchedulerTestCase1 (uint16_t nUser, uint16_t dist, double thrRefDl, double thrRefUl, uint16_t packetSize, uint16_t interval, bool  errorModelEnabled);
-  virtual ~LenaFdTbfqFfMacSchedulerTestCase1 ();
+  LenaNrFdTbfqFfMacSchedulerTestCase1 (uint16_t nUser, uint16_t dist, double thrRefDl, double thrRefUl, uint16_t packetSize, uint16_t interval, bool  errorModelEnabled);
+  virtual ~LenaNrFdTbfqFfMacSchedulerTestCase1 ();
 
 private:
   static std::string BuildNameString (uint16_t nUser, uint16_t dist);
@@ -58,11 +58,11 @@ private:
 };
 
 
-class LenaFdTbfqFfMacSchedulerTestCase2 : public TestCase
+class LenaNrFdTbfqFfMacSchedulerTestCase2 : public TestCase
 {
 public:
-  LenaFdTbfqFfMacSchedulerTestCase2 (std::vector<uint16_t> dist, std::vector<uint32_t> estThrFdTbfqDl, std::vector<uint16_t> packetSize, uint16_t interval, bool  errorModelEnabled);
-  virtual ~LenaFdTbfqFfMacSchedulerTestCase2 ();
+  LenaNrFdTbfqFfMacSchedulerTestCase2 (std::vector<uint16_t> dist, std::vector<uint32_t> estThrFdTbfqDl, std::vector<uint16_t> packetSize, uint16_t interval, bool  errorModelEnabled);
+  virtual ~LenaNrFdTbfqFfMacSchedulerTestCase2 ();
 
 private:
   static std::string BuildNameString (uint16_t nUser, std::vector<uint16_t> dist);
@@ -76,10 +76,10 @@ private:
 };
 
 
-class LenaTestFdTbfqFfMacSchedulerSuite : public TestSuite
+class LenaTestNrFdTbfqFfMacSchedulerSuite : public TestSuite
 {
 public:
-  LenaTestFdTbfqFfMacSchedulerSuite ();
+  LenaTestNrFdTbfqFfMacSchedulerSuite ();
 };
 
 

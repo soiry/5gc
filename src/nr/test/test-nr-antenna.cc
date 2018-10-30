@@ -128,8 +128,8 @@ NrEnbAntennaTestCase::DoRun (void)
   // Create Devices and install them in the Nodes (eNB and UE)
   NetDeviceContainer enbDevs;
   NetDeviceContainer ueDevs;
-  nrHelper->SetSchedulerType ("ns3::RrFfMacScheduler");
-  nrHelper->SetSchedulerAttribute ("UlCqiFilter", EnumValue (FfMacScheduler::PUSCH_UL_CQI));
+  nrHelper->SetSchedulerType ("ns3::NrRrFfMacScheduler");
+  nrHelper->SetSchedulerAttribute ("UlCqiFilter", EnumValue (NrFfMacScheduler::PUSCH_UL_CQI));
   nrHelper->SetEnbAntennaModelType ("ns3::CosineAntennaModel");
   nrHelper->SetEnbAntennaModelAttribute ("Orientation", DoubleValue (m_orientationDegrees));
   nrHelper->SetEnbAntennaModelAttribute ("Beamwidth",   DoubleValue (m_beamwidthDegrees));

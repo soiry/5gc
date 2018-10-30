@@ -687,7 +687,7 @@ NgcX2::RecvFromX2uSocket (Ptr<Socket> socket)
     }
   m_rxPdu(cellsInfo->m_localCellId, cellsInfo->m_remoteCellId, packet->GetSize (), delay.GetNanoSeconds (), 1);
 
-  GtpuHeader gtpu;
+  NrGtpuHeader gtpu;
   packet->RemoveHeader (gtpu);
   //SocketAddressTag satag;
   //packet->RemovePacketTag(satag);
@@ -1347,9 +1347,9 @@ NgcX2::DoSendUeData (NgcX2SapProvider::UeDataParams params)
   NS_LOG_LOGIC ("sourceSocket = " << sourceSocket);
   NS_LOG_LOGIC ("targetIpAddr = " << targetIpAddr);
 
-  GtpuHeader gtpu;
+  NrGtpuHeader gtpu;
   gtpu.SetTeid (params.gtpTeid);
-  gtpu.SetLength (params.ueData->GetSize () + gtpu.GetSerializedSize () - 8); /// \todo This should be done in GtpuHeader
+  gtpu.SetLength (params.ueData->GetSize () + gtpu.GetSerializedSize () - 8); /// \todo This should be done in NrGtpuHeader
   NS_LOG_INFO ("GTP-U header: " << gtpu);
 
   Ptr<Packet> packet = params.ueData;
@@ -1381,10 +1381,10 @@ NgcX2::DoSendMcPdcpPdu(NgcX2Sap::UeDataParams params)
   NS_LOG_LOGIC ("targetIpAddr = " << targetIpAddr);
 
   // add a message type to the gtpu header, so that it is possible to distinguish at receiver
-  GtpuHeader gtpu;
+  NrGtpuHeader gtpu;
   gtpu.SetTeid (params.gtpTeid);
   gtpu.SetMessageType(NgcX2Header::McForwardDownlinkData);
-  gtpu.SetLength (params.ueData->GetSize () + gtpu.GetSerializedSize () - 8); /// \todo This should be done in GtpuHeader
+  gtpu.SetLength (params.ueData->GetSize () + gtpu.GetSerializedSize () - 8); /// \todo This should be done in NrGtpuHeader
   NS_LOG_INFO ("GTP-U header: " << gtpu);
 
   Ptr<Packet> packet = params.ueData;
@@ -1418,10 +1418,10 @@ NgcX2::DoReceiveMcPdcpSdu(NgcX2Sap::UeDataParams params)
   NS_LOG_LOGIC ("targetIpAddr = " << targetIpAddr);
 
   // add a message type to the gtpu header, so that it is possible to distinguish at receiver
-  GtpuHeader gtpu;
+  NrGtpuHeader gtpu;
   gtpu.SetTeid (params.gtpTeid);
   gtpu.SetMessageType(NgcX2Header::McForwardUplinkData);
-  gtpu.SetLength (params.ueData->GetSize () + gtpu.GetSerializedSize () - 8); /// \todo This should be done in GtpuHeader
+  gtpu.SetLength (params.ueData->GetSize () + gtpu.GetSerializedSize () - 8); /// \todo This should be done in NrGtpuHeader
   NS_LOG_INFO ("GTP-U header: " << gtpu);
 
   Ptr<Packet> packet = params.ueData;

@@ -420,7 +420,7 @@ NrDownlinkPowerControlTestCase::DoRun (void)
   // Create Devices and install them in the Nodes (eNB and UE)
   NetDeviceContainer enbDevs;
   NetDeviceContainer ueDevs;
-  nrHelper->SetSchedulerType ("ns3::PfFfMacScheduler");
+  nrHelper->SetSchedulerType ("ns3::NrPfFfMacScheduler");
   enbDevs = nrHelper->InstallEnbDevice (enbNodes);
   ueDevs = nrHelper->InstallUeDevice (ueNodes);
 
@@ -562,7 +562,7 @@ NrDownlinkPowerControlRrcConnectionReconfigurationTestCase::DoRun (void)
   // Create Devices and install them in the Nodes (eNB and UE)
   NetDeviceContainer enbDevs;
   NetDeviceContainer ueDevs;
-  nrHelper->SetSchedulerType ("ns3::PfFfMacScheduler");
+  nrHelper->SetSchedulerType ("ns3::NrPfFfMacScheduler");
   enbDevs = nrHelper->InstallEnbDevice (enbNodes);
   ueDevs = nrHelper->InstallUeDevice (ueNodes);
 

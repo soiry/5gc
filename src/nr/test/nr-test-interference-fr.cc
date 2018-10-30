@@ -144,8 +144,8 @@ NrInterferenceHardFrTestCase::DoRun (void)
   NetDeviceContainer enbDevs;
   NetDeviceContainer ueDevs1;
   NetDeviceContainer ueDevs2;
-  nrHelper->SetSchedulerType ("ns3::PfFfMacScheduler");
-  nrHelper->SetSchedulerAttribute ("UlCqiFilter", EnumValue (FfMacScheduler::PUSCH_UL_CQI));
+  nrHelper->SetSchedulerType ("ns3::NrPfFfMacScheduler");
+  nrHelper->SetSchedulerAttribute ("UlCqiFilter", EnumValue (NrFfMacScheduler::PUSCH_UL_CQI));
 
   nrHelper->SetFfrAlgorithmAttribute ("DlSubBandOffset", UintegerValue (0));
   nrHelper->SetFfrAlgorithmAttribute ("DlSubBandwidth", UintegerValue (12));
@@ -319,8 +319,8 @@ NrInterferenceStrictFrTestCase::DoRun (void)
   NetDeviceContainer enbDevs;
   NetDeviceContainer ueDevs1;
   NetDeviceContainer ueDevs2;
-  nrHelper->SetSchedulerType ("ns3::PfFfMacScheduler");
-  nrHelper->SetSchedulerAttribute ("UlCqiFilter", EnumValue (FfMacScheduler::PUSCH_UL_CQI));
+  nrHelper->SetSchedulerType ("ns3::NrPfFfMacScheduler");
+  nrHelper->SetSchedulerAttribute ("UlCqiFilter", EnumValue (NrFfMacScheduler::PUSCH_UL_CQI));
 
 
   nrHelper->SetFfrAlgorithmAttribute ("DlCommonSubBandwidth", UintegerValue (12));

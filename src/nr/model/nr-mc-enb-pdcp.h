@@ -44,15 +44,15 @@ namespace ns3 {
  * Note: there is a single IMSI and lcid (no problem in having the same
  * in the 2 eNBs), but 2 rnti.
  */
-class McEnbPdcp : public NrPdcp 
+class NrMcEnbPdcp : public NrPdcp 
 {
   friend class McPdcpSpecificNrRlcSapUser;
-  friend class NrPdcpSpecificNrPdcpSapProvider<McEnbPdcp>;
+  friend class NrPdcpSpecificNrPdcpSapProvider<NrMcEnbPdcp>;
   friend class NgcX2PdcpSpecificProvider <NgcX2>;
-  friend class NgcX2PdcpSpecificUser <McEnbPdcp>;
+  friend class NgcX2PdcpSpecificUser <NrMcEnbPdcp>;
 public:
-  McEnbPdcp ();
-  virtual ~McEnbPdcp ();
+  NrMcEnbPdcp ();
+  virtual ~NrMcEnbPdcp ();
   static TypeId GetTypeId (void);
   virtual void DoDispose ();
 

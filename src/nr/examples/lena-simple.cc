@@ -70,7 +70,7 @@ int main (int argc, char *argv[])
   NetDeviceContainer enbDevs;
   NetDeviceContainer ueDevs;
   // Default scheduler is PF, uncomment to use RR
-  //nrHelper->SetSchedulerType ("ns3::RrFfMacScheduler");
+  //nrHelper->SetSchedulerType ("ns3::NrRrFfMacScheduler");
 
   enbDevs = nrHelper->InstallEnbDevice (enbNodes);
   ueDevs = nrHelper->InstallUeDevice (ueNodes);

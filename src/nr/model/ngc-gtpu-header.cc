@@ -24,24 +24,24 @@
 
 namespace ns3 {
 
-NS_LOG_COMPONENT_DEFINE ("GtpuHeader");
+NS_LOG_COMPONENT_DEFINE ("NrGtpuHeader");
 
 /********************************************************
  *        GTP-U-v1 Header
  ********************************************************/
 
-NS_OBJECT_ENSURE_REGISTERED (GtpuHeader);
+NS_OBJECT_ENSURE_REGISTERED (NrGtpuHeader);
 
 TypeId
-GtpuHeader::GetTypeId (void)
+NrGtpuHeader::GetTypeId (void)
 {
-  static TypeId tid = TypeId ("ns3::GtpuHeader")
+  static TypeId tid = TypeId ("ns3::NrGtpuHeader")
     .SetParent<Header> ()
     .SetGroupName("Nr")
-    .AddConstructor<GtpuHeader> ();
+    .AddConstructor<NrGtpuHeader> ();
   return tid;
 }
-GtpuHeader::GtpuHeader ()
+NrGtpuHeader::NrGtpuHeader ()
   : m_version (1),
     m_protocolType (true),
     m_extensionHeaderFlag (false),
@@ -57,23 +57,23 @@ GtpuHeader::GtpuHeader ()
 
 }
 
-GtpuHeader::~GtpuHeader ()
+NrGtpuHeader::~NrGtpuHeader ()
 {
 }
 
 TypeId
-GtpuHeader::GetInstanceTypeId (void) const
+NrGtpuHeader::GetInstanceTypeId (void) const
 {
   return GetTypeId ();
 }
 
 uint32_t
-GtpuHeader::GetSerializedSize (void) const
+NrGtpuHeader::GetSerializedSize (void) const
 {
   return 12;
 }
 void
-GtpuHeader::Serialize (Buffer::Iterator start) const
+NrGtpuHeader::Serialize (Buffer::Iterator start) const
 {
   Buffer::Iterator i = start;
   uint8_t firstByte = m_version << 5 | m_protocolType << 4 | 0x1 << 3;
@@ -88,7 +88,7 @@ GtpuHeader::Serialize (Buffer::Iterator start) const
 
 }
 uint32_t
-GtpuHeader::Deserialize (Buffer::Iterator start)
+NrGtpuHeader::Deserialize (Buffer::Iterator start)
 {
   Buffer::Iterator i = start;
   uint8_t firstByte = i.ReadU8 ();
@@ -106,7 +106,7 @@ GtpuHeader::Deserialize (Buffer::Iterator start)
   return GetSerializedSize ();
 }
 void
-GtpuHeader::Print (std::ostream &os) const
+NrGtpuHeader::Print (std::ostream &os) const
 {
   os << " version=" << (uint32_t) m_version << " [";
   if (m_protocolType)
@@ -131,140 +131,140 @@ GtpuHeader::Print (std::ostream &os) const
 }
 
 bool
-GtpuHeader::GetExtensionHeaderFlag () const
+NrGtpuHeader::GetExtensionHeaderFlag () const
 {
   return m_extensionHeaderFlag;
 }
 
 uint16_t
-GtpuHeader::GetLength () const
+NrGtpuHeader::GetLength () const
 {
   return m_length;
 }
 
 uint8_t
-GtpuHeader::GetMessageType () const
+NrGtpuHeader::GetMessageType () const
 {
   return m_messageType;
 }
 
 uint8_t
-GtpuHeader::GetNPduNumber () const
+NrGtpuHeader::GetNPduNumber () const
 {
   return m_nPduNumber;
 }
 
 bool
-GtpuHeader::GetNPduNumberFlag () const
+NrGtpuHeader::GetNPduNumberFlag () const
 {
   return m_nPduNumberFlag;
 }
 
 uint8_t
-GtpuHeader::GetNextExtensionType () const
+NrGtpuHeader::GetNextExtensionType () const
 {
   return m_nextExtensionType;
 }
 
 bool
-GtpuHeader::GetProtocolType () const
+NrGtpuHeader::GetProtocolType () const
 {
   return m_protocolType;
 }
 
 uint16_t
-GtpuHeader::GetSequenceNumber () const
+NrGtpuHeader::GetSequenceNumber () const
 {
   return m_sequenceNumber;
 }
 
 bool
-GtpuHeader::GetSequenceNumberFlag () const
+NrGtpuHeader::GetSequenceNumberFlag () const
 {
   return m_sequenceNumberFlag;
 }
 
 uint32_t
-GtpuHeader::GetTeid () const
+NrGtpuHeader::GetTeid () const
 {
   return m_teid;
 }
 
 uint8_t
-GtpuHeader::GetVersion () const
+NrGtpuHeader::GetVersion () const
 {
   return m_version;
 }
 
 void
-GtpuHeader::SetExtensionHeaderFlag (bool m_extensionHeaderFlag)
+NrGtpuHeader::SetExtensionHeaderFlag (bool m_extensionHeaderFlag)
 {
   this->m_extensionHeaderFlag = m_extensionHeaderFlag;
 }
 
 void
-GtpuHeader::SetLength (uint16_t m_length)
+NrGtpuHeader::SetLength (uint16_t m_length)
 {
   this->m_length = m_length;
 }
 
 void
-GtpuHeader::SetMessageType (uint8_t m_messageType)
+NrGtpuHeader::SetMessageType (uint8_t m_messageType)
 {
   this->m_messageType = m_messageType;
 }
 
 void
-GtpuHeader::SetNPduNumber (uint8_t m_nPduNumber)
+NrGtpuHeader::SetNPduNumber (uint8_t m_nPduNumber)
 {
   this->m_nPduNumber = m_nPduNumber;
 }
 
 void
-GtpuHeader::SetNPduNumberFlag (bool m_nPduNumberFlag)
+NrGtpuHeader::SetNPduNumberFlag (bool m_nPduNumberFlag)
 {
   this->m_nPduNumberFlag = m_nPduNumberFlag;
 }
 
 void
-GtpuHeader::SetNextExtensionType (uint8_t m_nextExtensionType)
+NrGtpuHeader::SetNextExtensionType (uint8_t m_nextExtensionType)
 {
   this->m_nextExtensionType = m_nextExtensionType;
 }
 
 void
-GtpuHeader::SetProtocolType (bool m_protocolType)
+NrGtpuHeader::SetProtocolType (bool m_protocolType)
 {
   this->m_protocolType = m_protocolType;
 }
 
 void
-GtpuHeader::SetSequenceNumber (uint16_t m_sequenceNumber)
+NrGtpuHeader::SetSequenceNumber (uint16_t m_sequenceNumber)
 {
   this->m_sequenceNumber = m_sequenceNumber;
 }
 
 void
-GtpuHeader::SetSequenceNumberFlag (bool m_sequenceNumberFlag)
+NrGtpuHeader::SetSequenceNumberFlag (bool m_sequenceNumberFlag)
 {
   this->m_sequenceNumberFlag = m_sequenceNumberFlag;
 }
 
 void
-GtpuHeader::SetTeid (uint32_t m_teid)
+NrGtpuHeader::SetTeid (uint32_t m_teid)
 {
   this->m_teid = m_teid;
 }
 
 void
-GtpuHeader::SetVersion (uint8_t m_version)
+NrGtpuHeader::SetVersion (uint8_t m_version)
 {
   // m_version is a uint3_t
   this->m_version = m_version & 0x7;
 }
 
 bool
-GtpuHeader::operator == (const GtpuHeader& b) const
+NrGtpuHeader::operator == (const NrGtpuHeader& b) const
 {
   if (m_version == b.m_version
       && m_protocolType == b.m_protocolType

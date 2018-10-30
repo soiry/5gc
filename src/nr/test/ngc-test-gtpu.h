@@ -39,11 +39,11 @@ public:
 /**
  * Test 1.Check header coding and decoding
  */
-class EpsGtpuHeaderTestCase : public TestCase
+class EpsNrGtpuHeaderTestCase : public TestCase
 {
 public:
-  EpsGtpuHeaderTestCase ();
-  virtual ~EpsGtpuHeaderTestCase ();
+  EpsNrGtpuHeaderTestCase ();
+  virtual ~EpsNrGtpuHeaderTestCase ();
 
 private:
   virtual void DoRun (void);

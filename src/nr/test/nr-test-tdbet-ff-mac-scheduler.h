@@ -39,11 +39,11 @@ using namespace ns3;
 * is equal among users is consistent with the definition of blind equal throughput
 * scheduling
 */
-class LenaTdBetFfMacSchedulerTestCase1 : public TestCase
+class LenaNrTdBetFfMacSchedulerTestCase1 : public TestCase
 {
 public:
-  LenaTdBetFfMacSchedulerTestCase1 (uint16_t nUser, uint16_t dist, double thrRefDl, double thrRefUl,bool errorModelEnabled);
-  virtual ~LenaTdBetFfMacSchedulerTestCase1 ();
+  LenaNrTdBetFfMacSchedulerTestCase1 (uint16_t nUser, uint16_t dist, double thrRefDl, double thrRefUl,bool errorModelEnabled);
+  virtual ~LenaNrTdBetFfMacSchedulerTestCase1 ();
 
 private:
   static std::string BuildNameString (uint16_t nUser, uint16_t dist);
@@ -56,11 +56,11 @@ private:
 };
 
 
-class LenaTdBetFfMacSchedulerTestCase2 : public TestCase
+class LenaNrTdBetFfMacSchedulerTestCase2 : public TestCase
 {
 public:
-  LenaTdBetFfMacSchedulerTestCase2 (std::vector<uint16_t> dist, std::vector<uint32_t> m_achievableRateDl, std::vector<uint32_t> estThrTdBetUl, bool m_errorModelEnabled);
-  virtual ~LenaTdBetFfMacSchedulerTestCase2 ();
+  LenaNrTdBetFfMacSchedulerTestCase2 (std::vector<uint16_t> dist, std::vector<uint32_t> m_achievableRateDl, std::vector<uint32_t> estThrTdBetUl, bool m_errorModelEnabled);
+  virtual ~LenaNrTdBetFfMacSchedulerTestCase2 ();
 
 private:
   static std::string BuildNameString (uint16_t nUser, std::vector<uint16_t> dist);
@@ -75,10 +75,10 @@ private:
 
 
 
-class LenaTestTdBetFfMacSchedulerSuite : public TestSuite
+class LenaTestNrTdBetFfMacSchedulerSuite : public TestSuite
 {
 public:
-  LenaTestTdBetFfMacSchedulerSuite ();
+  LenaTestNrTdBetFfMacSchedulerSuite ();
 };
 
 #endif /* LENA_TEST_TDBET_FF_MAC_SCHEDULER_H */

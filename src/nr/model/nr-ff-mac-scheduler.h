@@ -50,7 +50,7 @@ class NrFfrSapUser;
  *
  *
  */
-class FfMacScheduler : public Object
+class NrFfMacScheduler : public Object
 {
 public:
   /**
@@ -68,12 +68,12 @@ public:
   * constructor
   *
   */
-  FfMacScheduler ();
+  NrFfMacScheduler ();
   /**
    * destructor
    *
    */
-  virtual ~FfMacScheduler ();
+  virtual ~NrFfMacScheduler ();
 
   // inherited from Object
   virtual void DoDispose (void);

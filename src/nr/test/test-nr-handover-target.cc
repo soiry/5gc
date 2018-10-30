@@ -223,17 +223,17 @@ NrHandoverTargetTestCase::DoRun ()
                            StringValue ("ns3::FriisSpectrumPropagationLossModel"));
   nrHelper->SetAttribute ("UseIdealRrc", BooleanValue (true));
 
-  if (m_handoverAlgorithmType == "ns3::A2A4RsrqHandoverAlgorithm")
+  if (m_handoverAlgorithmType == "ns3::NrA2A4RsrqHandoverAlgorithm")
     {
-      nrHelper->SetHandoverAlgorithmType ("ns3::A2A4RsrqHandoverAlgorithm");
+      nrHelper->SetHandoverAlgorithmType ("ns3::NrA2A4RsrqHandoverAlgorithm");
       nrHelper->SetHandoverAlgorithmAttribute ("ServingCellThreshold",
                                                 UintegerValue (30));
       nrHelper->SetHandoverAlgorithmAttribute ("NeighbourCellOffset",
                                                 UintegerValue (1));
     }
-  else if (m_handoverAlgorithmType == "ns3::A3RsrpHandoverAlgorithm")
+  else if (m_handoverAlgorithmType == "ns3::NrA3RsrpHandoverAlgorithm")
     {
-      nrHelper->SetHandoverAlgorithmType ("ns3::A3RsrpHandoverAlgorithm");
+      nrHelper->SetHandoverAlgorithmType ("ns3::NrA3RsrpHandoverAlgorithm");
       nrHelper->SetHandoverAlgorithmAttribute ("Hysteresis",
                                                 DoubleValue (1.5));
       nrHelper->SetHandoverAlgorithmAttribute ("TimeToTrigger",
@@ -374,8 +374,8 @@ NrHandoverTargetTestCase::DoTeardown ()
  *        algorithms are able to select the right target cell.
  *
  * Handover algorithm tested in this test suite:
- * - A2-A4-RSRQ handover algorithm (ns3::A2A4RsrqHandoverAlgorithm)
- * - Strongest cell handover algorithm (ns3::A3RsrpHandoverAlgorithm)
+ * - A2-A4-RSRQ handover algorithm (ns3::NrA2A4RsrqHandoverAlgorithm)
+ * - Strongest cell handover algorithm (ns3::NrA3RsrpHandoverAlgorithm)
  */
 class NrHandoverTargetTestSuite : public TestSuite
 {
@@ -389,10 +389,10 @@ NrHandoverTargetTestSuite::NrHandoverTargetTestSuite ()
 {
   // LogComponentEnable ("NrHandoverTargetTest", LOG_PREFIX_ALL);
   // LogComponentEnable ("NrHandoverTargetTest", LOG_LEVEL_ALL);
-  // LogComponentEnable ("A2A4RsrqHandoverAlgorithm", LOG_PREFIX_ALL);
-  // LogComponentEnable ("A2A4RsrqHandoverAlgorithm", LOG_LEVEL_ALL);
-  // LogComponentEnable ("A3RsrpHandoverAlgorithm", LOG_PREFIX_ALL);
-  // LogComponentEnable ("A3RsrpHandoverAlgorithm", LOG_LEVEL_ALL);
+  // LogComponentEnable ("NrA2A4RsrqHandoverAlgorithm", LOG_PREFIX_ALL);
+  // LogComponentEnable ("NrA2A4RsrqHandoverAlgorithm", LOG_LEVEL_ALL);
+  // LogComponentEnable ("NrA3RsrpHandoverAlgorithm", LOG_PREFIX_ALL);
+  // LogComponentEnable ("NrA3RsrpHandoverAlgorithm", LOG_LEVEL_ALL);
 
   /*
    *    3 --- 4
@@ -402,11 +402,11 @@ NrHandoverTargetTestSuite::NrHandoverTargetTestSuite ()
    */
   AddTestCase (new NrHandoverTargetTestCase ("4 cells and A2-A4-RSRQ algorithm",
                                               Vector (20, 40, 0), 2, 2, 1, 3,
-                                              "ns3::A2A4RsrqHandoverAlgorithm"),
+                                              "ns3::NrA2A4RsrqHandoverAlgorithm"),
                TestCase::QUICK);
   AddTestCase (new NrHandoverTargetTestCase ("4 cells and strongest cell algorithm",
                                               Vector (20, 40, 0), 2, 2, 1, 3,
-                                              "ns3::A3RsrpHandoverAlgorithm"),
+                                              "ns3::NrA3RsrpHandoverAlgorithm"),
                TestCase::QUICK);
 
   /*
@@ -417,11 +417,11 @@ NrHandoverTargetTestSuite::NrHandoverTargetTestSuite ()
    */
   AddTestCase (new NrHandoverTargetTestCase ("6 cells and A2-A4-RSRQ algorithm",
                                               Vector (150, 90, 0), 3, 2, 5, 2,
-                                              "ns3::A2A4RsrqHandoverAlgorithm"),
+                                              "ns3::NrA2A4RsrqHandoverAlgorithm"),
                TestCase::EXTENSIVE);
   AddTestCase (new NrHandoverTargetTestCase ("6 cells and strongest cell algorithm",
                                               Vector (150, 90, 0), 3, 2, 5, 2,
-                                              "ns3::A3RsrpHandoverAlgorithm"),
+                                              "ns3::NrA3RsrpHandoverAlgorithm"),
                TestCase::EXTENSIVE);
 
 } // end of NrHandoverTargetTestSuite ()

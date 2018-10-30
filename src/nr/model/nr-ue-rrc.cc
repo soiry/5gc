@@ -1320,7 +1320,7 @@ NrUeRrc::DoRecvRrcConnectionSwitch (NrRrcSap::RrcConnectionSwitch msg)
   {
     if(m_drbMap.find(*iter) != m_drbMap.end())
     {
-      Ptr<McUePdcp> pdcp = DynamicCast<McUePdcp>(m_drbMap.find(*iter)->second->m_pdcp);
+      Ptr<NrMcUePdcp> pdcp = DynamicCast<NrMcUePdcp>(m_drbMap.find(*iter)->second->m_pdcp);
       if(pdcp != 0)
       {
         pdcp->SwitchConnection(msg.useMmWaveConnection);
@@ -1890,7 +1890,7 @@ NrUeRrc::DoNotifySecondaryCellHandover (uint16_t oldRnti, uint16_t newRnti, uint
       NS_LOG_INFO ("Is MC " << dtamIt->is_mc);
       if(dtamIt->is_mc == true || dtamIt->is_mc_2) // we need to modify the RLC for MmWave communications
       {
-        Ptr<McUePdcp> pdcp = DynamicCast<McUePdcp> (drbInfo->m_pdcp);
+        Ptr<NrMcUePdcp> pdcp = DynamicCast<NrMcUePdcp> (drbInfo->m_pdcp);
         if(pdcp !=0)
         {
           // create Rlc
@@ -2208,7 +2208,7 @@ NrUeRrc::ApplyRadioResourceConfigDedicated (NrRrcSap::RadioResourceConfigDedicat
           // if we are using RLC/SM we don't care of anything above RLC
           if (rlcTypeId != NrRlcSm::GetTypeId ())
             {
-              Ptr<McUePdcp> pdcp = CreateObject<McUePdcp> (); 
+              Ptr<NrMcUePdcp> pdcp = CreateObject<NrMcUePdcp> (); 
               pdcp->SetRnti (m_rnti);
               pdcp->SetLcId (dtamIt->logicalChannelIdentity);
               pdcp->SetNrPdcpSapUser (m_drbPdcpSapUser);
@@ -2255,7 +2255,7 @@ NrUeRrc::ApplyRadioResourceConfigDedicated (NrRrcSap::RadioResourceConfigDedicat
           NS_LOG_INFO ("Is MC " << dtamIt->is_mc);
           if(dtamIt->is_mc == true or dtamIt->is_mc_2 ==true) // we need to setup the RLC for MmWave communications  //sjkang1109 i gues nr drb already setup
           {
-            Ptr<McUePdcp> pdcp = DynamicCast<McUePdcp> (drbInfo->m_pdcp);
+            Ptr<NrMcUePdcp> pdcp = DynamicCast<NrMcUePdcp> (drbInfo->m_pdcp);
             if(pdcp !=0)
             {
               // create Rlc

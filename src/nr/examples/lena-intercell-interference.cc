@@ -25,7 +25,7 @@
 #include "ns3/mobility-module.h"
 #include "ns3/nr-module.h"
 #include "ns3/config-store.h"
-#include "ns3/radio-bearer-stats-calculator.h"
+#include "ns3/nr-radio-bearer-stats-calculator.h"
 
 #include <iomanip>
 #include <string>

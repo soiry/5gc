@@ -66,7 +66,7 @@ namespace ns3 {
  *     NodeContainer enbNodes;
  *     // configure the nodes here...
  *
- *     nrHelper->SetHandoverAlgorithmType ("ns3::A2A4RsrqHandoverAlgorithm");
+ *     nrHelper->SetHandoverAlgorithmType ("ns3::NrA2A4RsrqHandoverAlgorithm");
  *     nrHelper->SetHandoverAlgorithmAttribute ("ServingCellThreshold",
  *                                               UintegerValue (30));
  *     nrHelper->SetHandoverAlgorithmAttribute ("NeighbourCellOffset",
@@ -77,13 +77,13 @@ namespace ns3 {
  *       NrHelper::InstallEnbDevice does not have any effect to the devices
  *       that have already been installed.
  */
-class A2A4RsrqHandoverAlgorithm : public NrHandoverAlgorithm
+class NrA2A4RsrqHandoverAlgorithm : public NrHandoverAlgorithm
 {
 public:
   /// Creates an A2-A4-RSRQ handover algorithm instance.
-  A2A4RsrqHandoverAlgorithm ();
+  NrA2A4RsrqHandoverAlgorithm ();
 
-  virtual ~A2A4RsrqHandoverAlgorithm ();
+  virtual ~NrA2A4RsrqHandoverAlgorithm ();
 
   // inherited from Object
   static TypeId GetTypeId ();
@@ -93,7 +93,7 @@ public:
   virtual NrHandoverManagementSapProvider* GetNrHandoverManagementSapProvider ();
 
   // let the forwarder class access the protected and private members
-  friend class MemberNrHandoverManagementSapProvider<A2A4RsrqHandoverAlgorithm>;
+  friend class MemberNrHandoverManagementSapProvider<NrA2A4RsrqHandoverAlgorithm>;
 
 protected:
   // inherited from Object
@@ -186,7 +186,7 @@ private:
   /// Receive API calls from the eNodeB RRC instance.
   NrHandoverManagementSapProvider* m_handoverManagementSapProvider;
 
-}; // end of class A2A4RsrqHandoverAlgorithm
+}; // end of class NrA2A4RsrqHandoverAlgorithm
 
 
 } // end of namespace ns3

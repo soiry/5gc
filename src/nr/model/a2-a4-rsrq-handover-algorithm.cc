@@ -31,9 +31,9 @@
 
 namespace ns3 {
 
-NS_LOG_COMPONENT_DEFINE ("A2A4RsrqHandoverAlgorithm");
+NS_LOG_COMPONENT_DEFINE ("NrA2A4RsrqHandoverAlgorithm");
 
-NS_OBJECT_ENSURE_REGISTERED (A2A4RsrqHandoverAlgorithm);
+NS_OBJECT_ENSURE_REGISTERED (NrA2A4RsrqHandoverAlgorithm);
 
 
 ///////////////////////////////////////////
@@ -41,7 +41,7 @@ NS_OBJECT_ENSURE_REGISTERED (A2A4RsrqHandoverAlgorithm);
 ///////////////////////////////////////////
 
 
-A2A4RsrqHandoverAlgorithm::A2A4RsrqHandoverAlgorithm ()
+NrA2A4RsrqHandoverAlgorithm::NrA2A4RsrqHandoverAlgorithm ()
   : m_a2MeasId (0),
     m_a4MeasId (0),
     m_servingCellThreshold (30),
@@ -49,37 +49,37 @@ A2A4RsrqHandoverAlgorithm::A2A4RsrqHandoverAlgorithm ()
     m_handoverManagementSapUser (0)
 {
   NS_LOG_FUNCTION (this);
-  m_handoverManagementSapProvider = new MemberNrHandoverManagementSapProvider<A2A4RsrqHandoverAlgorithm> (this);
+  m_handoverManagementSapProvider = new MemberNrHandoverManagementSapProvider<NrA2A4RsrqHandoverAlgorithm> (this);
 }
 
 
-A2A4RsrqHandoverAlgorithm::~A2A4RsrqHandoverAlgorithm ()
+NrA2A4RsrqHandoverAlgorithm::~NrA2A4RsrqHandoverAlgorithm ()
 {
   NS_LOG_FUNCTION (this);
 }
 
 
 TypeId
-A2A4RsrqHandoverAlgorithm::GetTypeId ()
+NrA2A4RsrqHandoverAlgorithm::GetTypeId ()
 {
-  static TypeId tid = TypeId ("ns3::A2A4RsrqHandoverAlgorithm")
+  static TypeId tid = TypeId ("ns3::NrA2A4RsrqHandoverAlgorithm")
     .SetParent<NrHandoverAlgorithm> ()
     .SetGroupName("Nr")
-    .AddConstructor<A2A4RsrqHandoverAlgorithm> ()
+    .AddConstructor<NrA2A4RsrqHandoverAlgorithm> ()
     .AddAttribute ("ServingCellThreshold",
                    "If the RSRQ of the serving cell is worse than this "
                    "threshold, neighbour cells are consider for handover. "
                    "Expressed in quantized range of [0..34] as per Section "
                    "9.1.7 of 3GPP TS 36.133.",
                    UintegerValue (30),
-                   MakeUintegerAccessor (&A2A4RsrqHandoverAlgorithm::m_servingCellThreshold),
+                   MakeUintegerAccessor (&NrA2A4RsrqHandoverAlgorithm::m_servingCellThreshold),
                    MakeUintegerChecker<uint8_t> (0, 34))
     .AddAttribute ("NeighbourCellOffset",
                    "Minimum offset between the serving and the best neighbour "
                    "cell to trigger the handover. Expressed in quantized "
                    "range of [0..34] as per Section 9.1.7 of 3GPP TS 36.133.",
                    UintegerValue (1),
-                   MakeUintegerAccessor (&A2A4RsrqHandoverAlgorithm::m_neighbourCellOffset),
+                   MakeUintegerAccessor (&NrA2A4RsrqHandoverAlgorithm::m_neighbourCellOffset),
                    MakeUintegerChecker<uint8_t> ())
   ;
   return tid;
@@ -87,7 +87,7 @@ A2A4RsrqHandoverAlgorithm::GetTypeId ()
 
 
 void
-A2A4RsrqHandoverAlgorithm::SetNrHandoverManagementSapUser (NrHandoverManagementSapUser* s)
+NrA2A4RsrqHandoverAlgorithm::SetNrHandoverManagementSapUser (NrHandoverManagementSapUser* s)
 {
   NS_LOG_FUNCTION (this << s);
   m_handoverManagementSapUser = s;
@@ -95,7 +95,7 @@ A2A4RsrqHandoverAlgorithm::SetNrHandoverManagementSapUser (NrHandoverManagementS
 
 
 NrHandoverManagementSapProvider*
-A2A4RsrqHandoverAlgorithm::GetNrHandoverManagementSapProvider ()
+NrA2A4RsrqHandoverAlgorithm::GetNrHandoverManagementSapProvider ()
 {
   NS_LOG_FUNCTION (this);
   return m_handoverManagementSapProvider;
@@ -103,7 +103,7 @@ A2A4RsrqHandoverAlgorithm::GetNrHandoverManagementSapProvider ()
 
 
 void
-A2A4RsrqHandoverAlgorithm::DoInitialize ()
+NrA2A4RsrqHandoverAlgorithm::DoInitialize ()
 {
   NS_LOG_FUNCTION (this);
 
@@ -132,7 +132,7 @@ A2A4RsrqHandoverAlgorithm::DoInitialize ()
 
 
 void
-A2A4RsrqHandoverAlgorithm::DoDispose ()
+NrA2A4RsrqHandoverAlgorithm::DoDispose ()
 {
   NS_LOG_FUNCTION (this);
   delete m_handoverManagementSapProvider;
@@ -140,7 +140,7 @@ A2A4RsrqHandoverAlgorithm::DoDispose ()
 
 
 void
-A2A4RsrqHandoverAlgorithm::DoReportUeMeas (uint16_t rnti,
+NrA2A4RsrqHandoverAlgorithm::DoReportUeMeas (uint16_t rnti,
                                            NrRrcSap::MeasResults measResults)
 {
   NS_LOG_FUNCTION (this << rnti << (uint16_t) measResults.measId);
@@ -179,7 +179,7 @@ A2A4RsrqHandoverAlgorithm::DoReportUeMeas (uint16_t rnti,
 
 
 void
-A2A4RsrqHandoverAlgorithm::EvaluateHandover (uint16_t rnti,
+NrA2A4RsrqHandoverAlgorithm::EvaluateHandover (uint16_t rnti,
                                              uint8_t servingCellRsrq)
 {
   NS_LOG_FUNCTION (this << rnti << (uint16_t) servingCellRsrq);
@@ -231,7 +231,7 @@ A2A4RsrqHandoverAlgorithm::EvaluateHandover (uint16_t rnti,
 
 
 bool
-A2A4RsrqHandoverAlgorithm::IsValidNeighbour (uint16_t cellId)
+NrA2A4RsrqHandoverAlgorithm::IsValidNeighbour (uint16_t cellId)
 {
   NS_LOG_FUNCTION (this << cellId);
 
@@ -246,7 +246,7 @@ A2A4RsrqHandoverAlgorithm::IsValidNeighbour (uint16_t cellId)
 
 
 void
-A2A4RsrqHandoverAlgorithm::UpdateNeighbourMeasurements (uint16_t rnti,
+NrA2A4RsrqHandoverAlgorithm::UpdateNeighbourMeasurements (uint16_t rnti,
                                                         uint16_t cellId,
                                                         uint8_t rsrq)
 {

@@ -39,14 +39,14 @@ namespace ns3 {
  * Note: there is a single IMSI and lcid (no problem in having the same
  * in the 2 eNBs), but 2 rnti.
  */
-class McUePdcp : public NrPdcp 
+class NrMcUePdcp : public NrPdcp 
 {
-  friend class McUePdcpSpecificNrRlcSapUser;
-  friend class NrPdcpSpecificNrPdcpSapProvider<McUePdcp>;
+  friend class NrMcUePdcpSpecificNrRlcSapUser;
+  friend class NrPdcpSpecificNrPdcpSapProvider<NrMcUePdcp>;
 
 public:
-  McUePdcp ();
-  virtual ~McUePdcp ();
+  NrMcUePdcp ();
+  virtual ~NrMcUePdcp ();
   static TypeId GetTypeId (void);
   virtual void DoDispose ();
 

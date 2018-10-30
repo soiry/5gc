@@ -42,17 +42,17 @@
 
 namespace ns3 {
 
-NS_LOG_COMPONENT_DEFINE ("RrcHeader");
+NS_LOG_COMPONENT_DEFINE ("NrRrcHeader");
 
-//////////////////// RrcAsn1Header class ///////////////////////////////
-RrcAsn1Header::RrcAsn1Header ()
+//////////////////// RrcNrAsn1Header class ///////////////////////////////
+RrcNrAsn1Header::RrcNrAsn1Header ()
 {
 }
 
 TypeId
-RrcAsn1Header::GetTypeId (void)
+RrcNrAsn1Header::GetTypeId (void)
 {
-  static TypeId tid = TypeId ("ns3::RrcAsn1Header")
+  static TypeId tid = TypeId ("ns3::RrcNrAsn1Header")
     .SetParent<Header> ()
     .SetGroupName("Nr")
   ;
@@ -60,19 +60,19 @@ RrcAsn1Header::GetTypeId (void)
 }
 
 TypeId
-RrcAsn1Header::GetInstanceTypeId (void) const
+RrcNrAsn1Header::GetInstanceTypeId (void) const
 {
   return GetTypeId ();
 }
 
 int
-RrcAsn1Header::GetMessageType ()
+RrcNrAsn1Header::GetMessageType ()
 {
   return m_messageType;
 }
 
 void
-RrcAsn1Header::SerializeDrbToAddModList (std::list<NrRrcSap::DrbToAddMod> drbToAddModList) const
+RrcNrAsn1Header::SerializeDrbToAddModList (std::list<NrRrcSap::DrbToAddMod> drbToAddModList) const
 {
   // Serialize DRB-ToAddModList sequence-of
   SerializeSequenceOf (drbToAddModList.size (),MAX_DRB,1);
@@ -164,7 +164,7 @@ RrcAsn1Header::SerializeDrbToAddModList (std::list<NrRrcSap::DrbToAddMod> drbToA
 }
 
 void
-RrcAsn1Header::SerializeSrbToAddModList (std::list<NrRrcSap::SrbToAddMod> srbToAddModList) const
+RrcNrAsn1Header::SerializeSrbToAddModList (std::list<NrRrcSap::SrbToAddMod> srbToAddModList) const
 {
   // Serialize SRB-ToAddModList ::= SEQUENCE (SIZE (1..2)) OF SRB-ToAddMod
   SerializeSequenceOf (srbToAddModList.size (),2,1);
@@ -193,7 +193,7 @@ RrcAsn1Header::SerializeSrbToAddModList (std::list<NrRrcSap::SrbToAddMod> srbToA
 }
 
 void
-RrcAsn1Header::SerializeLogicalChannelConfig (NrRrcSap::LogicalChannelConfig logicalChannelConfig) const
+RrcNrAsn1Header::SerializeLogicalChannelConfig (NrRrcSap::LogicalChannelConfig logicalChannelConfig) const
 {
   // Serialize LogicalChannelConfig sequence
   // 1 optional field (ul-SpecificParameters), which is present. Extension marker present.
@@ -268,7 +268,7 @@ RrcAsn1Header::SerializeLogicalChannelConfig (NrRrcSap::LogicalChannelConfig log
 }
 
 void
-RrcAsn1Header::SerializePhysicalConfigDedicated (NrRrcSap::PhysicalConfigDedicated physicalConfigDedicated) const
+RrcNrAsn1Header::SerializePhysicalConfigDedicated (NrRrcSap::PhysicalConfigDedicated physicalConfigDedicated) const
 {
   // Serialize PhysicalConfigDedicated Sequence
   std::bitset<10> optionalFieldsPhysicalConfigDedicated;
@@ -365,7 +365,7 @@ RrcAsn1Header::SerializePhysicalConfigDedicated (NrRrcSap::PhysicalConfigDedicat
 }
 
 void
-RrcAsn1Header::SerializeRadioResourceConfigDedicated (NrRrcSap::RadioResourceConfigDedicated radioResourceConfigDedicated) const
+RrcNrAsn1Header::SerializeRadioResourceConfigDedicated (NrRrcSap::RadioResourceConfigDedicated radioResourceConfigDedicated) const
 {
   bool isSrbToAddModListPresent = !radioResourceConfigDedicated.srbToAddModList.empty ();
   bool isDrbToAddModListPresent = !radioResourceConfigDedicated.drbToAddModList.empty ();
@@ -412,7 +412,7 @@ RrcAsn1Header::SerializeRadioResourceConfigDedicated (NrRrcSap::RadioResourceCon
 }
 
 void
-RrcAsn1Header::SerializeSystemInformationBlockType1 (NrRrcSap::SystemInformationBlockType1 systemInformationBlockType1) const
+RrcNrAsn1Header::SerializeSystemInformationBlockType1 (NrRrcSap::SystemInformationBlockType1 systemInformationBlockType1) const
 {
   // 3 optional fields, no extension marker.
   std::bitset<3> sysInfoBlk1Opts;
@@ -471,7 +471,7 @@ RrcAsn1Header::SerializeSystemInformationBlockType1 (NrRrcSap::SystemInformation
 }
 
 void
-RrcAsn1Header::SerializeRadioResourceConfigCommon (NrRrcSap::RadioResourceConfigCommon radioResourceConfigCommon) const
+RrcNrAsn1Header::SerializeRadioResourceConfigCommon (NrRrcSap::RadioResourceConfigCommon radioResourceConfigCommon) const
 {
   // 9 optional fields. Extension marker yes.
   std::bitset<9> rrCfgCmmOpts;
@@ -522,7 +522,7 @@ RrcAsn1Header::SerializeRadioResourceConfigCommon (NrRrcSap::RadioResourceConfig
 }
 
 void
-RrcAsn1Header::SerializeRadioResourceConfigCommonSib (NrRrcSap::RadioResourceConfigCommonSib radioResourceConfigCommonSib) const
+RrcNrAsn1Header::SerializeRadioResourceConfigCommonSib (NrRrcSap::RadioResourceConfigCommonSib radioResourceConfigCommonSib) const
 {
   SerializeSequence (std::bitset<0> (0),true);
 
@@ -581,7 +581,7 @@ RrcAsn1Header::SerializeRadioResourceConfigCommonSib (NrRrcSap::RadioResourceCon
 }
 
 void
-RrcAsn1Header::SerializeSystemInformationBlockType2 (NrRrcSap::SystemInformationBlockType2 systemInformationBlockType2) const
+RrcNrAsn1Header::SerializeSystemInformationBlockType2 (NrRrcSap::SystemInformationBlockType2 systemInformationBlockType2) const
 {
   SerializeSequence (std::bitset<2> (0),true);
 
@@ -630,7 +630,7 @@ RrcAsn1Header::SerializeSystemInformationBlockType2 (NrRrcSap::SystemInformation
 }
 
 void
-RrcAsn1Header::SerializeMeasResults (NrRrcSap::MeasResults measResults) const
+RrcNrAsn1Header::SerializeMeasResults (NrRrcSap::MeasResults measResults) const
 {
   // Watchdog: if list has 0 elements, set boolean to false
   if (measResults.measResultListEutra.empty ())
@@ -715,7 +715,7 @@ RrcAsn1Header::SerializeMeasResults (NrRrcSap::MeasResults measResults) const
 }
 
 void
-RrcAsn1Header::SerializePlmnIdentity (uint32_t plmnId) const
+RrcNrAsn1Header::SerializePlmnIdentity (uint32_t plmnId) const
 {
   // plmn-Identity sequence, mcc is optional, no extension marker
   SerializeSequence (std::bitset<1> (0), false);
@@ -736,7 +736,7 @@ RrcAsn1Header::SerializePlmnIdentity (uint32_t plmnId) const
 }
 
 void 
-RrcAsn1Header::SerializeRachConfigCommon (NrRrcSap::RachConfigCommon rachConfigCommon) const
+RrcNrAsn1Header::SerializeRachConfigCommon (NrRrcSap::RachConfigCommon rachConfigCommon) const
 {
   // rach-ConfigCommon
   SerializeSequence (std::bitset<0> (0),true);
@@ -880,7 +880,7 @@ RrcAsn1Header::SerializeRachConfigCommon (NrRrcSap::RachConfigCommon rachConfigC
 }
 
 void
-RrcAsn1Header::SerializeQoffsetRange (int8_t qOffsetRange) const
+RrcNrAsn1Header::SerializeQoffsetRange (int8_t qOffsetRange) const
 {
   switch (qOffsetRange)
     {
@@ -983,7 +983,7 @@ RrcAsn1Header::SerializeQoffsetRange (int8_t qOffsetRange) const
 }
 
 void
-RrcAsn1Header::SerializeThresholdEutra (NrRrcSap::ThresholdEutra thresholdEutra) const
+RrcNrAsn1Header::SerializeThresholdEutra (NrRrcSap::ThresholdEutra thresholdEutra) const
 {
   switch (thresholdEutra.choice)
     {
@@ -999,7 +999,7 @@ RrcAsn1Header::SerializeThresholdEutra (NrRrcSap::ThresholdEutra thresholdEutra)
 }
 
 void
-RrcAsn1Header::SerializeMeasConfig (NrRrcSap::MeasConfig measConfig) const
+RrcNrAsn1Header::SerializeMeasConfig (NrRrcSap::MeasConfig measConfig) const
 {
   // Serialize MeasConfig sequence
   // 11 optional fields, extension marker present
@@ -1679,7 +1679,7 @@ RrcAsn1Header::SerializeMeasConfig (NrRrcSap::MeasConfig measConfig) const
 }
 
 Buffer::Iterator
-RrcAsn1Header::DeserializeThresholdEutra (NrRrcSap::ThresholdEutra * thresholdEutra, Buffer::Iterator bIterator)
+RrcNrAsn1Header::DeserializeThresholdEutra (NrRrcSap::ThresholdEutra * thresholdEutra, Buffer::Iterator bIterator)
 {
   int thresholdEutraChoice, range;
   bIterator = DeserializeChoice (2, false, &thresholdEutraChoice, bIterator);
@@ -1702,7 +1702,7 @@ RrcAsn1Header::DeserializeThresholdEutra (NrRrcSap::ThresholdEutra * thresholdEu
 }
 
 Buffer::Iterator
-RrcAsn1Header::DeserializeQoffsetRange (int8_t * qOffsetRange, Buffer::Iterator bIterator)
+RrcNrAsn1Header::DeserializeQoffsetRange (int8_t * qOffsetRange, Buffer::Iterator bIterator)
 {
   int n;
   bIterator = DeserializeEnum (31, &n, bIterator);
@@ -1806,7 +1806,7 @@ RrcAsn1Header::DeserializeQoffsetRange (int8_t * qOffsetRange, Buffer::Iterator 
 }
 
 Buffer::Iterator
-RrcAsn1Header::DeserializeRadioResourceConfigDedicated (NrRrcSap::RadioResourceConfigDedicated *radioResourceConfigDedicated, Buffer::Iterator bIterator)
+RrcNrAsn1Header::DeserializeRadioResourceConfigDedicated (NrRrcSap::RadioResourceConfigDedicated *radioResourceConfigDedicated, Buffer::Iterator bIterator)
 {
   // Deserialize RadioResourceConfigDedicated sequence
   std::bitset<6> optionalFieldsPresent = std::bitset<6> ();
@@ -1860,7 +1860,7 @@ RrcAsn1Header::DeserializeRadioResourceConfigDedicated (NrRrcSap::RadioResourceC
 }
 
 Buffer::Iterator
-RrcAsn1Header::DeserializeSrbToAddModList (std::list<NrRrcSap::SrbToAddMod> *srbToAddModList, Buffer::Iterator bIterator)
+RrcNrAsn1Header::DeserializeSrbToAddModList (std::list<NrRrcSap::SrbToAddMod> *srbToAddModList, Buffer::Iterator bIterator)
 {
   int numElems;
   bIterator = DeserializeSequenceOf (&numElems,2,1,bIterator);
@@ -1912,7 +1912,7 @@ RrcAsn1Header::DeserializeSrbToAddModList (std::list<NrRrcSap::SrbToAddMod> *srb
 }
 
 Buffer::Iterator
-RrcAsn1Header::DeserializeDrbToAddModList (std::list<NrRrcSap::DrbToAddMod> *drbToAddModList, Buffer::Iterator bIterator)
+RrcNrAsn1Header::DeserializeDrbToAddModList (std::list<NrRrcSap::DrbToAddMod> *drbToAddModList, Buffer::Iterator bIterator)
 {
   int n;
   int val;
@@ -2022,7 +2022,7 @@ RrcAsn1Header::DeserializeDrbToAddModList (std::list<NrRrcSap::DrbToAddMod> *drb
 }
 
 Buffer::Iterator
-RrcAsn1Header::DeserializeLogicalChannelConfig (NrRrcSap::LogicalChannelConfig *logicalChannelConfig, Buffer::Iterator bIterator)
+RrcNrAsn1Header::DeserializeLogicalChannelConfig (NrRrcSap::LogicalChannelConfig *logicalChannelConfig, Buffer::Iterator bIterator)
 {
   int n;
 
@@ -2114,7 +2114,7 @@ RrcAsn1Header::DeserializeLogicalChannelConfig (NrRrcSap::LogicalChannelConfig *
 }
 
 Buffer::Iterator
-RrcAsn1Header::DeserializePhysicalConfigDedicated (NrRrcSap::PhysicalConfigDedicated *physicalConfigDedicated, Buffer::Iterator bIterator)
+RrcNrAsn1Header::DeserializePhysicalConfigDedicated (NrRrcSap::PhysicalConfigDedicated *physicalConfigDedicated, Buffer::Iterator bIterator)
 {
   std::bitset<10> optionalFieldPresent;
   bIterator = DeserializeSequence (&optionalFieldPresent,true,bIterator);
@@ -2261,14 +2261,14 @@ RrcAsn1Header::DeserializePhysicalConfigDedicated (NrRrcSap::PhysicalConfigDedic
 }
 
 void
-RrcAsn1Header::Print (std::ostream &os) const
+RrcNrAsn1Header::Print (std::ostream &os) const
 {
   NS_LOG_FUNCTION (this << &os);
-  NS_FATAL_ERROR ("RrcAsn1Header Print() function must also specify NrRrcSap::RadioResourceConfigDedicated as a second argument");
+  NS_FATAL_ERROR ("RrcNrAsn1Header Print() function must also specify NrRrcSap::RadioResourceConfigDedicated as a second argument");
 }
 
 void
-RrcAsn1Header::Print (std::ostream &os, NrRrcSap::RadioResourceConfigDedicated radioResourceConfigDedicated) const
+RrcNrAsn1Header::Print (std::ostream &os, NrRrcSap::RadioResourceConfigDedicated radioResourceConfigDedicated) const
 {
   os << "   srbToAddModList: " << std::endl;
   std::list<NrRrcSap::SrbToAddMod>::iterator it = radioResourceConfigDedicated.srbToAddModList.begin ();
@@ -2331,7 +2331,7 @@ RrcAsn1Header::Print (std::ostream &os, NrRrcSap::RadioResourceConfigDedicated r
 }
 
 Buffer::Iterator
-RrcAsn1Header::DeserializeSystemInformationBlockType1 (NrRrcSap::SystemInformationBlockType1 *systemInformationBlockType1, Buffer::Iterator bIterator)
+RrcNrAsn1Header::DeserializeSystemInformationBlockType1 (NrRrcSap::SystemInformationBlockType1 *systemInformationBlockType1, Buffer::Iterator bIterator)
 {
   std::bitset<0> bitset0;
   int n;
@@ -2435,7 +2435,7 @@ RrcAsn1Header::DeserializeSystemInformationBlockType1 (NrRrcSap::SystemInformati
 }
 
 Buffer::Iterator
-RrcAsn1Header::DeserializeSystemInformationBlockType2 (NrRrcSap::SystemInformationBlockType2 *systemInformationBlockType2, Buffer::Iterator bIterator)
+RrcNrAsn1Header::DeserializeSystemInformationBlockType2 (NrRrcSap::SystemInformationBlockType2 *systemInformationBlockType2, Buffer::Iterator bIterator)
 {
   std::bitset<0> bitset0;
   int n;
@@ -2515,7 +2515,7 @@ RrcAsn1Header::DeserializeSystemInformationBlockType2 (NrRrcSap::SystemInformati
 
 
 Buffer::Iterator
-RrcAsn1Header::DeserializeRadioResourceConfigCommon (NrRrcSap::RadioResourceConfigCommon * radioResourceConfigCommon, Buffer::Iterator bIterator)
+RrcNrAsn1Header::DeserializeRadioResourceConfigCommon (NrRrcSap::RadioResourceConfigCommon * radioResourceConfigCommon, Buffer::Iterator bIterator)
 {
   std::bitset<0> bitset0;
   int n;
@@ -2632,7 +2632,7 @@ RrcAsn1Header::DeserializeRadioResourceConfigCommon (NrRrcSap::RadioResourceConf
 }
 
 Buffer::Iterator
-RrcAsn1Header::DeserializeRachConfigCommon (NrRrcSap::RachConfigCommon * rachConfigCommon, Buffer::Iterator bIterator)
+RrcNrAsn1Header::DeserializeRachConfigCommon (NrRrcSap::RachConfigCommon * rachConfigCommon, Buffer::Iterator bIterator)
 {
   std::bitset<0> bitset0;
   int n;
@@ -2792,7 +2792,7 @@ RrcAsn1Header::DeserializeRachConfigCommon (NrRrcSap::RachConfigCommon * rachCon
 }
 
 Buffer::Iterator
-RrcAsn1Header::DeserializeRadioResourceConfigCommonSib (NrRrcSap::RadioResourceConfigCommonSib * radioResourceConfigCommonSib, Buffer::Iterator bIterator)
+RrcNrAsn1Header::DeserializeRadioResourceConfigCommonSib (NrRrcSap::RadioResourceConfigCommonSib * radioResourceConfigCommonSib, Buffer::Iterator bIterator)
 {
   std::bitset<0> bitset0;
   int n;
@@ -2901,7 +2901,7 @@ RrcAsn1Header::DeserializeRadioResourceConfigCommonSib (NrRrcSap::RadioResourceC
 }
 
 Buffer::Iterator
-RrcAsn1Header::DeserializeMeasResults (NrRrcSap::MeasResults *measResults, Buffer::Iterator bIterator)
+RrcNrAsn1Header::DeserializeMeasResults (NrRrcSap::MeasResults *measResults, Buffer::Iterator bIterator)
 {
   int n;
   std::bitset<0> b0;
@@ -3031,7 +3031,7 @@ RrcAsn1Header::DeserializeMeasResults (NrRrcSap::MeasResults *measResults, Buffe
 }
 
 Buffer::Iterator
-RrcAsn1Header::DeserializePlmnIdentity (uint32_t *plmnId, Buffer::Iterator bIterator)
+RrcNrAsn1Header::DeserializePlmnIdentity (uint32_t *plmnId, Buffer::Iterator bIterator)
 {
   int n;
   std::bitset<1> isMccPresent;
@@ -3062,7 +3062,7 @@ RrcAsn1Header::DeserializePlmnIdentity (uint32_t *plmnId, Buffer::Iterator bIter
 }
 
 Buffer::Iterator
-RrcAsn1Header::DeserializeMeasConfig (NrRrcSap::MeasConfig * measConfig, Buffer::Iterator bIterator)
+RrcNrAsn1Header::DeserializeMeasConfig (NrRrcSap::MeasConfig * measConfig, Buffer::Iterator bIterator)
 {
   std::bitset<0> bitset0;
   std::bitset<2> bitset2;
@@ -4217,7 +4217,7 @@ RrcConnectionSetupHeader::Print (std::ostream &os) const
 {
   os << "rrcTransactionIdentifier: " << (int)m_rrcTransactionIdentifier << std::endl;
   os << "radioResourceConfigDedicated:" << std::endl;
-  RrcAsn1Header::Print (os,m_radioResourceConfigDedicated);
+  RrcNrAsn1Header::Print (os,m_radioResourceConfigDedicated);
 }
 
 void
@@ -5249,7 +5249,7 @@ RrcConnectionReconfigurationHeader::Print (std::ostream &os) const
   os << "haveRadioResourceConfigDedicated: " << m_haveRadioResourceConfigDedicated << std::endl;
   if (m_haveRadioResourceConfigDedicated)
     {
-      RrcAsn1Header::Print (os,m_radioResourceConfigDedicated);
+      RrcNrAsn1Header::Print (os,m_radioResourceConfigDedicated);
     }
 }
 
@@ -5555,7 +5555,7 @@ HandoverPreparationInfoHeader::Deserialize (Buffer::Iterator bIterator)
 void
 HandoverPreparationInfoHeader::Print (std::ostream &os) const
 {
-  RrcAsn1Header::Print (os,m_asConfig.sourceRadioResourceConfig);
+  RrcNrAsn1Header::Print (os,m_asConfig.sourceRadioResourceConfig);
   os << "sourceUeIdentity: " << m_asConfig.sourceUeIdentity << std::endl;
   os << "dlBandwidth: " << (int)m_asConfig.sourceMasterInformationBlock.dlBandwidth << std::endl;
   os << "systemFrameNumber: " << (int)m_asConfig.sourceMasterInformationBlock.systemFrameNumber << std::endl;
@@ -5854,7 +5854,7 @@ RrcConnectionReestablishmentHeader::Print (std::ostream &os) const
 {
   os << "rrcTransactionIdentifier: " << (int)m_rrcTransactionIdentifier << std::endl;
   os << "RadioResourceConfigDedicated: " << std::endl;
-  RrcAsn1Header::Print (os,m_radioResourceConfigDedicated);
+  RrcNrAsn1Header::Print (os,m_radioResourceConfigDedicated);
 }
 
 void
@@ -6454,7 +6454,7 @@ MeasurementReportHeader::GetMessage () const
 }
 
 ///////////////////  RrcUlDcchMessage //////////////////////////////////
-RrcUlDcchMessage::RrcUlDcchMessage () : RrcAsn1Header ()
+RrcUlDcchMessage::RrcUlDcchMessage () : RrcNrAsn1Header ()
 {
 }
 
@@ -6515,7 +6515,7 @@ RrcUlDcchMessage::SerializeUlDcchMessage (int messageType) const
 }
 
 ///////////////////  RrcDlDcchMessage //////////////////////////////////
-RrcDlDcchMessage::RrcDlDcchMessage () : RrcAsn1Header ()
+RrcDlDcchMessage::RrcDlDcchMessage () : RrcNrAsn1Header ()
 {
 }
 
@@ -6576,7 +6576,7 @@ RrcDlDcchMessage::SerializeDlDcchMessage (int messageType) const
 }
 
 ///////////////////  RrcUlCcchMessage //////////////////////////////////
-RrcUlCcchMessage::RrcUlCcchMessage () : RrcAsn1Header ()
+RrcUlCcchMessage::RrcUlCcchMessage () : RrcNrAsn1Header ()
 {
 }
 
@@ -6637,7 +6637,7 @@ RrcUlCcchMessage::SerializeUlCcchMessage (int messageType) const
 }
 
 ///////////////////  RrcDlCcchMessage //////////////////////////////////
-RrcDlCcchMessage::RrcDlCcchMessage () : RrcAsn1Header ()
+RrcDlCcchMessage::RrcDlCcchMessage () : RrcNrAsn1Header ()
 {
 }
 

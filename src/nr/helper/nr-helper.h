@@ -29,12 +29,12 @@
 #include <ns3/node.h>
 #include <ns3/node-container.h>
 #include <ns3/eps-bearer.h>
-#include <ns3/phy-stats-calculator.h>
-#include <ns3/phy-tx-stats-calculator.h>
-#include <ns3/phy-rx-stats-calculator.h>
-#include <ns3/mac-stats-calculator.h>
-#include <ns3/radio-bearer-stats-calculator.h>
-#include <ns3/radio-bearer-stats-connector.h>
+#include <ns3/nr-phy-stats-calculator.h>
+#include <ns3/nr-phy-tx-stats-calculator.h>
+#include <ns3/nr-phy-rx-stats-calculator.h>
+#include <ns3/nr-mac-stats-calculator.h>
+#include <ns3/nr-radio-bearer-stats-calculator.h>
+#include <ns3/nr-radio-bearer-stats-connector.h>
 #include <ns3/ngc-tft.h>
 #include <ns3/mobility-model.h>
 
@@ -142,8 +142,8 @@ public:
    * Set the type of scheduler to be used by eNodeB devices.
    * 
    * \param type type of scheduler, must be a type name of any class
-   *             inheriting from ns3::FfMacScheduler, for example:
-   *             "ns3::PfFfMacScheduler"
+   *             inheriting from ns3::NrFfMacScheduler, for example:
+   *             "ns3::NrPfFfMacScheduler"
    *
    * Equivalent with setting the `Scheduler` attribute.
    */
@@ -193,7 +193,7 @@ public:
    *
    * \param type type of handover algorithm, must be a type name of any class
    *             inheriting from ns3::NrHandoverAlgorithm, for example:
-   *             "ns3::NoOpHandoverAlgorithm"
+   *             "ns3::NrNoOpHandoverAlgorithm"
    *
    * Equivalent with setting the `HandoverAlgorithm` attribute.
    */
@@ -478,7 +478,7 @@ public:
    * 
    * \param type type of fading model, must be a type name of any class
    *             inheriting from ns3::SpectrumPropagationLossModel, for
-   *             example: "ns3::TraceFadingLossModel"
+   *             example: "ns3::NrTraceFadingLossModel"
    */
   void SetFadingModel (std::string type);
 
@@ -561,7 +561,7 @@ public:
    * 
    * \return the RLC stats calculator object
    */
-  Ptr<RadioBearerStatsCalculator> GetRlcStats (void);
+  Ptr<NrRadioBearerStatsCalculator> GetRlcStats (void);
 
   /**
    * Enable trace sinks for PDCP layer
@@ -572,7 +572,7 @@ public:
    * 
    * \return the PDCP stats calculator object
    */
-  Ptr<RadioBearerStatsCalculator> GetPdcpStats (void);
+  Ptr<NrRadioBearerStatsCalculator> GetPdcpStats (void);
 
   /**
    * Assign a fixed random variable stream number to the random variables used.
@@ -580,7 +580,7 @@ public:
    * The InstallEnbDevice() or InstallUeDevice method should have previously
    * been called by the user on the given devices.
    *
-   * If TraceFadingLossModel has been set as the fading model type, this method
+   * If NrTraceFadingLossModel has been set as the fading model type, this method
    * will also assign a stream number to it, if none has been assigned before.
    *
    * \param c NetDeviceContainer of the set of net devices for which the
@@ -668,7 +668,7 @@ private:
   /// Factory of both the downlink and uplink NR channels.
   ObjectFactory m_channelFactory;
 
-  /// Name of fading model type, e.g., "ns3::TraceFadingLossModel".
+  /// Name of fading model type, e.g., "ns3::NrTraceFadingLossModel".
   std::string m_fadingModelType;
   /// Factory of fading model object for both the downlink and uplink channels.
   ObjectFactory m_fadingModelFactory;
@@ -681,19 +681,19 @@ private:
   bool m_fadingStreamsAssigned;
 
   /// Container of PHY layer statistics.
-  Ptr<PhyStatsCalculator> m_phyStats;
+  Ptr<NrPhyStatsCalculator> m_phyStats;
   /// Container of PHY layer statistics related to transmission.
-  Ptr<PhyTxStatsCalculator> m_phyTxStats;
+  Ptr<NrPhyTxStatsCalculator> m_phyTxStats;
   /// Container of PHY layer statistics related to reception.
-  Ptr<PhyRxStatsCalculator> m_phyRxStats;
+  Ptr<NrPhyRxStatsCalculator> m_phyRxStats;
   /// Container of MAC layer statistics.
-  Ptr<MacStatsCalculator> m_macStats;
+  Ptr<NrMacStatsCalculator> m_macStats;
   /// Container of RLC layer statistics.
-  Ptr<RadioBearerStatsCalculator> m_rlcStats;
+  Ptr<NrRadioBearerStatsCalculator> m_rlcStats;
   /// Container of PDCP layer statistics.
-  Ptr<RadioBearerStatsCalculator> m_pdcpStats;
+  Ptr<NrRadioBearerStatsCalculator> m_pdcpStats;
   /// Connects RLC and PDCP statistics containers to appropriate trace sources
-  RadioBearerStatsConnector m_radioBearerStatsConnector;
+  NrRadioBearerStatsConnector m_radioBearerStatsConnector;
 
   /**
    * Helper which provides implementation of core network. Initially empty

@@ -36,17 +36,17 @@
 namespace ns3 {
 
 /**
- * This class extends Asn1Header functions, adding serialization/deserialization
+ * This class extends NrAsn1Header functions, adding serialization/deserialization
  * of some Information elements defined in 3GPP TS 36.331
  */
-class RrcAsn1Header : public Asn1Header
+class RrcNrAsn1Header : public NrAsn1Header
 {
 public:
-  RrcAsn1Header ();
+  RrcNrAsn1Header ();
   int GetMessageType ();
 
 protected:
-  // Inherited from Asn1Header
+  // Inherited from NrAsn1Header
   static TypeId GetTypeId (void);
   virtual TypeId GetInstanceTypeId (void) const;
   uint32_t Deserialize (Buffer::Iterator bIterator) = 0;
@@ -103,13 +103,13 @@ protected:
  * This class only serves to discriminate which message type has been received
  * in uplink (ue to eNb) for channel DCCH
  */
-class RrcUlDcchMessage : public RrcAsn1Header
+class RrcUlDcchMessage : public RrcNrAsn1Header
 {
 public:
   RrcUlDcchMessage ();
   ~RrcUlDcchMessage ();
 
-  // Inherited from RrcAsn1Header
+  // Inherited from RrcNrAsn1Header
   uint32_t Deserialize (Buffer::Iterator bIterator);
   void Print (std::ostream &os) const;
   void PreSerialize () const;
@@ -123,13 +123,13 @@ protected:
  * This class only serves to discriminate which message type has been received
  * in downlink (eNb to ue) for channel DCCH
  */
-class RrcDlDcchMessage : public RrcAsn1Header
+class RrcDlDcchMessage : public RrcNrAsn1Header
 {
 public:
   RrcDlDcchMessage ();
   ~RrcDlDcchMessage ();
 
-  // Inherited from RrcAsn1Header
+  // Inherited from RrcNrAsn1Header
   uint32_t Deserialize (Buffer::Iterator bIterator);
   void Print (std::ostream &os) const;
   void PreSerialize () const;
@@ -143,13 +143,13 @@ protected:
  * This class only serves to discriminate which message type has been received
  * in uplink (ue to eNb) for channel CCCH
  */
-class RrcUlCcchMessage : public RrcAsn1Header
+class RrcUlCcchMessage : public RrcNrAsn1Header
 {
 public:
   RrcUlCcchMessage ();
   ~RrcUlCcchMessage ();
 
-  // Inherited from RrcAsn1Header 
+  // Inherited from RrcNrAsn1Header 
   uint32_t Deserialize (Buffer::Iterator bIterator);
   void Print (std::ostream &os) const;
   void PreSerialize () const;
@@ -163,13 +163,13 @@ protected:
  * This class only serves to discriminate which message type has been received
  * in downlink (eNb to ue) for channel CCCH
  */
-class RrcDlCcchMessage : public RrcAsn1Header
+class RrcDlCcchMessage : public RrcNrAsn1Header
 {
 public:
   RrcDlCcchMessage ();
   ~RrcDlCcchMessage ();
 
-  // Inherited from RrcAsn1Header 
+  // Inherited from RrcNrAsn1Header 
   uint32_t Deserialize (Buffer::Iterator bIterator);
   void Print (std::ostream &os) const;
   void PreSerialize () const;
@@ -188,7 +188,7 @@ public:
   RrcConnectionRequestHeader ();
   ~RrcConnectionRequestHeader ();
 
-  // Inherited from RrcAsn1Header 
+  // Inherited from RrcNrAsn1Header 
   static TypeId GetTypeId (void);
   void PreSerialize () const;
   uint32_t Deserialize (Buffer::Iterator bIterator);
@@ -237,7 +237,7 @@ public:
   RrcConnectToMmWaveHeader();
   ~RrcConnectToMmWaveHeader();
 
-  // Inherited from RrcAsn1Header 
+  // Inherited from RrcNrAsn1Header 
   static TypeId GetTypeId (void);
   void PreSerialize () const;
   uint32_t Deserialize (Buffer::Iterator bIterator);
@@ -261,7 +261,7 @@ public:
   RrcNotifySecondaryConnectedHeader();
   ~RrcNotifySecondaryConnectedHeader();
 
-  // Inherited from RrcAsn1Header 
+  // Inherited from RrcNrAsn1Header 
   static TypeId GetTypeId (void);
   void PreSerialize () const;
   uint32_t Deserialize (Buffer::Iterator bIterator);
@@ -285,7 +285,7 @@ public:
   RrcConnectionSwitchHeader();
   ~RrcConnectionSwitchHeader();
 
-  // Inherited from RrcAsn1Header 
+  // Inherited from RrcNrAsn1Header 
   static TypeId GetTypeId (void);
   void PreSerialize () const;
   uint32_t Deserialize (Buffer::Iterator bIterator);
@@ -312,7 +312,7 @@ public:
   RrcConnectionSetupHeader ();
   ~RrcConnectionSetupHeader ();
 
-  // Inherited from RrcAsn1Header 
+  // Inherited from RrcNrAsn1Header 
   void PreSerialize () const;
   uint32_t Deserialize (Buffer::Iterator bIterator);
   void Print (std::ostream &os) const;
@@ -385,7 +385,7 @@ public:
   RrcConnectionSetupCompleteHeader ();
   ~RrcConnectionSetupCompleteHeader ();
 
-  // Inherited from RrcAsn1Header 
+  // Inherited from RrcNrAsn1Header 
   void PreSerialize () const;
   uint32_t Deserialize (Buffer::Iterator bIterator);
   void Print (std::ostream &os) const;
@@ -422,7 +422,7 @@ public:
   RrcConnectionReconfigurationCompleteHeader ();
   ~RrcConnectionReconfigurationCompleteHeader ();
 
-  // Inherited from RrcAsn1Header 
+  // Inherited from RrcNrAsn1Header 
   void PreSerialize () const;
   uint32_t Deserialize (Buffer::Iterator bIterator);
   void Print (std::ostream &os) const;
@@ -459,7 +459,7 @@ public:
   RrcConnectionReconfigurationHeader ();
   ~RrcConnectionReconfigurationHeader ();
 
-  // Inherited from RrcAsn1Header 
+  // Inherited from RrcNrAsn1Header 
   void PreSerialize () const;
   uint32_t Deserialize (Buffer::Iterator bIterator);
   void Print (std::ostream &os) const;
@@ -568,12 +568,12 @@ private:
 /**
 * This class manages the serialization/deserialization of HandoverPreparationInfo IE
 */
-class HandoverPreparationInfoHeader : public RrcAsn1Header
+class HandoverPreparationInfoHeader : public RrcNrAsn1Header
 {
 public:
   HandoverPreparationInfoHeader ();
 
-  // Inherited from RrcAsn1Header 
+  // Inherited from RrcNrAsn1Header 
   void PreSerialize () const;
   uint32_t Deserialize (Buffer::Iterator bIterator);
   void Print (std::ostream &os) const;
@@ -609,7 +609,7 @@ public:
   RrcConnectionReestablishmentRequestHeader ();
   ~RrcConnectionReestablishmentRequestHeader ();
 
-  // Inherited from RrcAsn1Header 
+  // Inherited from RrcNrAsn1Header 
   void PreSerialize () const;
   uint32_t Deserialize (Buffer::Iterator bIterator);
   void Print (std::ostream &os) const;
@@ -652,7 +652,7 @@ public:
   RrcConnectionReestablishmentHeader ();
   ~RrcConnectionReestablishmentHeader ();
 
-  // Inherited from RrcAsn1Header 
+  // Inherited from RrcNrAsn1Header 
   void PreSerialize () const;
   uint32_t Deserialize (Buffer::Iterator bIterator);
   void Print (std::ostream &os) const;
@@ -694,7 +694,7 @@ class RrcConnectionReestablishmentCompleteHeader : public RrcUlDcchMessage
 public:
   RrcConnectionReestablishmentCompleteHeader ();
 
-  // Inherited from RrcAsn1Header 
+  // Inherited from RrcNrAsn1Header 
   void PreSerialize () const;
   uint32_t Deserialize (Buffer::Iterator bIterator);
   void Print (std::ostream &os) const;
@@ -730,7 +730,7 @@ public:
   RrcConnectionReestablishmentRejectHeader ();
   ~RrcConnectionReestablishmentRejectHeader ();
 
-  // Inherited from RrcAsn1Header 
+  // Inherited from RrcNrAsn1Header 
   void PreSerialize () const;
   uint32_t Deserialize (Buffer::Iterator bIterator);
   void Print (std::ostream &os) const;
@@ -760,7 +760,7 @@ public:
   RrcConnectionReleaseHeader ();
   ~RrcConnectionReleaseHeader ();
 
-  // Inherited from RrcAsn1Header 
+  // Inherited from RrcNrAsn1Header 
   void PreSerialize () const;
   uint32_t Deserialize (Buffer::Iterator bIterator);
   void Print (std::ostream &os) const;
@@ -790,7 +790,7 @@ public:
   RrcConnectionRejectHeader ();
   ~RrcConnectionRejectHeader ();
 
-  // Inherited from RrcAsn1Header 
+  // Inherited from RrcNrAsn1Header 
   void PreSerialize () const;
   uint32_t Deserialize (Buffer::Iterator bIterator);
   void Print (std::ostream &os) const;
@@ -820,7 +820,7 @@ public:
   MeasurementReportHeader ();
   ~MeasurementReportHeader ();
 
-  // Inherited from RrcAsn1Header 
+  // Inherited from RrcNrAsn1Header 
   void PreSerialize () const;
   uint32_t Deserialize (Buffer::Iterator bIterator);
   void Print (std::ostream &os) const;

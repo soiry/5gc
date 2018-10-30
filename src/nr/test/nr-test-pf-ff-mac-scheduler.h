@@ -38,11 +38,11 @@ using namespace ns3;
 * is equal among users is consistent with the definition of proportional 
 * fair scheduling
 */
-class LenaPfFfMacSchedulerTestCase1 : public TestCase
+class LenaNrPfFfMacSchedulerTestCase1 : public TestCase
 {
 public:
-  LenaPfFfMacSchedulerTestCase1 (uint16_t nUser, uint16_t dist, double thrRefDl, double thrRefUl, bool errorModelEnabled);
-  virtual ~LenaPfFfMacSchedulerTestCase1 ();
+  LenaNrPfFfMacSchedulerTestCase1 (uint16_t nUser, uint16_t dist, double thrRefDl, double thrRefUl, bool errorModelEnabled);
+  virtual ~LenaNrPfFfMacSchedulerTestCase1 ();
 
 private:
   static std::string BuildNameString (uint16_t nUser, uint16_t dist);
@@ -55,11 +55,11 @@ private:
 };
 
 
-class LenaPfFfMacSchedulerTestCase2 : public TestCase
+class LenaNrPfFfMacSchedulerTestCase2 : public TestCase
 {
 public:
-  LenaPfFfMacSchedulerTestCase2 (std::vector<uint16_t> dist, std::vector<uint32_t> estThrPfDl, std::vector<uint32_t> estThrPfUl, bool errorModelEnabled);
-  virtual ~LenaPfFfMacSchedulerTestCase2 ();
+  LenaNrPfFfMacSchedulerTestCase2 (std::vector<uint16_t> dist, std::vector<uint32_t> estThrPfDl, std::vector<uint32_t> estThrPfUl, bool errorModelEnabled);
+  virtual ~LenaNrPfFfMacSchedulerTestCase2 ();
 
 private:
   static std::string BuildNameString (uint16_t nUser, std::vector<uint16_t> dist);
@@ -74,10 +74,10 @@ private:
 
 
 
-class LenaTestPfFfMacSchedulerSuite : public TestSuite
+class LenaTestNrPfFfMacSchedulerSuite : public TestSuite
 {
 public:
-  LenaTestPfFfMacSchedulerSuite ();
+  LenaTestNrPfFfMacSchedulerSuite ();
 };
 
 #endif /* LENA_TEST_PF_FF_MAC_SCHEDULER_H */

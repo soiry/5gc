@@ -78,16 +78,16 @@ NrFrequencyReuseTestSuite::NrFrequencyReuseTestSuite ()
       availableUlRb.push_back (false);
     }
 
-  AddTestCase (new NrHardFrTestCase ("DownlinkHardFrPf1", 1, "ns3::PfFfMacScheduler", 25, 25, 0, 12, 0, 12, availableDlRb, availableUlRb), TestCase::QUICK);
-  AddTestCase (new NrHardFrTestCase ("DownlinkHardFrPf2", 5, "ns3::PfFfMacScheduler", 25, 25, 0, 12, 0, 12, availableDlRb, availableUlRb), TestCase::QUICK);
-  AddTestCase (new NrHardFrTestCase ("DownlinkHardFrPss1", 1, "ns3::PssFfMacScheduler", 25, 25, 0, 12, 0, 12, availableDlRb, availableUlRb), TestCase::QUICK);
-  AddTestCase (new NrHardFrTestCase ("DownlinkHardFrPss2", 5, "ns3::PssFfMacScheduler", 25, 25, 0, 12, 0, 12, availableDlRb, availableUlRb), TestCase::QUICK);
-  AddTestCase (new NrHardFrTestCase ("DownlinkHardFrCqa1", 1, "ns3::CqaFfMacScheduler", 25, 25, 0, 12, 0, 12, availableDlRb, availableUlRb), TestCase::QUICK);
-  AddTestCase (new NrHardFrTestCase ("DownlinkHardFrCqa2", 5, "ns3::CqaFfMacScheduler", 25, 25, 0, 12, 0, 12, availableDlRb, availableUlRb), TestCase::QUICK);
-  AddTestCase (new NrHardFrTestCase ("DownlinkHardFrFdTbfq1", 1, "ns3::FdTbfqFfMacScheduler", 25, 25, 0, 12, 0, 12, availableDlRb, availableUlRb), TestCase::QUICK);
-  AddTestCase (new NrHardFrTestCase ("DownlinkHardFrFdTbfq2", 5, "ns3::FdTbfqFfMacScheduler", 25, 25, 0, 12, 0, 12, availableDlRb, availableUlRb), TestCase::QUICK);
-  AddTestCase (new NrHardFrTestCase ("DownlinkHardFrTdTbfq1", 1, "ns3::TdTbfqFfMacScheduler", 25, 25, 0, 12, 0, 12, availableDlRb, availableUlRb), TestCase::QUICK);
-  AddTestCase (new NrHardFrTestCase ("DownlinkHardFrTdTbfq2", 5, "ns3::TdTbfqFfMacScheduler", 25, 25, 0, 12, 0, 12, availableDlRb, availableUlRb), TestCase::QUICK);
+  AddTestCase (new NrHardFrTestCase ("DownlinkHardFrPf1", 1, "ns3::NrPfFfMacScheduler", 25, 25, 0, 12, 0, 12, availableDlRb, availableUlRb), TestCase::QUICK);
+  AddTestCase (new NrHardFrTestCase ("DownlinkHardFrPf2", 5, "ns3::NrPfFfMacScheduler", 25, 25, 0, 12, 0, 12, availableDlRb, availableUlRb), TestCase::QUICK);
+  AddTestCase (new NrHardFrTestCase ("DownlinkHardFrPss1", 1, "ns3::NrPssFfMacScheduler", 25, 25, 0, 12, 0, 12, availableDlRb, availableUlRb), TestCase::QUICK);
+  AddTestCase (new NrHardFrTestCase ("DownlinkHardFrPss2", 5, "ns3::NrPssFfMacScheduler", 25, 25, 0, 12, 0, 12, availableDlRb, availableUlRb), TestCase::QUICK);
+  AddTestCase (new NrHardFrTestCase ("DownlinkHardFrCqa1", 1, "ns3::NrCqaFfMacScheduler", 25, 25, 0, 12, 0, 12, availableDlRb, availableUlRb), TestCase::QUICK);
+  AddTestCase (new NrHardFrTestCase ("DownlinkHardFrCqa2", 5, "ns3::NrCqaFfMacScheduler", 25, 25, 0, 12, 0, 12, availableDlRb, availableUlRb), TestCase::QUICK);
+  AddTestCase (new NrHardFrTestCase ("DownlinkHardFrFdTbfq1", 1, "ns3::NrFdTbfqFfMacScheduler", 25, 25, 0, 12, 0, 12, availableDlRb, availableUlRb), TestCase::QUICK);
+  AddTestCase (new NrHardFrTestCase ("DownlinkHardFrFdTbfq2", 5, "ns3::NrFdTbfqFfMacScheduler", 25, 25, 0, 12, 0, 12, availableDlRb, availableUlRb), TestCase::QUICK);
+  AddTestCase (new NrHardFrTestCase ("DownlinkHardFrTdTbfq1", 1, "ns3::NrTdTbfqFfMacScheduler", 25, 25, 0, 12, 0, 12, availableDlRb, availableUlRb), TestCase::QUICK);
+  AddTestCase (new NrHardFrTestCase ("DownlinkHardFrTdTbfq2", 5, "ns3::NrTdTbfqFfMacScheduler", 25, 25, 0, 12, 0, 12, availableDlRb, availableUlRb), TestCase::QUICK);
 
   availableDlRb.clear ();
   availableUlRb.clear ();
@@ -112,46 +112,46 @@ NrFrequencyReuseTestSuite::NrFrequencyReuseTestSuite ()
       availableUlRb.push_back (false);
     }
 
-  AddTestCase (new NrStrictFrTestCase ("DownlinkStrictFrPf1", 1, "ns3::PfFfMacScheduler", 25, 25, 6, 6, 6, 6, 6, 6, availableDlRb, availableUlRb), TestCase::QUICK);
-  AddTestCase (new NrStrictFrTestCase ("DownlinkStrictFrPf2", 5, "ns3::PfFfMacScheduler", 25, 25, 6, 6, 6, 6, 6, 6, availableDlRb, availableUlRb), TestCase::QUICK);
-  AddTestCase (new NrStrictFrTestCase ("DownlinkStrictFrPss1", 1, "ns3::PssFfMacScheduler", 25, 25, 6, 6, 6, 6, 6, 6, availableDlRb, availableUlRb), TestCase::QUICK);
-  AddTestCase (new NrStrictFrTestCase ("DownlinkStrictFrPss2", 5, "ns3::PssFfMacScheduler", 25, 25, 6, 6, 6, 6, 6, 6, availableDlRb, availableUlRb), TestCase::QUICK);
-  AddTestCase (new NrStrictFrTestCase ("DownlinkStrictFrCqa1", 1, "ns3::CqaFfMacScheduler", 25, 25, 6, 6, 6, 6, 6, 6, availableDlRb, availableUlRb), TestCase::QUICK);
-  AddTestCase (new NrStrictFrTestCase ("DownlinkStrictFrCqa2", 5, "ns3::CqaFfMacScheduler", 25, 25, 6, 6, 6, 6, 6, 6, availableDlRb, availableUlRb), TestCase::QUICK);
-  AddTestCase (new NrStrictFrTestCase ("DownlinkStrictFrCqaFdTbfq1", 1, "ns3::FdTbfqFfMacScheduler", 25, 25, 6, 6, 6, 6, 6, 6, availableDlRb, availableUlRb), TestCase::QUICK);
-  AddTestCase (new NrStrictFrTestCase ("DownlinkStrictFrCqaFdTbfq2", 5, "ns3::FdTbfqFfMacScheduler", 25, 25, 6, 6, 6, 6, 6, 6, availableDlRb, availableUlRb), TestCase::QUICK);
-  AddTestCase (new NrStrictFrTestCase ("DownlinkStrictFrCqaTdTbfq1", 1, "ns3::TdTbfqFfMacScheduler", 25, 25, 6, 6, 6, 6, 6, 6, availableDlRb, availableUlRb), TestCase::QUICK);
-  AddTestCase (new NrStrictFrTestCase ("DownlinkStrictFrCqaTdTbfq2", 5, "ns3::TdTbfqFfMacScheduler", 25, 25, 6, 6, 6, 6, 6, 6, availableDlRb, availableUlRb), TestCase::QUICK);
+  AddTestCase (new NrStrictFrTestCase ("DownlinkStrictFrPf1", 1, "ns3::NrPfFfMacScheduler", 25, 25, 6, 6, 6, 6, 6, 6, availableDlRb, availableUlRb), TestCase::QUICK);
+  AddTestCase (new NrStrictFrTestCase ("DownlinkStrictFrPf2", 5, "ns3::NrPfFfMacScheduler", 25, 25, 6, 6, 6, 6, 6, 6, availableDlRb, availableUlRb), TestCase::QUICK);
+  AddTestCase (new NrStrictFrTestCase ("DownlinkStrictFrPss1", 1, "ns3::NrPssFfMacScheduler", 25, 25, 6, 6, 6, 6, 6, 6, availableDlRb, availableUlRb), TestCase::QUICK);
+  AddTestCase (new NrStrictFrTestCase ("DownlinkStrictFrPss2", 5, "ns3::NrPssFfMacScheduler", 25, 25, 6, 6, 6, 6, 6, 6, availableDlRb, availableUlRb), TestCase::QUICK);
+  AddTestCase (new NrStrictFrTestCase ("DownlinkStrictFrCqa1", 1, "ns3::NrCqaFfMacScheduler", 25, 25, 6, 6, 6, 6, 6, 6, availableDlRb, availableUlRb), TestCase::QUICK);
+  AddTestCase (new NrStrictFrTestCase ("DownlinkStrictFrCqa2", 5, "ns3::NrCqaFfMacScheduler", 25, 25, 6, 6, 6, 6, 6, 6, availableDlRb, availableUlRb), TestCase::QUICK);
+  AddTestCase (new NrStrictFrTestCase ("DownlinkStrictFrCqaFdTbfq1", 1, "ns3::NrFdTbfqFfMacScheduler", 25, 25, 6, 6, 6, 6, 6, 6, availableDlRb, availableUlRb), TestCase::QUICK);
+  AddTestCase (new NrStrictFrTestCase ("DownlinkStrictFrCqaFdTbfq2", 5, "ns3::NrFdTbfqFfMacScheduler", 25, 25, 6, 6, 6, 6, 6, 6, availableDlRb, availableUlRb), TestCase::QUICK);
+  AddTestCase (new NrStrictFrTestCase ("DownlinkStrictFrCqaTdTbfq1", 1, "ns3::NrTdTbfqFfMacScheduler", 25, 25, 6, 6, 6, 6, 6, 6, availableDlRb, availableUlRb), TestCase::QUICK);
+  AddTestCase (new NrStrictFrTestCase ("DownlinkStrictFrCqaTdTbfq2", 5, "ns3::NrTdTbfqFfMacScheduler", 25, 25, 6, 6, 6, 6, 6, 6, availableDlRb, availableUlRb), TestCase::QUICK);
 
-  AddTestCase (new NrStrictFrAreaTestCase ("NrStrictFrAreaTestCasePf1", "ns3::PfFfMacScheduler"), TestCase::QUICK);
-  AddTestCase (new NrStrictFrAreaTestCase ("NrStrictFrAreaTestCasePss1", "ns3::PssFfMacScheduler"), TestCase::QUICK);
-  AddTestCase (new NrStrictFrAreaTestCase ("NrStrictFrAreaTestCaseCqa1", "ns3::CqaFfMacScheduler"), TestCase::QUICK);
-  AddTestCase (new NrStrictFrAreaTestCase ("NrStrictFrAreaTestCaseFdTbfq1", "ns3::FdTbfqFfMacScheduler"), TestCase::QUICK);
-  AddTestCase (new NrStrictFrAreaTestCase ("NrStrictFrAreaTestCaseTdTbfq1", "ns3::TdTbfqFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrStrictFrAreaTestCase ("NrStrictFrAreaTestCasePf1", "ns3::NrPfFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrStrictFrAreaTestCase ("NrStrictFrAreaTestCasePss1", "ns3::NrPssFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrStrictFrAreaTestCase ("NrStrictFrAreaTestCaseCqa1", "ns3::NrCqaFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrStrictFrAreaTestCase ("NrStrictFrAreaTestCaseFdTbfq1", "ns3::NrFdTbfqFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrStrictFrAreaTestCase ("NrStrictFrAreaTestCaseTdTbfq1", "ns3::NrTdTbfqFfMacScheduler"), TestCase::QUICK);
 
-  AddTestCase (new NrSoftFrAreaTestCase ("NrSoftFrAreaTestCasePf1", "ns3::PfFfMacScheduler"), TestCase::QUICK);
-  AddTestCase (new NrSoftFrAreaTestCase ("NrSoftFrAreaTestCasePss1", "ns3::PssFfMacScheduler"), TestCase::QUICK);
-  AddTestCase (new NrSoftFrAreaTestCase ("NrSoftFrAreaTestCaseCqa1", "ns3::CqaFfMacScheduler"), TestCase::QUICK);
-  AddTestCase (new NrSoftFrAreaTestCase ("NrSoftFrAreaTestCaseFdTbfq1", "ns3::FdTbfqFfMacScheduler"), TestCase::QUICK);
-  AddTestCase (new NrSoftFrAreaTestCase ("NrSoftFrAreaTestCaseTdTbfq1", "ns3::TdTbfqFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrSoftFrAreaTestCase ("NrSoftFrAreaTestCasePf1", "ns3::NrPfFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrSoftFrAreaTestCase ("NrSoftFrAreaTestCasePss1", "ns3::NrPssFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrSoftFrAreaTestCase ("NrSoftFrAreaTestCaseCqa1", "ns3::NrCqaFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrSoftFrAreaTestCase ("NrSoftFrAreaTestCaseFdTbfq1", "ns3::NrFdTbfqFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrSoftFrAreaTestCase ("NrSoftFrAreaTestCaseTdTbfq1", "ns3::NrTdTbfqFfMacScheduler"), TestCase::QUICK);
 
-  AddTestCase (new NrSoftFfrAreaTestCase ("NrSoftFfrAreaTestCasePf1", "ns3::PfFfMacScheduler"), TestCase::QUICK);
-  AddTestCase (new NrSoftFfrAreaTestCase ("NrSoftFfrAreaTestCasePss1", "ns3::PssFfMacScheduler"), TestCase::QUICK);
-  AddTestCase (new NrSoftFfrAreaTestCase ("NrSoftFfrAreaTestCaseCqa1", "ns3::CqaFfMacScheduler"), TestCase::QUICK);
-  AddTestCase (new NrSoftFfrAreaTestCase ("NrSoftFfrAreaTestCaseFdTbfq1", "ns3::FdTbfqFfMacScheduler"), TestCase::QUICK);
-  AddTestCase (new NrSoftFfrAreaTestCase ("NrSoftFfrAreaTestCaseTdTbfq1", "ns3::TdTbfqFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrSoftFfrAreaTestCase ("NrSoftFfrAreaTestCasePf1", "ns3::NrPfFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrSoftFfrAreaTestCase ("NrSoftFfrAreaTestCasePss1", "ns3::NrPssFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrSoftFfrAreaTestCase ("NrSoftFfrAreaTestCaseCqa1", "ns3::NrCqaFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrSoftFfrAreaTestCase ("NrSoftFfrAreaTestCaseFdTbfq1", "ns3::NrFdTbfqFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrSoftFfrAreaTestCase ("NrSoftFfrAreaTestCaseTdTbfq1", "ns3::NrTdTbfqFfMacScheduler"), TestCase::QUICK);
 
-  AddTestCase (new NrEnhancedFfrAreaTestCase ("NrEnhancedFfrAreaTestCasePf1", "ns3::PfFfMacScheduler"), TestCase::QUICK);
-  AddTestCase (new NrEnhancedFfrAreaTestCase ("NrEnhancedFfrAreaTestCasePss1", "ns3::PssFfMacScheduler"), TestCase::QUICK);
-  AddTestCase (new NrEnhancedFfrAreaTestCase ("NrEnhancedFfrAreaTestCaseCqa1", "ns3::CqaFfMacScheduler"), TestCase::QUICK);
-  AddTestCase (new NrEnhancedFfrAreaTestCase ("NrEnhancedFfrAreaTestCaseFdTbfq1", "ns3::FdTbfqFfMacScheduler"), TestCase::QUICK);
-  AddTestCase (new NrEnhancedFfrAreaTestCase ("NrEnhancedFfrAreaTestCaseTdTbfq1", "ns3::TdTbfqFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrEnhancedFfrAreaTestCase ("NrEnhancedFfrAreaTestCasePf1", "ns3::NrPfFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrEnhancedFfrAreaTestCase ("NrEnhancedFfrAreaTestCasePss1", "ns3::NrPssFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrEnhancedFfrAreaTestCase ("NrEnhancedFfrAreaTestCaseCqa1", "ns3::NrCqaFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrEnhancedFfrAreaTestCase ("NrEnhancedFfrAreaTestCaseFdTbfq1", "ns3::NrFdTbfqFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrEnhancedFfrAreaTestCase ("NrEnhancedFfrAreaTestCaseTdTbfq1", "ns3::NrTdTbfqFfMacScheduler"), TestCase::QUICK);
 
-  AddTestCase (new NrDistributedFfrAreaTestCase ("NrDistributedFfrAreaTestCasePf1", "ns3::PfFfMacScheduler"), TestCase::QUICK);
-  AddTestCase (new NrDistributedFfrAreaTestCase ("NrDistributedFfrAreaTestCasePss1", "ns3::PssFfMacScheduler"), TestCase::QUICK);
-  AddTestCase (new NrDistributedFfrAreaTestCase ("NrDistributedFfrAreaTestCaseCqa1", "ns3::CqaFfMacScheduler"), TestCase::QUICK);
-  AddTestCase (new NrDistributedFfrAreaTestCase ("NrDistributedFfrAreaTestCaseFdTbfq1", "ns3::FdTbfqFfMacScheduler"), TestCase::QUICK);
-  AddTestCase (new NrDistributedFfrAreaTestCase ("NrDistributedFfrAreaTestCaseTdTbfq1", "ns3::TdTbfqFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrDistributedFfrAreaTestCase ("NrDistributedFfrAreaTestCasePf1", "ns3::NrPfFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrDistributedFfrAreaTestCase ("NrDistributedFfrAreaTestCasePss1", "ns3::NrPssFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrDistributedFfrAreaTestCase ("NrDistributedFfrAreaTestCaseCqa1", "ns3::NrCqaFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrDistributedFfrAreaTestCase ("NrDistributedFfrAreaTestCaseFdTbfq1", "ns3::NrFdTbfqFfMacScheduler"), TestCase::QUICK);
+  AddTestCase (new NrDistributedFfrAreaTestCase ("NrDistributedFfrAreaTestCaseTdTbfq1", "ns3::NrTdTbfqFfMacScheduler"), TestCase::QUICK);
 }
 
 static NrFrequencyReuseTestSuite nrFrequencyReuseTestSuite;
@@ -1438,7 +1438,7 @@ NrDistributedFfrAreaTestCase::DoRun (void)
   Ptr<NrHelper> nrHelper = CreateObject<NrHelper> ();
   Ptr<PointToPointNgcHelper> ngcHelper = CreateObject<PointToPointNgcHelper> ();
   nrHelper->SetNgcHelper (ngcHelper);
-  nrHelper->SetHandoverAlgorithmType ("ns3::NoOpHandoverAlgorithm"); // disable automatic handover
+  nrHelper->SetHandoverAlgorithmType ("ns3::NrNoOpHandoverAlgorithm"); // disable automatic handover
 
   Ptr<Node> upf = ngcHelper->GetUpfNode ();
 

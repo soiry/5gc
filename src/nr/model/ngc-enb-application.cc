@@ -339,7 +339,7 @@ NgcEnbApplication::RecvFromN2uSocket (Ptr<Socket> socket)
   NS_LOG_FUNCTION (this << socket);  
   NS_ASSERT (socket == m_n2uSocket);
   Ptr<Packet> packet = socket->Recv ();
-  GtpuHeader gtpu;
+  NrGtpuHeader gtpu;
   packet->RemoveHeader (gtpu);
   uint32_t teid = gtpu.GetTeid ();
 
@@ -375,7 +375,7 @@ void
 NgcEnbApplication::SendToN2uSocket (Ptr<Packet> packet, uint32_t teid)
 {
   NS_LOG_FUNCTION (this << packet << teid <<  packet->GetSize ());  
-  GtpuHeader gtpu;
+  NrGtpuHeader gtpu;
   gtpu.SetTeid (teid);
   // From 3GPP TS 29.281 v10.0.0 Section 5.1
   // Length of the payload + the non obligatory GTP-U header

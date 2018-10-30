@@ -27,7 +27,7 @@
 #include "ns3/net-device-container.h"
 #include "ns3/error-model.h"
 #include "ns3/rng-seed-manager.h"
-#include "ns3/radio-bearer-stats-calculator.h"
+#include "ns3/nr-radio-bearer-stats-calculator.h"
 #include "ns3/nr-rlc-header.h"
 #include "ns3/nr-rlc-um.h"
 

@@ -36,12 +36,12 @@ class Packet;
  *
  * Implementation of the GTPv1-U Release 10 as per 3Gpp TS 29.281 document
  */
-class GtpuHeader : public Header
+class NrGtpuHeader : public Header
 {
 public:
   static TypeId GetTypeId (void);
-  GtpuHeader ();
-  virtual ~GtpuHeader ();
+  NrGtpuHeader ();
+  virtual ~NrGtpuHeader ();
   virtual TypeId GetInstanceTypeId (void) const;
   virtual uint32_t GetSerializedSize (void) const;
   virtual void Serialize (Buffer::Iterator start) const;
@@ -71,7 +71,7 @@ public:
   void SetTeid (uint32_t m_teid);
   void SetVersion (uint8_t m_version);
 
-  bool operator == (const GtpuHeader& b) const;
+  bool operator == (const NrGtpuHeader& b) const;
 
 
 private:

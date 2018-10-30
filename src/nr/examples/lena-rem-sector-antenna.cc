@@ -25,7 +25,7 @@
 #include "ns3/config-store.h"
 #include <ns3/buildings-propagation-loss-model.h>
 #include <ns3/buildings-helper.h>
-#include <ns3/radio-environment-map-helper.h>
+#include <ns3/nr-radio-environment-map-helper.h>
 #include <iomanip>
 #include <string>
 #include <vector>
@@ -209,7 +209,7 @@ main (int argc, char *argv[])
   // by default, simulation will anyway stop right after the REM has been generated
   Simulator::Stop (Seconds (0.0069));  
 
-  Ptr<RadioEnvironmentMapHelper> remHelper = CreateObject<RadioEnvironmentMapHelper> ();
+  Ptr<NrRadioEnvironmentMapHelper> remHelper = CreateObject<NrRadioEnvironmentMapHelper> ();
   remHelper->SetAttribute ("ChannelPath", StringValue ("/ChannelList/0"));
   remHelper->SetAttribute ("OutputFile", StringValue ("rem.out"));
   remHelper->SetAttribute ("XMin", DoubleValue (-2000.0));

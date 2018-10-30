@@ -72,7 +72,7 @@ int main (int argc, char *argv[])
   NetDeviceContainer enbDevs;
   NetDeviceContainer ueDevs;
   // Default scheduler is PF, uncomment to use RR
-  //nrHelper->SetSchedulerType ("ns3::RrFfMacScheduler");
+  //nrHelper->SetSchedulerType ("ns3::NrRrFfMacScheduler");
 
   enbDevs = nrHelper->InstallEnbDevice (enbNodes);
   ueDevs = nrHelper->InstallUeDevice (ueNodes);
@@ -88,7 +88,7 @@ int main (int argc, char *argv[])
 
   // Configure Radio Environment Map (REM) output
   // for NR-only simulations always use /ChannelList/0 which is the downlink channel
-  Ptr<RadioEnvironmentMapHelper> remHelper = CreateObject<RadioEnvironmentMapHelper> ();
+  Ptr<NrRadioEnvironmentMapHelper> remHelper = CreateObject<NrRadioEnvironmentMapHelper> ();
   remHelper->SetAttribute ("ChannelPath", StringValue ("/ChannelList/0"));
   remHelper->SetAttribute ("OutputFile", StringValue ("rem.out"));
   remHelper->SetAttribute ("XMin", DoubleValue (-400.0));

@@ -53,7 +53,7 @@ int main (int argc, char *argv[])
   //nrHelper->EnableLogComponents ();
   
 
-  nrHelper->SetAttribute ("FadingModel", StringValue ("ns3::TraceFadingLossModel"));
+  nrHelper->SetAttribute ("FadingModel", StringValue ("ns3::NrTraceFadingLossModel"));
   
   std::ifstream ifTraceFile;
   ifTraceFile.open ("../../src/nr/model/fading-traces/fading_trace_EPA_3kmph.fad", std::ifstream::in);

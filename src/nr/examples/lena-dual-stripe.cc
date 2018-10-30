@@ -497,11 +497,11 @@ main (int argc, char *argv[])
   nrHelper->SetSpectrumChannelType ("ns3::MultiModelSpectrumChannel");
 
 //   nrHelper->EnableLogComponents ();
-//   LogComponentEnable ("PfFfMacScheduler", LOG_LEVEL_ALL);
+//   LogComponentEnable ("NrPfFfMacScheduler", LOG_LEVEL_ALL);
 
   if (!fadingTrace.empty ())
     {
-      nrHelper->SetAttribute ("FadingModel", StringValue ("ns3::TraceFadingLossModel"));
+      nrHelper->SetAttribute ("FadingModel", StringValue ("ns3::NrTraceFadingLossModel"));
       nrHelper->SetFadingModelAttribute ("TraceFilename", StringValue (fadingTrace));
     }
 
@@ -824,14 +824,14 @@ main (int argc, char *argv[])
 
   BuildingsHelper::MakeMobilityModelConsistent ();
 
-  Ptr<RadioEnvironmentMapHelper> remHelper;
+  Ptr<NrRadioEnvironmentMapHelper> remHelper;
   if (generateRem)
     {
       PrintGnuplottableBuildingListToFile ("buildings.txt");
       PrintGnuplottableEnbListToFile ("enbs.txt");
       PrintGnuplottableUeListToFile ("ues.txt");
 
-      remHelper = CreateObject<RadioEnvironmentMapHelper> ();
+      remHelper = CreateObject<NrRadioEnvironmentMapHelper> ();
       remHelper->SetAttribute ("ChannelPath", StringValue ("/ChannelList/0"));
       remHelper->SetAttribute ("OutputFile", StringValue ("lena-dual-stripe.rem"));
       remHelper->SetAttribute ("XMin", DoubleValue (macroUeBox.xMin));

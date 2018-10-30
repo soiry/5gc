@@ -202,8 +202,8 @@ int main (int argc, char *argv[])
   NetDeviceContainer edgeUeDevs;
   NetDeviceContainer centerUeDevs;
   NetDeviceContainer randomUeDevs;
-  nrHelper->SetSchedulerType ("ns3::PfFfMacScheduler");
-  nrHelper->SetSchedulerAttribute ("UlCqiFilter", EnumValue (FfMacScheduler::PUSCH_UL_CQI));
+  nrHelper->SetSchedulerType ("ns3::NrPfFfMacScheduler");
+  nrHelper->SetSchedulerAttribute ("UlCqiFilter", EnumValue (NrFfMacScheduler::PUSCH_UL_CQI));
   nrHelper->SetEnbDeviceAttribute ("DlBandwidth", UintegerValue (bandwidth));
   nrHelper->SetEnbDeviceAttribute ("UlBandwidth", UintegerValue (bandwidth));
 
@@ -366,13 +366,13 @@ int main (int argc, char *argv[])
       spectrumAnalyzerHelper.Install (spectrumAnalyzerNodes);
     }
 
-  Ptr<RadioEnvironmentMapHelper> remHelper;
+  Ptr<NrRadioEnvironmentMapHelper> remHelper;
   if (generateRem)
     {
       PrintGnuplottableEnbListToFile ("enbs.txt");
       PrintGnuplottableUeListToFile ("ues.txt");
 
-      remHelper = CreateObject<RadioEnvironmentMapHelper> ();
+      remHelper = CreateObject<NrRadioEnvironmentMapHelper> ();
       remHelper->SetAttribute ("ChannelPath", StringValue ("/ChannelList/0"));
       remHelper->SetAttribute ("OutputFile", StringValue ("lena-frequency-reuse.rem"));
       remHelper->SetAttribute ("XMin", DoubleValue (macroUeBox.xMin));

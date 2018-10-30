@@ -39,11 +39,11 @@ using namespace ns3;
 * is consistent with the definition of maximum throughput
 * scheduling
 */
-class LenaFdMtFfMacSchedulerTestCase : public TestCase
+class LenaNrFdMtFfMacSchedulerTestCase : public TestCase
 {
 public:
-  LenaFdMtFfMacSchedulerTestCase (uint16_t nUser, uint16_t dist, double thrRefDl, double thrRefUl,bool errorModelEnabled);
-  virtual ~LenaFdMtFfMacSchedulerTestCase ();
+  LenaNrFdMtFfMacSchedulerTestCase (uint16_t nUser, uint16_t dist, double thrRefDl, double thrRefUl,bool errorModelEnabled);
+  virtual ~LenaNrFdMtFfMacSchedulerTestCase ();
 
 private:
   static std::string BuildNameString (uint16_t nUser, uint16_t dist);
@@ -55,10 +55,10 @@ private:
   bool m_errorModelEnabled;
 };
 
-class LenaTestFdMtFfMacSchedulerSuite : public TestSuite
+class LenaTestNrFdMtFfMacSchedulerSuite : public TestSuite
 {
 public:
-  LenaTestFdMtFfMacSchedulerSuite ();
+  LenaTestNrFdMtFfMacSchedulerSuite ();
 };
 
 

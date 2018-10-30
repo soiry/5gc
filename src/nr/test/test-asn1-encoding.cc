@@ -83,15 +83,15 @@ public:
   }
 };
 
-// --------------------------- CLASS RrcHeaderTestCase -----------------------------
+// --------------------------- CLASS NrRrcHeaderTestCase -----------------------------
 /**
  * This class provides common functions to be inherited
  * by the children TestCases
  */
-class RrcHeaderTestCase : public TestCase
+class NrRrcHeaderTestCase : public TestCase
 {
 public:
-  RrcHeaderTestCase (std::string s);
+  NrRrcHeaderTestCase (std::string s);
   virtual void DoRun (void) = 0;
   NrRrcSap::RadioResourceConfigDedicated CreateRadioResourceConfigDedicated ();
   void AssertEqualRadioResourceConfigDedicated (NrRrcSap::RadioResourceConfigDedicated rrcd1, NrRrcSap::RadioResourceConfigDedicated rrcd2);
@@ -100,12 +100,12 @@ protected:
   Ptr<Packet> packet;
 };
 
-RrcHeaderTestCase::RrcHeaderTestCase (std::string s) : TestCase (s)
+NrRrcHeaderTestCase::NrRrcHeaderTestCase (std::string s) : TestCase (s)
 {
 }
 
 NrRrcSap::RadioResourceConfigDedicated
-RrcHeaderTestCase::CreateRadioResourceConfigDedicated ()
+NrRrcHeaderTestCase::CreateRadioResourceConfigDedicated ()
 {
   NrRrcSap::RadioResourceConfigDedicated rrd;
 
@@ -159,7 +159,7 @@ RrcHeaderTestCase::CreateRadioResourceConfigDedicated ()
 }
 
 void
-RrcHeaderTestCase::AssertEqualRadioResourceConfigDedicated (NrRrcSap::RadioResourceConfigDedicated rrcd1, NrRrcSap::RadioResourceConfigDedicated rrcd2)
+NrRrcHeaderTestCase::AssertEqualRadioResourceConfigDedicated (NrRrcSap::RadioResourceConfigDedicated rrcd1, NrRrcSap::RadioResourceConfigDedicated rrcd2)
 {
   NS_TEST_ASSERT_MSG_EQ (rrcd1.srbToAddModList.size (), rrcd2.srbToAddModList.size (),"SrbToAddModList different sizes");
 
@@ -254,14 +254,14 @@ RrcHeaderTestCase::AssertEqualRadioResourceConfigDedicated (NrRrcSap::RadioResou
 }
 
 // --------------------------- CLASS RrcConnectionRequestTestCase -----------------------------
-class RrcConnectionRequestTestCase : public RrcHeaderTestCase
+class RrcConnectionRequestTestCase : public NrRrcHeaderTestCase
 {
 public:
   RrcConnectionRequestTestCase ();
   virtual void DoRun (void);
 };
 
-RrcConnectionRequestTestCase::RrcConnectionRequestTestCase () : RrcHeaderTestCase ("Testing RrcConnectionRequest")
+RrcConnectionRequestTestCase::RrcConnectionRequestTestCase () : NrRrcHeaderTestCase ("Testing RrcConnectionRequest")
 {
 }
 
@@ -301,14 +301,14 @@ RrcConnectionRequestTestCase::DoRun (void)
 }
 
 // --------------------------- CLASS RrcConnectionSetupTestCase -----------------------------
-class RrcConnectionSetupTestCase : public RrcHeaderTestCase
+class RrcConnectionSetupTestCase : public NrRrcHeaderTestCase
 {
 public:
   RrcConnectionSetupTestCase ();
   virtual void DoRun (void);
 };
 
-RrcConnectionSetupTestCase::RrcConnectionSetupTestCase () : RrcHeaderTestCase ("Testing RrcConnectionSetupTestCase")
+RrcConnectionSetupTestCase::RrcConnectionSetupTestCase () : NrRrcHeaderTestCase ("Testing RrcConnectionSetupTestCase")
 {
 }
 
@@ -350,14 +350,14 @@ RrcConnectionSetupTestCase::DoRun (void)
 }
 
 // --------------------------- CLASS RrcConnectionSetupCompleteTestCase -----------------------------
-class RrcConnectionSetupCompleteTestCase : public RrcHeaderTestCase
+class RrcConnectionSetupCompleteTestCase : public NrRrcHeaderTestCase
 {
 public:
   RrcConnectionSetupCompleteTestCase ();
   virtual void DoRun (void);
 };
 
-RrcConnectionSetupCompleteTestCase::RrcConnectionSetupCompleteTestCase () : RrcHeaderTestCase ("Testing RrcConnectionSetupCompleteTestCase")
+RrcConnectionSetupCompleteTestCase::RrcConnectionSetupCompleteTestCase () : NrRrcHeaderTestCase ("Testing RrcConnectionSetupCompleteTestCase")
 {
 }
 
@@ -396,7 +396,7 @@ RrcConnectionSetupCompleteTestCase::DoRun (void)
 }
 
 // --------------------------- CLASS RrcConnectionReconfigurationCompleteTestCase -----------------------------
-class RrcConnectionReconfigurationCompleteTestCase : public RrcHeaderTestCase
+class RrcConnectionReconfigurationCompleteTestCase : public NrRrcHeaderTestCase
 {
 public:
   RrcConnectionReconfigurationCompleteTestCase ();
@@ -404,7 +404,7 @@ public:
 };
 
 RrcConnectionReconfigurationCompleteTestCase::RrcConnectionReconfigurationCompleteTestCase ()
-  : RrcHeaderTestCase ("Testing RrcConnectionReconfigurationCompleteTestCase")
+  : NrRrcHeaderTestCase ("Testing RrcConnectionReconfigurationCompleteTestCase")
 {
 }
 
@@ -443,7 +443,7 @@ RrcConnectionReconfigurationCompleteTestCase::DoRun (void)
 }
 
 // --------------------------- CLASS RrcConnectionReconfigurationTestCase -----------------------------
-class RrcConnectionReconfigurationTestCase : public RrcHeaderTestCase
+class RrcConnectionReconfigurationTestCase : public NrRrcHeaderTestCase
 {
 public:
   RrcConnectionReconfigurationTestCase ();
@@ -451,7 +451,7 @@ public:
 };
 
 RrcConnectionReconfigurationTestCase::RrcConnectionReconfigurationTestCase ()
-  : RrcHeaderTestCase ("Testing RrcConnectionReconfigurationTestCase")
+  : NrRrcHeaderTestCase ("Testing RrcConnectionReconfigurationTestCase")
 {
 }
 
@@ -647,14 +647,14 @@ RrcConnectionReconfigurationTestCase::DoRun (void)
 }
 
 // --------------------------- CLASS HandoverPreparationInfoTestCase -----------------------------
-class HandoverPreparationInfoTestCase : public RrcHeaderTestCase
+class HandoverPreparationInfoTestCase : public NrRrcHeaderTestCase
 {
 public:
   HandoverPreparationInfoTestCase ();
   virtual void DoRun (void);
 };
 
-HandoverPreparationInfoTestCase::HandoverPreparationInfoTestCase () : RrcHeaderTestCase ("Testing HandoverPreparationInfoTestCase")
+HandoverPreparationInfoTestCase::HandoverPreparationInfoTestCase () : NrRrcHeaderTestCase ("Testing HandoverPreparationInfoTestCase")
 {
 }
 
@@ -721,14 +721,14 @@ HandoverPreparationInfoTestCase::DoRun (void)
 }
 
 // --------------------------- CLASS RrcConnectionReestablishmentRequestTestCase -----------------------------
-class RrcConnectionReestablishmentRequestTestCase : public RrcHeaderTestCase
+class RrcConnectionReestablishmentRequestTestCase : public NrRrcHeaderTestCase
 {
 public:
   RrcConnectionReestablishmentRequestTestCase ();
   virtual void DoRun (void);
 };
 
-RrcConnectionReestablishmentRequestTestCase::RrcConnectionReestablishmentRequestTestCase () : RrcHeaderTestCase ("Testing RrcConnectionReestablishmentRequestTestCase")
+RrcConnectionReestablishmentRequestTestCase::RrcConnectionReestablishmentRequestTestCase () : NrRrcHeaderTestCase ("Testing RrcConnectionReestablishmentRequestTestCase")
 {
 }
 
@@ -771,14 +771,14 @@ RrcConnectionReestablishmentRequestTestCase::DoRun (void)
 }
 
 // --------------------------- CLASS RrcConnectionReestablishmentTestCase -----------------------------
-class RrcConnectionReestablishmentTestCase : public RrcHeaderTestCase
+class RrcConnectionReestablishmentTestCase : public NrRrcHeaderTestCase
 {
 public:
   RrcConnectionReestablishmentTestCase ();
   virtual void DoRun (void);
 };
 
-RrcConnectionReestablishmentTestCase::RrcConnectionReestablishmentTestCase () : RrcHeaderTestCase ("Testing RrcConnectionReestablishmentTestCase")
+RrcConnectionReestablishmentTestCase::RrcConnectionReestablishmentTestCase () : NrRrcHeaderTestCase ("Testing RrcConnectionReestablishmentTestCase")
 {
 }
 
@@ -819,14 +819,14 @@ RrcConnectionReestablishmentTestCase::DoRun (void)
 }
 
 // --------------------------- CLASS RrcConnectionReestablishmentCompleteTestCase -----------------------------
-class RrcConnectionReestablishmentCompleteTestCase : public RrcHeaderTestCase
+class RrcConnectionReestablishmentCompleteTestCase : public NrRrcHeaderTestCase
 {
 public:
   RrcConnectionReestablishmentCompleteTestCase ();
   virtual void DoRun (void);
 };
 
-RrcConnectionReestablishmentCompleteTestCase::RrcConnectionReestablishmentCompleteTestCase () : RrcHeaderTestCase ("Testing RrcConnectionReestablishmentCompleteTestCase")
+RrcConnectionReestablishmentCompleteTestCase::RrcConnectionReestablishmentCompleteTestCase () : NrRrcHeaderTestCase ("Testing RrcConnectionReestablishmentCompleteTestCase")
 {
 }
 
@@ -865,14 +865,14 @@ RrcConnectionReestablishmentCompleteTestCase::DoRun (void)
 }
 
 // --------------------------- CLASS RrcConnectionRejectTestCase -----------------------------
-class RrcConnectionRejectTestCase : public RrcHeaderTestCase
+class RrcConnectionRejectTestCase : public NrRrcHeaderTestCase
 {
 public:
   RrcConnectionRejectTestCase ();
   virtual void DoRun (void);
 };
 
-RrcConnectionRejectTestCase::RrcConnectionRejectTestCase () : RrcHeaderTestCase ("Testing RrcConnectionRejectTestCase")
+RrcConnectionRejectTestCase::RrcConnectionRejectTestCase () : NrRrcHeaderTestCase ("Testing RrcConnectionRejectTestCase")
 {
 }
 
@@ -911,14 +911,14 @@ RrcConnectionRejectTestCase::DoRun (void)
 }
 
 // --------------------------- CLASS MeasurementReportTestCase -----------------------------
-class MeasurementReportTestCase : public RrcHeaderTestCase
+class MeasurementReportTestCase : public NrRrcHeaderTestCase
 {
 public:
   MeasurementReportTestCase ();
   virtual void DoRun (void);
 };
 
-MeasurementReportTestCase::MeasurementReportTestCase () : RrcHeaderTestCase ("Testing MeasurementReportTestCase")
+MeasurementReportTestCase::MeasurementReportTestCase () : NrRrcHeaderTestCase ("Testing MeasurementReportTestCase")
 {
 }
 

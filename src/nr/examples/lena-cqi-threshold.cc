@@ -101,8 +101,8 @@ int main (int argc, char *argv[])
   // Create Devices and install them in the Nodes (eNB and UE)
   NetDeviceContainer enbDevs;
   NetDeviceContainer ueDevs;
-//   nrHelper->SetSchedulerType ("ns3::RrFfMacScheduler");
-  nrHelper->SetSchedulerType ("ns3::PfFfMacScheduler");
+//   nrHelper->SetSchedulerType ("ns3::NrRrFfMacScheduler");
+  nrHelper->SetSchedulerType ("ns3::NrPfFfMacScheduler");
   nrHelper->SetSchedulerAttribute ("CqiTimerThreshold", UintegerValue (3));
   enbDevs = nrHelper->InstallEnbDevice (enbNodes);
   ueDevs = nrHelper->InstallUeDevice (ueNodes);

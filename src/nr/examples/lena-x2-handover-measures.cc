@@ -136,8 +136,8 @@ main (int argc, char *argv[])
   // LogComponentEnable ("NrEnbNetDevice", logLevel);
   // LogComponentEnable ("NrUeRrc", logLevel);
   // LogComponentEnable ("NrUeNetDevice", logLevel);
-  // LogComponentEnable ("A2A4RsrqHandoverAlgorithm", logLevel);
-  // LogComponentEnable ("A3RsrpHandoverAlgorithm", logLevel);
+  // LogComponentEnable ("NrA2A4RsrqHandoverAlgorithm", logLevel);
+  // LogComponentEnable ("NrA3RsrpHandoverAlgorithm", logLevel);
 
   uint16_t numberOfUes = 1;
   uint16_t numberOfEnbs = 2;
@@ -167,15 +167,15 @@ main (int argc, char *argv[])
   Ptr<NrHelper> nrHelper = CreateObject<NrHelper> ();
   Ptr<PointToPointNgcHelper> ngcHelper = CreateObject<PointToPointNgcHelper> ();
   nrHelper->SetNgcHelper (ngcHelper);
-  nrHelper->SetSchedulerType ("ns3::RrFfMacScheduler");
+  nrHelper->SetSchedulerType ("ns3::NrRrFfMacScheduler");
 
-  nrHelper->SetHandoverAlgorithmType ("ns3::A2A4RsrqHandoverAlgorithm");
+  nrHelper->SetHandoverAlgorithmType ("ns3::NrA2A4RsrqHandoverAlgorithm");
   nrHelper->SetHandoverAlgorithmAttribute ("ServingCellThreshold",
                                             UintegerValue (30));
   nrHelper->SetHandoverAlgorithmAttribute ("NeighbourCellOffset",
                                             UintegerValue (1));
 
-  //  nrHelper->SetHandoverAlgorithmType ("ns3::A3RsrpHandoverAlgorithm");
+  //  nrHelper->SetHandoverAlgorithmType ("ns3::NrA3RsrpHandoverAlgorithm");
   //  nrHelper->SetHandoverAlgorithmAttribute ("Hysteresis",
   //                                            DoubleValue (3.0));
   //  nrHelper->SetHandoverAlgorithmAttribute ("TimeToTrigger",
@@ -348,9 +348,9 @@ main (int argc, char *argv[])
   nrHelper->EnableMacTraces ();
   nrHelper->EnableRlcTraces ();
   nrHelper->EnablePdcpTraces ();
-  Ptr<RadioBearerStatsCalculator> rlcStats = nrHelper->GetRlcStats ();
+  Ptr<NrRadioBearerStatsCalculator> rlcStats = nrHelper->GetRlcStats ();
   rlcStats->SetAttribute ("EpochDuration", TimeValue (Seconds (1.0)));
-  Ptr<RadioBearerStatsCalculator> pdcpStats = nrHelper->GetPdcpStats ();
+  Ptr<NrRadioBearerStatsCalculator> pdcpStats = nrHelper->GetPdcpStats ();
   pdcpStats->SetAttribute ("EpochDuration", TimeValue (Seconds (1.0)));
 
   // connect custom trace sinks for RRC connection establishment and handover notification

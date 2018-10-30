@@ -38,13 +38,13 @@ namespace ns3 {
  * To enable automatic handover, please select another handover algorithm, i.e.,
  * another child class of NrHandoverAlgorithm.
  */
-class NoOpHandoverAlgorithm : public NrHandoverAlgorithm
+class NrNoOpHandoverAlgorithm : public NrHandoverAlgorithm
 {
 public:
   /// Creates a No-op handover algorithm instance.
-  NoOpHandoverAlgorithm ();
+  NrNoOpHandoverAlgorithm ();
 
-  virtual ~NoOpHandoverAlgorithm ();
+  virtual ~NrNoOpHandoverAlgorithm ();
 
   // inherited from Object
   static TypeId GetTypeId ();
@@ -54,7 +54,7 @@ public:
   virtual NrHandoverManagementSapProvider* GetNrHandoverManagementSapProvider ();
 
   // let the forwarder class access the protected and private members
-  friend class MemberNrHandoverManagementSapProvider<NoOpHandoverAlgorithm>;
+  friend class MemberNrHandoverManagementSapProvider<NrNoOpHandoverAlgorithm>;
 
 protected:
   // inherited from Object
@@ -70,7 +70,7 @@ private:
   /// Receive API calls from the eNodeB RRC instance.
   NrHandoverManagementSapProvider* m_handoverManagementSapProvider;
 
-}; // end of class NoOpHandoverAlgorithm
+}; // end of class NrNoOpHandoverAlgorithm
 
 
 } // end of namespace ns3

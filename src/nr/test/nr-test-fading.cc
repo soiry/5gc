@@ -47,7 +47,7 @@
 #include <ns3/nr-ue-phy.h>
 #include "nr-test-sinr-chunk-processor.h"
 
-// #include <ns3/trace-fading-loss-model.h>
+// #include <ns3/nr-trace-fading-loss-model.h>
 // #include <ns3/spectrum-value.h>
 
 using namespace ns3;
@@ -178,13 +178,13 @@ NrFadingTestCase::DoRun (void)
   //   LogComponentEnable ("NrUeNetDevice", logLevel);
   //   LogComponentEnable ("NrEnbNetDevice", logLevel);
   
-  LogComponentEnable ("TraceFadingLossModel", LOG_LEVEL_ALL);
-//   LogComponentEnable ("TraceFadingLossModel", LOG_LEVEL_ALL);
+  LogComponentEnable ("NrTraceFadingLossModel", LOG_LEVEL_ALL);
+//   LogComponentEnable ("NrTraceFadingLossModel", LOG_LEVEL_ALL);
 //   LogComponentEnable ("BuildingsPropagationLossModel", LOG_LEVEL_ALL);
   NS_LOG_INFO ("Testing " << GetName());
   
   
-  m_fadingModule = CreateObject<TraceFadingLossModel> ();
+  m_fadingModule = CreateObject<NrTraceFadingLossModel> ();
   
   m_fadingModule->SetAttribute("TraceFilename", StringValue("../../../src/nr/model/fading-traces/fading_trace_EPA_3kmph.fad"));
   //m_fadingModule->SetAttribute("WindowSize", TimeValue(Seconds (0.003)));

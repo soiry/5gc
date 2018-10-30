@@ -38,7 +38,7 @@
 #include <ns3/nr-chunk-processor.h>
 #include <ns3/multi-model-spectrum-channel.h>
 #include <ns3/friis-spectrum-propagation-loss.h>
-#include <ns3/trace-fading-loss-model.h>
+#include <ns3/nr-trace-fading-loss-model.h>
 #include <ns3/isotropic-antenna-model.h>
 #include <ns3/nr-enb-net-device.h>
 #include <ns3/nr-ue-net-device.h>
@@ -52,10 +52,10 @@
 #include <ns3/ngc-enb-n2-sap.h>
 #include <ns3/nr-rrc-protocol-ideal.h>
 #include <ns3/nr-rrc-protocol-real.h>
-#include <ns3/mac-stats-calculator.h>
-#include <ns3/phy-stats-calculator.h>
-#include <ns3/phy-tx-stats-calculator.h>
-#include <ns3/phy-rx-stats-calculator.h>
+#include <ns3/nr-mac-stats-calculator.h>
+#include <ns3/nr-phy-stats-calculator.h>
+#include <ns3/nr-phy-tx-stats-calculator.h>
+#include <ns3/nr-phy-rx-stats-calculator.h>
 #include <ns3/ngc-helper.h>
 #include <iostream>
 #include <ns3/buildings-propagation-loss-model.h>
@@ -124,10 +124,10 @@ NrHelper::DoInitialize (void)
       m_downlinkChannel->AddSpectrumPropagationLossModel (m_fadingModule);
       m_uplinkChannel->AddSpectrumPropagationLossModel (m_fadingModule);
     }
-  m_phyStats = CreateObject<PhyStatsCalculator> ();
-  m_phyTxStats = CreateObject<PhyTxStatsCalculator> ();
-  m_phyRxStats = CreateObject<PhyRxStatsCalculator> ();
-  m_macStats = CreateObject<MacStatsCalculator> ();
+  m_phyStats = CreateObject<NrPhyStatsCalculator> ();
+  m_phyTxStats = CreateObject<NrPhyTxStatsCalculator> ();
+  m_phyRxStats = CreateObject<NrPhyRxStatsCalculator> ();
+  m_macStats = CreateObject<NrMacStatsCalculator> ();
   Object::DoInitialize ();
 
 }
@@ -147,8 +147,8 @@ TypeId NrHelper::GetTypeId (void)
     .AddAttribute ("Scheduler",
                    "The type of scheduler to be used for eNBs. "
                    "The allowed values for this attributes are the type names "
-                   "of any class inheriting from ns3::FfMacScheduler.",
-                   StringValue ("ns3::PfFfMacScheduler"),
+                   "of any class inheriting from ns3::NrFfMacScheduler.",
+                   StringValue ("ns3::NrPfFfMacScheduler"),
                    MakeStringAccessor (&NrHelper::SetSchedulerType,
                                        &NrHelper::GetSchedulerType),
                    MakeStringChecker ())
@@ -164,7 +164,7 @@ TypeId NrHelper::GetTypeId (void)
                    "The type of handover algorithm to be used for eNBs. "
                    "The allowed values for this attributes are the type names "
                    "of any class inheriting from ns3::NrHandoverAlgorithm.",
-                   StringValue ("ns3::NoOpHandoverAlgorithm"),
+                   StringValue ("ns3::NrNoOpHandoverAlgorithm"),
                    MakeStringAccessor (&NrHelper::SetHandoverAlgorithmType,
                                        &NrHelper::GetHandoverAlgorithmType),
                    MakeStringChecker ())
@@ -452,7 +452,7 @@ NrHelper::InstallSingleEnbDevice (Ptr<Node> n)
   ulPhy->SetAntenna (antenna);
 
   Ptr<NrEnbMac> mac = CreateObject<NrEnbMac> ();
-  Ptr<FfMacScheduler> sched = m_schedulerFactory.Create<FfMacScheduler> ();
+  Ptr<NrFfMacScheduler> sched = m_schedulerFactory.Create<NrFfMacScheduler> ();
   Ptr<NrFfrAlgorithm> ffrAlgorithm = m_ffrAlgorithmFactory.Create<NrFfrAlgorithm> ();
   Ptr<NrHandoverAlgorithm> handoverAlgorithm = m_handoverAlgorithmFactory.Create<NrHandoverAlgorithm> ();
   Ptr<NrEnbRrc> rrc = CreateObject<NrEnbRrc> ();
@@ -517,7 +517,7 @@ NrHelper::InstallSingleEnbDevice (Ptr<Node> n)
   dev->SetAttribute ("CellId", UintegerValue (cellId)); 
   dev->SetAttribute ("NrEnbPhy", PointerValue (phy));
   dev->SetAttribute ("NrEnbMac", PointerValue (mac));
-  dev->SetAttribute ("FfMacScheduler", PointerValue (sched));
+  dev->SetAttribute ("NrFfMacScheduler", PointerValue (sched));
   dev->SetAttribute ("NrEnbRrc", PointerValue (rrc)); 
   dev->SetAttribute ("NrHandoverAlgorithm", PointerValue (handoverAlgorithm));
   dev->SetAttribute ("NrFfrAlgorithm", PointerValue (ffrAlgorithm));
@@ -1063,8 +1063,8 @@ NrHelper::EnableLogComponents (void)
   LogComponentEnable ("NrRlc", LOG_LEVEL_ALL);
   LogComponentEnable ("NrRlcUm", LOG_LEVEL_ALL);
   LogComponentEnable ("NrRlcAm", LOG_LEVEL_ALL);
-  LogComponentEnable ("RrFfMacScheduler", LOG_LEVEL_ALL);
-  LogComponentEnable ("PfFfMacScheduler", LOG_LEVEL_ALL);
+  LogComponentEnable ("NrRrFfMacScheduler", LOG_LEVEL_ALL);
+  LogComponentEnable ("NrPfFfMacScheduler", LOG_LEVEL_ALL);
 
   LogComponentEnable ("NrPhy", LOG_LEVEL_ALL);
   LogComponentEnable ("NrEnbPhy", LOG_LEVEL_ALL);
@@ -1079,12 +1079,12 @@ NrHelper::EnableLogComponents (void)
   LogComponentEnable ("NrUeNetDevice", LOG_LEVEL_ALL);
   LogComponentEnable ("NrEnbNetDevice", LOG_LEVEL_ALL);
 
-  LogComponentEnable ("RadioBearerStatsCalculator", LOG_LEVEL_ALL);
+  LogComponentEnable ("NrRadioBearerStatsCalculator", LOG_LEVEL_ALL);
   LogComponentEnable ("NrStatsCalculator", LOG_LEVEL_ALL);
-  LogComponentEnable ("MacStatsCalculator", LOG_LEVEL_ALL);
-  LogComponentEnable ("PhyTxStatsCalculator", LOG_LEVEL_ALL);
-  LogComponentEnable ("PhyRxStatsCalculator", LOG_LEVEL_ALL);
-  LogComponentEnable ("PhyStatsCalculator", LOG_LEVEL_ALL);
+  LogComponentEnable ("NrMacStatsCalculator", LOG_LEVEL_ALL);
+  LogComponentEnable ("NrPhyTxStatsCalculator", LOG_LEVEL_ALL);
+  LogComponentEnable ("NrPhyRxStatsCalculator", LOG_LEVEL_ALL);
+  LogComponentEnable ("NrPhyStatsCalculator", LOG_LEVEL_ALL);
 
 
 }
@@ -1102,7 +1102,7 @@ void
 NrHelper::EnableRlcTraces (void)
 {
   NS_ASSERT_MSG (m_rlcStats == 0, "please make sure that NrHelper::EnableRlcTraces is called at most once");
-  m_rlcStats = CreateObject<RadioBearerStatsCalculator> ("RLC");
+  m_rlcStats = CreateObject<NrRadioBearerStatsCalculator> ("RLC");
   m_radioBearerStatsConnector.EnableRlcStats (m_rlcStats);
 }
 
@@ -1112,7 +1112,7 @@ NrHelper::AssignStreams (NetDeviceContainer c, int64_t stream)
   int64_t currentStream = stream;
   if ((m_fadingModule != 0) && (m_fadingStreamsAssigned == false))
     {
-      Ptr<TraceFadingLossModel> tflm = m_fadingModule->GetObject<TraceFadingLossModel> ();
+      Ptr<NrTraceFadingLossModel> tflm = m_fadingModule->GetObject<NrTraceFadingLossModel> ();
       if (tflm != 0)
         {
           currentStream += tflm->AssignStreams (currentStream);
@@ -1161,28 +1161,28 @@ void
 NrHelper::EnableDlTxPhyTraces (void)
 {
   Config::Connect ("/NodeList/*/DeviceList/*/NrEnbPhy/DlPhyTransmission",
-                   MakeBoundCallback (&PhyTxStatsCalculator::DlPhyTransmissionCallback, m_phyTxStats));
+                   MakeBoundCallback (&NrPhyTxStatsCalculator::DlPhyTransmissionCallback, m_phyTxStats));
 }
 
 void
 NrHelper::EnableUlTxPhyTraces (void)
 {
   Config::Connect ("/NodeList/*/DeviceList/*/NrUePhy/UlPhyTransmission",
-                   MakeBoundCallback (&PhyTxStatsCalculator::UlPhyTransmissionCallback, m_phyTxStats));
+                   MakeBoundCallback (&NrPhyTxStatsCalculator::UlPhyTransmissionCallback, m_phyTxStats));
 }
 
 void
 NrHelper::EnableDlRxPhyTraces (void)
 {
   Config::Connect ("/NodeList/*/DeviceList/*/NrUePhy/DlSpectrumPhy/DlPhyReception",
-                   MakeBoundCallback (&PhyRxStatsCalculator::DlPhyReceptionCallback, m_phyRxStats));
+                   MakeBoundCallback (&NrPhyRxStatsCalculator::DlPhyReceptionCallback, m_phyRxStats));
 }
 
 void
 NrHelper::EnableUlRxPhyTraces (void)
 {
   Config::Connect ("/NodeList/*/DeviceList/*/NrEnbPhy/UlSpectrumPhy/UlPhyReception",
-                   MakeBoundCallback (&PhyRxStatsCalculator::UlPhyReceptionCallback, m_phyRxStats));
+                   MakeBoundCallback (&NrPhyRxStatsCalculator::UlPhyReceptionCallback, m_phyRxStats));
 }
 
 
@@ -1199,7 +1199,7 @@ NrHelper::EnableDlMacTraces (void)
 {
   NS_LOG_FUNCTION_NOARGS ();
   Config::Connect ("/NodeList/*/DeviceList/*/NrEnbMac/DlScheduling",
-                   MakeBoundCallback (&MacStatsCalculator::DlSchedulingCallback, m_macStats));
+                   MakeBoundCallback (&NrMacStatsCalculator::DlSchedulingCallback, m_macStats));
 }
 
 void
@@ -1207,7 +1207,7 @@ NrHelper::EnableUlMacTraces (void)
 {
   NS_LOG_FUNCTION_NOARGS ();
   Config::Connect ("/NodeList/*/DeviceList/*/NrEnbMac/UlScheduling",
-                   MakeBoundCallback (&MacStatsCalculator::UlSchedulingCallback, m_macStats));
+                   MakeBoundCallback (&NrMacStatsCalculator::UlSchedulingCallback, m_macStats));
 }
 
 void
@@ -1215,7 +1215,7 @@ NrHelper::EnableDlPhyTraces (void)
 {
   NS_LOG_FUNCTION_NOARGS ();
   Config::Connect ("/NodeList/*/DeviceList/*/NrUePhy/ReportCurrentCellRsrpSinr",
-                   MakeBoundCallback (&PhyStatsCalculator::ReportCurrentCellRsrpSinrCallback, m_phyStats));
+                   MakeBoundCallback (&NrPhyStatsCalculator::ReportCurrentCellRsrpSinrCallback, m_phyStats));
 }
 
 void
@@ -1223,13 +1223,13 @@ NrHelper::EnableUlPhyTraces (void)
 {
   NS_LOG_FUNCTION_NOARGS ();
   Config::Connect ("/NodeList/*/DeviceList/*/NrEnbPhy/ReportUeSinr",
-                   MakeBoundCallback (&PhyStatsCalculator::ReportUeSinr, m_phyStats));
+                   MakeBoundCallback (&NrPhyStatsCalculator::ReportUeSinr, m_phyStats));
   Config::Connect ("/NodeList/*/DeviceList/*/NrEnbPhy/ReportInterference",
-                   MakeBoundCallback (&PhyStatsCalculator::ReportInterference, m_phyStats));
+                   MakeBoundCallback (&NrPhyStatsCalculator::ReportInterference, m_phyStats));
 
 }
 
-Ptr<RadioBearerStatsCalculator>
+Ptr<NrRadioBearerStatsCalculator>
 NrHelper::GetRlcStats (void)
 {
   return m_rlcStats;
@@ -1239,11 +1239,11 @@ void
 NrHelper::EnablePdcpTraces (void)
 {
   NS_ASSERT_MSG (m_pdcpStats == 0, "please make sure that NrHelper::EnablePdcpTraces is called at most once");
-  m_pdcpStats = CreateObject<RadioBearerStatsCalculator> ("PDCP");
+  m_pdcpStats = CreateObject<NrRadioBearerStatsCalculator> ("PDCP");
   m_radioBearerStatsConnector.EnablePdcpStats (m_pdcpStats);
 }
 
-Ptr<RadioBearerStatsCalculator>
+Ptr<NrRadioBearerStatsCalculator>
 NrHelper::GetPdcpStats (void)
 {
   return m_pdcpStats;

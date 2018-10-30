@@ -40,7 +40,7 @@ public:
 private:
   virtual void DoRun (void);
   
-  void GetRlcBufferSample (Ptr<RadioBearerStatsCalculator> rlcStats, uint64_t imsi, uint8_t rnti);
+  void GetRlcBufferSample (Ptr<NrRadioBearerStatsCalculator> rlcStats, uint64_t imsi, uint8_t rnti);
   
   static std::string BuildNameString (uint16_t dist, std::string schedulerType, bool useIdealRrc);
   uint16_t m_dist;

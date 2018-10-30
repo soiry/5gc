@@ -159,7 +159,7 @@ NrX2HandoverTestCase::DoRun ()
   m_nrHelper = CreateObject<NrHelper> ();
   m_nrHelper->SetAttribute ("PathlossModel", StringValue ("ns3::FriisSpectrumPropagationLossModel"));
   m_nrHelper->SetSchedulerType (m_schedulerType);
-  m_nrHelper->SetHandoverAlgorithmType ("ns3::NoOpHandoverAlgorithm"); // disable automatic handover
+  m_nrHelper->SetHandoverAlgorithmType ("ns3::NrNoOpHandoverAlgorithm"); // disable automatic handover
   m_nrHelper->SetAttribute ("UseIdealRrc", BooleanValue (m_useIdealRrc));
   
 
@@ -618,8 +618,8 @@ NrX2HandoverTestSuite::NrX2HandoverTestSuite ()
   hel7.push_back (ue2bwd);
 
   std::vector<std::string> schedulers;
-  schedulers.push_back ("ns3::RrFfMacScheduler");
-  schedulers.push_back ("ns3::PfFfMacScheduler");
+  schedulers.push_back ("ns3::NrRrFfMacScheduler");
+  schedulers.push_back ("ns3::NrPfFfMacScheduler");
   for (std::vector<std::string>::iterator schedIt = schedulers.begin (); schedIt != schedulers.end (); ++schedIt)
     {
       for (int32_t useIdealRrc = 1; useIdealRrc >= 0; --useIdealRrc)

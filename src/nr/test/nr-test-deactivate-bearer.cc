@@ -30,7 +30,7 @@
 #include <ns3/simulator.h>
 #include <ns3/packet.h>
 #include <ns3/ptr.h>
-#include "ns3/radio-bearer-stats-calculator.h"
+#include "ns3/nr-radio-bearer-stats-calculator.h"
 #include <ns3/constant-position-mobility-model.h>
 #include <ns3/eps-bearer.h>
 #include <ns3/node-container.h>
@@ -63,7 +63,7 @@ namespace ns3 {
 LenaTestBearerDeactivateSuite::LenaTestBearerDeactivateSuite ()
   : TestSuite ("nr-test-deactivate-bearer", SYSTEM)
 {
-  NS_LOG_INFO ("creating LenaTestPssFfMacSchedulerSuite");
+  NS_LOG_INFO ("creating LenaTestNrPssFfMacSchedulerSuite");
 
   bool errorModel = false;
 
@@ -194,7 +194,7 @@ LenaDeactivateBearerTestCase::DoRun (void)
   // Create Devices and install them in the Nodes (eNB and UE)
   NetDeviceContainer enbDevs;
   NetDeviceContainer ueDevs;
-  nrHelper->SetSchedulerType ("ns3::PssFfMacScheduler");
+  nrHelper->SetSchedulerType ("ns3::NrPssFfMacScheduler");
   enbDevs = nrHelper->InstallEnbDevice (enbNodes);
   ueDevs = nrHelper->InstallUeDevice (ueNodes);
 
@@ -287,7 +287,7 @@ LenaDeactivateBearerTestCase::DoRun (void)
   double tolerance = 0.1;
 
   nrHelper->EnableRlcTraces ();
-  Ptr<RadioBearerStatsCalculator> rlcStats = nrHelper->GetRlcStats ();
+  Ptr<NrRadioBearerStatsCalculator> rlcStats = nrHelper->GetRlcStats ();
   rlcStats->SetAttribute ("StartTime", TimeValue (Seconds (statsStartTime)));
   rlcStats->SetAttribute ("EpochDuration", TimeValue (Seconds (statsDuration)));
 

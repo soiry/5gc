@@ -132,7 +132,7 @@ int main (int argc, char *argv[])
   Ptr<NrHelper> nrHelper = CreateObject<NrHelper> ();
   Ptr<PointToPointNgcHelper> ngcHelper = CreateObject<PointToPointNgcHelper> ();
   nrHelper->SetNgcHelper (ngcHelper);
-  nrHelper->SetHandoverAlgorithmType ("ns3::NoOpHandoverAlgorithm"); // disable automatic handover
+  nrHelper->SetHandoverAlgorithmType ("ns3::NrNoOpHandoverAlgorithm"); // disable automatic handover
 
   Ptr<Node> upf = ngcHelper->GetUpfNode ();
 
@@ -211,7 +211,7 @@ int main (int argc, char *argv[])
   // Create Devices and install them in the Nodes (eNB and UE)
   NetDeviceContainer enbDevs;
   NetDeviceContainer randomUeDevs;
-  nrHelper->SetSchedulerType ("ns3::PfFfMacScheduler");
+  nrHelper->SetSchedulerType ("ns3::NrPfFfMacScheduler");
   nrHelper->SetSchedulerAttribute ("HarqEnabled",  BooleanValue (true));
 
   nrHelper->SetEnbDeviceAttribute ("DlBandwidth", UintegerValue (bandwidth));
@@ -352,13 +352,13 @@ int main (int argc, char *argv[])
       spectrumAnalyzerHelper.Install (spectrumAnalyzerNodes);
     }
 
-  Ptr<RadioEnvironmentMapHelper> remHelper;
+  Ptr<NrRadioEnvironmentMapHelper> remHelper;
   if (generateRem)
     {
       PrintGnuplottableEnbListToFile ("enbs.txt");
       PrintGnuplottableUeListToFile ("ues.txt");
 
-      remHelper = CreateObject<RadioEnvironmentMapHelper> ();
+      remHelper = CreateObject<NrRadioEnvironmentMapHelper> ();
       Ptr<NrSpectrumPhy> enbDlSpectrumPhy = enbDevs.Get (0)->GetObject<NrEnbNetDevice> ()->GetPhy ()->GetDownlinkSpectrumPhy ()->GetObject<NrSpectrumPhy> ();
       Ptr<SpectrumChannel> dlChannel = enbDlSpectrumPhy->GetChannel ();
       uint32_t dlChannelId = dlChannel->GetId ();

@@ -39,7 +39,7 @@ class NrPhy;
 class NrEnbPhy;
 class NrEnbMac;
 class NrEnbRrc;
-class FfMacScheduler;
+class NrFfMacScheduler;
 class NrHandoverAlgorithm;
 class NrAnr;
 class NrFfrAlgorithm;
@@ -194,7 +194,7 @@ private:
 
   Ptr<NrEnbRrc> m_rrc;
 
-  Ptr<FfMacScheduler> m_scheduler;
+  Ptr<NrFfMacScheduler> m_scheduler;
 
   Ptr<NrHandoverAlgorithm> m_handoverAlgorithm;
 

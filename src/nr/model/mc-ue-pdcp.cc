@@ -38,45 +38,45 @@
 #include <fstream>
 namespace ns3 {
 
-NS_LOG_COMPONENT_DEFINE ("McUePdcp");
+NS_LOG_COMPONENT_DEFINE ("NrMcUePdcp");
 
-class McUePdcpSpecificNrRlcSapUser : public NrRlcSapUser
+class NrMcUePdcpSpecificNrRlcSapUser : public NrRlcSapUser
 {
 public:
-  McUePdcpSpecificNrRlcSapUser (McUePdcp* pdcp);
+  NrMcUePdcpSpecificNrRlcSapUser (NrMcUePdcp* pdcp);
 
   // Interface provided to lower RLC entity (implemented from NrRlcSapUser)
   virtual void ReceivePdcpPdu (Ptr<Packet> p);
   virtual void  SendNrAssi(NgcX2Sap::AssistantInformationForSplitting info);
 private:
-  McUePdcpSpecificNrRlcSapUser ();
-  McUePdcp* m_pdcp;
+  NrMcUePdcpSpecificNrRlcSapUser ();
+  NrMcUePdcp* m_pdcp;
 };
 
-McUePdcpSpecificNrRlcSapUser::McUePdcpSpecificNrRlcSapUser (McUePdcp* pdcp)
+NrMcUePdcpSpecificNrRlcSapUser::NrMcUePdcpSpecificNrRlcSapUser (NrMcUePdcp* pdcp)
   : m_pdcp (pdcp)
 {
 }
 
-McUePdcpSpecificNrRlcSapUser::McUePdcpSpecificNrRlcSapUser ()
+NrMcUePdcpSpecificNrRlcSapUser::NrMcUePdcpSpecificNrRlcSapUser ()
 {
 }
 
 void
-McUePdcpSpecificNrRlcSapUser::ReceivePdcpPdu (Ptr<Packet> p)
+NrMcUePdcpSpecificNrRlcSapUser::ReceivePdcpPdu (Ptr<Packet> p)
 {
   m_pdcp->DoReceivePdu (p);
 }
 void
-McUePdcpSpecificNrRlcSapUser:: SendNrAssi(NgcX2Sap::AssistantInformationForSplitting info){
+NrMcUePdcpSpecificNrRlcSapUser:: SendNrAssi(NgcX2Sap::AssistantInformationForSplitting info){
 
 }
 
 ///////////////////////////////////////
 
-NS_OBJECT_ENSURE_REGISTERED (McUePdcp);
+NS_OBJECT_ENSURE_REGISTERED (NrMcUePdcp);
 
-McUePdcp::McUePdcp ()
+NrMcUePdcp::NrMcUePdcp ()
   : m_pdcpSapUser (0),
     m_rlcSapProvider (0),
     m_rnti (0),
@@ -86,8 +86,8 @@ McUePdcp::McUePdcp ()
     m_useMmWaveConnection (false)
 {
   NS_LOG_FUNCTION (this);
-  m_pdcpSapProvider = new NrPdcpSpecificNrPdcpSapProvider<McUePdcp> (this);
-  m_rlcSapUser = new McUePdcpSpecificNrRlcSapUser (this);
+  m_pdcpSapProvider = new NrPdcpSpecificNrPdcpSapProvider<NrMcUePdcp> (this);
+  m_rlcSapUser = new NrMcUePdcpSpecificNrRlcSapUser (this);
   Last_Submitted_PDCP_RX_SN = -1;
 
    // sjkang
@@ -121,44 +121,44 @@ McUePdcp::McUePdcp ()
    outOfDelivery = true;
 }
 
-McUePdcp::~McUePdcp ()
+NrMcUePdcp::~NrMcUePdcp ()
 {
   NS_LOG_FUNCTION (this);
 }
 
 TypeId
-McUePdcp::GetTypeId (void)
+NrMcUePdcp::GetTypeId (void)
 {
-  static TypeId tid = TypeId ("ns3::McUePdcp")
+  static TypeId tid = TypeId ("ns3::NrMcUePdcp")
     .SetParent<Object> ()
     .SetGroupName("Nr")
 	.AddAttribute("ExpiredTime", "PDCP reordering time",
 			 TimeValue(MilliSeconds(100)),
-			 MakeTimeAccessor (&McUePdcp::expiredTime),
+			 MakeTimeAccessor (&NrMcUePdcp::expiredTime),
              MakeTimeChecker ())
     .AddTraceSource ("TxPDU",
                      "PDU transmission notified to the RLC.",
-                     MakeTraceSourceAccessor (&McUePdcp::m_txPdu),
-                     "ns3::McUePdcp::PduTxTracedCallback")
+                     MakeTraceSourceAccessor (&NrMcUePdcp::m_txPdu),
+                     "ns3::NrMcUePdcp::PduTxTracedCallback")
     .AddTraceSource ("RxPDU",
                      "PDU received.",
-                     MakeTraceSourceAccessor (&McUePdcp::m_rxPdu),
-                     "ns3::McUePdcp::PduRxTracedCallback")
+                     MakeTraceSourceAccessor (&NrMcUePdcp::m_rxPdu),
+                     "ns3::NrMcUePdcp::PduRxTracedCallback")
     .AddAttribute ("NrUplink",
                     "Use NR for uplink",
                     BooleanValue (false),
-                    MakeBooleanAccessor (&McUePdcp::m_alwaysNrUplink),
+                    MakeBooleanAccessor (&NrMcUePdcp::m_alwaysNrUplink),
                     MakeBooleanChecker ())
 	.AddAttribute("EnableReordering", "Pdcp reordering function is eanble or not ",
 					BooleanValue(false),
-					MakeBooleanAccessor(&McUePdcp::m_isEnableReordering),
+					MakeBooleanAccessor(&NrMcUePdcp::m_isEnableReordering),
 					MakeBooleanChecker())
     ;
   return tid;
 }
 
 void
-McUePdcp::DoDispose ()
+NrMcUePdcp::DoDispose ()
 {
   NS_LOG_FUNCTION (this);
   delete (m_pdcpSapProvider);
@@ -168,14 +168,14 @@ McUePdcp::DoDispose ()
 
 
 void
-McUePdcp::SetRnti (uint16_t rnti)
+NrMcUePdcp::SetRnti (uint16_t rnti)
 {
   NS_LOG_FUNCTION (this << (uint32_t) rnti);
   m_rnti = rnti;
 }
 
 void
-McUePdcp::SetMmWaveRnti (uint16_t rnti1, uint16_t rnti2)
+NrMcUePdcp::SetMmWaveRnti (uint16_t rnti1, uint16_t rnti2)
 {
   NS_LOG_FUNCTION (this << (uint32_t) rnti1 << "\t " << rnti2);
   m_mmWaveRnti_73 = rnti1;
@@ -183,54 +183,54 @@ McUePdcp::SetMmWaveRnti (uint16_t rnti1, uint16_t rnti2)
 }
 
 void
-McUePdcp::SetLcId (uint8_t lcId)
+NrMcUePdcp::SetLcId (uint8_t lcId)
 {
   NS_LOG_FUNCTION (this << (uint32_t) lcId);
   m_lcid = lcId;
 }
 
 void
-McUePdcp::SetNrPdcpSapUser (NrPdcpSapUser * s)
+NrMcUePdcp::SetNrPdcpSapUser (NrPdcpSapUser * s)
 {
   NS_LOG_FUNCTION (this << s);
   m_pdcpSapUser = s;
 }
 
 NrPdcpSapProvider*
-McUePdcp::GetNrPdcpSapProvider ()
+NrMcUePdcp::GetNrPdcpSapProvider ()
 {
   NS_LOG_FUNCTION (this);
   return m_pdcpSapProvider;
 }
 
 void
-McUePdcp::SetNrRlcSapProvider (NrRlcSapProvider * s)
+NrMcUePdcp::SetNrRlcSapProvider (NrRlcSapProvider * s)
 {
   NS_LOG_FUNCTION (this << s);
   m_rlcSapProvider = s;
 }
 
 void
-McUePdcp::SetMmWaveRlcSapProvider (NrRlcSapProvider * s)
+NrMcUePdcp::SetMmWaveRlcSapProvider (NrRlcSapProvider * s)
 {
   NS_LOG_FUNCTION (this << s);
   m_mmWaveRlcSapProvider = s;
 }
 void
-McUePdcp::SetMmWaveRlcSapProvider_2 (NrRlcSapProvider * s) //sjkang1110
+NrMcUePdcp::SetMmWaveRlcSapProvider_2 (NrRlcSapProvider * s) //sjkang1110
 {
   NS_LOG_FUNCTION (this << s);
   m_mmWaveRlcSapProvider_2 = s;
 }
 NrRlcSapUser*
-McUePdcp::GetNrRlcSapUser ()
+NrMcUePdcp::GetNrRlcSapUser ()
 {
   NS_LOG_FUNCTION (this);
   return m_rlcSapUser;
 }
 
-McUePdcp::Status 
-McUePdcp::GetStatus ()
+NrMcUePdcp::Status 
+NrMcUePdcp::GetStatus ()
 {
   Status s;
   s.txSn = m_txSequenceNumber;
@@ -239,19 +239,19 @@ McUePdcp::GetStatus ()
 }
 
 void 
-McUePdcp::SetStatus (Status s)
+NrMcUePdcp::SetStatus (Status s)
 {
   m_txSequenceNumber = s.txSn;
   m_rxSequenceNumber = s.rxSn;
 }
 void
-McUePdcp::SetStreams(std::ofstream * stream){
+NrMcUePdcp::SetStreams(std::ofstream * stream){
 	m_SN_DifferenceStream = stream; //sjkang1116
 }
 ////////////////////////////////////////
 
 void
-McUePdcp::DoTransmitPdcpSdu (Ptr<Packet> p)
+NrMcUePdcp::DoTransmitPdcpSdu (Ptr<Packet> p)
 {
   NS_LOG_FUNCTION (this << m_rnti << (uint32_t) m_lcid << p->GetSize ());
   //std::cout << " UE will transmit uplink data to enb " << p->GetSize() << std::endl;
@@ -284,12 +284,12 @@ McUePdcp::DoTransmitPdcpSdu (Ptr<Packet> p)
 m_useMmWaveConnection = false; m_alwaysNrUplink =true;
   if(m_mmWaveRlcSapProvider == 0 || (!m_useMmWaveConnection) || m_alwaysNrUplink)
   {
-    NS_LOG_LOGIC(this << " McUePdcp: Tx packet to uplink primary stack");
+    NS_LOG_LOGIC(this << " NrMcUePdcp: Tx packet to uplink primary stack");
     m_rlcSapProvider->TransmitPdcpPdu (params);
   }
   else if (m_useMmWaveConnection)
   {
-    NS_LOG_LOGIC(this << " McUePdcp: Tx packet to uplink secondary stack");
+    NS_LOG_LOGIC(this << " NrMcUePdcp: Tx packet to uplink secondary stack");
     m_mmWaveRlcSapProvider->TransmitPdcpPdu (params);
     //m_mmWaveRlcSapProvider_2->TransmitPdcpPdu (params);//sjkang1110
   }
@@ -299,7 +299,7 @@ m_useMmWaveConnection = false; m_alwaysNrUplink =true;
   }
 }
 void
-McUePdcp::DoTransmitPdcpControlPacket(Ptr<Packet> p, uint16_t cellId){
+NrMcUePdcp::DoTransmitPdcpControlPacket(Ptr<Packet> p, uint16_t cellId){
 	 NS_LOG_FUNCTION (this << m_rnti << (uint32_t) m_lcid << p->GetSize ());
 	  //std::cout << " UE will transmit uplink data to enb " << p->GetSize() << std::endl;
 	  NrPdcpHeader pdcpHeader;
@@ -331,12 +331,12 @@ McUePdcp::DoTransmitPdcpControlPacket(Ptr<Packet> p, uint16_t cellId){
 
 	  if(m_mmWaveRlcSapProvider == 0 || (!m_useMmWaveConnection) || m_alwaysNrUplink)
 	  {
-	    NS_LOG_LOGIC(this << " McUePdcp: Tx packet to uplink primary stack");
+	    NS_LOG_LOGIC(this << " NrMcUePdcp: Tx packet to uplink primary stack");
 	    m_rlcSapProvider->TransmitPdcpPdu (params);
 	  }
 	  else if (m_useMmWaveConnection)
 	  {
-	    NS_LOG_LOGIC(this << " McUePdcp: Tx packet to uplink secondary stack");
+	    NS_LOG_LOGIC(this << " NrMcUePdcp: Tx packet to uplink secondary stack");
 	    m_mmWaveRlcSapProvider->TransmitPdcpPdu (params);
 	   // m_mmWaveRlcSapProvider_2->TransmitPdcpPdu (params);//sjkang1110
 	  }
@@ -347,10 +347,10 @@ McUePdcp::DoTransmitPdcpControlPacket(Ptr<Packet> p, uint16_t cellId){
 }
 std::ofstream duplicationDiscard("duplication_discard_log.txt");
 void
-McUePdcp::DoReceivePdu (Ptr<Packet> p)
+NrMcUePdcp::DoReceivePdu (Ptr<Packet> p)
 {
   NS_LOG_LOGIC(this << "\t" <<m_rnti << "\t"<<(uint32_t) m_lcid <<"\t"<< p->GetSize ());
- NS_LOG_LOGIC(this << " McUePdcp received dowlink Pdu");
+ NS_LOG_LOGIC(this << " NrMcUePdcp received dowlink Pdu");
   // Receiver timestamp
   PdcpTag pdcpTag;
   Time delay;
@@ -398,7 +398,7 @@ if(!m_isEnableReordering){
     {
 
     NrPdcpSapUser::ReceivePdcpSduParameters params;
-	//NS_LOG_UNCOND("McUePdcp received packet from NR Enb " << p->GetSize()<<" byte");
+	//NS_LOG_UNCOND("NrMcUePdcp received packet from NR Enb " << p->GetSize()<<" byte");
 
       params.pdcpSdu = p;
       params.rnti = m_rnti;
@@ -422,7 +422,7 @@ if(!m_isEnableReordering){
 std::ofstream reorderingDelay("reorderingDelay.txt");
 //std::ofstream OutFile_D("dicarded_packet.txt");
 void
-McUePdcp::BufferingAndReordering(Ptr<Packet> p){ // sjkang
+NrMcUePdcp::BufferingAndReordering(Ptr<Packet> p){ // sjkang
   NS_LOG_FUNCTION (this);
   PdcpTag pdcpTag;
   Time delay;
@@ -629,7 +629,7 @@ NS_LOG_UNCOND(it->first);
   if (!t_ReorderingTimer.IsRunning())
   {
     if (PdcpBuffer.size()>=1){
-      t_ReorderingTimer = Simulator::Schedule(expiredTime, &McUePdcp::t_ReordringTimer_Expired, this);
+      t_ReorderingTimer = Simulator::Schedule(expiredTime, &NrMcUePdcp::t_ReordringTimer_Expired, this);
       Reordering_PDCP_RX_COUNT = Next_PDCP_RX_SN + present_RX_HFN* MAX_PDCP_SN;
 
     }
@@ -638,7 +638,7 @@ NS_LOG_UNCOND(it->first);
 }
 
 void
-McUePdcp::BufferingAndReordering_New(Ptr<Packet> p){ // sjkang
+NrMcUePdcp::BufferingAndReordering_New(Ptr<Packet> p){ // sjkang
   NS_LOG_FUNCTION (this);
   PdcpTag pdcpTag;
   Time delay;
@@ -779,12 +779,12 @@ McUePdcp::BufferingAndReordering_New(Ptr<Packet> p){ // sjkang
  if(!t_ReorderingTimer.IsRunning()&& check_2  ){
 	 RX_RECORD = RX_NEXT;
 	 check_2 = false;
-	 t_ReorderingTimer = Simulator::Schedule(expiredTime, &McUePdcp::t_ReorderingTimer_Expired_New, this);
+	 t_ReorderingTimer = Simulator::Schedule(expiredTime, &NrMcUePdcp::t_ReorderingTimer_Expired_New, this);
 
  }
 }
 void
-McUePdcp::t_ReorderingTimer_Expired_New(){
+NrMcUePdcp::t_ReorderingTimer_Expired_New(){
 	std::cout << "Reordering Timer is expired  " << RCVD_HFN << std::endl;
 	  std::map<uint64_t, NrPdcpSapUser::ReceivePdcpSduParameters> ::iterator it;
 	  // copy the SN from buffer for a while
@@ -840,11 +840,11 @@ McUePdcp::t_ReorderingTimer_Expired_New(){
 
 		  if(RX_DELIV < RX_NEXT){
 			RX_RECORD = RX_NEXT;
-			t_ReorderingTimer= Simulator::Schedule(expiredTime, &McUePdcp::t_ReorderingTimer_Expired_New, this);
+			t_ReorderingTimer= Simulator::Schedule(expiredTime, &NrMcUePdcp::t_ReorderingTimer_Expired_New, this);
 		  }
 }
 void
-McUePdcp::t_ReordringTimer_Expired(){ // sjkang
+NrMcUePdcp::t_ReordringTimer_Expired(){ // sjkang
   NS_LOG_FUNCTION (this);
 NS_LOG_UNCOND("PDCP Reordering Timer Expired at " << Simulator::Now().GetSeconds() << " Reordering_PDCP_RX_COUNT " << Reordering_PDCP_RX_COUNT);
 numberOfReorderingTimeout ++;
@@ -963,7 +963,7 @@ previousTime = Simulator :: Now();
   {
     Reordering_PDCP_RX_COUNT = Next_PDCP_RX_SN + present_RX_HFN *MAX_PDCP_SN;
 	//  Reordering_PDCP_RX_COUNT =Last_Submitted_PDCP_RX_SN+present_RX_HFN*MAX_PDCP_SN+1;
-    t_ReorderingTimer= Simulator::Schedule(expiredTime, &McUePdcp::t_ReordringTimer_Expired, this);
+    t_ReorderingTimer= Simulator::Schedule(expiredTime, &NrMcUePdcp::t_ReordringTimer_Expired, this);
   }
 }
 std::ofstream OutFile1("pdcp_1_RX_SN.txt");
@@ -976,7 +976,7 @@ std::ofstream OutFile2("pdcp_1_Reordered_SN.txt");
 Ptr <ns3::NrPdcp> tempAddress1;
 
 void
-McUePdcp::printData(std::string filename, uint16_t SN) // sjkang
+NrMcUePdcp::printData(std::string filename, uint16_t SN) // sjkang
 {
   NS_LOG_FUNCTION (this);
 //  if (count ==0){ tempAddress1 =this;count ++;}
@@ -1023,14 +1023,14 @@ McUePdcp::printData(std::string filename, uint16_t SN) // sjkang
   }*/
 }
 void
-McUePdcp::SwitchConnection (bool useMmWaveConnection)
+NrMcUePdcp::SwitchConnection (bool useMmWaveConnection)
 {
  // std::cout <<this << "switch connection to -----> useMmWaveConnecion == " << useMmWaveConnection << std::endl;
 	m_useMmWaveConnection = useMmWaveConnection;
 }
 
 void
-McUePdcp::CalculatePdcpThroughput(std::ofstream *stream){//sjkang0729
+NrMcUePdcp::CalculatePdcpThroughput(std::ofstream *stream){//sjkang0729
 	NS_LOG_FUNCTION(this);
 
 	Time time = Simulator::Now();
@@ -1051,19 +1051,19 @@ if (time.GetSeconds() >= m_simulationTime.GetSeconds() && countAtPdcp==0){
 	SumOfPacketSize = 0;
 	orderdedSumOfPacket=0;
 
-	  Simulator::Schedule(Seconds(0.1),&McUePdcp::CalculatePdcpThroughput, this,stream);
+	  Simulator::Schedule(Seconds(0.1),&NrMcUePdcp::CalculatePdcpThroughput, this,stream);
 }
 void
-McUePdcp::MeasureSN_Difference(){ //sjkang1116
+NrMcUePdcp::MeasureSN_Difference(){ //sjkang1116
 	//if(cellIdToSN_1 != 0 && cellIdToSN_2 != 0 ) {
 	//*m_SN_DifferenceStream<<Simulator::Now().GetSeconds() << "\t" << (int)(cellIdToSN_1-cellIdToSN_2) << "\t"<< cellId_1 << "\t " << cellId_2 << std::endl;
 	//:cellIdToSN_1 =0 ; cellIdToSN_2 = 0;
 	//}
 
-	Simulator::Schedule(MilliSeconds(1.0), &McUePdcp::MeasureSN_Difference, this);
+	Simulator::Schedule(MilliSeconds(1.0), &NrMcUePdcp::MeasureSN_Difference, this);
 }
 void
-McUePdcp::sendControlMessage(){
+NrMcUePdcp::sendControlMessage(){
 	 /*if (cellIdToSN_1 - cellIdToSN_2 > 3000){
 	    	Ptr<Packet> empty_p = Create <Packet> ();
 	    	  m_alwaysNrUplink =true;
@@ -1078,6 +1078,6 @@ McUePdcp::sendControlMessage(){
 	        	     	  m_alwaysNrUplink =true;
 	        	    	  DoTransmitPdcpControlPacket(empty_p,0);
 	        	     }
-	 Simulator::Schedule(MilliSeconds(5), &McUePdcp::sendControlMessage,this);*/
+	 Simulator::Schedule(MilliSeconds(5), &NrMcUePdcp::sendControlMessage,this);*/
 }
 } // namespace ns3

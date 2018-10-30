@@ -247,7 +247,7 @@ NrSimpleHelper::EnableRlcTraces (void)
 
 
 void
-NrSimpleHelperDlTxPduCallback (Ptr<RadioBearerStatsCalculator> rlcStats, std::string path,
+NrSimpleHelperDlTxPduCallback (Ptr<NrRadioBearerStatsCalculator> rlcStats, std::string path,
                  uint16_t rnti, uint8_t lcid, uint32_t packetSize)
 {
   NS_LOG_FUNCTION (rlcStats << path << rnti << (uint16_t)lcid << packetSize);
@@ -257,7 +257,7 @@ NrSimpleHelperDlTxPduCallback (Ptr<RadioBearerStatsCalculator> rlcStats, std::st
 }
 
 void
-NrSimpleHelperDlRxPduCallback (Ptr<RadioBearerStatsCalculator> rlcStats, std::string path,
+NrSimpleHelperDlRxPduCallback (Ptr<NrRadioBearerStatsCalculator> rlcStats, std::string path,
                  uint16_t rnti, uint8_t lcid, uint32_t packetSize, uint64_t delay)
 {
   NS_LOG_FUNCTION (rlcStats << path << rnti << (uint16_t)lcid << packetSize << delay);
@@ -278,7 +278,7 @@ NrSimpleHelper::EnableDlRlcTraces (void)
 }
 
 void
-NrSimpleHelperUlTxPduCallback (Ptr<RadioBearerStatsCalculator> rlcStats, std::string path,
+NrSimpleHelperUlTxPduCallback (Ptr<NrRadioBearerStatsCalculator> rlcStats, std::string path,
                  uint16_t rnti, uint8_t lcid, uint32_t packetSize)
 {
   NS_LOG_FUNCTION (rlcStats << path << rnti << (uint16_t)lcid << packetSize);
@@ -288,7 +288,7 @@ NrSimpleHelperUlTxPduCallback (Ptr<RadioBearerStatsCalculator> rlcStats, std::st
 }
 
 void
-NrSimpleHelperUlRxPduCallback (Ptr<RadioBearerStatsCalculator> rlcStats, std::string path,
+NrSimpleHelperUlRxPduCallback (Ptr<NrRadioBearerStatsCalculator> rlcStats, std::string path,
                  uint16_t rnti, uint8_t lcid, uint32_t packetSize, uint64_t delay)
 {
   NS_LOG_FUNCTION (rlcStats << path << rnti << (uint16_t)lcid << packetSize << delay);

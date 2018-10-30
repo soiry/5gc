@@ -650,8 +650,8 @@ def register_types(module):
     module.add_class('NrPhyTransmissionStatParameters')
     ## ff-mac-common.h (module 'nr'): ns3::RachListElement_s [struct]
     module.add_class('RachListElement_s')
-    ## radio-bearer-stats-connector.h (module 'nr'): ns3::RadioBearerStatsConnector [class]
-    module.add_class('RadioBearerStatsConnector')
+    ## nr-radio-bearer-stats-connector.h (module 'nr'): ns3::NrRadioBearerStatsConnector [class]
+    module.add_class('NrRadioBearerStatsConnector')
     ## nr-rrc-protocol-real.h (module 'nr'): ns3::RealProtocolRlcSapUser [class]
     module.add_class('RealProtocolRlcSapUser', parent=root_module['ns3::NrRlcSapUser'])
     ## ff-mac-common.h (module 'nr'): ns3::RlcPduListElement_s [struct]
@@ -808,8 +808,8 @@ def register_types(module):
     module.add_class('PacketBurst', import_from_module='ns.network', parent=root_module['ns3::Object'])
     ## nr-pdcp-tag.h (module 'nr'): ns3::PdcpTag [class]
     module.add_class('PdcpTag', parent=root_module['ns3::Tag'])
-    ## radio-environment-map-helper.h (module 'nr'): ns3::RadioEnvironmentMapHelper [class]
-    module.add_class('RadioEnvironmentMapHelper', parent=root_module['ns3::Object'])
+    ## nr-radio-environment-map-helper.h (module 'nr'): ns3::NrRadioEnvironmentMapHelper [class]
+    module.add_class('NrRadioEnvironmentMapHelper', parent=root_module['ns3::Object'])
     ## random-variable-stream.h (module 'core'): ns3::RandomVariableStream [class]
     module.add_class('RandomVariableStream', import_from_module='ns.core', parent=root_module['ns3::Object'])
     ## nr-rlc-tag.h (module 'nr'): ns3::RlcTag [class]
@@ -896,8 +896,8 @@ def register_types(module):
     module.add_enum('Unit', ['Y', 'D', 'H', 'MIN', 'S', 'MS', 'US', 'NS', 'PS', 'FS', 'LAST'], outer_class=root_module['ns3::Time'], import_from_module='ns.core')
     ## nstime.h (module 'core'): ns3::Time [class]
     root_module['ns3::Time'].implicitly_converts_to(root_module['ns3::int64x64_t'])
-    ## trace-fading-loss-model.h (module 'nr'): ns3::TraceFadingLossModel [class]
-    module.add_class('TraceFadingLossModel', parent=root_module['ns3::SpectrumPropagationLossModel'])
+    ## nr-trace-fading-loss-model.h (module 'nr'): ns3::NrTraceFadingLossModel [class]
+    module.add_class('NrTraceFadingLossModel', parent=root_module['ns3::SpectrumPropagationLossModel'])
     ## trace-source-accessor.h (module 'core'): ns3::TraceSourceAccessor [class]
     module.add_class('TraceSourceAccessor', import_from_module='ns.core', parent=root_module['ns3::SimpleRefCount< ns3::TraceSourceAccessor, ns3::empty, ns3::DefaultDeleter<ns3::TraceSourceAccessor> >'])
     ## trailer.h (module 'network'): ns3::Trailer [class]
@@ -924,8 +924,8 @@ def register_types(module):
     module.add_class('ZipfRandomVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariableStream'])
     ## application.h (module 'network'): ns3::Application [class]
     module.add_class('Application', import_from_module='ns.network', parent=root_module['ns3::Object'])
-    ## nr-asn1-header.h (module 'nr'): ns3::Asn1Header [class]
-    module.add_class('Asn1Header', parent=root_module['ns3::Header'])
+    ## nr-asn1-header.h (module 'nr'): ns3::NrAsn1Header [class]
+    module.add_class('NrAsn1Header', parent=root_module['ns3::Header'])
     ## attribute.h (module 'core'): ns3::AttributeAccessor [class]
     module.add_class('AttributeAccessor', import_from_module='ns.core', parent=root_module['ns3::SimpleRefCount< ns3::AttributeAccessor, ns3::empty, ns3::DefaultDeleter<ns3::AttributeAccessor> >'])
     ## attribute.h (module 'core'): ns3::AttributeChecker [class]
@@ -1016,14 +1016,14 @@ def register_types(module):
     module.add_class('EventImpl', import_from_module='ns.core', parent=root_module['ns3::SimpleRefCount< ns3::EventImpl, ns3::empty, ns3::DefaultDeleter<ns3::EventImpl> >'])
     ## random-variable-stream.h (module 'core'): ns3::ExponentialRandomVariable [class]
     module.add_class('ExponentialRandomVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariableStream'])
-    ## nr-ff-mac-scheduler.h (module 'nr'): ns3::FfMacScheduler [class]
-    module.add_class('FfMacScheduler', parent=root_module['ns3::Object'])
-    ## nr-ff-mac-scheduler.h (module 'nr'): ns3::FfMacScheduler::UlCqiFilter_t [enumeration]
-    module.add_enum('UlCqiFilter_t', ['SRS_UL_CQI', 'PUSCH_UL_CQI', 'ALL_UL_CQI'], outer_class=root_module['ns3::FfMacScheduler'])
+    ## nr-ff-mac-scheduler.h (module 'nr'): ns3::NrFfMacScheduler [class]
+    module.add_class('NrFfMacScheduler', parent=root_module['ns3::Object'])
+    ## nr-ff-mac-scheduler.h (module 'nr'): ns3::NrFfMacScheduler::UlCqiFilter_t [enumeration]
+    module.add_enum('UlCqiFilter_t', ['SRS_UL_CQI', 'PUSCH_UL_CQI', 'ALL_UL_CQI'], outer_class=root_module['ns3::NrFfMacScheduler'])
     ## random-variable-stream.h (module 'core'): ns3::GammaRandomVariable [class]
     module.add_class('GammaRandomVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariableStream'])
-    ## ngc-gtpu-header.h (module 'nr'): ns3::GtpuHeader [class]
-    module.add_class('GtpuHeader', parent=root_module['ns3::Header'])
+    ## ngc-gtpu-header.h (module 'nr'): ns3::NrGtpuHeader [class]
+    module.add_class('NrGtpuHeader', parent=root_module['ns3::Header'])
     ## integer.h (module 'core'): ns3::IntegerValue [class]
     module.add_class('IntegerValue', import_from_module='ns.core', parent=root_module['ns3::AttributeValue'])
     ## ipv4.h (module 'internet'): ns3::Ipv4 [class]
@@ -1152,8 +1152,8 @@ def register_types(module):
     module.add_class('Mac48AddressChecker', import_from_module='ns.network', parent=root_module['ns3::AttributeChecker'])
     ## mac48-address.h (module 'network'): ns3::Mac48AddressValue [class]
     module.add_class('Mac48AddressValue', import_from_module='ns.network', parent=root_module['ns3::AttributeValue'])
-    ## mac-stats-calculator.h (module 'nr'): ns3::MacStatsCalculator [class]
-    module.add_class('MacStatsCalculator', parent=root_module['ns3::NrStatsCalculator'])
+    ## nr-mac-stats-calculator.h (module 'nr'): ns3::NrMacStatsCalculator [class]
+    module.add_class('NrMacStatsCalculator', parent=root_module['ns3::NrStatsCalculator'])
     ## nr-control-messages.h (module 'nr'): ns3::MibNrControlMessage [class]
     module.add_class('MibNrControlMessage', parent=root_module['ns3::NrControlMessage'])
     ## mobility-model.h (module 'mobility'): ns3::MobilityModel [class]
@@ -1164,8 +1164,8 @@ def register_types(module):
     module.add_enum('PacketType', ['PACKET_HOST', 'NS3_PACKET_HOST', 'PACKET_BROADCAST', 'NS3_PACKET_BROADCAST', 'PACKET_MULTICAST', 'NS3_PACKET_MULTICAST', 'PACKET_OTHERHOST', 'NS3_PACKET_OTHERHOST'], outer_class=root_module['ns3::NetDevice'], import_from_module='ns.network')
     ## nix-vector.h (module 'network'): ns3::NixVector [class]
     module.add_class('NixVector', import_from_module='ns.network', parent=root_module['ns3::SimpleRefCount< ns3::NixVector, ns3::empty, ns3::DefaultDeleter<ns3::NixVector> >'])
-    ## no-op-handover-algorithm.h (module 'nr'): ns3::NoOpHandoverAlgorithm [class]
-    module.add_class('NoOpHandoverAlgorithm', parent=root_module['ns3::NrHandoverAlgorithm'])
+    ## no-op-handover-algorithm.h (module 'nr'): ns3::NrNoOpHandoverAlgorithm [class]
+    module.add_class('NrNoOpHandoverAlgorithm', parent=root_module['ns3::NrHandoverAlgorithm'])
     ## node.h (module 'network'): ns3::Node [class]
     module.add_class('Node', import_from_module='ns.network', parent=root_module['ns3::Object'])
     ## random-variable-stream.h (module 'core'): ns3::NormalRandomVariable [class]
@@ -1178,44 +1178,44 @@ def register_types(module):
     module.add_class('Packet', import_from_module='ns.network', parent=root_module['ns3::SimpleRefCount< ns3::Packet, ns3::empty, ns3::DefaultDeleter<ns3::Packet> >'])
     ## random-variable-stream.h (module 'core'): ns3::ParetoRandomVariable [class]
     module.add_class('ParetoRandomVariable', import_from_module='ns.core', parent=root_module['ns3::RandomVariableStream'])
-    ## nr-pf-ff-mac-scheduler.h (module 'nr'): ns3::PfFfMacScheduler [class]
-    module.add_class('PfFfMacScheduler', parent=root_module['ns3::FfMacScheduler'])
-    ## phy-rx-stats-calculator.h (module 'nr'): ns3::PhyRxStatsCalculator [class]
-    module.add_class('PhyRxStatsCalculator', parent=root_module['ns3::NrStatsCalculator'])
-    ## phy-stats-calculator.h (module 'nr'): ns3::PhyStatsCalculator [class]
-    module.add_class('PhyStatsCalculator', parent=root_module['ns3::NrStatsCalculator'])
-    ## phy-tx-stats-calculator.h (module 'nr'): ns3::PhyTxStatsCalculator [class]
-    module.add_class('PhyTxStatsCalculator', parent=root_module['ns3::NrStatsCalculator'])
+    ## nr-pf-ff-mac-scheduler.h (module 'nr'): ns3::NrPfFfMacScheduler [class]
+    module.add_class('NrPfFfMacScheduler', parent=root_module['ns3::NrFfMacScheduler'])
+    ## nr-phy-rx-stats-calculator.h (module 'nr'): ns3::NrPhyRxStatsCalculator [class]
+    module.add_class('NrPhyRxStatsCalculator', parent=root_module['ns3::NrStatsCalculator'])
+    ## nr-phy-stats-calculator.h (module 'nr'): ns3::NrPhyStatsCalculator [class]
+    module.add_class('NrPhyStatsCalculator', parent=root_module['ns3::NrStatsCalculator'])
+    ## nr-phy-tx-stats-calculator.h (module 'nr'): ns3::NrPhyTxStatsCalculator [class]
+    module.add_class('NrPhyTxStatsCalculator', parent=root_module['ns3::NrStatsCalculator'])
     ## point-to-point-ngc-helper.h (module 'nr'): ns3::PointToPointNgcHelper [class]
     module.add_class('PointToPointNgcHelper', parent=root_module['ns3::NgcHelper'])
     ## pointer.h (module 'core'): ns3::PointerChecker [class]
     module.add_class('PointerChecker', import_from_module='ns.core', parent=root_module['ns3::AttributeChecker'])
     ## pointer.h (module 'core'): ns3::PointerValue [class]
     module.add_class('PointerValue', import_from_module='ns.core', parent=root_module['ns3::AttributeValue'])
-    ## nr-pss-ff-mac-scheduler.h (module 'nr'): ns3::PssFfMacScheduler [class]
-    module.add_class('PssFfMacScheduler', parent=root_module['ns3::FfMacScheduler'])
+    ## nr-pss-ff-mac-scheduler.h (module 'nr'): ns3::NrPssFfMacScheduler [class]
+    module.add_class('NrPssFfMacScheduler', parent=root_module['ns3::NrFfMacScheduler'])
     ## nr-control-messages.h (module 'nr'): ns3::RachPreambleNrControlMessage [class]
     module.add_class('RachPreambleNrControlMessage', parent=root_module['ns3::NrControlMessage'])
-    ## radio-bearer-stats-calculator.h (module 'nr'): ns3::RadioBearerStatsCalculator [class]
-    module.add_class('RadioBearerStatsCalculator', parent=root_module['ns3::NrStatsCalculator'])
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): ns3::NrRadioBearerStatsCalculator [class]
+    module.add_class('NrRadioBearerStatsCalculator', parent=root_module['ns3::NrStatsCalculator'])
     ## nr-control-messages.h (module 'nr'): ns3::RarNrControlMessage [class]
     module.add_class('RarNrControlMessage', parent=root_module['ns3::NrControlMessage'])
     ## nr-control-messages.h (module 'nr'): ns3::RarNrControlMessage::Rar [struct]
     module.add_class('Rar', outer_class=root_module['ns3::RarNrControlMessage'])
-    ## rem-spectrum-phy.h (module 'nr'): ns3::RemSpectrumPhy [class]
-    module.add_class('RemSpectrumPhy', parent=root_module['ns3::SpectrumPhy'])
-    ## nr-rr-ff-mac-scheduler.h (module 'nr'): ns3::RrFfMacScheduler [class]
-    module.add_class('RrFfMacScheduler', parent=root_module['ns3::FfMacScheduler'])
-    ## nr-rrc-header.h (module 'nr'): ns3::RrcAsn1Header [class]
-    module.add_class('RrcAsn1Header', parent=root_module['ns3::Asn1Header'])
+    ## nr-rem-spectrum-phy.h (module 'nr'): ns3::NrRemSpectrumPhy [class]
+    module.add_class('NrRemSpectrumPhy', parent=root_module['ns3::SpectrumPhy'])
+    ## nr-rr-ff-mac-scheduler.h (module 'nr'): ns3::NrRrFfMacScheduler [class]
+    module.add_class('NrRrFfMacScheduler', parent=root_module['ns3::NrFfMacScheduler'])
+    ## nr-rrc-header.h (module 'nr'): ns3::RrcNrAsn1Header [class]
+    module.add_class('RrcNrAsn1Header', parent=root_module['ns3::NrAsn1Header'])
     ## nr-rrc-header.h (module 'nr'): ns3::RrcDlCcchMessage [class]
-    module.add_class('RrcDlCcchMessage', parent=root_module['ns3::RrcAsn1Header'])
+    module.add_class('RrcDlCcchMessage', parent=root_module['ns3::RrcNrAsn1Header'])
     ## nr-rrc-header.h (module 'nr'): ns3::RrcDlDcchMessage [class]
-    module.add_class('RrcDlDcchMessage', parent=root_module['ns3::RrcAsn1Header'])
+    module.add_class('RrcDlDcchMessage', parent=root_module['ns3::RrcNrAsn1Header'])
     ## nr-rrc-header.h (module 'nr'): ns3::RrcUlCcchMessage [class]
-    module.add_class('RrcUlCcchMessage', parent=root_module['ns3::RrcAsn1Header'])
+    module.add_class('RrcUlCcchMessage', parent=root_module['ns3::RrcNrAsn1Header'])
     ## nr-rrc-header.h (module 'nr'): ns3::RrcUlDcchMessage [class]
-    module.add_class('RrcUlDcchMessage', parent=root_module['ns3::RrcAsn1Header'])
+    module.add_class('RrcUlDcchMessage', parent=root_module['ns3::RrcNrAsn1Header'])
     ## nr-control-messages.h (module 'nr'): ns3::Sib1NrControlMessage [class]
     module.add_class('Sib1NrControlMessage', parent=root_module['ns3::NrControlMessage'])
     ## spectrum-channel.h (module 'spectrum'): ns3::SpectrumChannel [class]
@@ -1226,16 +1226,16 @@ def register_types(module):
     module.add_class('StringChecker', import_from_module='ns.core', parent=root_module['ns3::AttributeChecker'])
     ## string.h (module 'core'): ns3::StringValue [class]
     module.add_class('StringValue', import_from_module='ns.core', parent=root_module['ns3::AttributeValue'])
-    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): ns3::TdBetFfMacScheduler [class]
-    module.add_class('TdBetFfMacScheduler', parent=root_module['ns3::FfMacScheduler'])
-    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::TdMtFfMacScheduler [class]
-    module.add_class('TdMtFfMacScheduler', parent=root_module['ns3::FfMacScheduler'])
-    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::TdTbfqFfMacScheduler [class]
-    module.add_class('TdTbfqFfMacScheduler', parent=root_module['ns3::FfMacScheduler'])
+    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): ns3::NrTdBetFfMacScheduler [class]
+    module.add_class('NrTdBetFfMacScheduler', parent=root_module['ns3::NrFfMacScheduler'])
+    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::NrTdMtFfMacScheduler [class]
+    module.add_class('NrTdMtFfMacScheduler', parent=root_module['ns3::NrFfMacScheduler'])
+    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::NrTdTbfqFfMacScheduler [class]
+    module.add_class('NrTdTbfqFfMacScheduler', parent=root_module['ns3::NrFfMacScheduler'])
     ## nstime.h (module 'core'): ns3::TimeValue [class]
     module.add_class('TimeValue', import_from_module='ns.core', parent=root_module['ns3::AttributeValue'])
-    ## nr-tta-ff-mac-scheduler.h (module 'nr'): ns3::TtaFfMacScheduler [class]
-    module.add_class('TtaFfMacScheduler', parent=root_module['ns3::FfMacScheduler'])
+    ## nr-tta-ff-mac-scheduler.h (module 'nr'): ns3::NrTtaFfMacScheduler [class]
+    module.add_class('NrTtaFfMacScheduler', parent=root_module['ns3::NrFfMacScheduler'])
     ## type-id.h (module 'core'): ns3::TypeIdChecker [class]
     module.add_class('TypeIdChecker', import_from_module='ns.core', parent=root_module['ns3::AttributeChecker'])
     ## type-id.h (module 'core'): ns3::TypeIdValue [class]
@@ -1254,18 +1254,18 @@ def register_types(module):
     module.add_class('Vector3DValue', import_from_module='ns.core', parent=root_module['ns3::AttributeValue'])
     ## virtual-net-device.h (module 'virtual-net-device'): ns3::VirtualNetDevice [class]
     module.add_class('VirtualNetDevice', import_from_module='ns.virtual_net_device', parent=root_module['ns3::NetDevice'])
-    ## a2-a4-rsrq-handover-algorithm.h (module 'nr'): ns3::A2A4RsrqHandoverAlgorithm [class]
-    module.add_class('A2A4RsrqHandoverAlgorithm', parent=root_module['ns3::NrHandoverAlgorithm'])
-    ## a3-rsrp-handover-algorithm.h (module 'nr'): ns3::A3RsrpHandoverAlgorithm [class]
-    module.add_class('A3RsrpHandoverAlgorithm', parent=root_module['ns3::NrHandoverAlgorithm'])
+    ## a2-a4-rsrq-handover-algorithm.h (module 'nr'): ns3::NrA2A4RsrqHandoverAlgorithm [class]
+    module.add_class('NrA2A4RsrqHandoverAlgorithm', parent=root_module['ns3::NrHandoverAlgorithm'])
+    ## a3-rsrp-handover-algorithm.h (module 'nr'): ns3::NrA3RsrpHandoverAlgorithm [class]
+    module.add_class('NrA3RsrpHandoverAlgorithm', parent=root_module['ns3::NrHandoverAlgorithm'])
     ## address.h (module 'network'): ns3::AddressChecker [class]
     module.add_class('AddressChecker', import_from_module='ns.network', parent=root_module['ns3::AttributeChecker'])
     ## address.h (module 'network'): ns3::AddressValue [class]
     module.add_class('AddressValue', import_from_module='ns.network', parent=root_module['ns3::AttributeValue'])
     ## nr-control-messages.h (module 'nr'): ns3::BsrNrControlMessage [class]
     module.add_class('BsrNrControlMessage', parent=root_module['ns3::NrControlMessage'])
-    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): ns3::CqaFfMacScheduler [class]
-    module.add_class('CqaFfMacScheduler', parent=root_module['ns3::FfMacScheduler'])
+    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): ns3::NrCqaFfMacScheduler [class]
+    module.add_class('NrCqaFfMacScheduler', parent=root_module['ns3::NrFfMacScheduler'])
     ## nr-control-messages.h (module 'nr'): ns3::DlCqiNrControlMessage [class]
     module.add_class('DlCqiNrControlMessage', parent=root_module['ns3::NrControlMessage'])
     ## nr-control-messages.h (module 'nr'): ns3::DlDciNrControlMessage [class]
@@ -1274,14 +1274,14 @@ def register_types(module):
     module.add_class('DlHarqFeedbackNrControlMessage', parent=root_module['ns3::NrControlMessage'])
     ## emu-ngc-helper.h (module 'nr'): ns3::EmuNgcHelper [class]
     module.add_class('EmuNgcHelper', parent=root_module['ns3::NgcHelper'])
-    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): ns3::FdBetFfMacScheduler [class]
-    module.add_class('FdBetFfMacScheduler', parent=root_module['ns3::FfMacScheduler'])
-    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::FdMtFfMacScheduler [class]
-    module.add_class('FdMtFfMacScheduler', parent=root_module['ns3::FfMacScheduler'])
-    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::FdTbfqFfMacScheduler [class]
-    module.add_class('FdTbfqFfMacScheduler', parent=root_module['ns3::FfMacScheduler'])
+    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): ns3::NrFdBetFfMacScheduler [class]
+    module.add_class('NrFdBetFfMacScheduler', parent=root_module['ns3::NrFfMacScheduler'])
+    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::NrFdMtFfMacScheduler [class]
+    module.add_class('NrFdMtFfMacScheduler', parent=root_module['ns3::NrFfMacScheduler'])
+    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::NrFdTbfqFfMacScheduler [class]
+    module.add_class('NrFdTbfqFfMacScheduler', parent=root_module['ns3::NrFfMacScheduler'])
     ## nr-rrc-header.h (module 'nr'): ns3::HandoverPreparationInfoHeader [class]
-    module.add_class('HandoverPreparationInfoHeader', parent=root_module['ns3::RrcAsn1Header'])
+    module.add_class('HandoverPreparationInfoHeader', parent=root_module['ns3::RrcNrAsn1Header'])
     ## nr-radio-bearer-info.h (module 'nr'): ns3::NrDataRadioBearerInfo [class]
     module.add_class('NrDataRadioBearerInfo', parent=root_module['ns3::NrRadioBearerInfo'])
     ## nr-enb-phy.h (module 'nr'): ns3::NrEnbPhy [class]
@@ -1868,7 +1868,7 @@ def register_methods(root_module):
     register_Ns3NrPhyReceptionStatParameters_methods(root_module, root_module['ns3::NrPhyReceptionStatParameters'])
     register_Ns3NrPhyTransmissionStatParameters_methods(root_module, root_module['ns3::NrPhyTransmissionStatParameters'])
     register_Ns3RachListElement_s_methods(root_module, root_module['ns3::RachListElement_s'])
-    register_Ns3RadioBearerStatsConnector_methods(root_module, root_module['ns3::RadioBearerStatsConnector'])
+    register_Ns3NrRadioBearerStatsConnector_methods(root_module, root_module['ns3::NrRadioBearerStatsConnector'])
     register_Ns3RealProtocolRlcSapUser_methods(root_module, root_module['ns3::RealProtocolRlcSapUser'])
     register_Ns3RlcPduListElement_s_methods(root_module, root_module['ns3::RlcPduListElement_s'])
     register_Ns3SbMeasResult_s_methods(root_module, root_module['ns3::SbMeasResult_s'])
@@ -1928,7 +1928,7 @@ def register_methods(root_module):
     register_Ns3ObjectAggregateIterator_methods(root_module, root_module['ns3::Object::AggregateIterator'])
     register_Ns3PacketBurst_methods(root_module, root_module['ns3::PacketBurst'])
     register_Ns3PdcpTag_methods(root_module, root_module['ns3::PdcpTag'])
-    register_Ns3RadioEnvironmentMapHelper_methods(root_module, root_module['ns3::RadioEnvironmentMapHelper'])
+    register_Ns3NrRadioEnvironmentMapHelper_methods(root_module, root_module['ns3::NrRadioEnvironmentMapHelper'])
     register_Ns3RandomVariableStream_methods(root_module, root_module['ns3::RandomVariableStream'])
     register_Ns3RlcTag_methods(root_module, root_module['ns3::RlcTag'])
     register_Ns3SequentialRandomVariable_methods(root_module, root_module['ns3::SequentialRandomVariable'])
@@ -1968,7 +1968,7 @@ def register_methods(root_module):
     register_Ns3SpectrumSignalParameters_methods(root_module, root_module['ns3::SpectrumSignalParameters'])
     register_Ns3SpectrumValue_methods(root_module, root_module['ns3::SpectrumValue'])
     register_Ns3Time_methods(root_module, root_module['ns3::Time'])
-    register_Ns3TraceFadingLossModel_methods(root_module, root_module['ns3::TraceFadingLossModel'])
+    register_Ns3NrTraceFadingLossModel_methods(root_module, root_module['ns3::NrTraceFadingLossModel'])
     register_Ns3TraceSourceAccessor_methods(root_module, root_module['ns3::TraceSourceAccessor'])
     register_Ns3Trailer_methods(root_module, root_module['ns3::Trailer'])
     register_Ns3TriangularRandomVariable_methods(root_module, root_module['ns3::TriangularRandomVariable'])
@@ -1981,7 +1981,7 @@ def register_methods(root_module):
     register_Ns3ZetaRandomVariable_methods(root_module, root_module['ns3::ZetaRandomVariable'])
     register_Ns3ZipfRandomVariable_methods(root_module, root_module['ns3::ZipfRandomVariable'])
     register_Ns3Application_methods(root_module, root_module['ns3::Application'])
-    register_Ns3Asn1Header_methods(root_module, root_module['ns3::Asn1Header'])
+    register_Ns3NrAsn1Header_methods(root_module, root_module['ns3::NrAsn1Header'])
     register_Ns3AttributeAccessor_methods(root_module, root_module['ns3::AttributeAccessor'])
     register_Ns3AttributeChecker_methods(root_module, root_module['ns3::AttributeChecker'])
     register_Ns3AttributeValue_methods(root_module, root_module['ns3::AttributeValue'])
@@ -2023,9 +2023,9 @@ def register_methods(root_module):
     register_Ns3ErlangRandomVariable_methods(root_module, root_module['ns3::ErlangRandomVariable'])
     register_Ns3EventImpl_methods(root_module, root_module['ns3::EventImpl'])
     register_Ns3ExponentialRandomVariable_methods(root_module, root_module['ns3::ExponentialRandomVariable'])
-    register_Ns3FfMacScheduler_methods(root_module, root_module['ns3::FfMacScheduler'])
+    register_Ns3FfMacScheduler_methods(root_module, root_module['ns3::NrFfMacScheduler'])
     register_Ns3GammaRandomVariable_methods(root_module, root_module['ns3::GammaRandomVariable'])
-    register_Ns3GtpuHeader_methods(root_module, root_module['ns3::GtpuHeader'])
+    register_Ns3NrGtpuHeader_methods(root_module, root_module['ns3::NrGtpuHeader'])
     register_Ns3IntegerValue_methods(root_module, root_module['ns3::IntegerValue'])
     register_Ns3Ipv4_methods(root_module, root_module['ns3::Ipv4'])
     register_Ns3Ipv4AddressChecker_methods(root_module, root_module['ns3::Ipv4AddressChecker'])
@@ -2084,33 +2084,33 @@ def register_methods(root_module):
     register_Ns3NrUeRrcProtocolReal_methods(root_module, root_module['ns3::NrUeRrcProtocolReal'])
     register_Ns3Mac48AddressChecker_methods(root_module, root_module['ns3::Mac48AddressChecker'])
     register_Ns3Mac48AddressValue_methods(root_module, root_module['ns3::Mac48AddressValue'])
-    register_Ns3MacStatsCalculator_methods(root_module, root_module['ns3::MacStatsCalculator'])
+    register_Ns3NrMacStatsCalculator_methods(root_module, root_module['ns3::NrMacStatsCalculator'])
     register_Ns3MibNrControlMessage_methods(root_module, root_module['ns3::MibNrControlMessage'])
     register_Ns3MobilityModel_methods(root_module, root_module['ns3::MobilityModel'])
     register_Ns3NetDevice_methods(root_module, root_module['ns3::NetDevice'])
     register_Ns3NixVector_methods(root_module, root_module['ns3::NixVector'])
-    register_Ns3NoOpHandoverAlgorithm_methods(root_module, root_module['ns3::NoOpHandoverAlgorithm'])
+    register_Ns3NrNoOpHandoverAlgorithm_methods(root_module, root_module['ns3::NrNoOpHandoverAlgorithm'])
     register_Ns3Node_methods(root_module, root_module['ns3::Node'])
     register_Ns3NormalRandomVariable_methods(root_module, root_module['ns3::NormalRandomVariable'])
     register_Ns3ObjectFactoryChecker_methods(root_module, root_module['ns3::ObjectFactoryChecker'])
     register_Ns3ObjectFactoryValue_methods(root_module, root_module['ns3::ObjectFactoryValue'])
     register_Ns3Packet_methods(root_module, root_module['ns3::Packet'])
     register_Ns3ParetoRandomVariable_methods(root_module, root_module['ns3::ParetoRandomVariable'])
-    register_Ns3PfFfMacScheduler_methods(root_module, root_module['ns3::PfFfMacScheduler'])
-    register_Ns3PhyRxStatsCalculator_methods(root_module, root_module['ns3::PhyRxStatsCalculator'])
-    register_Ns3PhyStatsCalculator_methods(root_module, root_module['ns3::PhyStatsCalculator'])
-    register_Ns3PhyTxStatsCalculator_methods(root_module, root_module['ns3::PhyTxStatsCalculator'])
+    register_Ns3NrPfFfMacScheduler_methods(root_module, root_module['ns3::NrPfFfMacScheduler'])
+    register_Ns3NrPhyRxStatsCalculator_methods(root_module, root_module['ns3::NrPhyRxStatsCalculator'])
+    register_Ns3NrPhyStatsCalculator_methods(root_module, root_module['ns3::NrPhyStatsCalculator'])
+    register_Ns3NrPhyTxStatsCalculator_methods(root_module, root_module['ns3::NrPhyTxStatsCalculator'])
     register_Ns3PointToPointNgcHelper_methods(root_module, root_module['ns3::PointToPointNgcHelper'])
     register_Ns3PointerChecker_methods(root_module, root_module['ns3::PointerChecker'])
     register_Ns3PointerValue_methods(root_module, root_module['ns3::PointerValue'])
-    register_Ns3PssFfMacScheduler_methods(root_module, root_module['ns3::PssFfMacScheduler'])
+    register_Ns3NrPssFfMacScheduler_methods(root_module, root_module['ns3::NrPssFfMacScheduler'])
     register_Ns3RachPreambleNrControlMessage_methods(root_module, root_module['ns3::RachPreambleNrControlMessage'])
-    register_Ns3RadioBearerStatsCalculator_methods(root_module, root_module['ns3::RadioBearerStatsCalculator'])
+    register_Ns3NrRadioBearerStatsCalculator_methods(root_module, root_module['ns3::NrRadioBearerStatsCalculator'])
     register_Ns3RarNrControlMessage_methods(root_module, root_module['ns3::RarNrControlMessage'])
     register_Ns3RarNrControlMessageRar_methods(root_module, root_module['ns3::RarNrControlMessage::Rar'])
-    register_Ns3RemSpectrumPhy_methods(root_module, root_module['ns3::RemSpectrumPhy'])
-    register_Ns3RrFfMacScheduler_methods(root_module, root_module['ns3::RrFfMacScheduler'])
-    register_Ns3RrcAsn1Header_methods(root_module, root_module['ns3::RrcAsn1Header'])
+    register_Ns3NrRemSpectrumPhy_methods(root_module, root_module['ns3::NrRemSpectrumPhy'])
+    register_Ns3NrRrFfMacScheduler_methods(root_module, root_module['ns3::NrRrFfMacScheduler'])
+    register_Ns3RrcNrAsn1Header_methods(root_module, root_module['ns3::RrcNrAsn1Header'])
     register_Ns3RrcDlCcchMessage_methods(root_module, root_module['ns3::RrcDlCcchMessage'])
     register_Ns3RrcDlDcchMessage_methods(root_module, root_module['ns3::RrcDlDcchMessage'])
     register_Ns3RrcUlCcchMessage_methods(root_module, root_module['ns3::RrcUlCcchMessage'])
@@ -2120,11 +2120,11 @@ def register_methods(root_module):
     register_Ns3SrsCqiRntiVsp_methods(root_module, root_module['ns3::SrsCqiRntiVsp'])
     register_Ns3StringChecker_methods(root_module, root_module['ns3::StringChecker'])
     register_Ns3StringValue_methods(root_module, root_module['ns3::StringValue'])
-    register_Ns3TdBetFfMacScheduler_methods(root_module, root_module['ns3::TdBetFfMacScheduler'])
-    register_Ns3TdMtFfMacScheduler_methods(root_module, root_module['ns3::TdMtFfMacScheduler'])
-    register_Ns3TdTbfqFfMacScheduler_methods(root_module, root_module['ns3::TdTbfqFfMacScheduler'])
+    register_Ns3NrTdBetFfMacScheduler_methods(root_module, root_module['ns3::NrTdBetFfMacScheduler'])
+    register_Ns3NrTdMtFfMacScheduler_methods(root_module, root_module['ns3::NrTdMtFfMacScheduler'])
+    register_Ns3NrTdTbfqFfMacScheduler_methods(root_module, root_module['ns3::NrTdTbfqFfMacScheduler'])
     register_Ns3TimeValue_methods(root_module, root_module['ns3::TimeValue'])
-    register_Ns3TtaFfMacScheduler_methods(root_module, root_module['ns3::TtaFfMacScheduler'])
+    register_Ns3NrTtaFfMacScheduler_methods(root_module, root_module['ns3::NrTtaFfMacScheduler'])
     register_Ns3TypeIdChecker_methods(root_module, root_module['ns3::TypeIdChecker'])
     register_Ns3TypeIdValue_methods(root_module, root_module['ns3::TypeIdValue'])
     register_Ns3UintegerValue_methods(root_module, root_module['ns3::UintegerValue'])
@@ -2134,19 +2134,19 @@ def register_methods(root_module):
     register_Ns3Vector3DChecker_methods(root_module, root_module['ns3::Vector3DChecker'])
     register_Ns3Vector3DValue_methods(root_module, root_module['ns3::Vector3DValue'])
     register_Ns3VirtualNetDevice_methods(root_module, root_module['ns3::VirtualNetDevice'])
-    register_Ns3A2A4RsrqHandoverAlgorithm_methods(root_module, root_module['ns3::A2A4RsrqHandoverAlgorithm'])
-    register_Ns3A3RsrpHandoverAlgorithm_methods(root_module, root_module['ns3::A3RsrpHandoverAlgorithm'])
+    register_Ns3NrA2A4RsrqHandoverAlgorithm_methods(root_module, root_module['ns3::NrA2A4RsrqHandoverAlgorithm'])
+    register_Ns3NrA3RsrpHandoverAlgorithm_methods(root_module, root_module['ns3::NrA3RsrpHandoverAlgorithm'])
     register_Ns3AddressChecker_methods(root_module, root_module['ns3::AddressChecker'])
     register_Ns3AddressValue_methods(root_module, root_module['ns3::AddressValue'])
     register_Ns3BsrNrControlMessage_methods(root_module, root_module['ns3::BsrNrControlMessage'])
-    register_Ns3CqaFfMacScheduler_methods(root_module, root_module['ns3::CqaFfMacScheduler'])
+    register_Ns3NrCqaFfMacScheduler_methods(root_module, root_module['ns3::NrCqaFfMacScheduler'])
     register_Ns3DlCqiNrControlMessage_methods(root_module, root_module['ns3::DlCqiNrControlMessage'])
     register_Ns3DlDciNrControlMessage_methods(root_module, root_module['ns3::DlDciNrControlMessage'])
     register_Ns3DlHarqFeedbackNrControlMessage_methods(root_module, root_module['ns3::DlHarqFeedbackNrControlMessage'])
     register_Ns3EmuNgcHelper_methods(root_module, root_module['ns3::EmuNgcHelper'])
-    register_Ns3FdBetFfMacScheduler_methods(root_module, root_module['ns3::FdBetFfMacScheduler'])
-    register_Ns3FdMtFfMacScheduler_methods(root_module, root_module['ns3::FdMtFfMacScheduler'])
-    register_Ns3FdTbfqFfMacScheduler_methods(root_module, root_module['ns3::FdTbfqFfMacScheduler'])
+    register_Ns3NrFdBetFfMacScheduler_methods(root_module, root_module['ns3::NrFdBetFfMacScheduler'])
+    register_Ns3NrFdMtFfMacScheduler_methods(root_module, root_module['ns3::NrFdMtFfMacScheduler'])
+    register_Ns3NrFdTbfqFfMacScheduler_methods(root_module, root_module['ns3::NrFdTbfqFfMacScheduler'])
     register_Ns3HandoverPreparationInfoHeader_methods(root_module, root_module['ns3::HandoverPreparationInfoHeader'])
     register_Ns3NrDataRadioBearerInfo_methods(root_module, root_module['ns3::NrDataRadioBearerInfo'])
     register_Ns3NrEnbPhy_methods(root_module, root_module['ns3::NrEnbPhy'])
@@ -7999,67 +7999,67 @@ def register_Ns3RachListElement_s_methods(root_module, cls):
     cls.add_instance_attribute('m_rnti', 'uint16_t', is_const=False)
     return
 
-def register_Ns3RadioBearerStatsConnector_methods(root_module, cls):
-    ## radio-bearer-stats-connector.h (module 'nr'): ns3::RadioBearerStatsConnector::RadioBearerStatsConnector(ns3::RadioBearerStatsConnector const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::RadioBearerStatsConnector const &', 'arg0')])
-    ## radio-bearer-stats-connector.h (module 'nr'): ns3::RadioBearerStatsConnector::RadioBearerStatsConnector() [constructor]
+def register_Ns3NrRadioBearerStatsConnector_methods(root_module, cls):
+    ## nr-radio-bearer-stats-connector.h (module 'nr'): ns3::NrRadioBearerStatsConnector::NrRadioBearerStatsConnector(ns3::NrRadioBearerStatsConnector const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrRadioBearerStatsConnector const &', 'arg0')])
+    ## nr-radio-bearer-stats-connector.h (module 'nr'): ns3::NrRadioBearerStatsConnector::NrRadioBearerStatsConnector() [constructor]
     cls.add_constructor([])
-    ## radio-bearer-stats-connector.h (module 'nr'): void ns3::RadioBearerStatsConnector::EnablePdcpStats(ns3::Ptr<ns3::RadioBearerStatsCalculator> pdcpStats) [member function]
+    ## nr-radio-bearer-stats-connector.h (module 'nr'): void ns3::NrRadioBearerStatsConnector::EnablePdcpStats(ns3::Ptr<ns3::NrRadioBearerStatsCalculator> pdcpStats) [member function]
     cls.add_method('EnablePdcpStats', 
                    'void', 
-                   [param('ns3::Ptr< ns3::RadioBearerStatsCalculator >', 'pdcpStats')])
-    ## radio-bearer-stats-connector.h (module 'nr'): void ns3::RadioBearerStatsConnector::EnableRlcStats(ns3::Ptr<ns3::RadioBearerStatsCalculator> rlcStats) [member function]
+                   [param('ns3::Ptr< ns3::NrRadioBearerStatsCalculator >', 'pdcpStats')])
+    ## nr-radio-bearer-stats-connector.h (module 'nr'): void ns3::NrRadioBearerStatsConnector::EnableRlcStats(ns3::Ptr<ns3::NrRadioBearerStatsCalculator> rlcStats) [member function]
     cls.add_method('EnableRlcStats', 
                    'void', 
-                   [param('ns3::Ptr< ns3::RadioBearerStatsCalculator >', 'rlcStats')])
-    ## radio-bearer-stats-connector.h (module 'nr'): void ns3::RadioBearerStatsConnector::EnsureConnected() [member function]
+                   [param('ns3::Ptr< ns3::NrRadioBearerStatsCalculator >', 'rlcStats')])
+    ## nr-radio-bearer-stats-connector.h (module 'nr'): void ns3::NrRadioBearerStatsConnector::EnsureConnected() [member function]
     cls.add_method('EnsureConnected', 
                    'void', 
                    [])
-    ## radio-bearer-stats-connector.h (module 'nr'): static void ns3::RadioBearerStatsConnector::NotifyConnectionReconfigurationEnb(ns3::RadioBearerStatsConnector * c, std::string context, uint64_t imsi, uint16_t cellid, uint16_t rnti) [member function]
+    ## nr-radio-bearer-stats-connector.h (module 'nr'): static void ns3::NrRadioBearerStatsConnector::NotifyConnectionReconfigurationEnb(ns3::NrRadioBearerStatsConnector * c, std::string context, uint64_t imsi, uint16_t cellid, uint16_t rnti) [member function]
     cls.add_method('NotifyConnectionReconfigurationEnb', 
                    'void', 
-                   [param('ns3::RadioBearerStatsConnector *', 'c'), param('std::string', 'context'), param('uint64_t', 'imsi'), param('uint16_t', 'cellid'), param('uint16_t', 'rnti')], 
+                   [param('ns3::NrRadioBearerStatsConnector *', 'c'), param('std::string', 'context'), param('uint64_t', 'imsi'), param('uint16_t', 'cellid'), param('uint16_t', 'rnti')], 
                    is_static=True)
-    ## radio-bearer-stats-connector.h (module 'nr'): static void ns3::RadioBearerStatsConnector::NotifyConnectionReconfigurationUe(ns3::RadioBearerStatsConnector * c, std::string context, uint64_t imsi, uint16_t cellid, uint16_t rnti) [member function]
+    ## nr-radio-bearer-stats-connector.h (module 'nr'): static void ns3::NrRadioBearerStatsConnector::NotifyConnectionReconfigurationUe(ns3::NrRadioBearerStatsConnector * c, std::string context, uint64_t imsi, uint16_t cellid, uint16_t rnti) [member function]
     cls.add_method('NotifyConnectionReconfigurationUe', 
                    'void', 
-                   [param('ns3::RadioBearerStatsConnector *', 'c'), param('std::string', 'context'), param('uint64_t', 'imsi'), param('uint16_t', 'cellid'), param('uint16_t', 'rnti')], 
+                   [param('ns3::NrRadioBearerStatsConnector *', 'c'), param('std::string', 'context'), param('uint64_t', 'imsi'), param('uint16_t', 'cellid'), param('uint16_t', 'rnti')], 
                    is_static=True)
-    ## radio-bearer-stats-connector.h (module 'nr'): static void ns3::RadioBearerStatsConnector::NotifyConnectionSetupUe(ns3::RadioBearerStatsConnector * c, std::string context, uint64_t imsi, uint16_t cellid, uint16_t rnti) [member function]
+    ## nr-radio-bearer-stats-connector.h (module 'nr'): static void ns3::NrRadioBearerStatsConnector::NotifyConnectionSetupUe(ns3::NrRadioBearerStatsConnector * c, std::string context, uint64_t imsi, uint16_t cellid, uint16_t rnti) [member function]
     cls.add_method('NotifyConnectionSetupUe', 
                    'void', 
-                   [param('ns3::RadioBearerStatsConnector *', 'c'), param('std::string', 'context'), param('uint64_t', 'imsi'), param('uint16_t', 'cellid'), param('uint16_t', 'rnti')], 
+                   [param('ns3::NrRadioBearerStatsConnector *', 'c'), param('std::string', 'context'), param('uint64_t', 'imsi'), param('uint16_t', 'cellid'), param('uint16_t', 'rnti')], 
                    is_static=True)
-    ## radio-bearer-stats-connector.h (module 'nr'): static void ns3::RadioBearerStatsConnector::NotifyHandoverEndOkEnb(ns3::RadioBearerStatsConnector * c, std::string context, uint64_t imsi, uint16_t cellid, uint16_t rnti) [member function]
+    ## nr-radio-bearer-stats-connector.h (module 'nr'): static void ns3::NrRadioBearerStatsConnector::NotifyHandoverEndOkEnb(ns3::NrRadioBearerStatsConnector * c, std::string context, uint64_t imsi, uint16_t cellid, uint16_t rnti) [member function]
     cls.add_method('NotifyHandoverEndOkEnb', 
                    'void', 
-                   [param('ns3::RadioBearerStatsConnector *', 'c'), param('std::string', 'context'), param('uint64_t', 'imsi'), param('uint16_t', 'cellid'), param('uint16_t', 'rnti')], 
+                   [param('ns3::NrRadioBearerStatsConnector *', 'c'), param('std::string', 'context'), param('uint64_t', 'imsi'), param('uint16_t', 'cellid'), param('uint16_t', 'rnti')], 
                    is_static=True)
-    ## radio-bearer-stats-connector.h (module 'nr'): static void ns3::RadioBearerStatsConnector::NotifyHandoverEndOkUe(ns3::RadioBearerStatsConnector * c, std::string context, uint64_t imsi, uint16_t cellid, uint16_t rnti) [member function]
+    ## nr-radio-bearer-stats-connector.h (module 'nr'): static void ns3::NrRadioBearerStatsConnector::NotifyHandoverEndOkUe(ns3::NrRadioBearerStatsConnector * c, std::string context, uint64_t imsi, uint16_t cellid, uint16_t rnti) [member function]
     cls.add_method('NotifyHandoverEndOkUe', 
                    'void', 
-                   [param('ns3::RadioBearerStatsConnector *', 'c'), param('std::string', 'context'), param('uint64_t', 'imsi'), param('uint16_t', 'cellid'), param('uint16_t', 'rnti')], 
+                   [param('ns3::NrRadioBearerStatsConnector *', 'c'), param('std::string', 'context'), param('uint64_t', 'imsi'), param('uint16_t', 'cellid'), param('uint16_t', 'rnti')], 
                    is_static=True)
-    ## radio-bearer-stats-connector.h (module 'nr'): static void ns3::RadioBearerStatsConnector::NotifyHandoverStartEnb(ns3::RadioBearerStatsConnector * c, std::string context, uint64_t imsi, uint16_t cellid, uint16_t rnti, uint16_t targetCellId) [member function]
+    ## nr-radio-bearer-stats-connector.h (module 'nr'): static void ns3::NrRadioBearerStatsConnector::NotifyHandoverStartEnb(ns3::NrRadioBearerStatsConnector * c, std::string context, uint64_t imsi, uint16_t cellid, uint16_t rnti, uint16_t targetCellId) [member function]
     cls.add_method('NotifyHandoverStartEnb', 
                    'void', 
-                   [param('ns3::RadioBearerStatsConnector *', 'c'), param('std::string', 'context'), param('uint64_t', 'imsi'), param('uint16_t', 'cellid'), param('uint16_t', 'rnti'), param('uint16_t', 'targetCellId')], 
+                   [param('ns3::NrRadioBearerStatsConnector *', 'c'), param('std::string', 'context'), param('uint64_t', 'imsi'), param('uint16_t', 'cellid'), param('uint16_t', 'rnti'), param('uint16_t', 'targetCellId')], 
                    is_static=True)
-    ## radio-bearer-stats-connector.h (module 'nr'): static void ns3::RadioBearerStatsConnector::NotifyHandoverStartUe(ns3::RadioBearerStatsConnector * c, std::string context, uint64_t imsi, uint16_t cellid, uint16_t rnti, uint16_t targetCellId) [member function]
+    ## nr-radio-bearer-stats-connector.h (module 'nr'): static void ns3::NrRadioBearerStatsConnector::NotifyHandoverStartUe(ns3::NrRadioBearerStatsConnector * c, std::string context, uint64_t imsi, uint16_t cellid, uint16_t rnti, uint16_t targetCellId) [member function]
     cls.add_method('NotifyHandoverStartUe', 
                    'void', 
-                   [param('ns3::RadioBearerStatsConnector *', 'c'), param('std::string', 'context'), param('uint64_t', 'imsi'), param('uint16_t', 'cellid'), param('uint16_t', 'rnti'), param('uint16_t', 'targetCellId')], 
+                   [param('ns3::NrRadioBearerStatsConnector *', 'c'), param('std::string', 'context'), param('uint64_t', 'imsi'), param('uint16_t', 'cellid'), param('uint16_t', 'rnti'), param('uint16_t', 'targetCellId')], 
                    is_static=True)
-    ## radio-bearer-stats-connector.h (module 'nr'): static void ns3::RadioBearerStatsConnector::NotifyNewUeContextEnb(ns3::RadioBearerStatsConnector * c, std::string context, uint16_t cellid, uint16_t rnti) [member function]
+    ## nr-radio-bearer-stats-connector.h (module 'nr'): static void ns3::NrRadioBearerStatsConnector::NotifyNewUeContextEnb(ns3::NrRadioBearerStatsConnector * c, std::string context, uint16_t cellid, uint16_t rnti) [member function]
     cls.add_method('NotifyNewUeContextEnb', 
                    'void', 
-                   [param('ns3::RadioBearerStatsConnector *', 'c'), param('std::string', 'context'), param('uint16_t', 'cellid'), param('uint16_t', 'rnti')], 
+                   [param('ns3::NrRadioBearerStatsConnector *', 'c'), param('std::string', 'context'), param('uint16_t', 'cellid'), param('uint16_t', 'rnti')], 
                    is_static=True)
-    ## radio-bearer-stats-connector.h (module 'nr'): static void ns3::RadioBearerStatsConnector::NotifyRandomAccessSuccessfulUe(ns3::RadioBearerStatsConnector * c, std::string context, uint64_t imsi, uint16_t cellid, uint16_t rnti) [member function]
+    ## nr-radio-bearer-stats-connector.h (module 'nr'): static void ns3::NrRadioBearerStatsConnector::NotifyRandomAccessSuccessfulUe(ns3::NrRadioBearerStatsConnector * c, std::string context, uint64_t imsi, uint16_t cellid, uint16_t rnti) [member function]
     cls.add_method('NotifyRandomAccessSuccessfulUe', 
                    'void', 
-                   [param('ns3::RadioBearerStatsConnector *', 'c'), param('std::string', 'context'), param('uint64_t', 'imsi'), param('uint16_t', 'cellid'), param('uint16_t', 'rnti')], 
+                   [param('ns3::NrRadioBearerStatsConnector *', 'c'), param('std::string', 'context'), param('uint64_t', 'imsi'), param('uint16_t', 'cellid'), param('uint16_t', 'rnti')], 
                    is_static=True)
     return
 
@@ -10115,29 +10115,29 @@ def register_Ns3PdcpTag_methods(root_module, cls):
                    [param('ns3::Time', 'senderTimestamp')])
     return
 
-def register_Ns3RadioEnvironmentMapHelper_methods(root_module, cls):
-    ## radio-environment-map-helper.h (module 'nr'): ns3::RadioEnvironmentMapHelper::RadioEnvironmentMapHelper() [constructor]
+def register_Ns3NrRadioEnvironmentMapHelper_methods(root_module, cls):
+    ## nr-radio-environment-map-helper.h (module 'nr'): ns3::NrRadioEnvironmentMapHelper::NrRadioEnvironmentMapHelper() [constructor]
     cls.add_constructor([])
-    ## radio-environment-map-helper.h (module 'nr'): void ns3::RadioEnvironmentMapHelper::DoDispose() [member function]
+    ## nr-radio-environment-map-helper.h (module 'nr'): void ns3::NrRadioEnvironmentMapHelper::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
                    is_virtual=True)
-    ## radio-environment-map-helper.h (module 'nr'): uint8_t ns3::RadioEnvironmentMapHelper::GetBandwidth() const [member function]
+    ## nr-radio-environment-map-helper.h (module 'nr'): uint8_t ns3::NrRadioEnvironmentMapHelper::GetBandwidth() const [member function]
     cls.add_method('GetBandwidth', 
                    'uint8_t', 
                    [], 
                    is_const=True)
-    ## radio-environment-map-helper.h (module 'nr'): static ns3::TypeId ns3::RadioEnvironmentMapHelper::GetTypeId() [member function]
+    ## nr-radio-environment-map-helper.h (module 'nr'): static ns3::TypeId ns3::NrRadioEnvironmentMapHelper::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## radio-environment-map-helper.h (module 'nr'): void ns3::RadioEnvironmentMapHelper::Install() [member function]
+    ## nr-radio-environment-map-helper.h (module 'nr'): void ns3::NrRadioEnvironmentMapHelper::Install() [member function]
     cls.add_method('Install', 
                    'void', 
                    [])
-    ## radio-environment-map-helper.h (module 'nr'): void ns3::RadioEnvironmentMapHelper::SetBandwidth(uint8_t bw) [member function]
+    ## nr-radio-environment-map-helper.h (module 'nr'): void ns3::NrRadioEnvironmentMapHelper::SetBandwidth(uint8_t bw) [member function]
     cls.add_method('SetBandwidth', 
                    'void', 
                    [param('uint8_t', 'bw')])
@@ -11589,26 +11589,26 @@ def register_Ns3Time_methods(root_module, cls):
                    is_const=True)
     return
 
-def register_Ns3TraceFadingLossModel_methods(root_module, cls):
-    ## trace-fading-loss-model.h (module 'nr'): ns3::TraceFadingLossModel::TraceFadingLossModel(ns3::TraceFadingLossModel const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::TraceFadingLossModel const &', 'arg0')])
-    ## trace-fading-loss-model.h (module 'nr'): ns3::TraceFadingLossModel::TraceFadingLossModel() [constructor]
+def register_Ns3NrTraceFadingLossModel_methods(root_module, cls):
+    ## nr-trace-fading-loss-model.h (module 'nr'): ns3::NrTraceFadingLossModel::NrTraceFadingLossModel(ns3::NrTraceFadingLossModel const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrTraceFadingLossModel const &', 'arg0')])
+    ## nr-trace-fading-loss-model.h (module 'nr'): ns3::NrTraceFadingLossModel::NrTraceFadingLossModel() [constructor]
     cls.add_constructor([])
-    ## trace-fading-loss-model.h (module 'nr'): int64_t ns3::TraceFadingLossModel::AssignStreams(int64_t stream) [member function]
+    ## nr-trace-fading-loss-model.h (module 'nr'): int64_t ns3::NrTraceFadingLossModel::AssignStreams(int64_t stream) [member function]
     cls.add_method('AssignStreams', 
                    'int64_t', 
                    [param('int64_t', 'stream')])
-    ## trace-fading-loss-model.h (module 'nr'): void ns3::TraceFadingLossModel::DoInitialize() [member function]
+    ## nr-trace-fading-loss-model.h (module 'nr'): void ns3::NrTraceFadingLossModel::DoInitialize() [member function]
     cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    is_virtual=True)
-    ## trace-fading-loss-model.h (module 'nr'): static ns3::TypeId ns3::TraceFadingLossModel::GetTypeId() [member function]
+    ## nr-trace-fading-loss-model.h (module 'nr'): static ns3::TypeId ns3::NrTraceFadingLossModel::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## trace-fading-loss-model.h (module 'nr'): ns3::Ptr<ns3::SpectrumValue> ns3::TraceFadingLossModel::DoCalcRxPowerSpectralDensity(ns3::Ptr<ns3::SpectrumValue const> txPsd, ns3::Ptr<const ns3::MobilityModel> a, ns3::Ptr<const ns3::MobilityModel> b) const [member function]
+    ## nr-trace-fading-loss-model.h (module 'nr'): ns3::Ptr<ns3::SpectrumValue> ns3::NrTraceFadingLossModel::DoCalcRxPowerSpectralDensity(ns3::Ptr<ns3::SpectrumValue const> txPsd, ns3::Ptr<const ns3::MobilityModel> a, ns3::Ptr<const ns3::MobilityModel> b) const [member function]
     cls.add_method('DoCalcRxPowerSpectralDensity', 
                    'ns3::Ptr< ns3::SpectrumValue >', 
                    [param('ns3::Ptr< ns3::SpectrumValue const >', 'txPsd'), param('ns3::Ptr< ns3::MobilityModel const >', 'a'), param('ns3::Ptr< ns3::MobilityModel const >', 'b')], 
@@ -12106,297 +12106,297 @@ def register_Ns3Application_methods(root_module, cls):
                    visibility='private', is_virtual=True)
     return
 
-def register_Ns3Asn1Header_methods(root_module, cls):
-    ## nr-asn1-header.h (module 'nr'): ns3::Asn1Header::Asn1Header(ns3::Asn1Header const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::Asn1Header const &', 'arg0')])
-    ## nr-asn1-header.h (module 'nr'): ns3::Asn1Header::Asn1Header() [constructor]
+def register_Ns3NrAsn1Header_methods(root_module, cls):
+    ## nr-asn1-header.h (module 'nr'): ns3::NrAsn1Header::NrAsn1Header(ns3::NrAsn1Header const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrAsn1Header const &', 'arg0')])
+    ## nr-asn1-header.h (module 'nr'): ns3::NrAsn1Header::NrAsn1Header() [constructor]
     cls.add_constructor([])
-    ## nr-asn1-header.h (module 'nr'): uint32_t ns3::Asn1Header::Deserialize(ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): uint32_t ns3::NrAsn1Header::Deserialize(ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('Deserialize', 
                    'uint32_t', 
                    [param('ns3::Buffer::Iterator', 'bIterator')], 
                    is_pure_virtual=True, is_virtual=True)
-    ## nr-asn1-header.h (module 'nr'): ns3::TypeId ns3::Asn1Header::GetInstanceTypeId() const [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::TypeId ns3::NrAsn1Header::GetInstanceTypeId() const [member function]
     cls.add_method('GetInstanceTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_const=True, is_virtual=True)
-    ## nr-asn1-header.h (module 'nr'): uint32_t ns3::Asn1Header::GetSerializedSize() const [member function]
+    ## nr-asn1-header.h (module 'nr'): uint32_t ns3::NrAsn1Header::GetSerializedSize() const [member function]
     cls.add_method('GetSerializedSize', 
                    'uint32_t', 
                    [], 
                    is_const=True, is_virtual=True)
-    ## nr-asn1-header.h (module 'nr'): static ns3::TypeId ns3::Asn1Header::GetTypeId() [member function]
+    ## nr-asn1-header.h (module 'nr'): static ns3::TypeId ns3::NrAsn1Header::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::PreSerialize() const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::PreSerialize() const [member function]
     cls.add_method('PreSerialize', 
                    'void', 
                    [], 
                    is_pure_virtual=True, is_const=True, is_virtual=True)
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::Print(std::ostream & os) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::Print(std::ostream & os) const [member function]
     cls.add_method('Print', 
                    'void', 
                    [param('std::ostream &', 'os')], 
                    is_pure_virtual=True, is_const=True, is_virtual=True)
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::Serialize(ns3::Buffer::Iterator bIterator) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::Serialize(ns3::Buffer::Iterator bIterator) const [member function]
     cls.add_method('Serialize', 
                    'void', 
                    [param('ns3::Buffer::Iterator', 'bIterator')], 
                    is_const=True, is_virtual=True)
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeBitset(std::bitset<8u> * data, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeBitset(std::bitset<8u> * data, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeBitset', 
                    'ns3::Buffer::Iterator', 
                    [param('std::bitset< 8u > *', 'data'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeBitstring(std::bitset<1u> * bitstring, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeBitstring(std::bitset<1u> * bitstring, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeBitstring', 
                    'ns3::Buffer::Iterator', 
                    [param('std::bitset< 1u > *', 'bitstring'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeBitstring(std::bitset<2u> * bitstring, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeBitstring(std::bitset<2u> * bitstring, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeBitstring', 
                    'ns3::Buffer::Iterator', 
                    [param('std::bitset< 2u > *', 'bitstring'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeBitstring(std::bitset<8u> * bitstring, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeBitstring(std::bitset<8u> * bitstring, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeBitstring', 
                    'ns3::Buffer::Iterator', 
                    [param('std::bitset< 8u > *', 'bitstring'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeBitstring(std::bitset<10u> * bitstring, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeBitstring(std::bitset<10u> * bitstring, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeBitstring', 
                    'ns3::Buffer::Iterator', 
                    [param('std::bitset< 10u > *', 'bitstring'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeBitstring(std::bitset<16u> * bitstring, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeBitstring(std::bitset<16u> * bitstring, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeBitstring', 
                    'ns3::Buffer::Iterator', 
                    [param('std::bitset< 16u > *', 'bitstring'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeBitstring(std::bitset<27u> * bitstring, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeBitstring(std::bitset<27u> * bitstring, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeBitstring', 
                    'ns3::Buffer::Iterator', 
                    [param('std::bitset< 27u > *', 'bitstring'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeBitstring(std::bitset<28u> * bitstring, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeBitstring(std::bitset<28u> * bitstring, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeBitstring', 
                    'ns3::Buffer::Iterator', 
                    [param('std::bitset< 28u > *', 'bitstring'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeBitstring(std::bitset<32u> * bitstring, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeBitstring(std::bitset<32u> * bitstring, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeBitstring', 
                    'ns3::Buffer::Iterator', 
                    [param('std::bitset< 32u > *', 'bitstring'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeBoolean(bool * value, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeBoolean(bool * value, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeBoolean', 
                    'ns3::Buffer::Iterator', 
                    [param('bool *', 'value'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeChoice(int numOptions, bool isExtensionMarkerPresent, int * selectedOption, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeChoice(int numOptions, bool isExtensionMarkerPresent, int * selectedOption, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeChoice', 
                    'ns3::Buffer::Iterator', 
                    [param('int', 'numOptions'), param('bool', 'isExtensionMarkerPresent'), param('int *', 'selectedOption'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeEnum(int numElems, int * selectedElem, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeEnum(int numElems, int * selectedElem, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeEnum', 
                    'ns3::Buffer::Iterator', 
                    [param('int', 'numElems'), param('int *', 'selectedElem'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeInteger(int * n, int nmin, int nmax, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeInteger(int * n, int nmin, int nmax, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeInteger', 
                    'ns3::Buffer::Iterator', 
                    [param('int *', 'n'), param('int', 'nmin'), param('int', 'nmax'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeNull(ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeNull(ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeNull', 
                    'ns3::Buffer::Iterator', 
                    [param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeSequence(std::bitset<0u> * optionalOrDefaultMask, bool isExtensionMarkerPresent, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeSequence(std::bitset<0u> * optionalOrDefaultMask, bool isExtensionMarkerPresent, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeSequence', 
                    'ns3::Buffer::Iterator', 
                    [param('std::bitset< 0u > *', 'optionalOrDefaultMask'), param('bool', 'isExtensionMarkerPresent'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeSequence(std::bitset<1u> * optionalOrDefaultMask, bool isExtensionMarkerPresent, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeSequence(std::bitset<1u> * optionalOrDefaultMask, bool isExtensionMarkerPresent, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeSequence', 
                    'ns3::Buffer::Iterator', 
                    [param('std::bitset< 1u > *', 'optionalOrDefaultMask'), param('bool', 'isExtensionMarkerPresent'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeSequence(std::bitset<2u> * optionalOrDefaultMask, bool isExtensionMarkerPresent, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeSequence(std::bitset<2u> * optionalOrDefaultMask, bool isExtensionMarkerPresent, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeSequence', 
                    'ns3::Buffer::Iterator', 
                    [param('std::bitset< 2u > *', 'optionalOrDefaultMask'), param('bool', 'isExtensionMarkerPresent'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeSequence(std::bitset<3u> * optionalOrDefaultMask, bool isExtensionMarkerPresent, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeSequence(std::bitset<3u> * optionalOrDefaultMask, bool isExtensionMarkerPresent, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeSequence', 
                    'ns3::Buffer::Iterator', 
                    [param('std::bitset< 3u > *', 'optionalOrDefaultMask'), param('bool', 'isExtensionMarkerPresent'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeSequence(std::bitset<4u> * optionalOrDefaultMask, bool isExtensionMarkerPresent, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeSequence(std::bitset<4u> * optionalOrDefaultMask, bool isExtensionMarkerPresent, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeSequence', 
                    'ns3::Buffer::Iterator', 
                    [param('std::bitset< 4u > *', 'optionalOrDefaultMask'), param('bool', 'isExtensionMarkerPresent'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeSequence(std::bitset<5u> * optionalOrDefaultMask, bool isExtensionMarkerPresent, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeSequence(std::bitset<5u> * optionalOrDefaultMask, bool isExtensionMarkerPresent, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeSequence', 
                    'ns3::Buffer::Iterator', 
                    [param('std::bitset< 5u > *', 'optionalOrDefaultMask'), param('bool', 'isExtensionMarkerPresent'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeSequence(std::bitset<6u> * optionalOrDefaultMask, bool isExtensionMarkerPresent, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeSequence(std::bitset<6u> * optionalOrDefaultMask, bool isExtensionMarkerPresent, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeSequence', 
                    'ns3::Buffer::Iterator', 
                    [param('std::bitset< 6u > *', 'optionalOrDefaultMask'), param('bool', 'isExtensionMarkerPresent'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeSequence(std::bitset<9u> * optionalOrDefaultMask, bool isExtensionMarkerPresent, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeSequence(std::bitset<9u> * optionalOrDefaultMask, bool isExtensionMarkerPresent, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeSequence', 
                    'ns3::Buffer::Iterator', 
                    [param('std::bitset< 9u > *', 'optionalOrDefaultMask'), param('bool', 'isExtensionMarkerPresent'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeSequence(std::bitset<10u> * optionalOrDefaultMask, bool isExtensionMarkerPresent, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeSequence(std::bitset<10u> * optionalOrDefaultMask, bool isExtensionMarkerPresent, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeSequence', 
                    'ns3::Buffer::Iterator', 
                    [param('std::bitset< 10u > *', 'optionalOrDefaultMask'), param('bool', 'isExtensionMarkerPresent'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeSequence(std::bitset<11u> * optionalOrDefaultMask, bool isExtensionMarkerPresent, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeSequence(std::bitset<11u> * optionalOrDefaultMask, bool isExtensionMarkerPresent, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeSequence', 
                    'ns3::Buffer::Iterator', 
                    [param('std::bitset< 11u > *', 'optionalOrDefaultMask'), param('bool', 'isExtensionMarkerPresent'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::Asn1Header::DeserializeSequenceOf(int * numElems, int nMax, int nMin, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-asn1-header.h (module 'nr'): ns3::Buffer::Iterator ns3::NrAsn1Header::DeserializeSequenceOf(int * numElems, int nMax, int nMin, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeSequenceOf', 
                    'ns3::Buffer::Iterator', 
                    [param('int *', 'numElems'), param('int', 'nMax'), param('int', 'nMin'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::FinalizeSerialization() const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::FinalizeSerialization() const [member function]
     cls.add_method('FinalizeSerialization', 
                    'void', 
                    [], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeBitstring(std::bitset<1u> bitstring) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeBitstring(std::bitset<1u> bitstring) const [member function]
     cls.add_method('SerializeBitstring', 
                    'void', 
                    [param('std::bitset< 1u >', 'bitstring')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeBitstring(std::bitset<2u> bitstring) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeBitstring(std::bitset<2u> bitstring) const [member function]
     cls.add_method('SerializeBitstring', 
                    'void', 
                    [param('std::bitset< 2u >', 'bitstring')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeBitstring(std::bitset<8u> bitstring) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeBitstring(std::bitset<8u> bitstring) const [member function]
     cls.add_method('SerializeBitstring', 
                    'void', 
                    [param('std::bitset< 8u >', 'bitstring')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeBitstring(std::bitset<10u> bitstring) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeBitstring(std::bitset<10u> bitstring) const [member function]
     cls.add_method('SerializeBitstring', 
                    'void', 
                    [param('std::bitset< 10u >', 'bitstring')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeBitstring(std::bitset<16u> bitstring) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeBitstring(std::bitset<16u> bitstring) const [member function]
     cls.add_method('SerializeBitstring', 
                    'void', 
                    [param('std::bitset< 16u >', 'bitstring')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeBitstring(std::bitset<27u> bitstring) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeBitstring(std::bitset<27u> bitstring) const [member function]
     cls.add_method('SerializeBitstring', 
                    'void', 
                    [param('std::bitset< 27u >', 'bitstring')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeBitstring(std::bitset<28u> bitstring) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeBitstring(std::bitset<28u> bitstring) const [member function]
     cls.add_method('SerializeBitstring', 
                    'void', 
                    [param('std::bitset< 28u >', 'bitstring')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeBitstring(std::bitset<32u> bitstring) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeBitstring(std::bitset<32u> bitstring) const [member function]
     cls.add_method('SerializeBitstring', 
                    'void', 
                    [param('std::bitset< 32u >', 'bitstring')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeBoolean(bool value) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeBoolean(bool value) const [member function]
     cls.add_method('SerializeBoolean', 
                    'void', 
                    [param('bool', 'value')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeChoice(int numOptions, int selectedOption, bool isExtensionMarkerPresent) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeChoice(int numOptions, int selectedOption, bool isExtensionMarkerPresent) const [member function]
     cls.add_method('SerializeChoice', 
                    'void', 
                    [param('int', 'numOptions'), param('int', 'selectedOption'), param('bool', 'isExtensionMarkerPresent')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeEnum(int numElems, int selectedElem) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeEnum(int numElems, int selectedElem) const [member function]
     cls.add_method('SerializeEnum', 
                    'void', 
                    [param('int', 'numElems'), param('int', 'selectedElem')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeInteger(int n, int nmin, int nmax) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeInteger(int n, int nmin, int nmax) const [member function]
     cls.add_method('SerializeInteger', 
                    'void', 
                    [param('int', 'n'), param('int', 'nmin'), param('int', 'nmax')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeNull() const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeNull() const [member function]
     cls.add_method('SerializeNull', 
                    'void', 
                    [], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeSequence(std::bitset<0u> optionalOrDefaultMask, bool isExtensionMarkerPresent) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeSequence(std::bitset<0u> optionalOrDefaultMask, bool isExtensionMarkerPresent) const [member function]
     cls.add_method('SerializeSequence', 
                    'void', 
                    [param('std::bitset< 0u >', 'optionalOrDefaultMask'), param('bool', 'isExtensionMarkerPresent')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeSequence(std::bitset<1u> optionalOrDefaultMask, bool isExtensionMarkerPresent) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeSequence(std::bitset<1u> optionalOrDefaultMask, bool isExtensionMarkerPresent) const [member function]
     cls.add_method('SerializeSequence', 
                    'void', 
                    [param('std::bitset< 1u >', 'optionalOrDefaultMask'), param('bool', 'isExtensionMarkerPresent')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeSequence(std::bitset<2u> optionalOrDefaultMask, bool isExtensionMarkerPresent) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeSequence(std::bitset<2u> optionalOrDefaultMask, bool isExtensionMarkerPresent) const [member function]
     cls.add_method('SerializeSequence', 
                    'void', 
                    [param('std::bitset< 2u >', 'optionalOrDefaultMask'), param('bool', 'isExtensionMarkerPresent')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeSequence(std::bitset<3u> optionalOrDefaultMask, bool isExtensionMarkerPresent) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeSequence(std::bitset<3u> optionalOrDefaultMask, bool isExtensionMarkerPresent) const [member function]
     cls.add_method('SerializeSequence', 
                    'void', 
                    [param('std::bitset< 3u >', 'optionalOrDefaultMask'), param('bool', 'isExtensionMarkerPresent')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeSequence(std::bitset<4u> optionalOrDefaultMask, bool isExtensionMarkerPresent) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeSequence(std::bitset<4u> optionalOrDefaultMask, bool isExtensionMarkerPresent) const [member function]
     cls.add_method('SerializeSequence', 
                    'void', 
                    [param('std::bitset< 4u >', 'optionalOrDefaultMask'), param('bool', 'isExtensionMarkerPresent')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeSequence(std::bitset<5u> optionalOrDefaultMask, bool isExtensionMarkerPresent) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeSequence(std::bitset<5u> optionalOrDefaultMask, bool isExtensionMarkerPresent) const [member function]
     cls.add_method('SerializeSequence', 
                    'void', 
                    [param('std::bitset< 5u >', 'optionalOrDefaultMask'), param('bool', 'isExtensionMarkerPresent')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeSequence(std::bitset<6u> optionalOrDefaultMask, bool isExtensionMarkerPresent) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeSequence(std::bitset<6u> optionalOrDefaultMask, bool isExtensionMarkerPresent) const [member function]
     cls.add_method('SerializeSequence', 
                    'void', 
                    [param('std::bitset< 6u >', 'optionalOrDefaultMask'), param('bool', 'isExtensionMarkerPresent')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeSequence(std::bitset<9u> optionalOrDefaultMask, bool isExtensionMarkerPresent) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeSequence(std::bitset<9u> optionalOrDefaultMask, bool isExtensionMarkerPresent) const [member function]
     cls.add_method('SerializeSequence', 
                    'void', 
                    [param('std::bitset< 9u >', 'optionalOrDefaultMask'), param('bool', 'isExtensionMarkerPresent')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeSequence(std::bitset<10u> optionalOrDefaultMask, bool isExtensionMarkerPresent) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeSequence(std::bitset<10u> optionalOrDefaultMask, bool isExtensionMarkerPresent) const [member function]
     cls.add_method('SerializeSequence', 
                    'void', 
                    [param('std::bitset< 10u >', 'optionalOrDefaultMask'), param('bool', 'isExtensionMarkerPresent')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeSequence(std::bitset<11u> optionalOrDefaultMask, bool isExtensionMarkerPresent) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeSequence(std::bitset<11u> optionalOrDefaultMask, bool isExtensionMarkerPresent) const [member function]
     cls.add_method('SerializeSequence', 
                    'void', 
                    [param('std::bitset< 11u >', 'optionalOrDefaultMask'), param('bool', 'isExtensionMarkerPresent')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::SerializeSequenceOf(int numElems, int nMax, int nMin) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::SerializeSequenceOf(int numElems, int nMax, int nMin) const [member function]
     cls.add_method('SerializeSequenceOf', 
                    'void', 
                    [param('int', 'numElems'), param('int', 'nMax'), param('int', 'nMin')], 
                    is_const=True, visibility='protected')
-    ## nr-asn1-header.h (module 'nr'): void ns3::Asn1Header::WriteOctet(uint8_t octet) const [member function]
+    ## nr-asn1-header.h (module 'nr'): void ns3::NrAsn1Header::WriteOctet(uint8_t octet) const [member function]
     cls.add_method('WriteOctet', 
                    'void', 
                    [param('uint8_t', 'octet')], 
@@ -14105,46 +14105,46 @@ def register_Ns3ExponentialRandomVariable_methods(root_module, cls):
     return
 
 def register_Ns3FfMacScheduler_methods(root_module, cls):
-    ## nr-ff-mac-scheduler.h (module 'nr'): ns3::FfMacScheduler::FfMacScheduler(ns3::FfMacScheduler const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::FfMacScheduler const &', 'arg0')])
-    ## nr-ff-mac-scheduler.h (module 'nr'): ns3::FfMacScheduler::FfMacScheduler() [constructor]
+    ## nr-ff-mac-scheduler.h (module 'nr'): ns3::NrFfMacScheduler::NrFfMacScheduler(ns3::NrFfMacScheduler const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrFfMacScheduler const &', 'arg0')])
+    ## nr-ff-mac-scheduler.h (module 'nr'): ns3::NrFfMacScheduler::NrFfMacScheduler() [constructor]
     cls.add_constructor([])
-    ## nr-ff-mac-scheduler.h (module 'nr'): void ns3::FfMacScheduler::DoDispose() [member function]
+    ## nr-ff-mac-scheduler.h (module 'nr'): void ns3::NrFfMacScheduler::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
                    is_virtual=True)
-    ## nr-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::FfMacScheduler::GetFfMacCschedSapProvider() [member function]
+    ## nr-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::NrFfMacScheduler::GetFfMacCschedSapProvider() [member function]
     cls.add_method('GetFfMacCschedSapProvider', 
                    'ns3::FfMacCschedSapProvider *', 
                    [], 
                    is_pure_virtual=True, is_virtual=True)
-    ## nr-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::FfMacScheduler::GetFfMacSchedSapProvider() [member function]
+    ## nr-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::NrFfMacScheduler::GetFfMacSchedSapProvider() [member function]
     cls.add_method('GetFfMacSchedSapProvider', 
                    'ns3::FfMacSchedSapProvider *', 
                    [], 
                    is_pure_virtual=True, is_virtual=True)
-    ## nr-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::FfMacScheduler::GetNrFfrSapUser() [member function]
+    ## nr-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::NrFfMacScheduler::GetNrFfrSapUser() [member function]
     cls.add_method('GetNrFfrSapUser', 
                    'ns3::NrFfrSapUser *', 
                    [], 
                    is_pure_virtual=True, is_virtual=True)
-    ## nr-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::FfMacScheduler::GetTypeId() [member function]
+    ## nr-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::NrFfMacScheduler::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## nr-ff-mac-scheduler.h (module 'nr'): void ns3::FfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
+    ## nr-ff-mac-scheduler.h (module 'nr'): void ns3::NrFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
     cls.add_method('SetFfMacCschedSapUser', 
                    'void', 
                    [param('ns3::FfMacCschedSapUser *', 's')], 
                    is_pure_virtual=True, is_virtual=True)
-    ## nr-ff-mac-scheduler.h (module 'nr'): void ns3::FfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
+    ## nr-ff-mac-scheduler.h (module 'nr'): void ns3::NrFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
     cls.add_method('SetFfMacSchedSapUser', 
                    'void', 
                    [param('ns3::FfMacSchedSapUser *', 's')], 
                    is_pure_virtual=True, is_virtual=True)
-    ## nr-ff-mac-scheduler.h (module 'nr'): void ns3::FfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
+    ## nr-ff-mac-scheduler.h (module 'nr'): void ns3::NrFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
     cls.add_method('SetNrFfrSapProvider', 
                    'void', 
                    [param('ns3::NrFfrSapProvider *', 's')], 
@@ -14189,138 +14189,138 @@ def register_Ns3GammaRandomVariable_methods(root_module, cls):
                    is_virtual=True)
     return
 
-def register_Ns3GtpuHeader_methods(root_module, cls):
+def register_Ns3NrGtpuHeader_methods(root_module, cls):
     cls.add_binary_comparison_operator('==')
-    ## ngc-gtpu-header.h (module 'nr'): ns3::GtpuHeader::GtpuHeader(ns3::GtpuHeader const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::GtpuHeader const &', 'arg0')])
-    ## ngc-gtpu-header.h (module 'nr'): ns3::GtpuHeader::GtpuHeader() [constructor]
+    ## ngc-gtpu-header.h (module 'nr'): ns3::NrGtpuHeader::NrGtpuHeader(ns3::NrGtpuHeader const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrGtpuHeader const &', 'arg0')])
+    ## ngc-gtpu-header.h (module 'nr'): ns3::NrGtpuHeader::NrGtpuHeader() [constructor]
     cls.add_constructor([])
-    ## ngc-gtpu-header.h (module 'nr'): uint32_t ns3::GtpuHeader::Deserialize(ns3::Buffer::Iterator start) [member function]
+    ## ngc-gtpu-header.h (module 'nr'): uint32_t ns3::NrGtpuHeader::Deserialize(ns3::Buffer::Iterator start) [member function]
     cls.add_method('Deserialize', 
                    'uint32_t', 
                    [param('ns3::Buffer::Iterator', 'start')], 
                    is_virtual=True)
-    ## ngc-gtpu-header.h (module 'nr'): bool ns3::GtpuHeader::GetExtensionHeaderFlag() const [member function]
+    ## ngc-gtpu-header.h (module 'nr'): bool ns3::NrGtpuHeader::GetExtensionHeaderFlag() const [member function]
     cls.add_method('GetExtensionHeaderFlag', 
                    'bool', 
                    [], 
                    is_const=True)
-    ## ngc-gtpu-header.h (module 'nr'): ns3::TypeId ns3::GtpuHeader::GetInstanceTypeId() const [member function]
+    ## ngc-gtpu-header.h (module 'nr'): ns3::TypeId ns3::NrGtpuHeader::GetInstanceTypeId() const [member function]
     cls.add_method('GetInstanceTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_const=True, is_virtual=True)
-    ## ngc-gtpu-header.h (module 'nr'): uint16_t ns3::GtpuHeader::GetLength() const [member function]
+    ## ngc-gtpu-header.h (module 'nr'): uint16_t ns3::NrGtpuHeader::GetLength() const [member function]
     cls.add_method('GetLength', 
                    'uint16_t', 
                    [], 
                    is_const=True)
-    ## ngc-gtpu-header.h (module 'nr'): uint8_t ns3::GtpuHeader::GetMessageType() const [member function]
+    ## ngc-gtpu-header.h (module 'nr'): uint8_t ns3::NrGtpuHeader::GetMessageType() const [member function]
     cls.add_method('GetMessageType', 
                    'uint8_t', 
                    [], 
                    is_const=True)
-    ## ngc-gtpu-header.h (module 'nr'): uint8_t ns3::GtpuHeader::GetNPduNumber() const [member function]
+    ## ngc-gtpu-header.h (module 'nr'): uint8_t ns3::NrGtpuHeader::GetNPduNumber() const [member function]
     cls.add_method('GetNPduNumber', 
                    'uint8_t', 
                    [], 
                    is_const=True)
-    ## ngc-gtpu-header.h (module 'nr'): bool ns3::GtpuHeader::GetNPduNumberFlag() const [member function]
+    ## ngc-gtpu-header.h (module 'nr'): bool ns3::NrGtpuHeader::GetNPduNumberFlag() const [member function]
     cls.add_method('GetNPduNumberFlag', 
                    'bool', 
                    [], 
                    is_const=True)
-    ## ngc-gtpu-header.h (module 'nr'): uint8_t ns3::GtpuHeader::GetNextExtensionType() const [member function]
+    ## ngc-gtpu-header.h (module 'nr'): uint8_t ns3::NrGtpuHeader::GetNextExtensionType() const [member function]
     cls.add_method('GetNextExtensionType', 
                    'uint8_t', 
                    [], 
                    is_const=True)
-    ## ngc-gtpu-header.h (module 'nr'): bool ns3::GtpuHeader::GetProtocolType() const [member function]
+    ## ngc-gtpu-header.h (module 'nr'): bool ns3::NrGtpuHeader::GetProtocolType() const [member function]
     cls.add_method('GetProtocolType', 
                    'bool', 
                    [], 
                    is_const=True)
-    ## ngc-gtpu-header.h (module 'nr'): uint16_t ns3::GtpuHeader::GetSequenceNumber() const [member function]
+    ## ngc-gtpu-header.h (module 'nr'): uint16_t ns3::NrGtpuHeader::GetSequenceNumber() const [member function]
     cls.add_method('GetSequenceNumber', 
                    'uint16_t', 
                    [], 
                    is_const=True)
-    ## ngc-gtpu-header.h (module 'nr'): bool ns3::GtpuHeader::GetSequenceNumberFlag() const [member function]
+    ## ngc-gtpu-header.h (module 'nr'): bool ns3::NrGtpuHeader::GetSequenceNumberFlag() const [member function]
     cls.add_method('GetSequenceNumberFlag', 
                    'bool', 
                    [], 
                    is_const=True)
-    ## ngc-gtpu-header.h (module 'nr'): uint32_t ns3::GtpuHeader::GetSerializedSize() const [member function]
+    ## ngc-gtpu-header.h (module 'nr'): uint32_t ns3::NrGtpuHeader::GetSerializedSize() const [member function]
     cls.add_method('GetSerializedSize', 
                    'uint32_t', 
                    [], 
                    is_const=True, is_virtual=True)
-    ## ngc-gtpu-header.h (module 'nr'): uint32_t ns3::GtpuHeader::GetTeid() const [member function]
+    ## ngc-gtpu-header.h (module 'nr'): uint32_t ns3::NrGtpuHeader::GetTeid() const [member function]
     cls.add_method('GetTeid', 
                    'uint32_t', 
                    [], 
                    is_const=True)
-    ## ngc-gtpu-header.h (module 'nr'): static ns3::TypeId ns3::GtpuHeader::GetTypeId() [member function]
+    ## ngc-gtpu-header.h (module 'nr'): static ns3::TypeId ns3::NrGtpuHeader::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## ngc-gtpu-header.h (module 'nr'): uint8_t ns3::GtpuHeader::GetVersion() const [member function]
+    ## ngc-gtpu-header.h (module 'nr'): uint8_t ns3::NrGtpuHeader::GetVersion() const [member function]
     cls.add_method('GetVersion', 
                    'uint8_t', 
                    [], 
                    is_const=True)
-    ## ngc-gtpu-header.h (module 'nr'): void ns3::GtpuHeader::Print(std::ostream & os) const [member function]
+    ## ngc-gtpu-header.h (module 'nr'): void ns3::NrGtpuHeader::Print(std::ostream & os) const [member function]
     cls.add_method('Print', 
                    'void', 
                    [param('std::ostream &', 'os')], 
                    is_const=True, is_virtual=True)
-    ## ngc-gtpu-header.h (module 'nr'): void ns3::GtpuHeader::Serialize(ns3::Buffer::Iterator start) const [member function]
+    ## ngc-gtpu-header.h (module 'nr'): void ns3::NrGtpuHeader::Serialize(ns3::Buffer::Iterator start) const [member function]
     cls.add_method('Serialize', 
                    'void', 
                    [param('ns3::Buffer::Iterator', 'start')], 
                    is_const=True, is_virtual=True)
-    ## ngc-gtpu-header.h (module 'nr'): void ns3::GtpuHeader::SetExtensionHeaderFlag(bool m_extensionHeaderFlag) [member function]
+    ## ngc-gtpu-header.h (module 'nr'): void ns3::NrGtpuHeader::SetExtensionHeaderFlag(bool m_extensionHeaderFlag) [member function]
     cls.add_method('SetExtensionHeaderFlag', 
                    'void', 
                    [param('bool', 'm_extensionHeaderFlag')])
-    ## ngc-gtpu-header.h (module 'nr'): void ns3::GtpuHeader::SetLength(uint16_t m_length) [member function]
+    ## ngc-gtpu-header.h (module 'nr'): void ns3::NrGtpuHeader::SetLength(uint16_t m_length) [member function]
     cls.add_method('SetLength', 
                    'void', 
                    [param('uint16_t', 'm_length')])
-    ## ngc-gtpu-header.h (module 'nr'): void ns3::GtpuHeader::SetMessageType(uint8_t m_messageType) [member function]
+    ## ngc-gtpu-header.h (module 'nr'): void ns3::NrGtpuHeader::SetMessageType(uint8_t m_messageType) [member function]
     cls.add_method('SetMessageType', 
                    'void', 
                    [param('uint8_t', 'm_messageType')])
-    ## ngc-gtpu-header.h (module 'nr'): void ns3::GtpuHeader::SetNPduNumber(uint8_t m_nPduNumber) [member function]
+    ## ngc-gtpu-header.h (module 'nr'): void ns3::NrGtpuHeader::SetNPduNumber(uint8_t m_nPduNumber) [member function]
     cls.add_method('SetNPduNumber', 
                    'void', 
                    [param('uint8_t', 'm_nPduNumber')])
-    ## ngc-gtpu-header.h (module 'nr'): void ns3::GtpuHeader::SetNPduNumberFlag(bool m_nPduNumberFlag) [member function]
+    ## ngc-gtpu-header.h (module 'nr'): void ns3::NrGtpuHeader::SetNPduNumberFlag(bool m_nPduNumberFlag) [member function]
     cls.add_method('SetNPduNumberFlag', 
                    'void', 
                    [param('bool', 'm_nPduNumberFlag')])
-    ## ngc-gtpu-header.h (module 'nr'): void ns3::GtpuHeader::SetNextExtensionType(uint8_t m_nextExtensionType) [member function]
+    ## ngc-gtpu-header.h (module 'nr'): void ns3::NrGtpuHeader::SetNextExtensionType(uint8_t m_nextExtensionType) [member function]
     cls.add_method('SetNextExtensionType', 
                    'void', 
                    [param('uint8_t', 'm_nextExtensionType')])
-    ## ngc-gtpu-header.h (module 'nr'): void ns3::GtpuHeader::SetProtocolType(bool m_protocolType) [member function]
+    ## ngc-gtpu-header.h (module 'nr'): void ns3::NrGtpuHeader::SetProtocolType(bool m_protocolType) [member function]
     cls.add_method('SetProtocolType', 
                    'void', 
                    [param('bool', 'm_protocolType')])
-    ## ngc-gtpu-header.h (module 'nr'): void ns3::GtpuHeader::SetSequenceNumber(uint16_t m_sequenceNumber) [member function]
+    ## ngc-gtpu-header.h (module 'nr'): void ns3::NrGtpuHeader::SetSequenceNumber(uint16_t m_sequenceNumber) [member function]
     cls.add_method('SetSequenceNumber', 
                    'void', 
                    [param('uint16_t', 'm_sequenceNumber')])
-    ## ngc-gtpu-header.h (module 'nr'): void ns3::GtpuHeader::SetSequenceNumberFlag(bool m_sequenceNumberFlag) [member function]
+    ## ngc-gtpu-header.h (module 'nr'): void ns3::NrGtpuHeader::SetSequenceNumberFlag(bool m_sequenceNumberFlag) [member function]
     cls.add_method('SetSequenceNumberFlag', 
                    'void', 
                    [param('bool', 'm_sequenceNumberFlag')])
-    ## ngc-gtpu-header.h (module 'nr'): void ns3::GtpuHeader::SetTeid(uint32_t m_teid) [member function]
+    ## ngc-gtpu-header.h (module 'nr'): void ns3::NrGtpuHeader::SetTeid(uint32_t m_teid) [member function]
     cls.add_method('SetTeid', 
                    'void', 
                    [param('uint32_t', 'm_teid')])
-    ## ngc-gtpu-header.h (module 'nr'): void ns3::GtpuHeader::SetVersion(uint8_t m_version) [member function]
+    ## ngc-gtpu-header.h (module 'nr'): void ns3::NrGtpuHeader::SetVersion(uint8_t m_version) [member function]
     cls.add_method('SetVersion', 
                    'void', 
                    [param('uint8_t', 'm_version')])
@@ -16295,13 +16295,13 @@ def register_Ns3NrHelper_methods(root_module, cls):
                    'std::string', 
                    [], 
                    is_const=True)
-    ## nr-helper.h (module 'nr'): ns3::Ptr<ns3::RadioBearerStatsCalculator> ns3::NrHelper::GetPdcpStats() [member function]
+    ## nr-helper.h (module 'nr'): ns3::Ptr<ns3::NrRadioBearerStatsCalculator> ns3::NrHelper::GetPdcpStats() [member function]
     cls.add_method('GetPdcpStats', 
-                   'ns3::Ptr< ns3::RadioBearerStatsCalculator >', 
+                   'ns3::Ptr< ns3::NrRadioBearerStatsCalculator >', 
                    [])
-    ## nr-helper.h (module 'nr'): ns3::Ptr<ns3::RadioBearerStatsCalculator> ns3::NrHelper::GetRlcStats() [member function]
+    ## nr-helper.h (module 'nr'): ns3::Ptr<ns3::NrRadioBearerStatsCalculator> ns3::NrHelper::GetRlcStats() [member function]
     cls.add_method('GetRlcStats', 
-                   'ns3::Ptr< ns3::RadioBearerStatsCalculator >', 
+                   'ns3::Ptr< ns3::NrRadioBearerStatsCalculator >', 
                    [])
     ## nr-helper.h (module 'nr'): std::string ns3::NrHelper::GetSchedulerType() const [member function]
     cls.add_method('GetSchedulerType', 
@@ -17776,49 +17776,49 @@ def register_Ns3Mac48AddressValue_methods(root_module, cls):
                    [param('ns3::Mac48Address const &', 'value')])
     return
 
-def register_Ns3MacStatsCalculator_methods(root_module, cls):
-    ## mac-stats-calculator.h (module 'nr'): ns3::MacStatsCalculator::MacStatsCalculator(ns3::MacStatsCalculator const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::MacStatsCalculator const &', 'arg0')])
-    ## mac-stats-calculator.h (module 'nr'): ns3::MacStatsCalculator::MacStatsCalculator() [constructor]
+def register_Ns3NrMacStatsCalculator_methods(root_module, cls):
+    ## nr-mac-stats-calculator.h (module 'nr'): ns3::NrMacStatsCalculator::NrMacStatsCalculator(ns3::NrMacStatsCalculator const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrMacStatsCalculator const &', 'arg0')])
+    ## nr-mac-stats-calculator.h (module 'nr'): ns3::NrMacStatsCalculator::NrMacStatsCalculator() [constructor]
     cls.add_constructor([])
-    ## mac-stats-calculator.h (module 'nr'): void ns3::MacStatsCalculator::DlScheduling(uint16_t cellId, uint64_t imsi, uint32_t frameNo, uint32_t subframeNo, uint16_t rnti, uint8_t mcsTb1, uint16_t sizeTb1, uint8_t mcsTb2, uint16_t sizeTb2) [member function]
+    ## nr-mac-stats-calculator.h (module 'nr'): void ns3::NrMacStatsCalculator::DlScheduling(uint16_t cellId, uint64_t imsi, uint32_t frameNo, uint32_t subframeNo, uint16_t rnti, uint8_t mcsTb1, uint16_t sizeTb1, uint8_t mcsTb2, uint16_t sizeTb2) [member function]
     cls.add_method('DlScheduling', 
                    'void', 
                    [param('uint16_t', 'cellId'), param('uint64_t', 'imsi'), param('uint32_t', 'frameNo'), param('uint32_t', 'subframeNo'), param('uint16_t', 'rnti'), param('uint8_t', 'mcsTb1'), param('uint16_t', 'sizeTb1'), param('uint8_t', 'mcsTb2'), param('uint16_t', 'sizeTb2')])
-    ## mac-stats-calculator.h (module 'nr'): static void ns3::MacStatsCalculator::DlSchedulingCallback(ns3::Ptr<ns3::MacStatsCalculator> macStats, std::string path, uint32_t frameNo, uint32_t subframeNo, uint16_t rnti, uint8_t mcsTb1, uint16_t sizeTb1, uint8_t mcsTb2, uint16_t sizeTb2) [member function]
+    ## nr-mac-stats-calculator.h (module 'nr'): static void ns3::NrMacStatsCalculator::DlSchedulingCallback(ns3::Ptr<ns3::NrMacStatsCalculator> macStats, std::string path, uint32_t frameNo, uint32_t subframeNo, uint16_t rnti, uint8_t mcsTb1, uint16_t sizeTb1, uint8_t mcsTb2, uint16_t sizeTb2) [member function]
     cls.add_method('DlSchedulingCallback', 
                    'void', 
-                   [param('ns3::Ptr< ns3::MacStatsCalculator >', 'macStats'), param('std::string', 'path'), param('uint32_t', 'frameNo'), param('uint32_t', 'subframeNo'), param('uint16_t', 'rnti'), param('uint8_t', 'mcsTb1'), param('uint16_t', 'sizeTb1'), param('uint8_t', 'mcsTb2'), param('uint16_t', 'sizeTb2')], 
+                   [param('ns3::Ptr< ns3::NrMacStatsCalculator >', 'macStats'), param('std::string', 'path'), param('uint32_t', 'frameNo'), param('uint32_t', 'subframeNo'), param('uint16_t', 'rnti'), param('uint8_t', 'mcsTb1'), param('uint16_t', 'sizeTb1'), param('uint8_t', 'mcsTb2'), param('uint16_t', 'sizeTb2')], 
                    is_static=True)
-    ## mac-stats-calculator.h (module 'nr'): std::string ns3::MacStatsCalculator::GetDlOutputFilename() [member function]
+    ## nr-mac-stats-calculator.h (module 'nr'): std::string ns3::NrMacStatsCalculator::GetDlOutputFilename() [member function]
     cls.add_method('GetDlOutputFilename', 
                    'std::string', 
                    [])
-    ## mac-stats-calculator.h (module 'nr'): static ns3::TypeId ns3::MacStatsCalculator::GetTypeId() [member function]
+    ## nr-mac-stats-calculator.h (module 'nr'): static ns3::TypeId ns3::NrMacStatsCalculator::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## mac-stats-calculator.h (module 'nr'): std::string ns3::MacStatsCalculator::GetUlOutputFilename() [member function]
+    ## nr-mac-stats-calculator.h (module 'nr'): std::string ns3::NrMacStatsCalculator::GetUlOutputFilename() [member function]
     cls.add_method('GetUlOutputFilename', 
                    'std::string', 
                    [])
-    ## mac-stats-calculator.h (module 'nr'): void ns3::MacStatsCalculator::SetDlOutputFilename(std::string outputFilename) [member function]
+    ## nr-mac-stats-calculator.h (module 'nr'): void ns3::NrMacStatsCalculator::SetDlOutputFilename(std::string outputFilename) [member function]
     cls.add_method('SetDlOutputFilename', 
                    'void', 
                    [param('std::string', 'outputFilename')])
-    ## mac-stats-calculator.h (module 'nr'): void ns3::MacStatsCalculator::SetUlOutputFilename(std::string outputFilename) [member function]
+    ## nr-mac-stats-calculator.h (module 'nr'): void ns3::NrMacStatsCalculator::SetUlOutputFilename(std::string outputFilename) [member function]
     cls.add_method('SetUlOutputFilename', 
                    'void', 
                    [param('std::string', 'outputFilename')])
-    ## mac-stats-calculator.h (module 'nr'): void ns3::MacStatsCalculator::UlScheduling(uint16_t cellId, uint64_t imsi, uint32_t frameNo, uint32_t subframeNo, uint16_t rnti, uint8_t mcsTb, uint16_t sizeTb) [member function]
+    ## nr-mac-stats-calculator.h (module 'nr'): void ns3::NrMacStatsCalculator::UlScheduling(uint16_t cellId, uint64_t imsi, uint32_t frameNo, uint32_t subframeNo, uint16_t rnti, uint8_t mcsTb, uint16_t sizeTb) [member function]
     cls.add_method('UlScheduling', 
                    'void', 
                    [param('uint16_t', 'cellId'), param('uint64_t', 'imsi'), param('uint32_t', 'frameNo'), param('uint32_t', 'subframeNo'), param('uint16_t', 'rnti'), param('uint8_t', 'mcsTb'), param('uint16_t', 'sizeTb')])
-    ## mac-stats-calculator.h (module 'nr'): static void ns3::MacStatsCalculator::UlSchedulingCallback(ns3::Ptr<ns3::MacStatsCalculator> macStats, std::string path, uint32_t frameNo, uint32_t subframeNo, uint16_t rnti, uint8_t mcs, uint16_t size) [member function]
+    ## nr-mac-stats-calculator.h (module 'nr'): static void ns3::NrMacStatsCalculator::UlSchedulingCallback(ns3::Ptr<ns3::NrMacStatsCalculator> macStats, std::string path, uint32_t frameNo, uint32_t subframeNo, uint16_t rnti, uint8_t mcs, uint16_t size) [member function]
     cls.add_method('UlSchedulingCallback', 
                    'void', 
-                   [param('ns3::Ptr< ns3::MacStatsCalculator >', 'macStats'), param('std::string', 'path'), param('uint32_t', 'frameNo'), param('uint32_t', 'subframeNo'), param('uint16_t', 'rnti'), param('uint8_t', 'mcs'), param('uint16_t', 'size')], 
+                   [param('ns3::Ptr< ns3::NrMacStatsCalculator >', 'macStats'), param('std::string', 'path'), param('uint32_t', 'frameNo'), param('uint32_t', 'subframeNo'), param('uint16_t', 'rnti'), param('uint8_t', 'mcs'), param('uint16_t', 'size')], 
                    is_static=True)
     return
 
@@ -18079,37 +18079,37 @@ def register_Ns3NixVector_methods(root_module, cls):
                    is_const=True)
     return
 
-def register_Ns3NoOpHandoverAlgorithm_methods(root_module, cls):
-    ## no-op-handover-algorithm.h (module 'nr'): ns3::NoOpHandoverAlgorithm::NoOpHandoverAlgorithm(ns3::NoOpHandoverAlgorithm const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::NoOpHandoverAlgorithm const &', 'arg0')])
-    ## no-op-handover-algorithm.h (module 'nr'): ns3::NoOpHandoverAlgorithm::NoOpHandoverAlgorithm() [constructor]
+def register_Ns3NrNoOpHandoverAlgorithm_methods(root_module, cls):
+    ## no-op-handover-algorithm.h (module 'nr'): ns3::NrNoOpHandoverAlgorithm::NrNoOpHandoverAlgorithm(ns3::NrNoOpHandoverAlgorithm const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrNoOpHandoverAlgorithm const &', 'arg0')])
+    ## no-op-handover-algorithm.h (module 'nr'): ns3::NrNoOpHandoverAlgorithm::NrNoOpHandoverAlgorithm() [constructor]
     cls.add_constructor([])
-    ## no-op-handover-algorithm.h (module 'nr'): ns3::NrHandoverManagementSapProvider * ns3::NoOpHandoverAlgorithm::GetNrHandoverManagementSapProvider() [member function]
+    ## no-op-handover-algorithm.h (module 'nr'): ns3::NrHandoverManagementSapProvider * ns3::NrNoOpHandoverAlgorithm::GetNrHandoverManagementSapProvider() [member function]
     cls.add_method('GetNrHandoverManagementSapProvider', 
                    'ns3::NrHandoverManagementSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## no-op-handover-algorithm.h (module 'nr'): static ns3::TypeId ns3::NoOpHandoverAlgorithm::GetTypeId() [member function]
+    ## no-op-handover-algorithm.h (module 'nr'): static ns3::TypeId ns3::NrNoOpHandoverAlgorithm::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## no-op-handover-algorithm.h (module 'nr'): void ns3::NoOpHandoverAlgorithm::SetNrHandoverManagementSapUser(ns3::NrHandoverManagementSapUser * s) [member function]
+    ## no-op-handover-algorithm.h (module 'nr'): void ns3::NrNoOpHandoverAlgorithm::SetNrHandoverManagementSapUser(ns3::NrHandoverManagementSapUser * s) [member function]
     cls.add_method('SetNrHandoverManagementSapUser', 
                    'void', 
                    [param('ns3::NrHandoverManagementSapUser *', 's')], 
                    is_virtual=True)
-    ## no-op-handover-algorithm.h (module 'nr'): void ns3::NoOpHandoverAlgorithm::DoDispose() [member function]
+    ## no-op-handover-algorithm.h (module 'nr'): void ns3::NrNoOpHandoverAlgorithm::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## no-op-handover-algorithm.h (module 'nr'): void ns3::NoOpHandoverAlgorithm::DoInitialize() [member function]
+    ## no-op-handover-algorithm.h (module 'nr'): void ns3::NrNoOpHandoverAlgorithm::DoInitialize() [member function]
     cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## no-op-handover-algorithm.h (module 'nr'): void ns3::NoOpHandoverAlgorithm::DoReportUeMeas(uint16_t rnti, ns3::NrRrcSap::MeasResults measResults) [member function]
+    ## no-op-handover-algorithm.h (module 'nr'): void ns3::NrNoOpHandoverAlgorithm::DoReportUeMeas(uint16_t rnti, ns3::NrRrcSap::MeasResults measResults) [member function]
     cls.add_method('DoReportUeMeas', 
                    'void', 
                    [param('uint16_t', 'rnti'), param('ns3::NrRrcSap::MeasResults', 'measResults')], 
@@ -18512,209 +18512,209 @@ def register_Ns3ParetoRandomVariable_methods(root_module, cls):
                    is_virtual=True)
     return
 
-def register_Ns3PfFfMacScheduler_methods(root_module, cls):
-    ## nr-pf-ff-mac-scheduler.h (module 'nr'): ns3::PfFfMacScheduler::PfFfMacScheduler(ns3::PfFfMacScheduler const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::PfFfMacScheduler const &', 'arg0')])
-    ## nr-pf-ff-mac-scheduler.h (module 'nr'): ns3::PfFfMacScheduler::PfFfMacScheduler() [constructor]
+def register_Ns3NrPfFfMacScheduler_methods(root_module, cls):
+    ## nr-pf-ff-mac-scheduler.h (module 'nr'): ns3::NrPfFfMacScheduler::NrPfFfMacScheduler(ns3::NrPfFfMacScheduler const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrPfFfMacScheduler const &', 'arg0')])
+    ## nr-pf-ff-mac-scheduler.h (module 'nr'): ns3::NrPfFfMacScheduler::NrPfFfMacScheduler() [constructor]
     cls.add_constructor([])
-    ## nr-pf-ff-mac-scheduler.h (module 'nr'): void ns3::PfFfMacScheduler::DoDispose() [member function]
+    ## nr-pf-ff-mac-scheduler.h (module 'nr'): void ns3::NrPfFfMacScheduler::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
                    is_virtual=True)
-    ## nr-pf-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::PfFfMacScheduler::GetFfMacCschedSapProvider() [member function]
+    ## nr-pf-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::NrPfFfMacScheduler::GetFfMacCschedSapProvider() [member function]
     cls.add_method('GetFfMacCschedSapProvider', 
                    'ns3::FfMacCschedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## nr-pf-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::PfFfMacScheduler::GetFfMacSchedSapProvider() [member function]
+    ## nr-pf-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::NrPfFfMacScheduler::GetFfMacSchedSapProvider() [member function]
     cls.add_method('GetFfMacSchedSapProvider', 
                    'ns3::FfMacSchedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## nr-pf-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::PfFfMacScheduler::GetNrFfrSapUser() [member function]
+    ## nr-pf-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::NrPfFfMacScheduler::GetNrFfrSapUser() [member function]
     cls.add_method('GetNrFfrSapUser', 
                    'ns3::NrFfrSapUser *', 
                    [], 
                    is_virtual=True)
-    ## nr-pf-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::PfFfMacScheduler::GetTypeId() [member function]
+    ## nr-pf-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::NrPfFfMacScheduler::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## nr-pf-ff-mac-scheduler.h (module 'nr'): void ns3::PfFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
+    ## nr-pf-ff-mac-scheduler.h (module 'nr'): void ns3::NrPfFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
     cls.add_method('SetFfMacCschedSapUser', 
                    'void', 
                    [param('ns3::FfMacCschedSapUser *', 's')], 
                    is_virtual=True)
-    ## nr-pf-ff-mac-scheduler.h (module 'nr'): void ns3::PfFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
+    ## nr-pf-ff-mac-scheduler.h (module 'nr'): void ns3::NrPfFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
     cls.add_method('SetFfMacSchedSapUser', 
                    'void', 
                    [param('ns3::FfMacSchedSapUser *', 's')], 
                    is_virtual=True)
-    ## nr-pf-ff-mac-scheduler.h (module 'nr'): void ns3::PfFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
+    ## nr-pf-ff-mac-scheduler.h (module 'nr'): void ns3::NrPfFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
     cls.add_method('SetNrFfrSapProvider', 
                    'void', 
                    [param('ns3::NrFfrSapProvider *', 's')], 
                    is_virtual=True)
-    ## nr-pf-ff-mac-scheduler.h (module 'nr'): void ns3::PfFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
+    ## nr-pf-ff-mac-scheduler.h (module 'nr'): void ns3::NrPfFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
     cls.add_method('TransmissionModeConfigurationUpdate', 
                    'void', 
                    [param('uint16_t', 'rnti'), param('uint8_t', 'txMode')])
     return
 
-def register_Ns3PhyRxStatsCalculator_methods(root_module, cls):
-    ## phy-rx-stats-calculator.h (module 'nr'): ns3::PhyRxStatsCalculator::PhyRxStatsCalculator(ns3::PhyRxStatsCalculator const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::PhyRxStatsCalculator const &', 'arg0')])
-    ## phy-rx-stats-calculator.h (module 'nr'): ns3::PhyRxStatsCalculator::PhyRxStatsCalculator() [constructor]
+def register_Ns3NrPhyRxStatsCalculator_methods(root_module, cls):
+    ## nr-phy-rx-stats-calculator.h (module 'nr'): ns3::NrPhyRxStatsCalculator::NrPhyRxStatsCalculator(ns3::NrPhyRxStatsCalculator const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrPhyRxStatsCalculator const &', 'arg0')])
+    ## nr-phy-rx-stats-calculator.h (module 'nr'): ns3::NrPhyRxStatsCalculator::NrPhyRxStatsCalculator() [constructor]
     cls.add_constructor([])
-    ## phy-rx-stats-calculator.h (module 'nr'): void ns3::PhyRxStatsCalculator::DlPhyReception(ns3::NrPhyReceptionStatParameters params) [member function]
+    ## nr-phy-rx-stats-calculator.h (module 'nr'): void ns3::NrPhyRxStatsCalculator::DlPhyReception(ns3::NrPhyReceptionStatParameters params) [member function]
     cls.add_method('DlPhyReception', 
                    'void', 
                    [param('ns3::NrPhyReceptionStatParameters', 'params')])
-    ## phy-rx-stats-calculator.h (module 'nr'): static void ns3::PhyRxStatsCalculator::DlPhyReceptionCallback(ns3::Ptr<ns3::PhyRxStatsCalculator> phyRxStats, std::string path, ns3::NrPhyReceptionStatParameters params) [member function]
+    ## nr-phy-rx-stats-calculator.h (module 'nr'): static void ns3::NrPhyRxStatsCalculator::DlPhyReceptionCallback(ns3::Ptr<ns3::NrPhyRxStatsCalculator> phyRxStats, std::string path, ns3::NrPhyReceptionStatParameters params) [member function]
     cls.add_method('DlPhyReceptionCallback', 
                    'void', 
-                   [param('ns3::Ptr< ns3::PhyRxStatsCalculator >', 'phyRxStats'), param('std::string', 'path'), param('ns3::NrPhyReceptionStatParameters', 'params')], 
+                   [param('ns3::Ptr< ns3::NrPhyRxStatsCalculator >', 'phyRxStats'), param('std::string', 'path'), param('ns3::NrPhyReceptionStatParameters', 'params')], 
                    is_static=True)
-    ## phy-rx-stats-calculator.h (module 'nr'): std::string ns3::PhyRxStatsCalculator::GetDlRxOutputFilename() [member function]
+    ## nr-phy-rx-stats-calculator.h (module 'nr'): std::string ns3::NrPhyRxStatsCalculator::GetDlRxOutputFilename() [member function]
     cls.add_method('GetDlRxOutputFilename', 
                    'std::string', 
                    [])
-    ## phy-rx-stats-calculator.h (module 'nr'): static ns3::TypeId ns3::PhyRxStatsCalculator::GetTypeId() [member function]
+    ## nr-phy-rx-stats-calculator.h (module 'nr'): static ns3::TypeId ns3::NrPhyRxStatsCalculator::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## phy-rx-stats-calculator.h (module 'nr'): std::string ns3::PhyRxStatsCalculator::GetUlRxOutputFilename() [member function]
+    ## nr-phy-rx-stats-calculator.h (module 'nr'): std::string ns3::NrPhyRxStatsCalculator::GetUlRxOutputFilename() [member function]
     cls.add_method('GetUlRxOutputFilename', 
                    'std::string', 
                    [])
-    ## phy-rx-stats-calculator.h (module 'nr'): void ns3::PhyRxStatsCalculator::SetDlRxOutputFilename(std::string outputFilename) [member function]
+    ## nr-phy-rx-stats-calculator.h (module 'nr'): void ns3::NrPhyRxStatsCalculator::SetDlRxOutputFilename(std::string outputFilename) [member function]
     cls.add_method('SetDlRxOutputFilename', 
                    'void', 
                    [param('std::string', 'outputFilename')])
-    ## phy-rx-stats-calculator.h (module 'nr'): void ns3::PhyRxStatsCalculator::SetUlRxOutputFilename(std::string outputFilename) [member function]
+    ## nr-phy-rx-stats-calculator.h (module 'nr'): void ns3::NrPhyRxStatsCalculator::SetUlRxOutputFilename(std::string outputFilename) [member function]
     cls.add_method('SetUlRxOutputFilename', 
                    'void', 
                    [param('std::string', 'outputFilename')])
-    ## phy-rx-stats-calculator.h (module 'nr'): void ns3::PhyRxStatsCalculator::UlPhyReception(ns3::NrPhyReceptionStatParameters params) [member function]
+    ## nr-phy-rx-stats-calculator.h (module 'nr'): void ns3::NrPhyRxStatsCalculator::UlPhyReception(ns3::NrPhyReceptionStatParameters params) [member function]
     cls.add_method('UlPhyReception', 
                    'void', 
                    [param('ns3::NrPhyReceptionStatParameters', 'params')])
-    ## phy-rx-stats-calculator.h (module 'nr'): static void ns3::PhyRxStatsCalculator::UlPhyReceptionCallback(ns3::Ptr<ns3::PhyRxStatsCalculator> phyRxStats, std::string path, ns3::NrPhyReceptionStatParameters params) [member function]
+    ## nr-phy-rx-stats-calculator.h (module 'nr'): static void ns3::NrPhyRxStatsCalculator::UlPhyReceptionCallback(ns3::Ptr<ns3::NrPhyRxStatsCalculator> phyRxStats, std::string path, ns3::NrPhyReceptionStatParameters params) [member function]
     cls.add_method('UlPhyReceptionCallback', 
                    'void', 
-                   [param('ns3::Ptr< ns3::PhyRxStatsCalculator >', 'phyRxStats'), param('std::string', 'path'), param('ns3::NrPhyReceptionStatParameters', 'params')], 
+                   [param('ns3::Ptr< ns3::NrPhyRxStatsCalculator >', 'phyRxStats'), param('std::string', 'path'), param('ns3::NrPhyReceptionStatParameters', 'params')], 
                    is_static=True)
     return
 
-def register_Ns3PhyStatsCalculator_methods(root_module, cls):
-    ## phy-stats-calculator.h (module 'nr'): ns3::PhyStatsCalculator::PhyStatsCalculator(ns3::PhyStatsCalculator const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::PhyStatsCalculator const &', 'arg0')])
-    ## phy-stats-calculator.h (module 'nr'): ns3::PhyStatsCalculator::PhyStatsCalculator() [constructor]
+def register_Ns3NrPhyStatsCalculator_methods(root_module, cls):
+    ## nr-phy-stats-calculator.h (module 'nr'): ns3::NrPhyStatsCalculator::NrPhyStatsCalculator(ns3::NrPhyStatsCalculator const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrPhyStatsCalculator const &', 'arg0')])
+    ## nr-phy-stats-calculator.h (module 'nr'): ns3::NrPhyStatsCalculator::NrPhyStatsCalculator() [constructor]
     cls.add_constructor([])
-    ## phy-stats-calculator.h (module 'nr'): std::string ns3::PhyStatsCalculator::GetCurrentCellRsrpSinrFilename() [member function]
+    ## nr-phy-stats-calculator.h (module 'nr'): std::string ns3::NrPhyStatsCalculator::GetCurrentCellRsrpSinrFilename() [member function]
     cls.add_method('GetCurrentCellRsrpSinrFilename', 
                    'std::string', 
                    [])
-    ## phy-stats-calculator.h (module 'nr'): std::string ns3::PhyStatsCalculator::GetInterferenceFilename() [member function]
+    ## nr-phy-stats-calculator.h (module 'nr'): std::string ns3::NrPhyStatsCalculator::GetInterferenceFilename() [member function]
     cls.add_method('GetInterferenceFilename', 
                    'std::string', 
                    [])
-    ## phy-stats-calculator.h (module 'nr'): static ns3::TypeId ns3::PhyStatsCalculator::GetTypeId() [member function]
+    ## nr-phy-stats-calculator.h (module 'nr'): static ns3::TypeId ns3::NrPhyStatsCalculator::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## phy-stats-calculator.h (module 'nr'): std::string ns3::PhyStatsCalculator::GetUeSinrFilename() [member function]
+    ## nr-phy-stats-calculator.h (module 'nr'): std::string ns3::NrPhyStatsCalculator::GetUeSinrFilename() [member function]
     cls.add_method('GetUeSinrFilename', 
                    'std::string', 
                    [])
-    ## phy-stats-calculator.h (module 'nr'): void ns3::PhyStatsCalculator::ReportCurrentCellRsrpSinr(uint16_t cellId, uint64_t imsi, uint16_t rnti, double rsrp, double sinr) [member function]
+    ## nr-phy-stats-calculator.h (module 'nr'): void ns3::NrPhyStatsCalculator::ReportCurrentCellRsrpSinr(uint16_t cellId, uint64_t imsi, uint16_t rnti, double rsrp, double sinr) [member function]
     cls.add_method('ReportCurrentCellRsrpSinr', 
                    'void', 
                    [param('uint16_t', 'cellId'), param('uint64_t', 'imsi'), param('uint16_t', 'rnti'), param('double', 'rsrp'), param('double', 'sinr')])
-    ## phy-stats-calculator.h (module 'nr'): static void ns3::PhyStatsCalculator::ReportCurrentCellRsrpSinrCallback(ns3::Ptr<ns3::PhyStatsCalculator> phyStats, std::string path, uint16_t cellId, uint16_t rnti, double rsrp, double sinr) [member function]
+    ## nr-phy-stats-calculator.h (module 'nr'): static void ns3::NrPhyStatsCalculator::ReportCurrentCellRsrpSinrCallback(ns3::Ptr<ns3::NrPhyStatsCalculator> phyStats, std::string path, uint16_t cellId, uint16_t rnti, double rsrp, double sinr) [member function]
     cls.add_method('ReportCurrentCellRsrpSinrCallback', 
                    'void', 
-                   [param('ns3::Ptr< ns3::PhyStatsCalculator >', 'phyStats'), param('std::string', 'path'), param('uint16_t', 'cellId'), param('uint16_t', 'rnti'), param('double', 'rsrp'), param('double', 'sinr')], 
+                   [param('ns3::Ptr< ns3::NrPhyStatsCalculator >', 'phyStats'), param('std::string', 'path'), param('uint16_t', 'cellId'), param('uint16_t', 'rnti'), param('double', 'rsrp'), param('double', 'sinr')], 
                    is_static=True)
-    ## phy-stats-calculator.h (module 'nr'): void ns3::PhyStatsCalculator::ReportInterference(uint16_t cellId, ns3::Ptr<ns3::SpectrumValue> interference) [member function]
+    ## nr-phy-stats-calculator.h (module 'nr'): void ns3::NrPhyStatsCalculator::ReportInterference(uint16_t cellId, ns3::Ptr<ns3::SpectrumValue> interference) [member function]
     cls.add_method('ReportInterference', 
                    'void', 
                    [param('uint16_t', 'cellId'), param('ns3::Ptr< ns3::SpectrumValue >', 'interference')])
-    ## phy-stats-calculator.h (module 'nr'): static void ns3::PhyStatsCalculator::ReportInterference(ns3::Ptr<ns3::PhyStatsCalculator> phyStats, std::string path, uint16_t cellId, ns3::Ptr<ns3::SpectrumValue> interference) [member function]
+    ## nr-phy-stats-calculator.h (module 'nr'): static void ns3::NrPhyStatsCalculator::ReportInterference(ns3::Ptr<ns3::NrPhyStatsCalculator> phyStats, std::string path, uint16_t cellId, ns3::Ptr<ns3::SpectrumValue> interference) [member function]
     cls.add_method('ReportInterference', 
                    'void', 
-                   [param('ns3::Ptr< ns3::PhyStatsCalculator >', 'phyStats'), param('std::string', 'path'), param('uint16_t', 'cellId'), param('ns3::Ptr< ns3::SpectrumValue >', 'interference')], 
+                   [param('ns3::Ptr< ns3::NrPhyStatsCalculator >', 'phyStats'), param('std::string', 'path'), param('uint16_t', 'cellId'), param('ns3::Ptr< ns3::SpectrumValue >', 'interference')], 
                    is_static=True)
-    ## phy-stats-calculator.h (module 'nr'): void ns3::PhyStatsCalculator::ReportUeSinr(uint16_t cellId, uint64_t imsi, uint16_t rnti, double sinrLinear) [member function]
+    ## nr-phy-stats-calculator.h (module 'nr'): void ns3::NrPhyStatsCalculator::ReportUeSinr(uint16_t cellId, uint64_t imsi, uint16_t rnti, double sinrLinear) [member function]
     cls.add_method('ReportUeSinr', 
                    'void', 
                    [param('uint16_t', 'cellId'), param('uint64_t', 'imsi'), param('uint16_t', 'rnti'), param('double', 'sinrLinear')])
-    ## phy-stats-calculator.h (module 'nr'): static void ns3::PhyStatsCalculator::ReportUeSinr(ns3::Ptr<ns3::PhyStatsCalculator> phyStats, std::string path, uint16_t cellId, uint16_t rnti, double sinrLinear) [member function]
+    ## nr-phy-stats-calculator.h (module 'nr'): static void ns3::NrPhyStatsCalculator::ReportUeSinr(ns3::Ptr<ns3::NrPhyStatsCalculator> phyStats, std::string path, uint16_t cellId, uint16_t rnti, double sinrLinear) [member function]
     cls.add_method('ReportUeSinr', 
                    'void', 
-                   [param('ns3::Ptr< ns3::PhyStatsCalculator >', 'phyStats'), param('std::string', 'path'), param('uint16_t', 'cellId'), param('uint16_t', 'rnti'), param('double', 'sinrLinear')], 
+                   [param('ns3::Ptr< ns3::NrPhyStatsCalculator >', 'phyStats'), param('std::string', 'path'), param('uint16_t', 'cellId'), param('uint16_t', 'rnti'), param('double', 'sinrLinear')], 
                    is_static=True)
-    ## phy-stats-calculator.h (module 'nr'): void ns3::PhyStatsCalculator::SetCurrentCellRsrpSinrFilename(std::string filename) [member function]
+    ## nr-phy-stats-calculator.h (module 'nr'): void ns3::NrPhyStatsCalculator::SetCurrentCellRsrpSinrFilename(std::string filename) [member function]
     cls.add_method('SetCurrentCellRsrpSinrFilename', 
                    'void', 
                    [param('std::string', 'filename')])
-    ## phy-stats-calculator.h (module 'nr'): void ns3::PhyStatsCalculator::SetInterferenceFilename(std::string filename) [member function]
+    ## nr-phy-stats-calculator.h (module 'nr'): void ns3::NrPhyStatsCalculator::SetInterferenceFilename(std::string filename) [member function]
     cls.add_method('SetInterferenceFilename', 
                    'void', 
                    [param('std::string', 'filename')])
-    ## phy-stats-calculator.h (module 'nr'): void ns3::PhyStatsCalculator::SetUeSinrFilename(std::string filename) [member function]
+    ## nr-phy-stats-calculator.h (module 'nr'): void ns3::NrPhyStatsCalculator::SetUeSinrFilename(std::string filename) [member function]
     cls.add_method('SetUeSinrFilename', 
                    'void', 
                    [param('std::string', 'filename')])
     return
 
-def register_Ns3PhyTxStatsCalculator_methods(root_module, cls):
-    ## phy-tx-stats-calculator.h (module 'nr'): ns3::PhyTxStatsCalculator::PhyTxStatsCalculator(ns3::PhyTxStatsCalculator const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::PhyTxStatsCalculator const &', 'arg0')])
-    ## phy-tx-stats-calculator.h (module 'nr'): ns3::PhyTxStatsCalculator::PhyTxStatsCalculator() [constructor]
+def register_Ns3NrPhyTxStatsCalculator_methods(root_module, cls):
+    ## nr-phy-tx-stats-calculator.h (module 'nr'): ns3::NrPhyTxStatsCalculator::NrPhyTxStatsCalculator(ns3::NrPhyTxStatsCalculator const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrPhyTxStatsCalculator const &', 'arg0')])
+    ## nr-phy-tx-stats-calculator.h (module 'nr'): ns3::NrPhyTxStatsCalculator::NrPhyTxStatsCalculator() [constructor]
     cls.add_constructor([])
-    ## phy-tx-stats-calculator.h (module 'nr'): void ns3::PhyTxStatsCalculator::DlPhyTransmission(ns3::NrPhyTransmissionStatParameters params) [member function]
+    ## nr-phy-tx-stats-calculator.h (module 'nr'): void ns3::NrPhyTxStatsCalculator::DlPhyTransmission(ns3::NrPhyTransmissionStatParameters params) [member function]
     cls.add_method('DlPhyTransmission', 
                    'void', 
                    [param('ns3::NrPhyTransmissionStatParameters', 'params')])
-    ## phy-tx-stats-calculator.h (module 'nr'): static void ns3::PhyTxStatsCalculator::DlPhyTransmissionCallback(ns3::Ptr<ns3::PhyTxStatsCalculator> phyTxStats, std::string path, ns3::NrPhyTransmissionStatParameters params) [member function]
+    ## nr-phy-tx-stats-calculator.h (module 'nr'): static void ns3::NrPhyTxStatsCalculator::DlPhyTransmissionCallback(ns3::Ptr<ns3::NrPhyTxStatsCalculator> phyTxStats, std::string path, ns3::NrPhyTransmissionStatParameters params) [member function]
     cls.add_method('DlPhyTransmissionCallback', 
                    'void', 
-                   [param('ns3::Ptr< ns3::PhyTxStatsCalculator >', 'phyTxStats'), param('std::string', 'path'), param('ns3::NrPhyTransmissionStatParameters', 'params')], 
+                   [param('ns3::Ptr< ns3::NrPhyTxStatsCalculator >', 'phyTxStats'), param('std::string', 'path'), param('ns3::NrPhyTransmissionStatParameters', 'params')], 
                    is_static=True)
-    ## phy-tx-stats-calculator.h (module 'nr'): std::string ns3::PhyTxStatsCalculator::GetDlTxOutputFilename() [member function]
+    ## nr-phy-tx-stats-calculator.h (module 'nr'): std::string ns3::NrPhyTxStatsCalculator::GetDlTxOutputFilename() [member function]
     cls.add_method('GetDlTxOutputFilename', 
                    'std::string', 
                    [])
-    ## phy-tx-stats-calculator.h (module 'nr'): static ns3::TypeId ns3::PhyTxStatsCalculator::GetTypeId() [member function]
+    ## nr-phy-tx-stats-calculator.h (module 'nr'): static ns3::TypeId ns3::NrPhyTxStatsCalculator::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## phy-tx-stats-calculator.h (module 'nr'): std::string ns3::PhyTxStatsCalculator::GetUlTxOutputFilename() [member function]
+    ## nr-phy-tx-stats-calculator.h (module 'nr'): std::string ns3::NrPhyTxStatsCalculator::GetUlTxOutputFilename() [member function]
     cls.add_method('GetUlTxOutputFilename', 
                    'std::string', 
                    [])
-    ## phy-tx-stats-calculator.h (module 'nr'): void ns3::PhyTxStatsCalculator::SetDlTxOutputFilename(std::string outputFilename) [member function]
+    ## nr-phy-tx-stats-calculator.h (module 'nr'): void ns3::NrPhyTxStatsCalculator::SetDlTxOutputFilename(std::string outputFilename) [member function]
     cls.add_method('SetDlTxOutputFilename', 
                    'void', 
                    [param('std::string', 'outputFilename')])
-    ## phy-tx-stats-calculator.h (module 'nr'): void ns3::PhyTxStatsCalculator::SetUlTxOutputFilename(std::string outputFilename) [member function]
+    ## nr-phy-tx-stats-calculator.h (module 'nr'): void ns3::NrPhyTxStatsCalculator::SetUlTxOutputFilename(std::string outputFilename) [member function]
     cls.add_method('SetUlTxOutputFilename', 
                    'void', 
                    [param('std::string', 'outputFilename')])
-    ## phy-tx-stats-calculator.h (module 'nr'): void ns3::PhyTxStatsCalculator::UlPhyTransmission(ns3::NrPhyTransmissionStatParameters params) [member function]
+    ## nr-phy-tx-stats-calculator.h (module 'nr'): void ns3::NrPhyTxStatsCalculator::UlPhyTransmission(ns3::NrPhyTransmissionStatParameters params) [member function]
     cls.add_method('UlPhyTransmission', 
                    'void', 
                    [param('ns3::NrPhyTransmissionStatParameters', 'params')])
-    ## phy-tx-stats-calculator.h (module 'nr'): static void ns3::PhyTxStatsCalculator::UlPhyTransmissionCallback(ns3::Ptr<ns3::PhyTxStatsCalculator> phyTxStats, std::string path, ns3::NrPhyTransmissionStatParameters params) [member function]
+    ## nr-phy-tx-stats-calculator.h (module 'nr'): static void ns3::NrPhyTxStatsCalculator::UlPhyTransmissionCallback(ns3::Ptr<ns3::NrPhyTxStatsCalculator> phyTxStats, std::string path, ns3::NrPhyTransmissionStatParameters params) [member function]
     cls.add_method('UlPhyTransmissionCallback', 
                    'void', 
-                   [param('ns3::Ptr< ns3::PhyTxStatsCalculator >', 'phyTxStats'), param('std::string', 'path'), param('ns3::NrPhyTransmissionStatParameters', 'params')], 
+                   [param('ns3::Ptr< ns3::NrPhyTxStatsCalculator >', 'phyTxStats'), param('std::string', 'path'), param('ns3::NrPhyTransmissionStatParameters', 'params')], 
                    is_static=True)
     return
 
@@ -18815,52 +18815,52 @@ def register_Ns3PointerValue_methods(root_module, cls):
                    [param('ns3::Ptr< ns3::Object >', 'object')])
     return
 
-def register_Ns3PssFfMacScheduler_methods(root_module, cls):
-    ## nr-pss-ff-mac-scheduler.h (module 'nr'): ns3::PssFfMacScheduler::PssFfMacScheduler(ns3::PssFfMacScheduler const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::PssFfMacScheduler const &', 'arg0')])
-    ## nr-pss-ff-mac-scheduler.h (module 'nr'): ns3::PssFfMacScheduler::PssFfMacScheduler() [constructor]
+def register_Ns3NrPssFfMacScheduler_methods(root_module, cls):
+    ## nr-pss-ff-mac-scheduler.h (module 'nr'): ns3::NrPssFfMacScheduler::NrPssFfMacScheduler(ns3::NrPssFfMacScheduler const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrPssFfMacScheduler const &', 'arg0')])
+    ## nr-pss-ff-mac-scheduler.h (module 'nr'): ns3::NrPssFfMacScheduler::NrPssFfMacScheduler() [constructor]
     cls.add_constructor([])
-    ## nr-pss-ff-mac-scheduler.h (module 'nr'): void ns3::PssFfMacScheduler::DoDispose() [member function]
+    ## nr-pss-ff-mac-scheduler.h (module 'nr'): void ns3::NrPssFfMacScheduler::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
                    is_virtual=True)
-    ## nr-pss-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::PssFfMacScheduler::GetFfMacCschedSapProvider() [member function]
+    ## nr-pss-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::NrPssFfMacScheduler::GetFfMacCschedSapProvider() [member function]
     cls.add_method('GetFfMacCschedSapProvider', 
                    'ns3::FfMacCschedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## nr-pss-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::PssFfMacScheduler::GetFfMacSchedSapProvider() [member function]
+    ## nr-pss-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::NrPssFfMacScheduler::GetFfMacSchedSapProvider() [member function]
     cls.add_method('GetFfMacSchedSapProvider', 
                    'ns3::FfMacSchedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## nr-pss-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::PssFfMacScheduler::GetNrFfrSapUser() [member function]
+    ## nr-pss-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::NrPssFfMacScheduler::GetNrFfrSapUser() [member function]
     cls.add_method('GetNrFfrSapUser', 
                    'ns3::NrFfrSapUser *', 
                    [], 
                    is_virtual=True)
-    ## nr-pss-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::PssFfMacScheduler::GetTypeId() [member function]
+    ## nr-pss-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::NrPssFfMacScheduler::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## nr-pss-ff-mac-scheduler.h (module 'nr'): void ns3::PssFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
+    ## nr-pss-ff-mac-scheduler.h (module 'nr'): void ns3::NrPssFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
     cls.add_method('SetFfMacCschedSapUser', 
                    'void', 
                    [param('ns3::FfMacCschedSapUser *', 's')], 
                    is_virtual=True)
-    ## nr-pss-ff-mac-scheduler.h (module 'nr'): void ns3::PssFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
+    ## nr-pss-ff-mac-scheduler.h (module 'nr'): void ns3::NrPssFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
     cls.add_method('SetFfMacSchedSapUser', 
                    'void', 
                    [param('ns3::FfMacSchedSapUser *', 's')], 
                    is_virtual=True)
-    ## nr-pss-ff-mac-scheduler.h (module 'nr'): void ns3::PssFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
+    ## nr-pss-ff-mac-scheduler.h (module 'nr'): void ns3::NrPssFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
     cls.add_method('SetNrFfrSapProvider', 
                    'void', 
                    [param('ns3::NrFfrSapProvider *', 's')], 
                    is_virtual=True)
-    ## nr-pss-ff-mac-scheduler.h (module 'nr'): void ns3::PssFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
+    ## nr-pss-ff-mac-scheduler.h (module 'nr'): void ns3::NrPssFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
     cls.add_method('TransmissionModeConfigurationUpdate', 
                    'void', 
                    [param('uint16_t', 'rnti'), param('uint8_t', 'txMode')])
@@ -18882,142 +18882,142 @@ def register_Ns3RachPreambleNrControlMessage_methods(root_module, cls):
                    [param('uint32_t', 'rapid')])
     return
 
-def register_Ns3RadioBearerStatsCalculator_methods(root_module, cls):
-    ## radio-bearer-stats-calculator.h (module 'nr'): ns3::RadioBearerStatsCalculator::RadioBearerStatsCalculator(ns3::RadioBearerStatsCalculator const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::RadioBearerStatsCalculator const &', 'arg0')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): ns3::RadioBearerStatsCalculator::RadioBearerStatsCalculator() [constructor]
+def register_Ns3NrRadioBearerStatsCalculator_methods(root_module, cls):
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): ns3::NrRadioBearerStatsCalculator::NrRadioBearerStatsCalculator(ns3::NrRadioBearerStatsCalculator const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrRadioBearerStatsCalculator const &', 'arg0')])
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): ns3::NrRadioBearerStatsCalculator::NrRadioBearerStatsCalculator() [constructor]
     cls.add_constructor([])
-    ## radio-bearer-stats-calculator.h (module 'nr'): ns3::RadioBearerStatsCalculator::RadioBearerStatsCalculator(std::string protocolType) [constructor]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): ns3::NrRadioBearerStatsCalculator::NrRadioBearerStatsCalculator(std::string protocolType) [constructor]
     cls.add_constructor([param('std::string', 'protocolType')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): void ns3::RadioBearerStatsCalculator::DlRxPdu(uint16_t cellId, uint64_t imsi, uint16_t rnti, uint8_t lcid, uint32_t packetSize, uint64_t delay) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): void ns3::NrRadioBearerStatsCalculator::DlRxPdu(uint16_t cellId, uint64_t imsi, uint16_t rnti, uint8_t lcid, uint32_t packetSize, uint64_t delay) [member function]
     cls.add_method('DlRxPdu', 
                    'void', 
                    [param('uint16_t', 'cellId'), param('uint64_t', 'imsi'), param('uint16_t', 'rnti'), param('uint8_t', 'lcid'), param('uint32_t', 'packetSize'), param('uint64_t', 'delay')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): void ns3::RadioBearerStatsCalculator::DlTxPdu(uint16_t cellId, uint64_t imsi, uint16_t rnti, uint8_t lcid, uint32_t packetSize) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): void ns3::NrRadioBearerStatsCalculator::DlTxPdu(uint16_t cellId, uint64_t imsi, uint16_t rnti, uint8_t lcid, uint32_t packetSize) [member function]
     cls.add_method('DlTxPdu', 
                    'void', 
                    [param('uint16_t', 'cellId'), param('uint64_t', 'imsi'), param('uint16_t', 'rnti'), param('uint8_t', 'lcid'), param('uint32_t', 'packetSize')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): void ns3::RadioBearerStatsCalculator::DoDispose() [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): void ns3::NrRadioBearerStatsCalculator::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
                    is_virtual=True)
-    ## radio-bearer-stats-calculator.h (module 'nr'): uint32_t ns3::RadioBearerStatsCalculator::GetDlCellId(uint64_t imsi, uint8_t lcid) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): uint32_t ns3::NrRadioBearerStatsCalculator::GetDlCellId(uint64_t imsi, uint8_t lcid) [member function]
     cls.add_method('GetDlCellId', 
                    'uint32_t', 
                    [param('uint64_t', 'imsi'), param('uint8_t', 'lcid')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): double ns3::RadioBearerStatsCalculator::GetDlDelay(uint64_t imsi, uint8_t lcid) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): double ns3::NrRadioBearerStatsCalculator::GetDlDelay(uint64_t imsi, uint8_t lcid) [member function]
     cls.add_method('GetDlDelay', 
                    'double', 
                    [param('uint64_t', 'imsi'), param('uint8_t', 'lcid')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): std::vector<double, std::allocator<double> > ns3::RadioBearerStatsCalculator::GetDlDelayStats(uint64_t imsi, uint8_t lcid) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): std::vector<double, std::allocator<double> > ns3::NrRadioBearerStatsCalculator::GetDlDelayStats(uint64_t imsi, uint8_t lcid) [member function]
     cls.add_method('GetDlDelayStats', 
                    'std::vector< double >', 
                    [param('uint64_t', 'imsi'), param('uint8_t', 'lcid')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): std::string ns3::RadioBearerStatsCalculator::GetDlOutputFilename() [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): std::string ns3::NrRadioBearerStatsCalculator::GetDlOutputFilename() [member function]
     cls.add_method('GetDlOutputFilename', 
                    'std::string', 
                    [])
-    ## radio-bearer-stats-calculator.h (module 'nr'): std::string ns3::RadioBearerStatsCalculator::GetDlPdcpOutputFilename() [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): std::string ns3::NrRadioBearerStatsCalculator::GetDlPdcpOutputFilename() [member function]
     cls.add_method('GetDlPdcpOutputFilename', 
                    'std::string', 
                    [])
-    ## radio-bearer-stats-calculator.h (module 'nr'): std::vector<double, std::allocator<double> > ns3::RadioBearerStatsCalculator::GetDlPduSizeStats(uint64_t imsi, uint8_t lcid) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): std::vector<double, std::allocator<double> > ns3::NrRadioBearerStatsCalculator::GetDlPduSizeStats(uint64_t imsi, uint8_t lcid) [member function]
     cls.add_method('GetDlPduSizeStats', 
                    'std::vector< double >', 
                    [param('uint64_t', 'imsi'), param('uint8_t', 'lcid')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): uint64_t ns3::RadioBearerStatsCalculator::GetDlRxData(uint64_t imsi, uint8_t lcid) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): uint64_t ns3::NrRadioBearerStatsCalculator::GetDlRxData(uint64_t imsi, uint8_t lcid) [member function]
     cls.add_method('GetDlRxData', 
                    'uint64_t', 
                    [param('uint64_t', 'imsi'), param('uint8_t', 'lcid')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): uint32_t ns3::RadioBearerStatsCalculator::GetDlRxPackets(uint64_t imsi, uint8_t lcid) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): uint32_t ns3::NrRadioBearerStatsCalculator::GetDlRxPackets(uint64_t imsi, uint8_t lcid) [member function]
     cls.add_method('GetDlRxPackets', 
                    'uint32_t', 
                    [param('uint64_t', 'imsi'), param('uint8_t', 'lcid')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): uint64_t ns3::RadioBearerStatsCalculator::GetDlTxData(uint64_t imsi, uint8_t lcid) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): uint64_t ns3::NrRadioBearerStatsCalculator::GetDlTxData(uint64_t imsi, uint8_t lcid) [member function]
     cls.add_method('GetDlTxData', 
                    'uint64_t', 
                    [param('uint64_t', 'imsi'), param('uint8_t', 'lcid')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): uint32_t ns3::RadioBearerStatsCalculator::GetDlTxPackets(uint64_t imsi, uint8_t lcid) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): uint32_t ns3::NrRadioBearerStatsCalculator::GetDlTxPackets(uint64_t imsi, uint8_t lcid) [member function]
     cls.add_method('GetDlTxPackets', 
                    'uint32_t', 
                    [param('uint64_t', 'imsi'), param('uint8_t', 'lcid')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): ns3::Time ns3::RadioBearerStatsCalculator::GetEpoch() const [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): ns3::Time ns3::NrRadioBearerStatsCalculator::GetEpoch() const [member function]
     cls.add_method('GetEpoch', 
                    'ns3::Time', 
                    [], 
                    is_const=True)
-    ## radio-bearer-stats-calculator.h (module 'nr'): ns3::Time ns3::RadioBearerStatsCalculator::GetStartTime() const [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): ns3::Time ns3::NrRadioBearerStatsCalculator::GetStartTime() const [member function]
     cls.add_method('GetStartTime', 
                    'ns3::Time', 
                    [], 
                    is_const=True)
-    ## radio-bearer-stats-calculator.h (module 'nr'): static ns3::TypeId ns3::RadioBearerStatsCalculator::GetTypeId() [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): static ns3::TypeId ns3::NrRadioBearerStatsCalculator::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## radio-bearer-stats-calculator.h (module 'nr'): uint32_t ns3::RadioBearerStatsCalculator::GetUlCellId(uint64_t imsi, uint8_t lcid) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): uint32_t ns3::NrRadioBearerStatsCalculator::GetUlCellId(uint64_t imsi, uint8_t lcid) [member function]
     cls.add_method('GetUlCellId', 
                    'uint32_t', 
                    [param('uint64_t', 'imsi'), param('uint8_t', 'lcid')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): double ns3::RadioBearerStatsCalculator::GetUlDelay(uint64_t imsi, uint8_t lcid) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): double ns3::NrRadioBearerStatsCalculator::GetUlDelay(uint64_t imsi, uint8_t lcid) [member function]
     cls.add_method('GetUlDelay', 
                    'double', 
                    [param('uint64_t', 'imsi'), param('uint8_t', 'lcid')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): std::vector<double, std::allocator<double> > ns3::RadioBearerStatsCalculator::GetUlDelayStats(uint64_t imsi, uint8_t lcid) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): std::vector<double, std::allocator<double> > ns3::NrRadioBearerStatsCalculator::GetUlDelayStats(uint64_t imsi, uint8_t lcid) [member function]
     cls.add_method('GetUlDelayStats', 
                    'std::vector< double >', 
                    [param('uint64_t', 'imsi'), param('uint8_t', 'lcid')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): std::string ns3::RadioBearerStatsCalculator::GetUlOutputFilename() [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): std::string ns3::NrRadioBearerStatsCalculator::GetUlOutputFilename() [member function]
     cls.add_method('GetUlOutputFilename', 
                    'std::string', 
                    [])
-    ## radio-bearer-stats-calculator.h (module 'nr'): std::string ns3::RadioBearerStatsCalculator::GetUlPdcpOutputFilename() [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): std::string ns3::NrRadioBearerStatsCalculator::GetUlPdcpOutputFilename() [member function]
     cls.add_method('GetUlPdcpOutputFilename', 
                    'std::string', 
                    [])
-    ## radio-bearer-stats-calculator.h (module 'nr'): std::vector<double, std::allocator<double> > ns3::RadioBearerStatsCalculator::GetUlPduSizeStats(uint64_t imsi, uint8_t lcid) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): std::vector<double, std::allocator<double> > ns3::NrRadioBearerStatsCalculator::GetUlPduSizeStats(uint64_t imsi, uint8_t lcid) [member function]
     cls.add_method('GetUlPduSizeStats', 
                    'std::vector< double >', 
                    [param('uint64_t', 'imsi'), param('uint8_t', 'lcid')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): uint64_t ns3::RadioBearerStatsCalculator::GetUlRxData(uint64_t imsi, uint8_t lcid) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): uint64_t ns3::NrRadioBearerStatsCalculator::GetUlRxData(uint64_t imsi, uint8_t lcid) [member function]
     cls.add_method('GetUlRxData', 
                    'uint64_t', 
                    [param('uint64_t', 'imsi'), param('uint8_t', 'lcid')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): uint32_t ns3::RadioBearerStatsCalculator::GetUlRxPackets(uint64_t imsi, uint8_t lcid) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): uint32_t ns3::NrRadioBearerStatsCalculator::GetUlRxPackets(uint64_t imsi, uint8_t lcid) [member function]
     cls.add_method('GetUlRxPackets', 
                    'uint32_t', 
                    [param('uint64_t', 'imsi'), param('uint8_t', 'lcid')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): uint64_t ns3::RadioBearerStatsCalculator::GetUlTxData(uint64_t imsi, uint8_t lcid) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): uint64_t ns3::NrRadioBearerStatsCalculator::GetUlTxData(uint64_t imsi, uint8_t lcid) [member function]
     cls.add_method('GetUlTxData', 
                    'uint64_t', 
                    [param('uint64_t', 'imsi'), param('uint8_t', 'lcid')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): uint32_t ns3::RadioBearerStatsCalculator::GetUlTxPackets(uint64_t imsi, uint8_t lcid) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): uint32_t ns3::NrRadioBearerStatsCalculator::GetUlTxPackets(uint64_t imsi, uint8_t lcid) [member function]
     cls.add_method('GetUlTxPackets', 
                    'uint32_t', 
                    [param('uint64_t', 'imsi'), param('uint8_t', 'lcid')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): void ns3::RadioBearerStatsCalculator::SetDlPdcpOutputFilename(std::string outputFilename) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): void ns3::NrRadioBearerStatsCalculator::SetDlPdcpOutputFilename(std::string outputFilename) [member function]
     cls.add_method('SetDlPdcpOutputFilename', 
                    'void', 
                    [param('std::string', 'outputFilename')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): void ns3::RadioBearerStatsCalculator::SetEpoch(ns3::Time e) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): void ns3::NrRadioBearerStatsCalculator::SetEpoch(ns3::Time e) [member function]
     cls.add_method('SetEpoch', 
                    'void', 
                    [param('ns3::Time', 'e')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): void ns3::RadioBearerStatsCalculator::SetStartTime(ns3::Time t) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): void ns3::NrRadioBearerStatsCalculator::SetStartTime(ns3::Time t) [member function]
     cls.add_method('SetStartTime', 
                    'void', 
                    [param('ns3::Time', 't')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): void ns3::RadioBearerStatsCalculator::SetUlPdcpOutputFilename(std::string outputFilename) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): void ns3::NrRadioBearerStatsCalculator::SetUlPdcpOutputFilename(std::string outputFilename) [member function]
     cls.add_method('SetUlPdcpOutputFilename', 
                    'void', 
                    [param('std::string', 'outputFilename')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): void ns3::RadioBearerStatsCalculator::UlRxPdu(uint16_t cellId, uint64_t imsi, uint16_t rnti, uint8_t lcid, uint32_t packetSize, uint64_t delay) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): void ns3::NrRadioBearerStatsCalculator::UlRxPdu(uint16_t cellId, uint64_t imsi, uint16_t rnti, uint8_t lcid, uint32_t packetSize, uint64_t delay) [member function]
     cls.add_method('UlRxPdu', 
                    'void', 
                    [param('uint16_t', 'cellId'), param('uint64_t', 'imsi'), param('uint16_t', 'rnti'), param('uint8_t', 'lcid'), param('uint32_t', 'packetSize'), param('uint64_t', 'delay')])
-    ## radio-bearer-stats-calculator.h (module 'nr'): void ns3::RadioBearerStatsCalculator::UlTxPdu(uint16_t cellId, uint64_t imsi, uint16_t rnti, uint8_t lcid, uint32_t packetSize) [member function]
+    ## nr-radio-bearer-stats-calculator.h (module 'nr'): void ns3::NrRadioBearerStatsCalculator::UlTxPdu(uint16_t cellId, uint64_t imsi, uint16_t rnti, uint8_t lcid, uint32_t packetSize) [member function]
     cls.add_method('UlTxPdu', 
                    'void', 
                    [param('uint16_t', 'cellId'), param('uint64_t', 'imsi'), param('uint16_t', 'rnti'), param('uint8_t', 'lcid'), param('uint32_t', 'packetSize')])
@@ -19064,325 +19064,325 @@ def register_Ns3RarNrControlMessageRar_methods(root_module, cls):
     cls.add_instance_attribute('rarPayload', 'ns3::BuildRarListElement_s', is_const=False)
     return
 
-def register_Ns3RemSpectrumPhy_methods(root_module, cls):
-    ## rem-spectrum-phy.h (module 'nr'): ns3::RemSpectrumPhy::RemSpectrumPhy() [constructor]
+def register_Ns3NrRemSpectrumPhy_methods(root_module, cls):
+    ## nr-rem-spectrum-phy.h (module 'nr'): ns3::NrRemSpectrumPhy::NrRemSpectrumPhy() [constructor]
     cls.add_constructor([])
-    ## rem-spectrum-phy.h (module 'nr'): void ns3::RemSpectrumPhy::DoDispose() [member function]
+    ## nr-rem-spectrum-phy.h (module 'nr'): void ns3::NrRemSpectrumPhy::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
                    is_virtual=True)
-    ## rem-spectrum-phy.h (module 'nr'): static ns3::TypeId ns3::RemSpectrumPhy::GetTypeId() [member function]
+    ## nr-rem-spectrum-phy.h (module 'nr'): static ns3::TypeId ns3::NrRemSpectrumPhy::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## rem-spectrum-phy.h (module 'nr'): void ns3::RemSpectrumPhy::SetChannel(ns3::Ptr<ns3::SpectrumChannel> c) [member function]
+    ## nr-rem-spectrum-phy.h (module 'nr'): void ns3::NrRemSpectrumPhy::SetChannel(ns3::Ptr<ns3::SpectrumChannel> c) [member function]
     cls.add_method('SetChannel', 
                    'void', 
                    [param('ns3::Ptr< ns3::SpectrumChannel >', 'c')], 
                    is_virtual=True)
-    ## rem-spectrum-phy.h (module 'nr'): void ns3::RemSpectrumPhy::SetMobility(ns3::Ptr<ns3::MobilityModel> m) [member function]
+    ## nr-rem-spectrum-phy.h (module 'nr'): void ns3::NrRemSpectrumPhy::SetMobility(ns3::Ptr<ns3::MobilityModel> m) [member function]
     cls.add_method('SetMobility', 
                    'void', 
                    [param('ns3::Ptr< ns3::MobilityModel >', 'm')], 
                    is_virtual=True)
-    ## rem-spectrum-phy.h (module 'nr'): void ns3::RemSpectrumPhy::SetDevice(ns3::Ptr<ns3::NetDevice> d) [member function]
+    ## nr-rem-spectrum-phy.h (module 'nr'): void ns3::NrRemSpectrumPhy::SetDevice(ns3::Ptr<ns3::NetDevice> d) [member function]
     cls.add_method('SetDevice', 
                    'void', 
                    [param('ns3::Ptr< ns3::NetDevice >', 'd')], 
                    is_virtual=True)
-    ## rem-spectrum-phy.h (module 'nr'): ns3::Ptr<ns3::MobilityModel> ns3::RemSpectrumPhy::GetMobility() [member function]
+    ## nr-rem-spectrum-phy.h (module 'nr'): ns3::Ptr<ns3::MobilityModel> ns3::NrRemSpectrumPhy::GetMobility() [member function]
     cls.add_method('GetMobility', 
                    'ns3::Ptr< ns3::MobilityModel >', 
                    [], 
                    is_virtual=True)
-    ## rem-spectrum-phy.h (module 'nr'): ns3::Ptr<ns3::NetDevice> ns3::RemSpectrumPhy::GetDevice() const [member function]
+    ## nr-rem-spectrum-phy.h (module 'nr'): ns3::Ptr<ns3::NetDevice> ns3::NrRemSpectrumPhy::GetDevice() const [member function]
     cls.add_method('GetDevice', 
                    'ns3::Ptr< ns3::NetDevice >', 
                    [], 
                    is_const=True, is_virtual=True)
-    ## rem-spectrum-phy.h (module 'nr'): ns3::Ptr<ns3::SpectrumModel const> ns3::RemSpectrumPhy::GetRxSpectrumModel() const [member function]
+    ## nr-rem-spectrum-phy.h (module 'nr'): ns3::Ptr<ns3::SpectrumModel const> ns3::NrRemSpectrumPhy::GetRxSpectrumModel() const [member function]
     cls.add_method('GetRxSpectrumModel', 
                    'ns3::Ptr< ns3::SpectrumModel const >', 
                    [], 
                    is_const=True, is_virtual=True)
-    ## rem-spectrum-phy.h (module 'nr'): ns3::Ptr<ns3::AntennaModel> ns3::RemSpectrumPhy::GetRxAntenna() [member function]
+    ## nr-rem-spectrum-phy.h (module 'nr'): ns3::Ptr<ns3::AntennaModel> ns3::NrRemSpectrumPhy::GetRxAntenna() [member function]
     cls.add_method('GetRxAntenna', 
                    'ns3::Ptr< ns3::AntennaModel >', 
                    [], 
                    is_virtual=True)
-    ## rem-spectrum-phy.h (module 'nr'): void ns3::RemSpectrumPhy::StartRx(ns3::Ptr<ns3::SpectrumSignalParameters> params) [member function]
+    ## nr-rem-spectrum-phy.h (module 'nr'): void ns3::NrRemSpectrumPhy::StartRx(ns3::Ptr<ns3::SpectrumSignalParameters> params) [member function]
     cls.add_method('StartRx', 
                    'void', 
                    [param('ns3::Ptr< ns3::SpectrumSignalParameters >', 'params')], 
                    is_virtual=True)
-    ## rem-spectrum-phy.h (module 'nr'): void ns3::RemSpectrumPhy::SetRxSpectrumModel(ns3::Ptr<ns3::SpectrumModel const> m) [member function]
+    ## nr-rem-spectrum-phy.h (module 'nr'): void ns3::NrRemSpectrumPhy::SetRxSpectrumModel(ns3::Ptr<ns3::SpectrumModel const> m) [member function]
     cls.add_method('SetRxSpectrumModel', 
                    'void', 
                    [param('ns3::Ptr< ns3::SpectrumModel const >', 'm')])
-    ## rem-spectrum-phy.h (module 'nr'): double ns3::RemSpectrumPhy::GetSinr(double noisePower) [member function]
+    ## nr-rem-spectrum-phy.h (module 'nr'): double ns3::NrRemSpectrumPhy::GetSinr(double noisePower) [member function]
     cls.add_method('GetSinr', 
                    'double', 
                    [param('double', 'noisePower')])
-    ## rem-spectrum-phy.h (module 'nr'): void ns3::RemSpectrumPhy::Deactivate() [member function]
+    ## nr-rem-spectrum-phy.h (module 'nr'): void ns3::NrRemSpectrumPhy::Deactivate() [member function]
     cls.add_method('Deactivate', 
                    'void', 
                    [])
-    ## rem-spectrum-phy.h (module 'nr'): bool ns3::RemSpectrumPhy::IsActive() [member function]
+    ## nr-rem-spectrum-phy.h (module 'nr'): bool ns3::NrRemSpectrumPhy::IsActive() [member function]
     cls.add_method('IsActive', 
                    'bool', 
                    [])
-    ## rem-spectrum-phy.h (module 'nr'): void ns3::RemSpectrumPhy::Reset() [member function]
+    ## nr-rem-spectrum-phy.h (module 'nr'): void ns3::NrRemSpectrumPhy::Reset() [member function]
     cls.add_method('Reset', 
                    'void', 
                    [])
-    ## rem-spectrum-phy.h (module 'nr'): void ns3::RemSpectrumPhy::SetUseDataChannel(bool value) [member function]
+    ## nr-rem-spectrum-phy.h (module 'nr'): void ns3::NrRemSpectrumPhy::SetUseDataChannel(bool value) [member function]
     cls.add_method('SetUseDataChannel', 
                    'void', 
                    [param('bool', 'value')])
-    ## rem-spectrum-phy.h (module 'nr'): void ns3::RemSpectrumPhy::SetRbId(int32_t rbId) [member function]
+    ## nr-rem-spectrum-phy.h (module 'nr'): void ns3::NrRemSpectrumPhy::SetRbId(int32_t rbId) [member function]
     cls.add_method('SetRbId', 
                    'void', 
                    [param('int32_t', 'rbId')])
     return
 
-def register_Ns3RrFfMacScheduler_methods(root_module, cls):
-    ## nr-rr-ff-mac-scheduler.h (module 'nr'): ns3::RrFfMacScheduler::RrFfMacScheduler(ns3::RrFfMacScheduler const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::RrFfMacScheduler const &', 'arg0')])
-    ## nr-rr-ff-mac-scheduler.h (module 'nr'): ns3::RrFfMacScheduler::RrFfMacScheduler() [constructor]
+def register_Ns3NrRrFfMacScheduler_methods(root_module, cls):
+    ## nr-rr-ff-mac-scheduler.h (module 'nr'): ns3::NrRrFfMacScheduler::NrRrFfMacScheduler(ns3::NrRrFfMacScheduler const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrRrFfMacScheduler const &', 'arg0')])
+    ## nr-rr-ff-mac-scheduler.h (module 'nr'): ns3::NrRrFfMacScheduler::NrRrFfMacScheduler() [constructor]
     cls.add_constructor([])
-    ## nr-rr-ff-mac-scheduler.h (module 'nr'): void ns3::RrFfMacScheduler::DoDispose() [member function]
+    ## nr-rr-ff-mac-scheduler.h (module 'nr'): void ns3::NrRrFfMacScheduler::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
                    is_virtual=True)
-    ## nr-rr-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::RrFfMacScheduler::GetFfMacCschedSapProvider() [member function]
+    ## nr-rr-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::NrRrFfMacScheduler::GetFfMacCschedSapProvider() [member function]
     cls.add_method('GetFfMacCschedSapProvider', 
                    'ns3::FfMacCschedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## nr-rr-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::RrFfMacScheduler::GetFfMacSchedSapProvider() [member function]
+    ## nr-rr-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::NrRrFfMacScheduler::GetFfMacSchedSapProvider() [member function]
     cls.add_method('GetFfMacSchedSapProvider', 
                    'ns3::FfMacSchedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## nr-rr-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::RrFfMacScheduler::GetNrFfrSapUser() [member function]
+    ## nr-rr-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::NrRrFfMacScheduler::GetNrFfrSapUser() [member function]
     cls.add_method('GetNrFfrSapUser', 
                    'ns3::NrFfrSapUser *', 
                    [], 
                    is_virtual=True)
-    ## nr-rr-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::RrFfMacScheduler::GetTypeId() [member function]
+    ## nr-rr-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::NrRrFfMacScheduler::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## nr-rr-ff-mac-scheduler.h (module 'nr'): void ns3::RrFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
+    ## nr-rr-ff-mac-scheduler.h (module 'nr'): void ns3::NrRrFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
     cls.add_method('SetFfMacCschedSapUser', 
                    'void', 
                    [param('ns3::FfMacCschedSapUser *', 's')], 
                    is_virtual=True)
-    ## nr-rr-ff-mac-scheduler.h (module 'nr'): void ns3::RrFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
+    ## nr-rr-ff-mac-scheduler.h (module 'nr'): void ns3::NrRrFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
     cls.add_method('SetFfMacSchedSapUser', 
                    'void', 
                    [param('ns3::FfMacSchedSapUser *', 's')], 
                    is_virtual=True)
-    ## nr-rr-ff-mac-scheduler.h (module 'nr'): void ns3::RrFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
+    ## nr-rr-ff-mac-scheduler.h (module 'nr'): void ns3::NrRrFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
     cls.add_method('SetNrFfrSapProvider', 
                    'void', 
                    [param('ns3::NrFfrSapProvider *', 's')], 
                    is_virtual=True)
-    ## nr-rr-ff-mac-scheduler.h (module 'nr'): void ns3::RrFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
+    ## nr-rr-ff-mac-scheduler.h (module 'nr'): void ns3::NrRrFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
     cls.add_method('TransmissionModeConfigurationUpdate', 
                    'void', 
                    [param('uint16_t', 'rnti'), param('uint8_t', 'txMode')])
     return
 
-def register_Ns3RrcAsn1Header_methods(root_module, cls):
-    ## nr-rrc-header.h (module 'nr'): ns3::RrcAsn1Header::RrcAsn1Header(ns3::RrcAsn1Header const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::RrcAsn1Header const &', 'arg0')])
-    ## nr-rrc-header.h (module 'nr'): ns3::RrcAsn1Header::RrcAsn1Header() [constructor]
+def register_Ns3RrcNrAsn1Header_methods(root_module, cls):
+    ## nr-rrc-header.h (module 'nr'): ns3::RrcNrAsn1Header::RrcNrAsn1Header(ns3::RrcNrAsn1Header const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::RrcNrAsn1Header const &', 'arg0')])
+    ## nr-rrc-header.h (module 'nr'): ns3::RrcNrAsn1Header::RrcNrAsn1Header() [constructor]
     cls.add_constructor([])
-    ## nr-rrc-header.h (module 'nr'): int ns3::RrcAsn1Header::GetMessageType() [member function]
+    ## nr-rrc-header.h (module 'nr'): int ns3::RrcNrAsn1Header::GetMessageType() [member function]
     cls.add_method('GetMessageType', 
                    'int', 
                    [])
-    ## nr-rrc-header.h (module 'nr'): uint32_t ns3::RrcAsn1Header::Deserialize(ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-rrc-header.h (module 'nr'): uint32_t ns3::RrcNrAsn1Header::Deserialize(ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('Deserialize', 
                    'uint32_t', 
                    [param('ns3::Buffer::Iterator', 'bIterator')], 
                    is_pure_virtual=True, visibility='protected', is_virtual=True)
-    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcAsn1Header::DeserializeDrbToAddModList(std::list<ns3::NrRrcSap::DrbToAddMod, std::allocator<ns3::NrRrcSap::DrbToAddMod> > * drbToAddModLis, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcNrAsn1Header::DeserializeDrbToAddModList(std::list<ns3::NrRrcSap::DrbToAddMod, std::allocator<ns3::NrRrcSap::DrbToAddMod> > * drbToAddModLis, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeDrbToAddModList', 
                    'ns3::Buffer::Iterator', 
                    [param('std::list< ns3::NrRrcSap::DrbToAddMod > *', 'drbToAddModLis'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcAsn1Header::DeserializeLogicalChannelConfig(ns3::NrRrcSap::LogicalChannelConfig * logicalChannelConfig, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcNrAsn1Header::DeserializeLogicalChannelConfig(ns3::NrRrcSap::LogicalChannelConfig * logicalChannelConfig, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeLogicalChannelConfig', 
                    'ns3::Buffer::Iterator', 
                    [param('ns3::NrRrcSap::LogicalChannelConfig *', 'logicalChannelConfig'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcAsn1Header::DeserializeMeasConfig(ns3::NrRrcSap::MeasConfig * measConfig, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcNrAsn1Header::DeserializeMeasConfig(ns3::NrRrcSap::MeasConfig * measConfig, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeMeasConfig', 
                    'ns3::Buffer::Iterator', 
                    [param('ns3::NrRrcSap::MeasConfig *', 'measConfig'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcAsn1Header::DeserializeMeasResults(ns3::NrRrcSap::MeasResults * measResults, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcNrAsn1Header::DeserializeMeasResults(ns3::NrRrcSap::MeasResults * measResults, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeMeasResults', 
                    'ns3::Buffer::Iterator', 
                    [param('ns3::NrRrcSap::MeasResults *', 'measResults'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcAsn1Header::DeserializePhysicalConfigDedicated(ns3::NrRrcSap::PhysicalConfigDedicated * physicalConfigDedicated, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcNrAsn1Header::DeserializePhysicalConfigDedicated(ns3::NrRrcSap::PhysicalConfigDedicated * physicalConfigDedicated, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializePhysicalConfigDedicated', 
                    'ns3::Buffer::Iterator', 
                    [param('ns3::NrRrcSap::PhysicalConfigDedicated *', 'physicalConfigDedicated'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcAsn1Header::DeserializePlmnIdentity(uint32_t * plmnId, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcNrAsn1Header::DeserializePlmnIdentity(uint32_t * plmnId, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializePlmnIdentity', 
                    'ns3::Buffer::Iterator', 
                    [param('uint32_t *', 'plmnId'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcAsn1Header::DeserializeQoffsetRange(int8_t * qOffsetRange, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcNrAsn1Header::DeserializeQoffsetRange(int8_t * qOffsetRange, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeQoffsetRange', 
                    'ns3::Buffer::Iterator', 
                    [param('int8_t *', 'qOffsetRange'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcAsn1Header::DeserializeRachConfigCommon(ns3::NrRrcSap::RachConfigCommon * rachConfigCommon, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcNrAsn1Header::DeserializeRachConfigCommon(ns3::NrRrcSap::RachConfigCommon * rachConfigCommon, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeRachConfigCommon', 
                    'ns3::Buffer::Iterator', 
                    [param('ns3::NrRrcSap::RachConfigCommon *', 'rachConfigCommon'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcAsn1Header::DeserializeRadioResourceConfigCommon(ns3::NrRrcSap::RadioResourceConfigCommon * radioResourceConfigCommon, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcNrAsn1Header::DeserializeRadioResourceConfigCommon(ns3::NrRrcSap::RadioResourceConfigCommon * radioResourceConfigCommon, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeRadioResourceConfigCommon', 
                    'ns3::Buffer::Iterator', 
                    [param('ns3::NrRrcSap::RadioResourceConfigCommon *', 'radioResourceConfigCommon'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcAsn1Header::DeserializeRadioResourceConfigCommonSib(ns3::NrRrcSap::RadioResourceConfigCommonSib * radioResourceConfigCommonSib, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcNrAsn1Header::DeserializeRadioResourceConfigCommonSib(ns3::NrRrcSap::RadioResourceConfigCommonSib * radioResourceConfigCommonSib, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeRadioResourceConfigCommonSib', 
                    'ns3::Buffer::Iterator', 
                    [param('ns3::NrRrcSap::RadioResourceConfigCommonSib *', 'radioResourceConfigCommonSib'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcAsn1Header::DeserializeRadioResourceConfigDedicated(ns3::NrRrcSap::RadioResourceConfigDedicated * radioResourceConfigDedicated, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcNrAsn1Header::DeserializeRadioResourceConfigDedicated(ns3::NrRrcSap::RadioResourceConfigDedicated * radioResourceConfigDedicated, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeRadioResourceConfigDedicated', 
                    'ns3::Buffer::Iterator', 
                    [param('ns3::NrRrcSap::RadioResourceConfigDedicated *', 'radioResourceConfigDedicated'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcAsn1Header::DeserializeSrbToAddModList(std::list<ns3::NrRrcSap::SrbToAddMod, std::allocator<ns3::NrRrcSap::SrbToAddMod> > * srbToAddModList, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcNrAsn1Header::DeserializeSrbToAddModList(std::list<ns3::NrRrcSap::SrbToAddMod, std::allocator<ns3::NrRrcSap::SrbToAddMod> > * srbToAddModList, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeSrbToAddModList', 
                    'ns3::Buffer::Iterator', 
                    [param('std::list< ns3::NrRrcSap::SrbToAddMod > *', 'srbToAddModList'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcAsn1Header::DeserializeSystemInformationBlockType1(ns3::NrRrcSap::SystemInformationBlockType1 * systemInformationBlockType1, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcNrAsn1Header::DeserializeSystemInformationBlockType1(ns3::NrRrcSap::SystemInformationBlockType1 * systemInformationBlockType1, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeSystemInformationBlockType1', 
                    'ns3::Buffer::Iterator', 
                    [param('ns3::NrRrcSap::SystemInformationBlockType1 *', 'systemInformationBlockType1'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcAsn1Header::DeserializeSystemInformationBlockType2(ns3::NrRrcSap::SystemInformationBlockType2 * systemInformationBlockType2, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcNrAsn1Header::DeserializeSystemInformationBlockType2(ns3::NrRrcSap::SystemInformationBlockType2 * systemInformationBlockType2, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeSystemInformationBlockType2', 
                    'ns3::Buffer::Iterator', 
                    [param('ns3::NrRrcSap::SystemInformationBlockType2 *', 'systemInformationBlockType2'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcAsn1Header::DeserializeThresholdEutra(ns3::NrRrcSap::ThresholdEutra * thresholdEutra, ns3::Buffer::Iterator bIterator) [member function]
+    ## nr-rrc-header.h (module 'nr'): ns3::Buffer::Iterator ns3::RrcNrAsn1Header::DeserializeThresholdEutra(ns3::NrRrcSap::ThresholdEutra * thresholdEutra, ns3::Buffer::Iterator bIterator) [member function]
     cls.add_method('DeserializeThresholdEutra', 
                    'ns3::Buffer::Iterator', 
                    [param('ns3::NrRrcSap::ThresholdEutra *', 'thresholdEutra'), param('ns3::Buffer::Iterator', 'bIterator')], 
                    visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): ns3::TypeId ns3::RrcAsn1Header::GetInstanceTypeId() const [member function]
+    ## nr-rrc-header.h (module 'nr'): ns3::TypeId ns3::RrcNrAsn1Header::GetInstanceTypeId() const [member function]
     cls.add_method('GetInstanceTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_const=True, visibility='protected', is_virtual=True)
-    ## nr-rrc-header.h (module 'nr'): static ns3::TypeId ns3::RrcAsn1Header::GetTypeId() [member function]
+    ## nr-rrc-header.h (module 'nr'): static ns3::TypeId ns3::RrcNrAsn1Header::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True, visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): void ns3::RrcAsn1Header::PreSerialize() const [member function]
+    ## nr-rrc-header.h (module 'nr'): void ns3::RrcNrAsn1Header::PreSerialize() const [member function]
     cls.add_method('PreSerialize', 
                    'void', 
                    [], 
                    is_pure_virtual=True, is_const=True, visibility='protected', is_virtual=True)
-    ## nr-rrc-header.h (module 'nr'): void ns3::RrcAsn1Header::Print(std::ostream & os) const [member function]
+    ## nr-rrc-header.h (module 'nr'): void ns3::RrcNrAsn1Header::Print(std::ostream & os) const [member function]
     cls.add_method('Print', 
                    'void', 
                    [param('std::ostream &', 'os')], 
                    is_const=True, visibility='protected', is_virtual=True)
-    ## nr-rrc-header.h (module 'nr'): void ns3::RrcAsn1Header::Print(std::ostream & os, ns3::NrRrcSap::RadioResourceConfigDedicated radioResourceConfigDedicated) const [member function]
+    ## nr-rrc-header.h (module 'nr'): void ns3::RrcNrAsn1Header::Print(std::ostream & os, ns3::NrRrcSap::RadioResourceConfigDedicated radioResourceConfigDedicated) const [member function]
     cls.add_method('Print', 
                    'void', 
                    [param('std::ostream &', 'os'), param('ns3::NrRrcSap::RadioResourceConfigDedicated', 'radioResourceConfigDedicated')], 
                    is_const=True, visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): void ns3::RrcAsn1Header::SerializeDrbToAddModList(std::list<ns3::NrRrcSap::DrbToAddMod, std::allocator<ns3::NrRrcSap::DrbToAddMod> > drbToAddModList) const [member function]
+    ## nr-rrc-header.h (module 'nr'): void ns3::RrcNrAsn1Header::SerializeDrbToAddModList(std::list<ns3::NrRrcSap::DrbToAddMod, std::allocator<ns3::NrRrcSap::DrbToAddMod> > drbToAddModList) const [member function]
     cls.add_method('SerializeDrbToAddModList', 
                    'void', 
                    [param('std::list< ns3::NrRrcSap::DrbToAddMod >', 'drbToAddModList')], 
                    is_const=True, visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): void ns3::RrcAsn1Header::SerializeLogicalChannelConfig(ns3::NrRrcSap::LogicalChannelConfig logicalChannelConfig) const [member function]
+    ## nr-rrc-header.h (module 'nr'): void ns3::RrcNrAsn1Header::SerializeLogicalChannelConfig(ns3::NrRrcSap::LogicalChannelConfig logicalChannelConfig) const [member function]
     cls.add_method('SerializeLogicalChannelConfig', 
                    'void', 
                    [param('ns3::NrRrcSap::LogicalChannelConfig', 'logicalChannelConfig')], 
                    is_const=True, visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): void ns3::RrcAsn1Header::SerializeMeasConfig(ns3::NrRrcSap::MeasConfig measConfig) const [member function]
+    ## nr-rrc-header.h (module 'nr'): void ns3::RrcNrAsn1Header::SerializeMeasConfig(ns3::NrRrcSap::MeasConfig measConfig) const [member function]
     cls.add_method('SerializeMeasConfig', 
                    'void', 
                    [param('ns3::NrRrcSap::MeasConfig', 'measConfig')], 
                    is_const=True, visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): void ns3::RrcAsn1Header::SerializeMeasResults(ns3::NrRrcSap::MeasResults measResults) const [member function]
+    ## nr-rrc-header.h (module 'nr'): void ns3::RrcNrAsn1Header::SerializeMeasResults(ns3::NrRrcSap::MeasResults measResults) const [member function]
     cls.add_method('SerializeMeasResults', 
                    'void', 
                    [param('ns3::NrRrcSap::MeasResults', 'measResults')], 
                    is_const=True, visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): void ns3::RrcAsn1Header::SerializePhysicalConfigDedicated(ns3::NrRrcSap::PhysicalConfigDedicated physicalConfigDedicated) const [member function]
+    ## nr-rrc-header.h (module 'nr'): void ns3::RrcNrAsn1Header::SerializePhysicalConfigDedicated(ns3::NrRrcSap::PhysicalConfigDedicated physicalConfigDedicated) const [member function]
     cls.add_method('SerializePhysicalConfigDedicated', 
                    'void', 
                    [param('ns3::NrRrcSap::PhysicalConfigDedicated', 'physicalConfigDedicated')], 
                    is_const=True, visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): void ns3::RrcAsn1Header::SerializePlmnIdentity(uint32_t plmnId) const [member function]
+    ## nr-rrc-header.h (module 'nr'): void ns3::RrcNrAsn1Header::SerializePlmnIdentity(uint32_t plmnId) const [member function]
     cls.add_method('SerializePlmnIdentity', 
                    'void', 
                    [param('uint32_t', 'plmnId')], 
                    is_const=True, visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): void ns3::RrcAsn1Header::SerializeQoffsetRange(int8_t qOffsetRange) const [member function]
+    ## nr-rrc-header.h (module 'nr'): void ns3::RrcNrAsn1Header::SerializeQoffsetRange(int8_t qOffsetRange) const [member function]
     cls.add_method('SerializeQoffsetRange', 
                    'void', 
                    [param('int8_t', 'qOffsetRange')], 
                    is_const=True, visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): void ns3::RrcAsn1Header::SerializeRachConfigCommon(ns3::NrRrcSap::RachConfigCommon rachConfigCommon) const [member function]
+    ## nr-rrc-header.h (module 'nr'): void ns3::RrcNrAsn1Header::SerializeRachConfigCommon(ns3::NrRrcSap::RachConfigCommon rachConfigCommon) const [member function]
     cls.add_method('SerializeRachConfigCommon', 
                    'void', 
                    [param('ns3::NrRrcSap::RachConfigCommon', 'rachConfigCommon')], 
                    is_const=True, visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): void ns3::RrcAsn1Header::SerializeRadioResourceConfigCommon(ns3::NrRrcSap::RadioResourceConfigCommon radioResourceConfigCommon) const [member function]
+    ## nr-rrc-header.h (module 'nr'): void ns3::RrcNrAsn1Header::SerializeRadioResourceConfigCommon(ns3::NrRrcSap::RadioResourceConfigCommon radioResourceConfigCommon) const [member function]
     cls.add_method('SerializeRadioResourceConfigCommon', 
                    'void', 
                    [param('ns3::NrRrcSap::RadioResourceConfigCommon', 'radioResourceConfigCommon')], 
                    is_const=True, visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): void ns3::RrcAsn1Header::SerializeRadioResourceConfigCommonSib(ns3::NrRrcSap::RadioResourceConfigCommonSib radioResourceConfigCommonSib) const [member function]
+    ## nr-rrc-header.h (module 'nr'): void ns3::RrcNrAsn1Header::SerializeRadioResourceConfigCommonSib(ns3::NrRrcSap::RadioResourceConfigCommonSib radioResourceConfigCommonSib) const [member function]
     cls.add_method('SerializeRadioResourceConfigCommonSib', 
                    'void', 
                    [param('ns3::NrRrcSap::RadioResourceConfigCommonSib', 'radioResourceConfigCommonSib')], 
                    is_const=True, visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): void ns3::RrcAsn1Header::SerializeRadioResourceConfigDedicated(ns3::NrRrcSap::RadioResourceConfigDedicated radioResourceConfigDedicated) const [member function]
+    ## nr-rrc-header.h (module 'nr'): void ns3::RrcNrAsn1Header::SerializeRadioResourceConfigDedicated(ns3::NrRrcSap::RadioResourceConfigDedicated radioResourceConfigDedicated) const [member function]
     cls.add_method('SerializeRadioResourceConfigDedicated', 
                    'void', 
                    [param('ns3::NrRrcSap::RadioResourceConfigDedicated', 'radioResourceConfigDedicated')], 
                    is_const=True, visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): void ns3::RrcAsn1Header::SerializeSrbToAddModList(std::list<ns3::NrRrcSap::SrbToAddMod, std::allocator<ns3::NrRrcSap::SrbToAddMod> > srbToAddModList) const [member function]
+    ## nr-rrc-header.h (module 'nr'): void ns3::RrcNrAsn1Header::SerializeSrbToAddModList(std::list<ns3::NrRrcSap::SrbToAddMod, std::allocator<ns3::NrRrcSap::SrbToAddMod> > srbToAddModList) const [member function]
     cls.add_method('SerializeSrbToAddModList', 
                    'void', 
                    [param('std::list< ns3::NrRrcSap::SrbToAddMod >', 'srbToAddModList')], 
                    is_const=True, visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): void ns3::RrcAsn1Header::SerializeSystemInformationBlockType1(ns3::NrRrcSap::SystemInformationBlockType1 systemInformationBlockType1) const [member function]
+    ## nr-rrc-header.h (module 'nr'): void ns3::RrcNrAsn1Header::SerializeSystemInformationBlockType1(ns3::NrRrcSap::SystemInformationBlockType1 systemInformationBlockType1) const [member function]
     cls.add_method('SerializeSystemInformationBlockType1', 
                    'void', 
                    [param('ns3::NrRrcSap::SystemInformationBlockType1', 'systemInformationBlockType1')], 
                    is_const=True, visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): void ns3::RrcAsn1Header::SerializeSystemInformationBlockType2(ns3::NrRrcSap::SystemInformationBlockType2 systemInformationBlockType2) const [member function]
+    ## nr-rrc-header.h (module 'nr'): void ns3::RrcNrAsn1Header::SerializeSystemInformationBlockType2(ns3::NrRrcSap::SystemInformationBlockType2 systemInformationBlockType2) const [member function]
     cls.add_method('SerializeSystemInformationBlockType2', 
                    'void', 
                    [param('ns3::NrRrcSap::SystemInformationBlockType2', 'systemInformationBlockType2')], 
                    is_const=True, visibility='protected')
-    ## nr-rrc-header.h (module 'nr'): void ns3::RrcAsn1Header::SerializeThresholdEutra(ns3::NrRrcSap::ThresholdEutra thresholdEutra) const [member function]
+    ## nr-rrc-header.h (module 'nr'): void ns3::RrcNrAsn1Header::SerializeThresholdEutra(ns3::NrRrcSap::ThresholdEutra thresholdEutra) const [member function]
     cls.add_method('SerializeThresholdEutra', 
                    'void', 
                    [param('ns3::NrRrcSap::ThresholdEutra', 'thresholdEutra')], 
@@ -19621,154 +19621,154 @@ def register_Ns3StringValue_methods(root_module, cls):
                    [param('std::string const &', 'value')])
     return
 
-def register_Ns3TdBetFfMacScheduler_methods(root_module, cls):
-    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): ns3::TdBetFfMacScheduler::TdBetFfMacScheduler(ns3::TdBetFfMacScheduler const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::TdBetFfMacScheduler const &', 'arg0')])
-    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): ns3::TdBetFfMacScheduler::TdBetFfMacScheduler() [constructor]
+def register_Ns3NrTdBetFfMacScheduler_methods(root_module, cls):
+    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): ns3::NrTdBetFfMacScheduler::NrTdBetFfMacScheduler(ns3::NrTdBetFfMacScheduler const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrTdBetFfMacScheduler const &', 'arg0')])
+    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): ns3::NrTdBetFfMacScheduler::NrTdBetFfMacScheduler() [constructor]
     cls.add_constructor([])
-    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): void ns3::TdBetFfMacScheduler::DoDispose() [member function]
+    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): void ns3::NrTdBetFfMacScheduler::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
                    is_virtual=True)
-    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::TdBetFfMacScheduler::GetFfMacCschedSapProvider() [member function]
+    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::NrTdBetFfMacScheduler::GetFfMacCschedSapProvider() [member function]
     cls.add_method('GetFfMacCschedSapProvider', 
                    'ns3::FfMacCschedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::TdBetFfMacScheduler::GetFfMacSchedSapProvider() [member function]
+    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::NrTdBetFfMacScheduler::GetFfMacSchedSapProvider() [member function]
     cls.add_method('GetFfMacSchedSapProvider', 
                    'ns3::FfMacSchedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::TdBetFfMacScheduler::GetNrFfrSapUser() [member function]
+    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::NrTdBetFfMacScheduler::GetNrFfrSapUser() [member function]
     cls.add_method('GetNrFfrSapUser', 
                    'ns3::NrFfrSapUser *', 
                    [], 
                    is_virtual=True)
-    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::TdBetFfMacScheduler::GetTypeId() [member function]
+    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::NrTdBetFfMacScheduler::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): void ns3::TdBetFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
+    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): void ns3::NrTdBetFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
     cls.add_method('SetFfMacCschedSapUser', 
                    'void', 
                    [param('ns3::FfMacCschedSapUser *', 's')], 
                    is_virtual=True)
-    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): void ns3::TdBetFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
+    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): void ns3::NrTdBetFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
     cls.add_method('SetFfMacSchedSapUser', 
                    'void', 
                    [param('ns3::FfMacSchedSapUser *', 's')], 
                    is_virtual=True)
-    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): void ns3::TdBetFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
+    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): void ns3::NrTdBetFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
     cls.add_method('SetNrFfrSapProvider', 
                    'void', 
                    [param('ns3::NrFfrSapProvider *', 's')], 
                    is_virtual=True)
-    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): void ns3::TdBetFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
+    ## nr-tdbet-ff-mac-scheduler.h (module 'nr'): void ns3::NrTdBetFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
     cls.add_method('TransmissionModeConfigurationUpdate', 
                    'void', 
                    [param('uint16_t', 'rnti'), param('uint8_t', 'txMode')])
     return
 
-def register_Ns3TdMtFfMacScheduler_methods(root_module, cls):
-    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::TdMtFfMacScheduler::TdMtFfMacScheduler(ns3::TdMtFfMacScheduler const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::TdMtFfMacScheduler const &', 'arg0')])
-    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::TdMtFfMacScheduler::TdMtFfMacScheduler() [constructor]
+def register_Ns3NrTdMtFfMacScheduler_methods(root_module, cls):
+    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::NrTdMtFfMacScheduler::NrTdMtFfMacScheduler(ns3::NrTdMtFfMacScheduler const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrTdMtFfMacScheduler const &', 'arg0')])
+    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::NrTdMtFfMacScheduler::NrTdMtFfMacScheduler() [constructor]
     cls.add_constructor([])
-    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): void ns3::TdMtFfMacScheduler::DoDispose() [member function]
+    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): void ns3::NrTdMtFfMacScheduler::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
                    is_virtual=True)
-    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::TdMtFfMacScheduler::GetFfMacCschedSapProvider() [member function]
+    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::NrTdMtFfMacScheduler::GetFfMacCschedSapProvider() [member function]
     cls.add_method('GetFfMacCschedSapProvider', 
                    'ns3::FfMacCschedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::TdMtFfMacScheduler::GetFfMacSchedSapProvider() [member function]
+    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::NrTdMtFfMacScheduler::GetFfMacSchedSapProvider() [member function]
     cls.add_method('GetFfMacSchedSapProvider', 
                    'ns3::FfMacSchedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::TdMtFfMacScheduler::GetNrFfrSapUser() [member function]
+    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::NrTdMtFfMacScheduler::GetNrFfrSapUser() [member function]
     cls.add_method('GetNrFfrSapUser', 
                    'ns3::NrFfrSapUser *', 
                    [], 
                    is_virtual=True)
-    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::TdMtFfMacScheduler::GetTypeId() [member function]
+    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::NrTdMtFfMacScheduler::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): void ns3::TdMtFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
+    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): void ns3::NrTdMtFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
     cls.add_method('SetFfMacCschedSapUser', 
                    'void', 
                    [param('ns3::FfMacCschedSapUser *', 's')], 
                    is_virtual=True)
-    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): void ns3::TdMtFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
+    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): void ns3::NrTdMtFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
     cls.add_method('SetFfMacSchedSapUser', 
                    'void', 
                    [param('ns3::FfMacSchedSapUser *', 's')], 
                    is_virtual=True)
-    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): void ns3::TdMtFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
+    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): void ns3::NrTdMtFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
     cls.add_method('SetNrFfrSapProvider', 
                    'void', 
                    [param('ns3::NrFfrSapProvider *', 's')], 
                    is_virtual=True)
-    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): void ns3::TdMtFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
+    ## tdmt-nr-ff-mac-scheduler.h (module 'nr'): void ns3::NrTdMtFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
     cls.add_method('TransmissionModeConfigurationUpdate', 
                    'void', 
                    [param('uint16_t', 'rnti'), param('uint8_t', 'txMode')])
     return
 
-def register_Ns3TdTbfqFfMacScheduler_methods(root_module, cls):
-    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::TdTbfqFfMacScheduler::TdTbfqFfMacScheduler(ns3::TdTbfqFfMacScheduler const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::TdTbfqFfMacScheduler const &', 'arg0')])
-    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::TdTbfqFfMacScheduler::TdTbfqFfMacScheduler() [constructor]
+def register_Ns3NrTdTbfqFfMacScheduler_methods(root_module, cls):
+    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::NrTdTbfqFfMacScheduler::NrTdTbfqFfMacScheduler(ns3::NrTdTbfqFfMacScheduler const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrTdTbfqFfMacScheduler const &', 'arg0')])
+    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::NrTdTbfqFfMacScheduler::NrTdTbfqFfMacScheduler() [constructor]
     cls.add_constructor([])
-    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): void ns3::TdTbfqFfMacScheduler::DoDispose() [member function]
+    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): void ns3::NrTdTbfqFfMacScheduler::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
                    is_virtual=True)
-    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::TdTbfqFfMacScheduler::GetFfMacCschedSapProvider() [member function]
+    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::NrTdTbfqFfMacScheduler::GetFfMacCschedSapProvider() [member function]
     cls.add_method('GetFfMacCschedSapProvider', 
                    'ns3::FfMacCschedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::TdTbfqFfMacScheduler::GetFfMacSchedSapProvider() [member function]
+    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::NrTdTbfqFfMacScheduler::GetFfMacSchedSapProvider() [member function]
     cls.add_method('GetFfMacSchedSapProvider', 
                    'ns3::FfMacSchedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::TdTbfqFfMacScheduler::GetNrFfrSapUser() [member function]
+    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::NrTdTbfqFfMacScheduler::GetNrFfrSapUser() [member function]
     cls.add_method('GetNrFfrSapUser', 
                    'ns3::NrFfrSapUser *', 
                    [], 
                    is_virtual=True)
-    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::TdTbfqFfMacScheduler::GetTypeId() [member function]
+    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::NrTdTbfqFfMacScheduler::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): void ns3::TdTbfqFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
+    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): void ns3::NrTdTbfqFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
     cls.add_method('SetFfMacCschedSapUser', 
                    'void', 
                    [param('ns3::FfMacCschedSapUser *', 's')], 
                    is_virtual=True)
-    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): void ns3::TdTbfqFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
+    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): void ns3::NrTdTbfqFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
     cls.add_method('SetFfMacSchedSapUser', 
                    'void', 
                    [param('ns3::FfMacSchedSapUser *', 's')], 
                    is_virtual=True)
-    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): void ns3::TdTbfqFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
+    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): void ns3::NrTdTbfqFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
     cls.add_method('SetNrFfrSapProvider', 
                    'void', 
                    [param('ns3::NrFfrSapProvider *', 's')], 
                    is_virtual=True)
-    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): void ns3::TdTbfqFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
+    ## nr-tdtbfq-ff-mac-scheduler.h (module 'nr'): void ns3::NrTdTbfqFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
     cls.add_method('TransmissionModeConfigurationUpdate', 
                    'void', 
                    [param('uint16_t', 'rnti'), param('uint8_t', 'txMode')])
@@ -19807,52 +19807,52 @@ def register_Ns3TimeValue_methods(root_module, cls):
                    [param('ns3::Time const &', 'value')])
     return
 
-def register_Ns3TtaFfMacScheduler_methods(root_module, cls):
-    ## nr-tta-ff-mac-scheduler.h (module 'nr'): ns3::TtaFfMacScheduler::TtaFfMacScheduler(ns3::TtaFfMacScheduler const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::TtaFfMacScheduler const &', 'arg0')])
-    ## nr-tta-ff-mac-scheduler.h (module 'nr'): ns3::TtaFfMacScheduler::TtaFfMacScheduler() [constructor]
+def register_Ns3NrTtaFfMacScheduler_methods(root_module, cls):
+    ## nr-tta-ff-mac-scheduler.h (module 'nr'): ns3::NrTtaFfMacScheduler::NrTtaFfMacScheduler(ns3::NrTtaFfMacScheduler const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrTtaFfMacScheduler const &', 'arg0')])
+    ## nr-tta-ff-mac-scheduler.h (module 'nr'): ns3::NrTtaFfMacScheduler::NrTtaFfMacScheduler() [constructor]
     cls.add_constructor([])
-    ## nr-tta-ff-mac-scheduler.h (module 'nr'): void ns3::TtaFfMacScheduler::DoDispose() [member function]
+    ## nr-tta-ff-mac-scheduler.h (module 'nr'): void ns3::NrTtaFfMacScheduler::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
                    is_virtual=True)
-    ## nr-tta-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::TtaFfMacScheduler::GetFfMacCschedSapProvider() [member function]
+    ## nr-tta-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::NrTtaFfMacScheduler::GetFfMacCschedSapProvider() [member function]
     cls.add_method('GetFfMacCschedSapProvider', 
                    'ns3::FfMacCschedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## nr-tta-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::TtaFfMacScheduler::GetFfMacSchedSapProvider() [member function]
+    ## nr-tta-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::NrTtaFfMacScheduler::GetFfMacSchedSapProvider() [member function]
     cls.add_method('GetFfMacSchedSapProvider', 
                    'ns3::FfMacSchedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## nr-tta-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::TtaFfMacScheduler::GetNrFfrSapUser() [member function]
+    ## nr-tta-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::NrTtaFfMacScheduler::GetNrFfrSapUser() [member function]
     cls.add_method('GetNrFfrSapUser', 
                    'ns3::NrFfrSapUser *', 
                    [], 
                    is_virtual=True)
-    ## nr-tta-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::TtaFfMacScheduler::GetTypeId() [member function]
+    ## nr-tta-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::NrTtaFfMacScheduler::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## nr-tta-ff-mac-scheduler.h (module 'nr'): void ns3::TtaFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
+    ## nr-tta-ff-mac-scheduler.h (module 'nr'): void ns3::NrTtaFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
     cls.add_method('SetFfMacCschedSapUser', 
                    'void', 
                    [param('ns3::FfMacCschedSapUser *', 's')], 
                    is_virtual=True)
-    ## nr-tta-ff-mac-scheduler.h (module 'nr'): void ns3::TtaFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
+    ## nr-tta-ff-mac-scheduler.h (module 'nr'): void ns3::NrTtaFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
     cls.add_method('SetFfMacSchedSapUser', 
                    'void', 
                    [param('ns3::FfMacSchedSapUser *', 's')], 
                    is_virtual=True)
-    ## nr-tta-ff-mac-scheduler.h (module 'nr'): void ns3::TtaFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
+    ## nr-tta-ff-mac-scheduler.h (module 'nr'): void ns3::NrTtaFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
     cls.add_method('SetNrFfrSapProvider', 
                    'void', 
                    [param('ns3::NrFfrSapProvider *', 's')], 
                    is_virtual=True)
-    ## nr-tta-ff-mac-scheduler.h (module 'nr'): void ns3::TtaFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
+    ## nr-tta-ff-mac-scheduler.h (module 'nr'): void ns3::NrTtaFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
     cls.add_method('TransmissionModeConfigurationUpdate', 
                    'void', 
                    [param('uint16_t', 'rnti'), param('uint8_t', 'txMode')])
@@ -20183,74 +20183,74 @@ def register_Ns3VirtualNetDevice_methods(root_module, cls):
                    visibility='protected', is_virtual=True)
     return
 
-def register_Ns3A2A4RsrqHandoverAlgorithm_methods(root_module, cls):
-    ## a2-a4-rsrq-handover-algorithm.h (module 'nr'): ns3::A2A4RsrqHandoverAlgorithm::A2A4RsrqHandoverAlgorithm(ns3::A2A4RsrqHandoverAlgorithm const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::A2A4RsrqHandoverAlgorithm const &', 'arg0')])
-    ## a2-a4-rsrq-handover-algorithm.h (module 'nr'): ns3::A2A4RsrqHandoverAlgorithm::A2A4RsrqHandoverAlgorithm() [constructor]
+def register_Ns3NrA2A4RsrqHandoverAlgorithm_methods(root_module, cls):
+    ## a2-a4-rsrq-handover-algorithm.h (module 'nr'): ns3::NrA2A4RsrqHandoverAlgorithm::NrA2A4RsrqHandoverAlgorithm(ns3::NrA2A4RsrqHandoverAlgorithm const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrA2A4RsrqHandoverAlgorithm const &', 'arg0')])
+    ## a2-a4-rsrq-handover-algorithm.h (module 'nr'): ns3::NrA2A4RsrqHandoverAlgorithm::NrA2A4RsrqHandoverAlgorithm() [constructor]
     cls.add_constructor([])
-    ## a2-a4-rsrq-handover-algorithm.h (module 'nr'): ns3::NrHandoverManagementSapProvider * ns3::A2A4RsrqHandoverAlgorithm::GetNrHandoverManagementSapProvider() [member function]
+    ## a2-a4-rsrq-handover-algorithm.h (module 'nr'): ns3::NrHandoverManagementSapProvider * ns3::NrA2A4RsrqHandoverAlgorithm::GetNrHandoverManagementSapProvider() [member function]
     cls.add_method('GetNrHandoverManagementSapProvider', 
                    'ns3::NrHandoverManagementSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## a2-a4-rsrq-handover-algorithm.h (module 'nr'): static ns3::TypeId ns3::A2A4RsrqHandoverAlgorithm::GetTypeId() [member function]
+    ## a2-a4-rsrq-handover-algorithm.h (module 'nr'): static ns3::TypeId ns3::NrA2A4RsrqHandoverAlgorithm::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## a2-a4-rsrq-handover-algorithm.h (module 'nr'): void ns3::A2A4RsrqHandoverAlgorithm::SetNrHandoverManagementSapUser(ns3::NrHandoverManagementSapUser * s) [member function]
+    ## a2-a4-rsrq-handover-algorithm.h (module 'nr'): void ns3::NrA2A4RsrqHandoverAlgorithm::SetNrHandoverManagementSapUser(ns3::NrHandoverManagementSapUser * s) [member function]
     cls.add_method('SetNrHandoverManagementSapUser', 
                    'void', 
                    [param('ns3::NrHandoverManagementSapUser *', 's')], 
                    is_virtual=True)
-    ## a2-a4-rsrq-handover-algorithm.h (module 'nr'): void ns3::A2A4RsrqHandoverAlgorithm::DoDispose() [member function]
+    ## a2-a4-rsrq-handover-algorithm.h (module 'nr'): void ns3::NrA2A4RsrqHandoverAlgorithm::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## a2-a4-rsrq-handover-algorithm.h (module 'nr'): void ns3::A2A4RsrqHandoverAlgorithm::DoInitialize() [member function]
+    ## a2-a4-rsrq-handover-algorithm.h (module 'nr'): void ns3::NrA2A4RsrqHandoverAlgorithm::DoInitialize() [member function]
     cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## a2-a4-rsrq-handover-algorithm.h (module 'nr'): void ns3::A2A4RsrqHandoverAlgorithm::DoReportUeMeas(uint16_t rnti, ns3::NrRrcSap::MeasResults measResults) [member function]
+    ## a2-a4-rsrq-handover-algorithm.h (module 'nr'): void ns3::NrA2A4RsrqHandoverAlgorithm::DoReportUeMeas(uint16_t rnti, ns3::NrRrcSap::MeasResults measResults) [member function]
     cls.add_method('DoReportUeMeas', 
                    'void', 
                    [param('uint16_t', 'rnti'), param('ns3::NrRrcSap::MeasResults', 'measResults')], 
                    visibility='protected', is_virtual=True)
     return
 
-def register_Ns3A3RsrpHandoverAlgorithm_methods(root_module, cls):
-    ## a3-rsrp-handover-algorithm.h (module 'nr'): ns3::A3RsrpHandoverAlgorithm::A3RsrpHandoverAlgorithm(ns3::A3RsrpHandoverAlgorithm const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::A3RsrpHandoverAlgorithm const &', 'arg0')])
-    ## a3-rsrp-handover-algorithm.h (module 'nr'): ns3::A3RsrpHandoverAlgorithm::A3RsrpHandoverAlgorithm() [constructor]
+def register_Ns3NrA3RsrpHandoverAlgorithm_methods(root_module, cls):
+    ## a3-rsrp-handover-algorithm.h (module 'nr'): ns3::NrA3RsrpHandoverAlgorithm::NrA3RsrpHandoverAlgorithm(ns3::NrA3RsrpHandoverAlgorithm const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrA3RsrpHandoverAlgorithm const &', 'arg0')])
+    ## a3-rsrp-handover-algorithm.h (module 'nr'): ns3::NrA3RsrpHandoverAlgorithm::NrA3RsrpHandoverAlgorithm() [constructor]
     cls.add_constructor([])
-    ## a3-rsrp-handover-algorithm.h (module 'nr'): ns3::NrHandoverManagementSapProvider * ns3::A3RsrpHandoverAlgorithm::GetNrHandoverManagementSapProvider() [member function]
+    ## a3-rsrp-handover-algorithm.h (module 'nr'): ns3::NrHandoverManagementSapProvider * ns3::NrA3RsrpHandoverAlgorithm::GetNrHandoverManagementSapProvider() [member function]
     cls.add_method('GetNrHandoverManagementSapProvider', 
                    'ns3::NrHandoverManagementSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## a3-rsrp-handover-algorithm.h (module 'nr'): static ns3::TypeId ns3::A3RsrpHandoverAlgorithm::GetTypeId() [member function]
+    ## a3-rsrp-handover-algorithm.h (module 'nr'): static ns3::TypeId ns3::NrA3RsrpHandoverAlgorithm::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## a3-rsrp-handover-algorithm.h (module 'nr'): void ns3::A3RsrpHandoverAlgorithm::SetNrHandoverManagementSapUser(ns3::NrHandoverManagementSapUser * s) [member function]
+    ## a3-rsrp-handover-algorithm.h (module 'nr'): void ns3::NrA3RsrpHandoverAlgorithm::SetNrHandoverManagementSapUser(ns3::NrHandoverManagementSapUser * s) [member function]
     cls.add_method('SetNrHandoverManagementSapUser', 
                    'void', 
                    [param('ns3::NrHandoverManagementSapUser *', 's')], 
                    is_virtual=True)
-    ## a3-rsrp-handover-algorithm.h (module 'nr'): void ns3::A3RsrpHandoverAlgorithm::DoDispose() [member function]
+    ## a3-rsrp-handover-algorithm.h (module 'nr'): void ns3::NrA3RsrpHandoverAlgorithm::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## a3-rsrp-handover-algorithm.h (module 'nr'): void ns3::A3RsrpHandoverAlgorithm::DoInitialize() [member function]
+    ## a3-rsrp-handover-algorithm.h (module 'nr'): void ns3::NrA3RsrpHandoverAlgorithm::DoInitialize() [member function]
     cls.add_method('DoInitialize', 
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
-    ## a3-rsrp-handover-algorithm.h (module 'nr'): void ns3::A3RsrpHandoverAlgorithm::DoReportUeMeas(uint16_t rnti, ns3::NrRrcSap::MeasResults measResults) [member function]
+    ## a3-rsrp-handover-algorithm.h (module 'nr'): void ns3::NrA3RsrpHandoverAlgorithm::DoReportUeMeas(uint16_t rnti, ns3::NrRrcSap::MeasResults measResults) [member function]
     cls.add_method('DoReportUeMeas', 
                    'void', 
                    [param('uint16_t', 'rnti'), param('ns3::NrRrcSap::MeasResults', 'measResults')], 
@@ -20312,52 +20312,52 @@ def register_Ns3BsrNrControlMessage_methods(root_module, cls):
                    [param('ns3::MacCeListElement_s', 'bsr')])
     return
 
-def register_Ns3CqaFfMacScheduler_methods(root_module, cls):
-    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): ns3::CqaFfMacScheduler::CqaFfMacScheduler(ns3::CqaFfMacScheduler const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::CqaFfMacScheduler const &', 'arg0')])
-    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): ns3::CqaFfMacScheduler::CqaFfMacScheduler() [constructor]
+def register_Ns3NrCqaFfMacScheduler_methods(root_module, cls):
+    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): ns3::NrCqaFfMacScheduler::NrCqaFfMacScheduler(ns3::NrCqaFfMacScheduler const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrCqaFfMacScheduler const &', 'arg0')])
+    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): ns3::NrCqaFfMacScheduler::NrCqaFfMacScheduler() [constructor]
     cls.add_constructor([])
-    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): void ns3::CqaFfMacScheduler::DoDispose() [member function]
+    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): void ns3::NrCqaFfMacScheduler::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
                    is_virtual=True)
-    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::CqaFfMacScheduler::GetFfMacCschedSapProvider() [member function]
+    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::NrCqaFfMacScheduler::GetFfMacCschedSapProvider() [member function]
     cls.add_method('GetFfMacCschedSapProvider', 
                    'ns3::FfMacCschedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::CqaFfMacScheduler::GetFfMacSchedSapProvider() [member function]
+    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::NrCqaFfMacScheduler::GetFfMacSchedSapProvider() [member function]
     cls.add_method('GetFfMacSchedSapProvider', 
                    'ns3::FfMacSchedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::CqaFfMacScheduler::GetNrFfrSapUser() [member function]
+    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::NrCqaFfMacScheduler::GetNrFfrSapUser() [member function]
     cls.add_method('GetNrFfrSapUser', 
                    'ns3::NrFfrSapUser *', 
                    [], 
                    is_virtual=True)
-    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::CqaFfMacScheduler::GetTypeId() [member function]
+    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::NrCqaFfMacScheduler::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): void ns3::CqaFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
+    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): void ns3::NrCqaFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
     cls.add_method('SetFfMacCschedSapUser', 
                    'void', 
                    [param('ns3::FfMacCschedSapUser *', 's')], 
                    is_virtual=True)
-    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): void ns3::CqaFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
+    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): void ns3::NrCqaFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
     cls.add_method('SetFfMacSchedSapUser', 
                    'void', 
                    [param('ns3::FfMacSchedSapUser *', 's')], 
                    is_virtual=True)
-    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): void ns3::CqaFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
+    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): void ns3::NrCqaFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
     cls.add_method('SetNrFfrSapProvider', 
                    'void', 
                    [param('ns3::NrFfrSapProvider *', 's')], 
                    is_virtual=True)
-    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): void ns3::CqaFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
+    ## nr-cqa-ff-mac-scheduler.h (module 'nr'): void ns3::NrCqaFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
     cls.add_method('TransmissionModeConfigurationUpdate', 
                    'void', 
                    [param('uint16_t', 'rnti'), param('uint8_t', 'txMode')])
@@ -20465,154 +20465,154 @@ def register_Ns3EmuNgcHelper_methods(root_module, cls):
                    is_virtual=True)
     return
 
-def register_Ns3FdBetFfMacScheduler_methods(root_module, cls):
-    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): ns3::FdBetFfMacScheduler::FdBetFfMacScheduler(ns3::FdBetFfMacScheduler const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::FdBetFfMacScheduler const &', 'arg0')])
-    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): ns3::FdBetFfMacScheduler::FdBetFfMacScheduler() [constructor]
+def register_Ns3NrFdBetFfMacScheduler_methods(root_module, cls):
+    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): ns3::NrFdBetFfMacScheduler::NrFdBetFfMacScheduler(ns3::NrFdBetFfMacScheduler const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrFdBetFfMacScheduler const &', 'arg0')])
+    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): ns3::NrFdBetFfMacScheduler::NrFdBetFfMacScheduler() [constructor]
     cls.add_constructor([])
-    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): void ns3::FdBetFfMacScheduler::DoDispose() [member function]
+    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): void ns3::NrFdBetFfMacScheduler::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
                    is_virtual=True)
-    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::FdBetFfMacScheduler::GetFfMacCschedSapProvider() [member function]
+    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::NrFdBetFfMacScheduler::GetFfMacCschedSapProvider() [member function]
     cls.add_method('GetFfMacCschedSapProvider', 
                    'ns3::FfMacCschedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::FdBetFfMacScheduler::GetFfMacSchedSapProvider() [member function]
+    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::NrFdBetFfMacScheduler::GetFfMacSchedSapProvider() [member function]
     cls.add_method('GetFfMacSchedSapProvider', 
                    'ns3::FfMacSchedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::FdBetFfMacScheduler::GetNrFfrSapUser() [member function]
+    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::NrFdBetFfMacScheduler::GetNrFfrSapUser() [member function]
     cls.add_method('GetNrFfrSapUser', 
                    'ns3::NrFfrSapUser *', 
                    [], 
                    is_virtual=True)
-    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::FdBetFfMacScheduler::GetTypeId() [member function]
+    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::NrFdBetFfMacScheduler::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): void ns3::FdBetFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
+    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): void ns3::NrFdBetFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
     cls.add_method('SetFfMacCschedSapUser', 
                    'void', 
                    [param('ns3::FfMacCschedSapUser *', 's')], 
                    is_virtual=True)
-    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): void ns3::FdBetFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
+    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): void ns3::NrFdBetFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
     cls.add_method('SetFfMacSchedSapUser', 
                    'void', 
                    [param('ns3::FfMacSchedSapUser *', 's')], 
                    is_virtual=True)
-    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): void ns3::FdBetFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
+    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): void ns3::NrFdBetFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
     cls.add_method('SetNrFfrSapProvider', 
                    'void', 
                    [param('ns3::NrFfrSapProvider *', 's')], 
                    is_virtual=True)
-    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): void ns3::FdBetFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
+    ## nr-fdbet-ff-mac-scheduler.h (module 'nr'): void ns3::NrFdBetFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
     cls.add_method('TransmissionModeConfigurationUpdate', 
                    'void', 
                    [param('uint16_t', 'rnti'), param('uint8_t', 'txMode')])
     return
 
-def register_Ns3FdMtFfMacScheduler_methods(root_module, cls):
-    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::FdMtFfMacScheduler::FdMtFfMacScheduler(ns3::FdMtFfMacScheduler const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::FdMtFfMacScheduler const &', 'arg0')])
-    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::FdMtFfMacScheduler::FdMtFfMacScheduler() [constructor]
+def register_Ns3NrFdMtFfMacScheduler_methods(root_module, cls):
+    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::NrFdMtFfMacScheduler::NrFdMtFfMacScheduler(ns3::NrFdMtFfMacScheduler const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrFdMtFfMacScheduler const &', 'arg0')])
+    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::NrFdMtFfMacScheduler::NrFdMtFfMacScheduler() [constructor]
     cls.add_constructor([])
-    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): void ns3::FdMtFfMacScheduler::DoDispose() [member function]
+    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): void ns3::NrFdMtFfMacScheduler::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
                    is_virtual=True)
-    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::FdMtFfMacScheduler::GetFfMacCschedSapProvider() [member function]
+    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::NrFdMtFfMacScheduler::GetFfMacCschedSapProvider() [member function]
     cls.add_method('GetFfMacCschedSapProvider', 
                    'ns3::FfMacCschedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::FdMtFfMacScheduler::GetFfMacSchedSapProvider() [member function]
+    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::NrFdMtFfMacScheduler::GetFfMacSchedSapProvider() [member function]
     cls.add_method('GetFfMacSchedSapProvider', 
                    'ns3::FfMacSchedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::FdMtFfMacScheduler::GetNrFfrSapUser() [member function]
+    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::NrFdMtFfMacScheduler::GetNrFfrSapUser() [member function]
     cls.add_method('GetNrFfrSapUser', 
                    'ns3::NrFfrSapUser *', 
                    [], 
                    is_virtual=True)
-    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::FdMtFfMacScheduler::GetTypeId() [member function]
+    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::NrFdMtFfMacScheduler::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): void ns3::FdMtFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
+    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): void ns3::NrFdMtFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
     cls.add_method('SetFfMacCschedSapUser', 
                    'void', 
                    [param('ns3::FfMacCschedSapUser *', 's')], 
                    is_virtual=True)
-    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): void ns3::FdMtFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
+    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): void ns3::NrFdMtFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
     cls.add_method('SetFfMacSchedSapUser', 
                    'void', 
                    [param('ns3::FfMacSchedSapUser *', 's')], 
                    is_virtual=True)
-    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): void ns3::FdMtFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
+    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): void ns3::NrFdMtFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
     cls.add_method('SetNrFfrSapProvider', 
                    'void', 
                    [param('ns3::NrFfrSapProvider *', 's')], 
                    is_virtual=True)
-    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): void ns3::FdMtFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
+    ## nr-fdmt-nr-ff-mac-scheduler.h (module 'nr'): void ns3::NrFdMtFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
     cls.add_method('TransmissionModeConfigurationUpdate', 
                    'void', 
                    [param('uint16_t', 'rnti'), param('uint8_t', 'txMode')])
     return
 
-def register_Ns3FdTbfqFfMacScheduler_methods(root_module, cls):
-    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::FdTbfqFfMacScheduler::FdTbfqFfMacScheduler(ns3::FdTbfqFfMacScheduler const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::FdTbfqFfMacScheduler const &', 'arg0')])
-    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::FdTbfqFfMacScheduler::FdTbfqFfMacScheduler() [constructor]
+def register_Ns3NrFdTbfqFfMacScheduler_methods(root_module, cls):
+    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::NrFdTbfqFfMacScheduler::NrFdTbfqFfMacScheduler(ns3::NrFdTbfqFfMacScheduler const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NrFdTbfqFfMacScheduler const &', 'arg0')])
+    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::NrFdTbfqFfMacScheduler::NrFdTbfqFfMacScheduler() [constructor]
     cls.add_constructor([])
-    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): void ns3::FdTbfqFfMacScheduler::DoDispose() [member function]
+    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): void ns3::NrFdTbfqFfMacScheduler::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
                    is_virtual=True)
-    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::FdTbfqFfMacScheduler::GetFfMacCschedSapProvider() [member function]
+    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::FfMacCschedSapProvider * ns3::NrFdTbfqFfMacScheduler::GetFfMacCschedSapProvider() [member function]
     cls.add_method('GetFfMacCschedSapProvider', 
                    'ns3::FfMacCschedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::FdTbfqFfMacScheduler::GetFfMacSchedSapProvider() [member function]
+    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::FfMacSchedSapProvider * ns3::NrFdTbfqFfMacScheduler::GetFfMacSchedSapProvider() [member function]
     cls.add_method('GetFfMacSchedSapProvider', 
                    'ns3::FfMacSchedSapProvider *', 
                    [], 
                    is_virtual=True)
-    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::FdTbfqFfMacScheduler::GetNrFfrSapUser() [member function]
+    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): ns3::NrFfrSapUser * ns3::NrFdTbfqFfMacScheduler::GetNrFfrSapUser() [member function]
     cls.add_method('GetNrFfrSapUser', 
                    'ns3::NrFfrSapUser *', 
                    [], 
                    is_virtual=True)
-    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::FdTbfqFfMacScheduler::GetTypeId() [member function]
+    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): static ns3::TypeId ns3::NrFdTbfqFfMacScheduler::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): void ns3::FdTbfqFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
+    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): void ns3::NrFdTbfqFfMacScheduler::SetFfMacCschedSapUser(ns3::FfMacCschedSapUser * s) [member function]
     cls.add_method('SetFfMacCschedSapUser', 
                    'void', 
                    [param('ns3::FfMacCschedSapUser *', 's')], 
                    is_virtual=True)
-    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): void ns3::FdTbfqFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
+    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): void ns3::NrFdTbfqFfMacScheduler::SetFfMacSchedSapUser(ns3::FfMacSchedSapUser * s) [member function]
     cls.add_method('SetFfMacSchedSapUser', 
                    'void', 
                    [param('ns3::FfMacSchedSapUser *', 's')], 
                    is_virtual=True)
-    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): void ns3::FdTbfqFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
+    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): void ns3::NrFdTbfqFfMacScheduler::SetNrFfrSapProvider(ns3::NrFfrSapProvider * s) [member function]
     cls.add_method('SetNrFfrSapProvider', 
                    'void', 
                    [param('ns3::NrFfrSapProvider *', 's')], 
                    is_virtual=True)
-    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): void ns3::FdTbfqFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
+    ## nr-fdtbfq-ff-mac-scheduler.h (module 'nr'): void ns3::NrFdTbfqFfMacScheduler::TransmissionModeConfigurationUpdate(uint16_t rnti, uint8_t txMode) [member function]
     cls.add_method('TransmissionModeConfigurationUpdate', 
                    'void', 
                    [param('uint16_t', 'rnti'), param('uint8_t', 'txMode')])

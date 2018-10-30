@@ -24,27 +24,27 @@
 
 namespace ns3 {
 
-NS_LOG_COMPONENT_DEFINE ("NoOpHandoverAlgorithm");
+NS_LOG_COMPONENT_DEFINE ("NrNoOpHandoverAlgorithm");
 
-NS_OBJECT_ENSURE_REGISTERED (NoOpHandoverAlgorithm);
+NS_OBJECT_ENSURE_REGISTERED (NrNoOpHandoverAlgorithm);
 
 
-NoOpHandoverAlgorithm::NoOpHandoverAlgorithm ()
+NrNoOpHandoverAlgorithm::NrNoOpHandoverAlgorithm ()
   : m_handoverManagementSapUser (0)
 {
   NS_LOG_FUNCTION (this);
-  m_handoverManagementSapProvider = new MemberNrHandoverManagementSapProvider<NoOpHandoverAlgorithm> (this);
+  m_handoverManagementSapProvider = new MemberNrHandoverManagementSapProvider<NrNoOpHandoverAlgorithm> (this);
 }
 
 
-NoOpHandoverAlgorithm::~NoOpHandoverAlgorithm ()
+NrNoOpHandoverAlgorithm::~NrNoOpHandoverAlgorithm ()
 {
   NS_LOG_FUNCTION (this);
 }
 
 
 void
-NoOpHandoverAlgorithm::DoDispose ()
+NrNoOpHandoverAlgorithm::DoDispose ()
 {
   NS_LOG_FUNCTION (this);
   delete m_handoverManagementSapProvider;
@@ -52,19 +52,19 @@ NoOpHandoverAlgorithm::DoDispose ()
 
 
 TypeId
-NoOpHandoverAlgorithm::GetTypeId ()
+NrNoOpHandoverAlgorithm::GetTypeId ()
 {
-  static TypeId tid = TypeId ("ns3::NoOpHandoverAlgorithm")
+  static TypeId tid = TypeId ("ns3::NrNoOpHandoverAlgorithm")
     .SetParent<NrHandoverAlgorithm> ()
     .SetGroupName("Nr")
-    .AddConstructor<NoOpHandoverAlgorithm> ()
+    .AddConstructor<NrNoOpHandoverAlgorithm> ()
   ;
   return tid;
 }
 
 
 void
-NoOpHandoverAlgorithm::SetNrHandoverManagementSapUser (NrHandoverManagementSapUser* s)
+NrNoOpHandoverAlgorithm::SetNrHandoverManagementSapUser (NrHandoverManagementSapUser* s)
 {
   NS_LOG_FUNCTION (this << s);
   m_handoverManagementSapUser = s;
@@ -72,7 +72,7 @@ NoOpHandoverAlgorithm::SetNrHandoverManagementSapUser (NrHandoverManagementSapUs
 
 
 NrHandoverManagementSapProvider*
-NoOpHandoverAlgorithm::GetNrHandoverManagementSapProvider ()
+NrNoOpHandoverAlgorithm::GetNrHandoverManagementSapProvider ()
 {
   NS_LOG_FUNCTION (this);
   return m_handoverManagementSapProvider;
@@ -80,7 +80,7 @@ NoOpHandoverAlgorithm::GetNrHandoverManagementSapProvider ()
 
 
 void
-NoOpHandoverAlgorithm::DoInitialize ()
+NrNoOpHandoverAlgorithm::DoInitialize ()
 {
   NS_LOG_FUNCTION (this);
   NrHandoverAlgorithm::DoInitialize ();
@@ -88,7 +88,7 @@ NoOpHandoverAlgorithm::DoInitialize ()
 
 
 void
-NoOpHandoverAlgorithm::DoReportUeMeas (uint16_t rnti,
+NrNoOpHandoverAlgorithm::DoReportUeMeas (uint16_t rnti,
                                        NrRrcSap::MeasResults measResults)
 {
   NS_LOG_FUNCTION (this << rnti << (uint16_t) measResults.measId);

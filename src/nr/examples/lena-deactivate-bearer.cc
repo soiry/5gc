@@ -209,7 +209,7 @@ main (int argc, char *argv[])
   double statsDuration = 1.0;
 
   nrHelper->EnableRlcTraces ();
-  Ptr<RadioBearerStatsCalculator> rlcStats = nrHelper->GetRlcStats ();
+  Ptr<NrRadioBearerStatsCalculator> rlcStats = nrHelper->GetRlcStats ();
   rlcStats->SetAttribute ("StartTime", TimeValue (Seconds (statsStartTime)));
   rlcStats->SetAttribute ("EpochDuration", TimeValue (Seconds (statsDuration)));
 

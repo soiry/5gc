@@ -32,7 +32,7 @@
 #include <ns3/simulator.h>
 #include <ns3/packet.h>
 #include <ns3/ptr.h>
-#include "ns3/radio-bearer-stats-calculator.h"
+#include "ns3/nr-radio-bearer-stats-calculator.h"
 #include <ns3/constant-position-mobility-model.h>
 #include <ns3/eps-bearer.h>
 #include <ns3/node-container.h>
@@ -60,12 +60,12 @@
 
 using namespace ns3;
 
-NS_LOG_COMPONENT_DEFINE ("LenaTestFdTbfqFfMacScheduler");
+NS_LOG_COMPONENT_DEFINE ("LenaTestNrFdTbfqFfMacScheduler");
 
-LenaTestFdTbfqFfMacSchedulerSuite::LenaTestFdTbfqFfMacSchedulerSuite ()
+LenaTestNrFdTbfqFfMacSchedulerSuite::LenaTestNrFdTbfqFfMacSchedulerSuite ()
   : TestSuite ("nr-fdtbfq-ff-mac-scheduler", SYSTEM)
 {
-  NS_LOG_INFO ("creating LenaTestFdTbfqFfMacSchedulerSuite");
+  NS_LOG_INFO ("creating LenaTestNrFdTbfqFfMacSchedulerSuite");
 
   bool errorModel = false;
 
@@ -91,10 +91,10 @@ LenaTestFdTbfqFfMacSchedulerSuite::LenaTestFdTbfqFfMacSchedulerSuite ()
   // 3 users -> 8 PRB at Itbs 26 -> 749 -> 749000 > 232000 -> throughput = 232000 bytes/sec 
   // 6 users -> 4 PRB at Itbs 26 -> 373 -> 373000 > 232000 -> throughput = 232000 bytes/sec
   // 12 users -> 2 PRB at Itbs 26 -> 185 -> 185000 < 232000 -> throughput = 185000 bytes/sec
-  AddTestCase (new LenaFdTbfqFfMacSchedulerTestCase1 (1,0,232000,232000,200,1,errorModel), TestCase::EXTENSIVE);
-  AddTestCase (new LenaFdTbfqFfMacSchedulerTestCase1 (3,0,232000,232000,200,1,errorModel), TestCase::EXTENSIVE);
-  AddTestCase (new LenaFdTbfqFfMacSchedulerTestCase1 (6,0,232000,232000,200,1,errorModel), TestCase::EXTENSIVE);
-  //AddTestCase (new LenaFdTbfqFfMacSchedulerTestCase1 (12,0,183000,185000,200,1,errorModel));// simulation time = 1.5, otherwise, ul test will fail
+  AddTestCase (new LenaNrFdTbfqFfMacSchedulerTestCase1 (1,0,232000,232000,200,1,errorModel), TestCase::EXTENSIVE);
+  AddTestCase (new LenaNrFdTbfqFfMacSchedulerTestCase1 (3,0,232000,232000,200,1,errorModel), TestCase::EXTENSIVE);
+  AddTestCase (new LenaNrFdTbfqFfMacSchedulerTestCase1 (6,0,232000,232000,200,1,errorModel), TestCase::EXTENSIVE);
+  //AddTestCase (new LenaNrFdTbfqFfMacSchedulerTestCase1 (12,0,183000,185000,200,1,errorModel));// simulation time = 1.5, otherwise, ul test will fail
 
   // DOWNLINK - DISTANCE 4800 -> MCS 22 -> Itbs 20 (from table 7.1.7.2.1-1 of 36.213)
   // Traffic info
@@ -111,10 +111,10 @@ LenaTestFdTbfqFfMacSchedulerSuite::LenaTestFdTbfqFfMacSchedulerSuite ()
   // 6 users -> 4 PRB at Itbs 13 -> 125 -> 125000 < 232000 -> throughput = 125000 bytes/sec
   // after the patch enforcing min 3 PRBs per UE:
   // 12 users -> 3 PRB at Itbs 13 -> 93  bytes * 8/12 UE/TTI  -> 62000 < 232000 -> throughput = 62000  bytes/sec
-  AddTestCase (new LenaFdTbfqFfMacSchedulerTestCase1 (1,4800,232000,232000,200,1,errorModel), TestCase::EXTENSIVE);
-  AddTestCase (new LenaFdTbfqFfMacSchedulerTestCase1 (3,4800,232000,232000,200,1,errorModel), TestCase::EXTENSIVE);
-  AddTestCase (new LenaFdTbfqFfMacSchedulerTestCase1 (6,4800,230500,125000,200,1,errorModel), TestCase::EXTENSIVE);
-  //AddTestCase (new LenaFdTbfqFfMacSchedulerTestCase1 (12,4800,75250,62000,200,1,errorModel)); // simulation time = 1.5, otherwise, ul test will fail
+  AddTestCase (new LenaNrFdTbfqFfMacSchedulerTestCase1 (1,4800,232000,232000,200,1,errorModel), TestCase::EXTENSIVE);
+  AddTestCase (new LenaNrFdTbfqFfMacSchedulerTestCase1 (3,4800,232000,232000,200,1,errorModel), TestCase::EXTENSIVE);
+  AddTestCase (new LenaNrFdTbfqFfMacSchedulerTestCase1 (6,4800,230500,125000,200,1,errorModel), TestCase::EXTENSIVE);
+  //AddTestCase (new LenaNrFdTbfqFfMacSchedulerTestCase1 (12,4800,75250,62000,200,1,errorModel)); // simulation time = 1.5, otherwise, ul test will fail
 
   // DOWNLINK - DISTANCE 6000 -> MCS 20 -> Itbs 18 (from table 7.1.7.2.1-1 of 36.213)
   // Traffic info
@@ -132,10 +132,10 @@ LenaTestFdTbfqFfMacSchedulerSuite::LenaTestFdTbfqFfMacSchedulerSuite ()
   // 6 users -> 4 PRB at Itbs 11 -> 97 -> 97000 < 232000 -> throughput = 97000 bytes/sec
   // after the patch enforcing min 3 PRBs per UE:
   // 12 users -> 3 PRB at Itbs 11 -> 73 bytes * 8/12 UE/TTI -> 48667 < 232000 -> throughput = 48667 bytes/sec
-  AddTestCase (new LenaFdTbfqFfMacSchedulerTestCase1 (1,6000,232000,232000,200,1,errorModel), TestCase::EXTENSIVE);
-  AddTestCase (new LenaFdTbfqFfMacSchedulerTestCase1 (3,6000,232000,201000,200,1,errorModel), TestCase::EXTENSIVE);
-  AddTestCase (new LenaFdTbfqFfMacSchedulerTestCase1 (6,6000,198500,97000,200,1,errorModel), TestCase::EXTENSIVE);
-  //AddTestCase (new LenaFdTbfqFfMacSchedulerTestCase1 (12,6000,99250,48667,200,1, errorModel)); // simulation time = 1.5, otherwise, ul test will fail
+  AddTestCase (new LenaNrFdTbfqFfMacSchedulerTestCase1 (1,6000,232000,232000,200,1,errorModel), TestCase::EXTENSIVE);
+  AddTestCase (new LenaNrFdTbfqFfMacSchedulerTestCase1 (3,6000,232000,201000,200,1,errorModel), TestCase::EXTENSIVE);
+  AddTestCase (new LenaNrFdTbfqFfMacSchedulerTestCase1 (6,6000,198500,97000,200,1,errorModel), TestCase::EXTENSIVE);
+  //AddTestCase (new LenaNrFdTbfqFfMacSchedulerTestCase1 (12,6000,99250,48667,200,1, errorModel)); // simulation time = 1.5, otherwise, ul test will fail
 
   // DOWNLINK - DISTANCE 10000 -> MCS 14 -> Itbs 13 (from table 7.1.7.2.1-1 of 36.213)
   // Traffic info
@@ -152,10 +152,10 @@ LenaTestFdTbfqFfMacSchedulerSuite::LenaTestFdTbfqFfMacSchedulerSuite ()
   // 6 users -> 4 PRB at Itbs 8 -> 67 -> 67000 < 232000 -> throughput = 67000 bytes/sec
   // after the patch enforcing min 3 PRBs per UE:
   // 12 users -> 3 PRB at Itbs 8 -> 49 bytes * 8/12 UE/TTI -> 32667 < 232000 -> throughput = 32667  bytes/sec
-  AddTestCase (new LenaFdTbfqFfMacSchedulerTestCase1 (1,10000,232000,232000,200,1,errorModel), TestCase::EXTENSIVE);
-  AddTestCase (new LenaFdTbfqFfMacSchedulerTestCase1 (3,10000,232000,137000,200,1,errorModel), TestCase::EXTENSIVE);
-  AddTestCase (new LenaFdTbfqFfMacSchedulerTestCase1 (6,10000,129166,67000,200,1,errorModel), TestCase::EXTENSIVE);
-  //AddTestCase (new LenaFdTbfqFfMacSchedulerTestCase1 (12,10000,64583,32667,200,1,errorModel));// simulation time = 1.5, otherwise, ul test will fail
+  AddTestCase (new LenaNrFdTbfqFfMacSchedulerTestCase1 (1,10000,232000,232000,200,1,errorModel), TestCase::EXTENSIVE);
+  AddTestCase (new LenaNrFdTbfqFfMacSchedulerTestCase1 (3,10000,232000,137000,200,1,errorModel), TestCase::EXTENSIVE);
+  AddTestCase (new LenaNrFdTbfqFfMacSchedulerTestCase1 (6,10000,129166,67000,200,1,errorModel), TestCase::EXTENSIVE);
+  //AddTestCase (new LenaNrFdTbfqFfMacSchedulerTestCase1 (12,10000,64583,32667,200,1,errorModel));// simulation time = 1.5, otherwise, ul test will fail
 
   // Test Case 2: homogeneous flow test in FDTBFQ (different distance)
   // Traffic1 info
@@ -178,7 +178,7 @@ LenaTestFdTbfqFfMacSchedulerSuite::LenaTestFdTbfqFfMacSchedulerSuite ()
   estThrFdTbfqDl1.push_back (132000); // User 1 estimated TTI throughput from FDTBFQ
   estThrFdTbfqDl1.push_back (132000); // User 2 estimated TTI throughput from FDTBFQ
   estThrFdTbfqDl1.push_back (132000); // User 3 estimated TTI throughput from FDTBFQ
-  AddTestCase (new LenaFdTbfqFfMacSchedulerTestCase2 (dist1,estThrFdTbfqDl1,packetSize1,1,errorModel), TestCase::EXTENSIVE);
+  AddTestCase (new LenaNrFdTbfqFfMacSchedulerTestCase2 (dist1,estThrFdTbfqDl1,packetSize1,1,errorModel), TestCase::EXTENSIVE);
 
   // Traffic2 info
   //   UDP traffic: payload size = 300 bytes, interval = 1 ms
@@ -200,7 +200,7 @@ LenaTestFdTbfqFfMacSchedulerSuite::LenaTestFdTbfqFfMacSchedulerSuite ()
   estThrFdTbfqDl2.push_back (302266); // User 1 estimated TTI throughput from FDTBFQ
   estThrFdTbfqDl2.push_back (302266); // User 2 estimated TTI throughput from FDTBFQ
   estThrFdTbfqDl2.push_back (302266); // User 3 estimated TTI throughput from FDTBFQ
-  AddTestCase (new LenaFdTbfqFfMacSchedulerTestCase2 (dist2,estThrFdTbfqDl2,packetSize2,1,errorModel), TestCase::EXTENSIVE);
+  AddTestCase (new LenaNrFdTbfqFfMacSchedulerTestCase2 (dist2,estThrFdTbfqDl2,packetSize2,1,errorModel), TestCase::EXTENSIVE);
 
   // Test Case 3: heterogeneous flow test in FDTBFQ
   //   UDP traffic: payload size = [100,200,300] bytes, interval = 1 ms
@@ -219,17 +219,17 @@ LenaTestFdTbfqFfMacSchedulerSuite::LenaTestFdTbfqFfMacSchedulerSuite ()
   estThrFdTbfqDl3.push_back (132000); // User 0 estimated TTI throughput from FDTBFQ
   estThrFdTbfqDl3.push_back (232000); // User 1 estimated TTI throughput from FDTBFQ
   estThrFdTbfqDl3.push_back (332000); // User 2 estimated TTI throughput from FDTBFQ
-  AddTestCase (new LenaFdTbfqFfMacSchedulerTestCase2 (dist3,estThrFdTbfqDl3,packetSize3,1,errorModel), TestCase::QUICK);
+  AddTestCase (new LenaNrFdTbfqFfMacSchedulerTestCase2 (dist3,estThrFdTbfqDl3,packetSize3,1,errorModel), TestCase::QUICK);
 
 }
 
-static LenaTestFdTbfqFfMacSchedulerSuite lenaTestFdTbfqFfMacSchedulerSuite;
+static LenaTestNrFdTbfqFfMacSchedulerSuite lenaTestNrFdTbfqFfMacSchedulerSuite;
 
 // --------------- T E S T - C A S E   # 1 ------------------------------
 
 
 std::string 
-LenaFdTbfqFfMacSchedulerTestCase1::BuildNameString (uint16_t nUser, uint16_t dist)
+LenaNrFdTbfqFfMacSchedulerTestCase1::BuildNameString (uint16_t nUser, uint16_t dist)
 {
   std::ostringstream oss;
   oss << nUser << " UEs, distance " << dist << " m";
@@ -237,7 +237,7 @@ LenaFdTbfqFfMacSchedulerTestCase1::BuildNameString (uint16_t nUser, uint16_t dis
 }
 
 
-LenaFdTbfqFfMacSchedulerTestCase1::LenaFdTbfqFfMacSchedulerTestCase1 (uint16_t nUser, uint16_t dist, double thrRefDl, double thrRefUl, uint16_t packetSize, uint16_t interval,bool errorModelEnabled)
+LenaNrFdTbfqFfMacSchedulerTestCase1::LenaNrFdTbfqFfMacSchedulerTestCase1 (uint16_t nUser, uint16_t dist, double thrRefDl, double thrRefUl, uint16_t packetSize, uint16_t interval,bool errorModelEnabled)
   : TestCase (BuildNameString (nUser, dist)),
     m_nUser (nUser),
     m_dist (dist),
@@ -249,12 +249,12 @@ LenaFdTbfqFfMacSchedulerTestCase1::LenaFdTbfqFfMacSchedulerTestCase1 (uint16_t n
 {
 }
 
-LenaFdTbfqFfMacSchedulerTestCase1::~LenaFdTbfqFfMacSchedulerTestCase1 ()
+LenaNrFdTbfqFfMacSchedulerTestCase1::~LenaNrFdTbfqFfMacSchedulerTestCase1 ()
 {
 }
 
 void
-LenaFdTbfqFfMacSchedulerTestCase1::DoRun (void)
+LenaNrFdTbfqFfMacSchedulerTestCase1::DoRun (void)
 {
   NS_LOG_FUNCTION (this << GetName ());
 
@@ -270,7 +270,7 @@ LenaFdTbfqFfMacSchedulerTestCase1::DoRun (void)
   Ptr<PointToPointNgcHelper>  ngcHelper = CreateObject<PointToPointNgcHelper> ();
   nrHelper->SetNgcHelper (ngcHelper);
 
-  //LogComponentEnable ("FdTbfqFfMacScheduler", LOG_DEBUG);
+  //LogComponentEnable ("NrFdTbfqFfMacScheduler", LOG_DEBUG);
 
   Ptr<Node> upf = ngcHelper->GetUpfNode ();
 
@@ -325,7 +325,7 @@ LenaFdTbfqFfMacSchedulerTestCase1::DoRun (void)
   // Create Devices and install them in the Nodes (eNB and UE)
   NetDeviceContainer enbDevs;
   NetDeviceContainer ueDevs;
-  nrHelper->SetSchedulerType ("ns3::FdTbfqFfMacScheduler");
+  nrHelper->SetSchedulerType ("ns3::NrFdTbfqFfMacScheduler");
   enbDevs = nrHelper->InstallEnbDevice (enbNodes);
   ueDevs = nrHelper->InstallUeDevice (ueNodes);
 
@@ -415,7 +415,7 @@ LenaFdTbfqFfMacSchedulerTestCase1::DoRun (void)
 
   nrHelper->EnableRlcTraces ();
   nrHelper->EnableMacTraces ();
-  Ptr<RadioBearerStatsCalculator> rlcStats = nrHelper->GetRlcStats ();
+  Ptr<NrRadioBearerStatsCalculator> rlcStats = nrHelper->GetRlcStats ();
   rlcStats->SetAttribute ("StartTime", TimeValue (Seconds (statsStartTime)));
   rlcStats->SetAttribute ("EpochDuration", TimeValue (Seconds (statsDuration)));
 
@@ -473,7 +473,7 @@ LenaFdTbfqFfMacSchedulerTestCase1::DoRun (void)
 
 
 std::string 
-LenaFdTbfqFfMacSchedulerTestCase2::BuildNameString (uint16_t nUser, std::vector<uint16_t> dist)
+LenaNrFdTbfqFfMacSchedulerTestCase2::BuildNameString (uint16_t nUser, std::vector<uint16_t> dist)
 {
   std::ostringstream oss;
   oss << "distances (m) = [ " ;
@@ -486,7 +486,7 @@ LenaFdTbfqFfMacSchedulerTestCase2::BuildNameString (uint16_t nUser, std::vector<
 }
 
 
-LenaFdTbfqFfMacSchedulerTestCase2::LenaFdTbfqFfMacSchedulerTestCase2 (std::vector<uint16_t> dist, std::vector<uint32_t> estThrFdTbfqDl, std::vector<uint16_t> packetSize, uint16_t interval,bool errorModelEnabled)
+LenaNrFdTbfqFfMacSchedulerTestCase2::LenaNrFdTbfqFfMacSchedulerTestCase2 (std::vector<uint16_t> dist, std::vector<uint32_t> estThrFdTbfqDl, std::vector<uint16_t> packetSize, uint16_t interval,bool errorModelEnabled)
   : TestCase (BuildNameString (dist.size (), dist)),
     m_nUser (dist.size ()),
     m_dist (dist),
@@ -497,12 +497,12 @@ LenaFdTbfqFfMacSchedulerTestCase2::LenaFdTbfqFfMacSchedulerTestCase2 (std::vecto
 {
 }
 
-LenaFdTbfqFfMacSchedulerTestCase2::~LenaFdTbfqFfMacSchedulerTestCase2 ()
+LenaNrFdTbfqFfMacSchedulerTestCase2::~LenaNrFdTbfqFfMacSchedulerTestCase2 ()
 {
 }
 
 void
-LenaFdTbfqFfMacSchedulerTestCase2::DoRun (void)
+LenaNrFdTbfqFfMacSchedulerTestCase2::DoRun (void)
 {
 
   if (!m_errorModelEnabled)
@@ -565,7 +565,7 @@ LenaFdTbfqFfMacSchedulerTestCase2::DoRun (void)
   // Create Devices and install them in the Nodes (eNB and UE)
   NetDeviceContainer enbDevs;
   NetDeviceContainer ueDevs;
-  nrHelper->SetSchedulerType ("ns3::FdTbfqFfMacScheduler");
+  nrHelper->SetSchedulerType ("ns3::NrFdTbfqFfMacScheduler");
   enbDevs = nrHelper->InstallEnbDevice (enbNodes);
   ueDevs = nrHelper->InstallUeDevice (ueNodes);
 
@@ -662,7 +662,7 @@ LenaFdTbfqFfMacSchedulerTestCase2::DoRun (void)
   Simulator::Stop (Seconds (statsStartTime + statsDuration - 0.0001));
 
   nrHelper->EnableRlcTraces ();
-  Ptr<RadioBearerStatsCalculator> rlcStats = nrHelper->GetRlcStats ();
+  Ptr<NrRadioBearerStatsCalculator> rlcStats = nrHelper->GetRlcStats ();
   rlcStats->SetAttribute ("StartTime", TimeValue (Seconds (statsStartTime)));
   rlcStats->SetAttribute ("EpochDuration", TimeValue (Seconds (statsDuration)));
 

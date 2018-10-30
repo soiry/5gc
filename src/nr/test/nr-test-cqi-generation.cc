@@ -192,8 +192,8 @@ NrCqiGenerationTestCase::DoRun (void)
   NetDeviceContainer enbDevs;
   NetDeviceContainer ueDevs1;
   NetDeviceContainer ueDevs2;
-  nrHelper->SetSchedulerType ("ns3::PfFfMacScheduler");
-  nrHelper->SetSchedulerAttribute ("UlCqiFilter", EnumValue (FfMacScheduler::PUSCH_UL_CQI));
+  nrHelper->SetSchedulerType ("ns3::NrPfFfMacScheduler");
+  nrHelper->SetSchedulerAttribute ("UlCqiFilter", EnumValue (NrFfMacScheduler::PUSCH_UL_CQI));
 
   nrHelper->SetFfrAlgorithmType ("ns3::NrFrHardAlgorithm");
 
@@ -327,8 +327,8 @@ NrCqiGenerationDlPowerControlTestCase::DoRun (void)
   NetDeviceContainer enbDevs;
   NetDeviceContainer ueDevs1;
   NetDeviceContainer ueDevs2;
-  nrHelper->SetSchedulerType ("ns3::PfFfMacScheduler");
-  nrHelper->SetSchedulerAttribute ("UlCqiFilter", EnumValue (FfMacScheduler::PUSCH_UL_CQI));
+  nrHelper->SetSchedulerType ("ns3::NrPfFfMacScheduler");
+  nrHelper->SetSchedulerAttribute ("UlCqiFilter", EnumValue (NrFfMacScheduler::PUSCH_UL_CQI));
   enbDevs = nrHelper->InstallEnbDevice (enbNodes);
   ueDevs1 = nrHelper->InstallUeDevice (ueNodes1);
   ueDevs2 = nrHelper->InstallUeDevice (ueNodes2);

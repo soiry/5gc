@@ -795,7 +795,7 @@ where :math:`RSRP_i` is the RSRP of the neighbor cell :math:`i`, :math:`P_i(k)` 
 HARQ
 ----
 
-The HARQ scheme implemented is based on a incremental redundancy (IR) solutions combined with multiple stop-and-wait processes for enabling a continuous data flow. In detail, the solution adopted is the *soft combining hybrid IR Full incremental redundancy* (also called IR Type II), which implies that the retransmissions contain only new information respect to the previous ones. The resource allocation algorithm of the HARQ has been implemented within the respective scheduler classes (i.e., ``RrFfMacScheduler`` and ``PfFfMacScheduler``, refer to their correspondent sections for more info), while the decodification part of the HARQ has been implemented in the ``NrSpectrumPhy`` and ``NrHarqPhy`` classes which will be detailed in this section.
+The HARQ scheme implemented is based on a incremental redundancy (IR) solutions combined with multiple stop-and-wait processes for enabling a continuous data flow. In detail, the solution adopted is the *soft combining hybrid IR Full incremental redundancy* (also called IR Type II), which implies that the retransmissions contain only new information respect to the previous ones. The resource allocation algorithm of the HARQ has been implemented within the respective scheduler classes (i.e., ``NrRrFfMacScheduler`` and ``NrPfFfMacScheduler``, refer to their correspondent sections for more info), while the decodification part of the HARQ has been implemented in the ``NrSpectrumPhy`` and ``NrHarqPhy`` classes which will be detailed in this section.
 
 According to the standard, the UL retransmissions are synchronous and therefore are allocated 7 ms after the original transmission. On the other hand, for the DL, they are asynchronous and therefore can be allocated in a more flexible way starting from 7 ms and it is a matter of the specific scheduler implementation. The HARQ processes behavior is depicted in Figure:ref:`fig-harq-processes-scheme`.
 
@@ -1019,7 +1019,7 @@ available resources among the active flows, i.e., those logical channels which h
 
 For what concern the HARQ, RR implements the non adaptive version, which implies that in allocating the retransmission attempts RR uses the same allocation configuration of the original block, which means maintaining the same RBGs and MCS. UEs that are allocated for HARQ retransmissions are not considered for the transmission of new data in case they have a transmission opportunity available in the same TTI. Finally, HARQ can be disabled with ns3 attribute system for maintaining backward compatibility with old test cases and code, in detail::
 
-   Config::SetDefault ("ns3::RrFfMacScheduler::HarqEnabled", BooleanValue (false));
+   Config::SetDefault ("ns3::NrRrFfMacScheduler::HarqEnabled", BooleanValue (false));
 
 The scheduler implements the filtering of the uplink CQIs according to their nature with ``UlCqiFilter`` attibute, in detail:
 
@@ -1099,7 +1099,7 @@ where :math:`|\cdot|` indicates the cardinality of the set; finally,
 
 For what concern the HARQ, PF implements the non adaptive version, which implies that in allocating the retransmission attempts the scheduler uses the same allocation configuration of the original block, which means maintaining the same RBGs and MCS. UEs that are allocated for HARQ retransmissions are not considered for the transmission of new data in case they have a transmission opportunity available in the same TTI. Finally, HARQ can be disabled with ns3 attribute system for maintaining backward compatibility with old test cases and code, in detail::
 
-   Config::SetDefault ("ns3::PfFfMacScheduler::HarqEnabled", BooleanValue (false));
+   Config::SetDefault ("ns3::NrPfFfMacScheduler::HarqEnabled", BooleanValue (false));
 
 
 
@@ -1276,7 +1276,7 @@ quality UE tend towards the TBR.
 
 ::
 
-  Config::SetDefault ("ns3::PfFfMacScheduler::HarqEnabled", BooleanValue (false));
+  Config::SetDefault ("ns3::NrPfFfMacScheduler::HarqEnabled", BooleanValue (false));
 
 The scheduler implements the filtering of the uplink CQIs according to their nature with ``UlCqiFilter`` attibute, in detail:
 
@@ -1358,7 +1358,7 @@ where :math:`CQI^{(k,j)}(t)` is the last reported CQI value from user
 :math:`j` for the :math:`k`-th RBG.
 
 The user can select whether :math:`m_{pf}` or :math:`m_{ff}` is used
-by setting the attribute ``ns3::CqaFfMacScheduler::CqaMetric``
+by setting the attribute ``ns3::NrCqaFfMacScheduler::CqaMetric``
 respectively to ``"CqaPf"`` or ``"CqaFf"``.
 
 
@@ -2539,7 +2539,7 @@ is covered in each of the following subsections.
 No-op handover algorithm
 ------------------------
 
-The *no-op handover algorithm* (``NoOpHandoverAlgorithm`` class) is the simplest
+The *no-op handover algorithm* (``NrNoOpHandoverAlgorithm`` class) is the simplest
 possible implementation of handover algorithm. It basically does nothing, i.e.,
 does not call any of the Handover Management SAP interface methods. Users may
 choose this handover algorithm if they wish to disable automatic handover
@@ -2550,7 +2550,7 @@ A2-A4-RSRQ handover algorithm
 
 The *A2-A4-RSRQ handover algorithm* provides the functionality of the default
 handover algorithm originally included in LENA M6 (ns-3.18), ported to the
-Handover Management SAP interface as the ``A2A4RsrqHandoverAlgorithm`` class.
+Handover Management SAP interface as the ``NrA2A4RsrqHandoverAlgorithm`` class.
 
 As the name implies, the algorithm utilizes the Reference Signal Received
 Quality (RSRQ) measurements acquired from Event A2 and Event A4. Thus, the
@@ -2602,7 +2602,7 @@ Signal Received Power (RSRP). This is done by performing a handover as soon as
 a better cell (i.e. with stronger RSRP) is detected.
 
 *Event A3* (neighbour cell's RSRP becomes better than serving cell's RSRP) is
-chosen to realize this concept. The ``A3RsrpHandoverAlgorithm`` class is the
+chosen to realize this concept. The ``NrA3RsrpHandoverAlgorithm`` class is the
 result of the implementation. Handover is triggered for the UE to the best cell
 in the measurement report.
 
@@ -2635,7 +2635,7 @@ cell and a neighbouring cell by a UE which moves pass the border of the cells.
 
 By default, the algorithm uses a hysteresis of 3.0 dB and time-to-trigger of
 256 ms. These values can be tuned through the ``Hysteresis`` and
-``TimeToTrigger`` attributes of the ``A3RsrpHandoverAlgorithm`` class.
+``TimeToTrigger`` attributes of the ``NrA3RsrpHandoverAlgorithm`` class.
 
 
 Neighbour Relation
@@ -2945,14 +2945,14 @@ ASN.1 encoding of RRC IE's
 
 The messages defined in RRC SAP, common to all Ue/Enb SAP Users/Providers, are transported in a transparent container to/from a Ue/Enb. The encoding format for the different Information Elements are specified in [TS36331]_, using ASN.1 rules in the unaligned variant. The implementation in Ns3/Nr has been divided in the following classes:
 
-  * Asn1Header : Contains the encoding / decoding of basic ASN types
+  * NrAsn1Header : Contains the encoding / decoding of basic ASN types
 
-  * RrcAsn1Header : Inherits Asn1Header and contains the encoding / decoding of common IE's defined in [TS36331]_
+  * RrcNrAsn1Header : Inherits NrAsn1Header and contains the encoding / decoding of common IE's defined in [TS36331]_
   
   * Rrc specific messages/IEs classes : A class for each of the messages defined in RRC SAP header
 
 
-Asn1Header class - Implementation of base ASN.1 types
+NrAsn1Header class - Implementation of base ASN.1 types
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This class implements the methods to Serialize / Deserialize the ASN.1 types being used in [TS36331]_, according to the packed encoding rules in ITU-T X.691. The types considered are:
@@ -2979,7 +2979,7 @@ The class inherits from ns-3 Header, but Deserialize() function is declared pure
 
 Additionally, it has to be noted that the resulting byte length of a specific type/message can vary, according to the presence of optional fields, and due to the optimized encoding. Hence, the serialized bits will be processed using PreSerialize() function, saving the result in m_serializationResult Buffer. As the methods to read/write in a ns3 buffer are defined in a byte basis, the serialization bits are stored into m_serializationPendingBits attribute, until the 8 bits are set and can be written to buffer iterator. Finally, when invoking Serialize(), the contents of the m_serializationResult attribute will be copied to Buffer::Iterator parameter
 
-RrcAsn1Header : Common IEs
+RrcNrAsn1Header : Common IEs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 As some Information Elements are being used for several RRC messages, this class implements the following common IE's:

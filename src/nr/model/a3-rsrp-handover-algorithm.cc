@@ -27,44 +27,44 @@
 
 namespace ns3 {
 
-NS_LOG_COMPONENT_DEFINE ("A3RsrpHandoverAlgorithm");
+NS_LOG_COMPONENT_DEFINE ("NrA3RsrpHandoverAlgorithm");
 
-NS_OBJECT_ENSURE_REGISTERED (A3RsrpHandoverAlgorithm);
+NS_OBJECT_ENSURE_REGISTERED (NrA3RsrpHandoverAlgorithm);
 
 
-A3RsrpHandoverAlgorithm::A3RsrpHandoverAlgorithm ()
+NrA3RsrpHandoverAlgorithm::NrA3RsrpHandoverAlgorithm ()
   : m_handoverManagementSapUser (0)
 {
   NS_LOG_FUNCTION (this);
-  m_handoverManagementSapProvider = new MemberNrHandoverManagementSapProvider<A3RsrpHandoverAlgorithm> (this);
+  m_handoverManagementSapProvider = new MemberNrHandoverManagementSapProvider<NrA3RsrpHandoverAlgorithm> (this);
 }
 
 
-A3RsrpHandoverAlgorithm::~A3RsrpHandoverAlgorithm ()
+NrA3RsrpHandoverAlgorithm::~NrA3RsrpHandoverAlgorithm ()
 {
   NS_LOG_FUNCTION (this);
 }
 
 
 TypeId
-A3RsrpHandoverAlgorithm::GetTypeId ()
+NrA3RsrpHandoverAlgorithm::GetTypeId ()
 {
-  static TypeId tid = TypeId ("ns3::A3RsrpHandoverAlgorithm")
+  static TypeId tid = TypeId ("ns3::NrA3RsrpHandoverAlgorithm")
     .SetParent<NrHandoverAlgorithm> ()
     .SetGroupName("Nr")
-    .AddConstructor<A3RsrpHandoverAlgorithm> ()
+    .AddConstructor<NrA3RsrpHandoverAlgorithm> ()
     .AddAttribute ("Hysteresis",
                    "Handover margin (hysteresis) in dB "
                    "(rounded to the nearest multiple of 0.5 dB)",
                    DoubleValue (3.0),
-                   MakeDoubleAccessor (&A3RsrpHandoverAlgorithm::m_hysteresisDb),
+                   MakeDoubleAccessor (&NrA3RsrpHandoverAlgorithm::m_hysteresisDb),
                    MakeDoubleChecker<uint8_t> (0.0, 15.0)) // Hysteresis IE value range is [0..30] as per Section 6.3.5 of 3GPP TS 36.331
     .AddAttribute ("TimeToTrigger",
                    "Time during which neighbour cell's RSRP "
                    "must continuously higher than serving cell's RSRP "
                    "in order to trigger a handover",
                    TimeValue (MilliSeconds (256)), // 3GPP time-to-trigger median value as per Section 6.3.5 of 3GPP TS 36.331
-                   MakeTimeAccessor (&A3RsrpHandoverAlgorithm::m_timeToTrigger),
+                   MakeTimeAccessor (&NrA3RsrpHandoverAlgorithm::m_timeToTrigger),
                    MakeTimeChecker ())
   ;
   return tid;
@@ -72,7 +72,7 @@ A3RsrpHandoverAlgorithm::GetTypeId ()
 
 
 void
-A3RsrpHandoverAlgorithm::SetNrHandoverManagementSapUser (NrHandoverManagementSapUser* s)
+NrA3RsrpHandoverAlgorithm::SetNrHandoverManagementSapUser (NrHandoverManagementSapUser* s)
 {
   NS_LOG_FUNCTION (this << s);
   m_handoverManagementSapUser = s;
@@ -80,7 +80,7 @@ A3RsrpHandoverAlgorithm::SetNrHandoverManagementSapUser (NrHandoverManagementSap
 
 
 NrHandoverManagementSapProvider*
-A3RsrpHandoverAlgorithm::GetNrHandoverManagementSapProvider ()
+NrA3RsrpHandoverAlgorithm::GetNrHandoverManagementSapProvider ()
 {
   NS_LOG_FUNCTION (this);
   return m_handoverManagementSapProvider;
@@ -88,7 +88,7 @@ A3RsrpHandoverAlgorithm::GetNrHandoverManagementSapProvider ()
 
 
 void
-A3RsrpHandoverAlgorithm::DoInitialize ()
+NrA3RsrpHandoverAlgorithm::DoInitialize ()
 {
   NS_LOG_FUNCTION (this);
 
@@ -112,7 +112,7 @@ A3RsrpHandoverAlgorithm::DoInitialize ()
 
 
 void
-A3RsrpHandoverAlgorithm::DoDispose ()
+NrA3RsrpHandoverAlgorithm::DoDispose ()
 {
   NS_LOG_FUNCTION (this);
   delete m_handoverManagementSapProvider;
@@ -120,7 +120,7 @@ A3RsrpHandoverAlgorithm::DoDispose ()
 
 
 void
-A3RsrpHandoverAlgorithm::DoReportUeMeas (uint16_t rnti,
+NrA3RsrpHandoverAlgorithm::DoReportUeMeas (uint16_t rnti,
                                          NrRrcSap::MeasResults measResults)
 {
   NS_LOG_FUNCTION (this << rnti << (uint16_t) measResults.measId);
@@ -177,7 +177,7 @@ A3RsrpHandoverAlgorithm::DoReportUeMeas (uint16_t rnti,
 
 
 bool
-A3RsrpHandoverAlgorithm::IsValidNeighbour (uint16_t cellId)
+NrA3RsrpHandoverAlgorithm::IsValidNeighbour (uint16_t cellId)
 {
   NS_LOG_FUNCTION (this << cellId);
 

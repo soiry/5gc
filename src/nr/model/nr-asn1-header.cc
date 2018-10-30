@@ -27,14 +27,14 @@
 
 namespace ns3 {
 
-NS_LOG_COMPONENT_DEFINE ("Asn1Header");
+NS_LOG_COMPONENT_DEFINE ("NrAsn1Header");
 
-NS_OBJECT_ENSURE_REGISTERED (Asn1Header);
+NS_OBJECT_ENSURE_REGISTERED (NrAsn1Header);
 
 TypeId
-Asn1Header::GetTypeId (void)
+NrAsn1Header::GetTypeId (void)
 {
-  static TypeId tid = TypeId ("ns3::Asn1Header")
+  static TypeId tid = TypeId ("ns3::NrAsn1Header")
     .SetParent<Header> ()
     .SetGroupName("Nr")
   ;
@@ -42,24 +42,24 @@ Asn1Header::GetTypeId (void)
 }
 
 TypeId
-Asn1Header::GetInstanceTypeId (void) const
+NrAsn1Header::GetInstanceTypeId (void) const
 {
   return GetTypeId ();
 }
 
-Asn1Header::Asn1Header ()
+NrAsn1Header::NrAsn1Header ()
 {
   m_serializationPendingBits = 0x00;
   m_numSerializationPendingBits = 0;
   m_isDataSerialized = false;
 }
 
-Asn1Header::~Asn1Header ()
+NrAsn1Header::~NrAsn1Header ()
 {
 }
 
 uint32_t
-Asn1Header::GetSerializedSize (void) const
+NrAsn1Header::GetSerializedSize (void) const
 {
   if (!m_isDataSerialized)
     {
@@ -68,7 +68,7 @@ Asn1Header::GetSerializedSize (void) const
   return m_serializationResult.GetSize ();
 }
 
-void Asn1Header::Serialize (Buffer::Iterator bIterator) const
+void NrAsn1Header::Serialize (Buffer::Iterator bIterator) const
 {
   if (!m_isDataSerialized)
     {
@@ -77,7 +77,7 @@ void Asn1Header::Serialize (Buffer::Iterator bIterator) const
   bIterator.Write (m_serializationResult.Begin (),m_serializationResult.End ());
 }
 
-void Asn1Header::WriteOctet (uint8_t octet) const
+void NrAsn1Header::WriteOctet (uint8_t octet) const
 {
   m_serializationResult.AddAtEnd (1);
   Buffer::Iterator bIterator = m_serializationResult.End ();
@@ -86,7 +86,7 @@ void Asn1Header::WriteOctet (uint8_t octet) const
 }
 
 template <int N>
-void Asn1Header::SerializeBitset (std::bitset<N> data) const
+void NrAsn1Header::SerializeBitset (std::bitset<N> data) const
 {
 
   size_t dataSize = data.size ();
@@ -170,53 +170,53 @@ void Asn1Header::SerializeBitset (std::bitset<N> data) const
 }
 
 template <int N>
-void Asn1Header::SerializeBitstring (std::bitset<N> data) const
+void NrAsn1Header::SerializeBitstring (std::bitset<N> data) const
 {
   SerializeBitset<N> (data);
 }
 
 
-void Asn1Header::SerializeBitstring (std::bitset<1> data) const
+void NrAsn1Header::SerializeBitstring (std::bitset<1> data) const
 {
   SerializeBitstring<1> (data);
 }
 
-void Asn1Header::SerializeBitstring (std::bitset<2> data) const
+void NrAsn1Header::SerializeBitstring (std::bitset<2> data) const
 {
   SerializeBitstring<2> (data);
 }
 
-void Asn1Header::SerializeBitstring (std::bitset<8> data) const
+void NrAsn1Header::SerializeBitstring (std::bitset<8> data) const
 {
   SerializeBitstring<8> (data);
 }
 
-void Asn1Header::SerializeBitstring (std::bitset<10> data) const
+void NrAsn1Header::SerializeBitstring (std::bitset<10> data) const
 {
   SerializeBitstring<10> (data);
 }
 
-void Asn1Header::SerializeBitstring (std::bitset<16> data) const
+void NrAsn1Header::SerializeBitstring (std::bitset<16> data) const
 {
   SerializeBitstring<16> (data);
 }
 
-void Asn1Header::SerializeBitstring (std::bitset<27> data) const
+void NrAsn1Header::SerializeBitstring (std::bitset<27> data) const
 {
   SerializeBitstring<27> (data);
 }
 
-void Asn1Header::SerializeBitstring (std::bitset<28> data) const
+void NrAsn1Header::SerializeBitstring (std::bitset<28> data) const
 {
   SerializeBitstring<28> (data);
 }
 
-void Asn1Header::SerializeBitstring (std::bitset<32> data) const
+void NrAsn1Header::SerializeBitstring (std::bitset<32> data) const
 {
   SerializeBitstring<32> (data);
 }
 
-void Asn1Header::SerializeBoolean (bool value) const
+void NrAsn1Header::SerializeBoolean (bool value) const
 {
   // Clause 12 ITU-T X.691
   std::bitset<1> val;
@@ -225,7 +225,7 @@ void Asn1Header::SerializeBoolean (bool value) const
 }
 
 template <int N>
-void Asn1Header::SerializeSequence (std::bitset<N> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
+void NrAsn1Header::SerializeSequence (std::bitset<N> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
 {
   if (isExtensionMarkerPresent)
     {
@@ -235,69 +235,69 @@ void Asn1Header::SerializeSequence (std::bitset<N> optionalOrDefaultMask, bool i
   SerializeBitstring<N> (optionalOrDefaultMask);
 }
 
-void Asn1Header::SerializeSequence (std::bitset<0> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
+void NrAsn1Header::SerializeSequence (std::bitset<0> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
 {
   SerializeSequence<0> (optionalOrDefaultMask,isExtensionMarkerPresent);
 }
 
-void Asn1Header::SerializeSequence (std::bitset<1> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
+void NrAsn1Header::SerializeSequence (std::bitset<1> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
 {
   SerializeSequence<1> (optionalOrDefaultMask,isExtensionMarkerPresent);
 }
 
-void Asn1Header::SerializeSequence (std::bitset<2> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
+void NrAsn1Header::SerializeSequence (std::bitset<2> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
 {
   SerializeSequence<2> (optionalOrDefaultMask,isExtensionMarkerPresent);
 }
 
-void Asn1Header::SerializeSequence (std::bitset<3> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
+void NrAsn1Header::SerializeSequence (std::bitset<3> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
 {
   SerializeSequence<3> (optionalOrDefaultMask,isExtensionMarkerPresent);
 }
 
-void Asn1Header::SerializeSequence (std::bitset<4> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
+void NrAsn1Header::SerializeSequence (std::bitset<4> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
 {
   SerializeSequence<4> (optionalOrDefaultMask,isExtensionMarkerPresent);
 }
 
-void Asn1Header::SerializeSequence (std::bitset<5> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
+void NrAsn1Header::SerializeSequence (std::bitset<5> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
 {
   SerializeSequence<5> (optionalOrDefaultMask,isExtensionMarkerPresent);
 }
 
-void Asn1Header::SerializeSequence (std::bitset<6> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
+void NrAsn1Header::SerializeSequence (std::bitset<6> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
 {
   SerializeSequence<6> (optionalOrDefaultMask,isExtensionMarkerPresent);
 }
 
-void Asn1Header::SerializeSequence (std::bitset<9> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
+void NrAsn1Header::SerializeSequence (std::bitset<9> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
 {
   SerializeSequence<9> (optionalOrDefaultMask,isExtensionMarkerPresent);
 }
 
-void Asn1Header::SerializeSequence (std::bitset<10> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
+void NrAsn1Header::SerializeSequence (std::bitset<10> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
 {
   SerializeSequence<10> (optionalOrDefaultMask,isExtensionMarkerPresent);
 }
 
-void Asn1Header::SerializeSequence (std::bitset<11> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
+void NrAsn1Header::SerializeSequence (std::bitset<11> optionalOrDefaultMask, bool isExtensionMarkerPresent) const
 {
   SerializeSequence<11> (optionalOrDefaultMask,isExtensionMarkerPresent);
 }
 
-void Asn1Header::SerializeSequenceOf (int numElems, int nMax, int nMin) const
+void NrAsn1Header::SerializeSequenceOf (int numElems, int nMax, int nMin) const
 {
   // Clause 20.6 ITU-T X.691
   SerializeInteger (numElems, nMin, nMax);
 }
 
-void Asn1Header::SerializeEnum (int numElems, int selectedElem) const
+void NrAsn1Header::SerializeEnum (int numElems, int selectedElem) const
 {
   // Clause 14 ITU-T X.691
   SerializeInteger (selectedElem, 0, numElems - 1);
 }
 
-void Asn1Header::SerializeChoice (int numOptions, int selectedOption, bool isExtensionMarkerPresent) const
+void NrAsn1Header::SerializeChoice (int numOptions, int selectedOption, bool isExtensionMarkerPresent) const
 {
   if(isExtensionMarkerPresent)
   {
@@ -314,7 +314,7 @@ void Asn1Header::SerializeChoice (int numOptions, int selectedOption, bool isExt
   SerializeInteger (selectedOption,0,numOptions - 1);
 }
 
-void Asn1Header::SerializeInteger (int n, int nmin, int nmax) const
+void NrAsn1Header::SerializeInteger (int n, int nmin, int nmax) const
 {
   // Misusage check: Ensure nmax>nmin ...
   if (nmin > nmax)
@@ -408,13 +408,13 @@ void Asn1Header::SerializeInteger (int n, int nmin, int nmax) const
     }
 }
 
-void Asn1Header::SerializeNull () const
+void NrAsn1Header::SerializeNull () const
 {
   // Clause 18 ITU-T X.691
   return;
 }
 
-void Asn1Header::FinalizeSerialization () const
+void NrAsn1Header::FinalizeSerialization () const
 {
   if (m_numSerializationPendingBits > 0)
     {
@@ -425,7 +425,7 @@ void Asn1Header::FinalizeSerialization () const
 }
 
 template <int N>
-Buffer::Iterator Asn1Header::DeserializeBitset (std::bitset<N> *data, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeBitset (std::bitset<N> *data, Buffer::Iterator bIterator)
 {
 
   int bitsToRead = N;
@@ -478,52 +478,52 @@ Buffer::Iterator Asn1Header::DeserializeBitset (std::bitset<N> *data, Buffer::It
 }
 
 template <int N>
-Buffer::Iterator Asn1Header::DeserializeBitstring (std::bitset<N> *data, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeBitstring (std::bitset<N> *data, Buffer::Iterator bIterator)
 {
   return DeserializeBitset<N> (data,bIterator);
 }
 
-Buffer::Iterator Asn1Header::DeserializeBitstring (std::bitset<1> *data, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeBitstring (std::bitset<1> *data, Buffer::Iterator bIterator)
 {
   return DeserializeBitstring<1> (data,bIterator);
 }
 
-Buffer::Iterator Asn1Header::DeserializeBitstring (std::bitset<2> *data, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeBitstring (std::bitset<2> *data, Buffer::Iterator bIterator)
 {
   return DeserializeBitstring<2> (data,bIterator);
 }
 
-Buffer::Iterator Asn1Header::DeserializeBitstring (std::bitset<8> *data, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeBitstring (std::bitset<8> *data, Buffer::Iterator bIterator)
 {
   return DeserializeBitstring<8> (data,bIterator);
 }
 
-Buffer::Iterator Asn1Header::DeserializeBitstring (std::bitset<10> *data, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeBitstring (std::bitset<10> *data, Buffer::Iterator bIterator)
 {
   return DeserializeBitstring<10> (data,bIterator);
 }
 
-Buffer::Iterator Asn1Header::DeserializeBitstring (std::bitset<16> *data, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeBitstring (std::bitset<16> *data, Buffer::Iterator bIterator)
 {
   return DeserializeBitstring<16> (data,bIterator);
 }
 
-Buffer::Iterator Asn1Header::DeserializeBitstring (std::bitset<27> *data, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeBitstring (std::bitset<27> *data, Buffer::Iterator bIterator)
 {
   return DeserializeBitstring<27> (data,bIterator);
 }
 
-Buffer::Iterator Asn1Header::DeserializeBitstring (std::bitset<28> *data, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeBitstring (std::bitset<28> *data, Buffer::Iterator bIterator)
 {
   return DeserializeBitstring<28> (data,bIterator);
 }
 
-Buffer::Iterator Asn1Header::DeserializeBitstring (std::bitset<32> *data, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeBitstring (std::bitset<32> *data, Buffer::Iterator bIterator)
 {
   return DeserializeBitstring<32> (data,bIterator);
 }
 
-Buffer::Iterator Asn1Header::DeserializeBoolean (bool *value, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeBoolean (bool *value, Buffer::Iterator bIterator)
 {
   std::bitset<1> readBit;
   bIterator = DeserializeBitset<1> (&readBit,bIterator);
@@ -531,7 +531,7 @@ Buffer::Iterator Asn1Header::DeserializeBoolean (bool *value, Buffer::Iterator b
   return bIterator;
 }
 
-Buffer::Iterator Asn1Header::DeserializeInteger (int *n, int nmin, int nmax, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeInteger (int *n, int nmin, int nmax, Buffer::Iterator bIterator)
 {
   // Misusage check: Ensure nmax>nmin ...
   if (nmin > nmax)
@@ -665,7 +665,7 @@ Buffer::Iterator Asn1Header::DeserializeInteger (int *n, int nmin, int nmax, Buf
   return bIterator;
 }
 
-Buffer::Iterator Asn1Header::DeserializeChoice (int numOptions, bool isExtensionMarkerPresent, int *selectedOption, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeChoice (int numOptions, bool isExtensionMarkerPresent, int *selectedOption, Buffer::Iterator bIterator)
 {
   if (isExtensionMarkerPresent)
   {
@@ -675,13 +675,13 @@ Buffer::Iterator Asn1Header::DeserializeChoice (int numOptions, bool isExtension
   return DeserializeInteger (selectedOption,0,numOptions - 1,bIterator);
 }
 
-Buffer::Iterator Asn1Header::DeserializeEnum (int numElems, int *selectedElem, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeEnum (int numElems, int *selectedElem, Buffer::Iterator bIterator)
 {
   return DeserializeInteger (selectedElem,0,numElems - 1,bIterator);
 }
 
 template <int N>
-Buffer::Iterator Asn1Header::DeserializeSequence (std::bitset<N> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeSequence (std::bitset<N> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
 {
   if (isExtensionMarkerPresent)
     {
@@ -692,62 +692,62 @@ Buffer::Iterator Asn1Header::DeserializeSequence (std::bitset<N> *optionalOrDefa
   return bIterator;
 }
 
-Buffer::Iterator Asn1Header::DeserializeSequence (std::bitset<0> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeSequence (std::bitset<0> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
 {
   return DeserializeSequence<0> (optionalOrDefaultMask,isExtensionMarkerPresent,bIterator);
 }
 
-Buffer::Iterator Asn1Header::DeserializeSequence (std::bitset<1> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeSequence (std::bitset<1> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
 {
   return DeserializeSequence<1> (optionalOrDefaultMask,isExtensionMarkerPresent,bIterator);
 }
 
-Buffer::Iterator Asn1Header::DeserializeSequence (std::bitset<2> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeSequence (std::bitset<2> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
 {
   return DeserializeSequence<2> (optionalOrDefaultMask,isExtensionMarkerPresent,bIterator);
 }
 
-Buffer::Iterator Asn1Header::DeserializeSequence (std::bitset<3> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeSequence (std::bitset<3> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
 {
   return DeserializeSequence<3> (optionalOrDefaultMask,isExtensionMarkerPresent,bIterator);
 }
 
-Buffer::Iterator Asn1Header::DeserializeSequence (std::bitset<4> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeSequence (std::bitset<4> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
 {
   return DeserializeSequence<4> (optionalOrDefaultMask,isExtensionMarkerPresent,bIterator);
 }
 
-Buffer::Iterator Asn1Header::DeserializeSequence (std::bitset<5> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeSequence (std::bitset<5> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
 {
   return DeserializeSequence<5> (optionalOrDefaultMask,isExtensionMarkerPresent,bIterator);
 }
 
-Buffer::Iterator Asn1Header::DeserializeSequence (std::bitset<6> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeSequence (std::bitset<6> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
 {
   return DeserializeSequence<6> (optionalOrDefaultMask,isExtensionMarkerPresent,bIterator);
 }
 
-Buffer::Iterator Asn1Header::DeserializeSequence (std::bitset<9> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeSequence (std::bitset<9> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
 {
   return DeserializeSequence<9> (optionalOrDefaultMask,isExtensionMarkerPresent,bIterator);
 }
 
-Buffer::Iterator Asn1Header::DeserializeSequence (std::bitset<10> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeSequence (std::bitset<10> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
 {
   return DeserializeSequence<10> (optionalOrDefaultMask,isExtensionMarkerPresent,bIterator);
 }
 
-Buffer::Iterator Asn1Header::DeserializeSequence (std::bitset<11> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeSequence (std::bitset<11> *optionalOrDefaultMask, bool isExtensionMarkerPresent, Buffer::Iterator bIterator)
 {
   return DeserializeSequence<11> (optionalOrDefaultMask,isExtensionMarkerPresent,bIterator);
 }
 
-Buffer::Iterator Asn1Header::DeserializeNull (Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeNull (Buffer::Iterator bIterator)
 {
   return bIterator;
 }
 
-Buffer::Iterator Asn1Header::DeserializeSequenceOf (int *numElems, int nMax, int nMin, Buffer::Iterator bIterator)
+Buffer::Iterator NrAsn1Header::DeserializeSequenceOf (int *numElems, int nMax, int nMin, Buffer::Iterator bIterator)
 {
   return DeserializeInteger (numElems,nMin,nMax,bIterator);
 }

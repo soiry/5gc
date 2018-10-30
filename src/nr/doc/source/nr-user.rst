@@ -163,7 +163,7 @@ for the above to work, make sure you also ``#include "ns3/config-store.h"``.
 Now create a text file named (for example) ``input-defaults.txt``
 specifying the new default values that you want to use for some attributes::
 
-   default ns3::NrHelper::Scheduler "ns3::PfFfMacScheduler"
+   default ns3::NrHelper::Scheduler "ns3::NrPfFfMacScheduler"
    default ns3::NrHelper::PathlossModel "ns3::FriisSpectrumPropagationLossModel"
    default ns3::NrEnbNetDevice::UlBandwidth "25"
    default ns3::NrEnbNetDevice::DlBandwidth "25"
@@ -196,14 +196,14 @@ Configure NR MAC Scheduler
 There are several types of NR MAC scheduler user can choose here. User can use following codes to define scheduler type::
 
  Ptr<NrHelper> nrHelper = CreateObject<NrHelper> ();
- nrHelper->SetSchedulerType ("ns3::FdMtFfMacScheduler");    // FD-MT scheduler
- nrHelper->SetSchedulerType ("ns3::TdMtFfMacScheduler");    // TD-MT scheduler
- nrHelper->SetSchedulerType ("ns3::TtaFfMacScheduler");     // TTA scheduler
- nrHelper->SetSchedulerType ("ns3::FdBetFfMacScheduler");   // FD-BET scheduler 
- nrHelper->SetSchedulerType ("ns3::TdBetFfMacScheduler");   // TD-BET scheduler 
- nrHelper->SetSchedulerType ("ns3::FdTbfqFfMacScheduler");  // FD-TBFQ scheduler
- nrHelper->SetSchedulerType ("ns3::TdTbfqFfMacScheduler");  // TD-TBFQ scheduler
- nrHelper->SetSchedulerType ("ns3::PssFfMacScheduler");     //PSS scheduler
+ nrHelper->SetSchedulerType ("ns3::NrFdMtFfMacScheduler");    // FD-MT scheduler
+ nrHelper->SetSchedulerType ("ns3::NrTdMtFfMacScheduler");    // TD-MT scheduler
+ nrHelper->SetSchedulerType ("ns3::NrTtaFfMacScheduler");     // TTA scheduler
+ nrHelper->SetSchedulerType ("ns3::NrFdBetFfMacScheduler");   // FD-BET scheduler 
+ nrHelper->SetSchedulerType ("ns3::NrTdBetFfMacScheduler");   // TD-BET scheduler 
+ nrHelper->SetSchedulerType ("ns3::NrFdTbfqFfMacScheduler");  // FD-TBFQ scheduler
+ nrHelper->SetSchedulerType ("ns3::NrTdTbfqFfMacScheduler");  // TD-TBFQ scheduler
+ nrHelper->SetSchedulerType ("ns3::NrPssFfMacScheduler");     //PSS scheduler
 
 TBFQ and PSS have more parameters than other schedulers. Users can define those parameters in following way::
 
@@ -291,7 +291,7 @@ the following way::
 RLC and PDCP KPIs are calculated over a time interval and stored on ASCII
 files, two for RLC KPIs and two for PDCP KPIs, in each case one for
 uplink and one for downlink. The time interval duration can be controlled using the attribute
-``ns3::RadioBearerStatsCalculator::EpochDuration``.
+``ns3::NrRadioBearerStatsCalculator::EpochDuration``.
 
 The columns of the RLC KPI files is the following (the same
 for uplink and downlink):
@@ -366,18 +366,18 @@ while for uplink MAC KPIs the format is:
   8. size of TB
 
 The names of the files used for MAC KPI output can be customized via
-the ns-3 attributes ``ns3::MacStatsCalculator::DlOutputFilename`` and 
-``ns3::MacStatsCalculator::UlOutputFilename``.
+the ns-3 attributes ``ns3::NrMacStatsCalculator::DlOutputFilename`` and 
+``ns3::NrMacStatsCalculator::UlOutputFilename``.
 
 PHY KPIs are distributed in seven different files, configurable through the attributes
 
-  1. ``ns3::PhyStatsCalculator::DlRsrpSinrFilename``
-  2. ``ns3::PhyStatsCalculator::UeSinrFilename``
-  3. ``ns3::PhyStatsCalculator::InterferenceFilename``
-  4. ``ns3::PhyStatsCalculator::DlTxOutputFilename``
-  5. ``ns3::PhyStatsCalculator::UlTxOutputFilename``
-  6. ``ns3::PhyStatsCalculator::DlRxOutputFilename``
-  7. ``ns3::PhyStatsCalculator::UlRxOutputFilename``
+  1. ``ns3::NrPhyStatsCalculator::DlRsrpSinrFilename``
+  2. ``ns3::NrPhyStatsCalculator::UeSinrFilename``
+  3. ``ns3::NrPhyStatsCalculator::InterferenceFilename``
+  4. ``ns3::NrPhyStatsCalculator::DlTxOutputFilename``
+  5. ``ns3::NrPhyStatsCalculator::UlTxOutputFilename``
+  6. ``ns3::NrPhyStatsCalculator::DlRxOutputFilename``
+  7. ``ns3::NrPhyStatsCalculator::UlRxOutputFilename``
 
 
 In the RSRP/SINR file, the following content is available:
@@ -467,7 +467,7 @@ The default configuration of the matlab script provides a trace 10 seconds long,
 In order to activate the fading module (which is not active by default) the following code should be included in the simulation program::
 
   Ptr<NrHelper> nrHelper = CreateObject<NrHelper> ();
-  nrHelper->SetFadingModel("ns3::TraceFadingLossModel");
+  nrHelper->SetFadingModel("ns3::NrTraceFadingLossModel");
 
 And for setting the parameters::
 
@@ -619,8 +619,8 @@ This method can be used both for developing transmission mode decision engine (i
   Ptr<NrEnbNetDevice> nrEnbDev = enbDevs.Get (0)->GetObject<NrEnbNetDevice> ();
   PointerValue ptrval;
   enbNetDev->GetAttribute ("FfMacScheduler", ptrval);
-  Ptr<RrFfMacScheduler> rrsched = ptrval.Get<RrFfMacScheduler> ();
-  Simulator::Schedule (Seconds (0.2), &RrFfMacScheduler::TransmissionModeConfigurationUpdate, rrsched, rnti, 1);
+  Ptr<NrRrFfMacScheduler> rrsched = ptrval.Get<NrRrFfMacScheduler> ();
+  Simulator::Schedule (Seconds (0.2), &NrRrFfMacScheduler::TransmissionModeConfigurationUpdate, rrsched, rnti, 1);
 
 Finally, the model implemented can be reconfigured according to different MIMO models by updating the gain values (the only constraints is that the gain has to be constant during simulation run-time and common for the layers). The gain of each Transmission Mode can be changed according to the standard ns3 attribute system, where the attributes are: ``TxMode1Gain``, ``TxMode2Gain``, ``TxMode3Gain``, ``TxMode4Gain``, ``TxMode5Gain``, ``TxMode6Gain`` and ``TxMode7Gain``. By default only ``TxMode1Gain``, ``TxMode2Gain`` and ``TxMode3Gain`` have a meaningful value, that are the ones derived by _[CatreuxMIMO] (i.e., respectively 0.0, 4.2 and -2.8 dB).
   
@@ -662,7 +662,7 @@ with different antenna orientations to be installed on each node.
 Radio Environment Maps
 ----------------------
 
-By using the class ``RadioEnvironmentMapHelper`` it is possible to output
+By using the class ``NrRadioEnvironmentMapHelper`` it is possible to output
 to a file a Radio Environment Map (REM), i.e., a uniform 2D grid of values
 that represent the Signal-to-noise ratio in the downlink with respect
 to the eNB that has the strongest signal at each point. It is possible
@@ -673,7 +673,7 @@ means that REM will generated with averaged Signal-to-noise ratio from all RBs.
 To do this, you just need to add the following code to your simulation
 program towards the end, right before the call to Simulator::Run ()::
 
-  Ptr<RadioEnvironmentMapHelper> remHelper = CreateObject<RadioEnvironmentMapHelper> ();
+  Ptr<NrRadioEnvironmentMapHelper> remHelper = CreateObject<NrRadioEnvironmentMapHelper> ();
   remHelper->SetAttribute ("ChannelPath", StringValue ("/ChannelList/0"));
   remHelper->SetAttribute ("OutputFile", StringValue ("rem.out"));
   remHelper->SetAttribute ("XMin", DoubleValue (-400.0));
@@ -687,9 +687,9 @@ program towards the end, right before the call to Simulator::Run ()::
   remHelper->SetAttribute ("RbId", IntegerValue (10));
   remHelper->Install ();
 
-By configuring the attributes of the ``RadioEnvironmentMapHelper`` object
+By configuring the attributes of the ``NrRadioEnvironmentMapHelper`` object
 as shown above, you can tune the parameters of the REM to be
-generated. Note that each ``RadioEnvironmentMapHelper`` instance can
+generated. Note that each ``NrRadioEnvironmentMapHelper`` instance can
 generate only one REM; if you want to generate more REMs, you need to
 create one separate instance for each REM. 
 
@@ -701,14 +701,14 @@ Note that the REM generation is very demanding, in particular:
    regular PC at the time of this writing). To overcome this issue,
    the REM is generated at successive steps, with each step evaluating
    at most a number of pixels determined by the value of the 
-   the attribute ``RadioEnvironmentMapHelper::MaxPointsPerIteration``. 
+   the attribute ``NrRadioEnvironmentMapHelper::MaxPointsPerIteration``. 
  * if you generate a REM at the beginning of a simulation, it will
    slow down the execution of the rest of the simulation. If you want
    to generate a REM for a program and also use the same program to
    get simulation result, it is recommended to add a command-line
    switch that allows to either generate the REM or run the complete
    simulation. For this purpose, note that there is an attribute
-   ``RadioEnvironmentMapHelper::StopWhenDone`` (default: true) that
+   ``NrRadioEnvironmentMapHelper::StopWhenDone`` (default: true) that
    will force the simulation to stop right after the REM has been generated.
 
 The REM is stored in an ASCII file in the following format:
@@ -1307,7 +1307,7 @@ Selecting a handover algorithm is done via the ``NrHelper`` object and its
 ``SetHandoverAlgorithmType`` method as shown below::
 
    Ptr<NrHelper> nrHelper = CreateObject<NrHelper> ();
-   nrHelper->SetHandoverAlgorithmType ("ns3::A2A4RsrqHandoverAlgorithm");
+   nrHelper->SetHandoverAlgorithmType ("ns3::NrA2A4RsrqHandoverAlgorithm");
  
 The selected handover algorithm may also provide several configurable
 attributes, which can be set as follows::
@@ -1318,14 +1318,14 @@ attributes, which can be set as follows::
                                              UintegerValue (1));
 
 Three options of handover algorithm are included in the NR module. The
-*A2-A4-RSRQ* handover algorithm (named as ``ns3::A2A4RsrqHandoverAlgorithm``) is
+*A2-A4-RSRQ* handover algorithm (named as ``ns3::NrA2A4RsrqHandoverAlgorithm``) is
 the default option, and the usage has already been shown above.
 
 Another option is the *strongest cell* handover algorithm (named as
-``ns3::A3RsrpHandoverAlgorithm``), which can be selected and configured by the
+``ns3::NrA3RsrpHandoverAlgorithm``), which can be selected and configured by the
 following code::
 
-   nrHelper->SetHandoverAlgorithmType ("ns3::A3RsrpHandoverAlgorithm");
+   nrHelper->SetHandoverAlgorithmType ("ns3::NrA3RsrpHandoverAlgorithm");
    nrHelper->SetHandoverAlgorithmAttribute ("Hysteresis",
                                              DoubleValue (3.0));
    nrHelper->SetHandoverAlgorithmAttribute ("TimeToTrigger",
@@ -1337,7 +1337,7 @@ cases where manual handover trigger need an exclusive control of all handover
 decision. It does not have any configurable attributes. The usage is as
 follows::
 
-   nrHelper->SetHandoverAlgorithmType ("ns3::NoOpHandoverAlgorithm");
+   nrHelper->SetHandoverAlgorithmType ("ns3::NrNoOpHandoverAlgorithm");
 
 For more information on each handover algorithm's decision policy and their
 attributes, please refer to their respective subsections in Section
@@ -1968,7 +1968,7 @@ following sample code snippet shows one possible way to obtain the above::
 
      nrHelper->EnablePhyTraces ();
      nrHelper->EnableRlcTraces ();
-     Ptr<RadioBearerStatsCalculator> rlcStats = nrHelper->GetRlcStats ();
+     Ptr<NrRadioBearerStatsCalculator> rlcStats = nrHelper->GetRlcStats ();
      rlcStats->SetAttribute ("StartTime", TimeValue (Seconds (0)));
      rlcStats->SetAttribute ("EpochDuration", TimeValue (Seconds (simTime)));
 
@@ -2047,15 +2047,15 @@ shown in Table :ref:`tab-handover-campaign-default-values` below.
    ==================================================== ================================== ==============================================
    Default value name                                   Value                              Description
    ==================================================== ================================== ==============================================
-   ns3::NrHelper::HandoverAlgorithm                    `ns3::NoOpHandoverAlgorithm`,      Choice of handover algorithm
-                                                        `ns3::A3RsrpHandoverAlgorithm`, or
-                                                        `ns3::A2A4RsrqHandoverAlgorithm`
-   ns3::NrHelper::Scheduler                            `ns3::PfFfMacScheduler`            Proportional Fair scheduler
+   ns3::NrHelper::HandoverAlgorithm                    `ns3::NrNoOpHandoverAlgorithm`,      Choice of handover algorithm
+                                                        `ns3::NrA3RsrpHandoverAlgorithm`, or
+                                                        `ns3::NrA2A4RsrqHandoverAlgorithm`
+   ns3::NrHelper::Scheduler                            `ns3::NrPfFfMacScheduler`            Proportional Fair scheduler
    ns3::NrHelper::UseIdealRrc                           1                                 Ideal RRC protocol
-   ns3::RadioBearerStatsCalculator::DlRlcOutputFilename `<run>`-DlRlcStats.txt             File name for DL RLC trace output
-   ns3::RadioBearerStatsCalculator::UlRlcOutputFilename `<run>`-UlRlcStats.txt             File name for UL RLC trace output
-   ns3::PhyStatsCalculator::DlRsrpSinrFilename          `<run>`-DlRsrpSinrStats.txt        File name for DL PHY RSRP/SINR trace output
-   ns3::PhyStatsCalculator::UlSinrFilename              `<run>`-UlSinrStats.txt            File name for UL PHY SINR trace output
+   ns3::NrRadioBearerStatsCalculator::DlRlcOutputFilename `<run>`-DlRlcStats.txt             File name for DL RLC trace output
+   ns3::NrRadioBearerStatsCalculator::UlRlcOutputFilename `<run>`-UlRlcStats.txt             File name for UL RLC trace output
+   ns3::NrPhyStatsCalculator::DlRsrpSinrFilename          `<run>`-DlRsrpSinrStats.txt        File name for DL PHY RSRP/SINR trace output
+   ns3::NrPhyStatsCalculator::UlSinrFilename              `<run>`-UlSinrStats.txt            File name for UL PHY SINR trace output
    ==================================================== ================================== ==============================================
 
 |ns3| provides many ways for passing configuration values into a simulation. In
@@ -2067,31 +2067,31 @@ look as below::
    $ ./waf --run="lena-dual-stripe
      --simTime=50 --nBlocks=0 --nMacroEnbSites=7 --nMacroEnbSitesX=2
      --ngc=1 --useUdp=0 --outdoorUeMinSpeed=16.6667 --outdoorUeMaxSpeed=16.6667
-     --ns3::NrHelper::HandoverAlgorithm=ns3::NoOpHandoverAlgorithm
-     --ns3::RadioBearerStatsCalculator::DlRlcOutputFilename=no-op-DlRlcStats.txt
-     --ns3::RadioBearerStatsCalculator::UlRlcOutputFilename=no-op-UlRlcStats.txt
-     --ns3::PhyStatsCalculator::DlRsrpSinrFilename=no-op-DlRsrpSinrStats.txt
-     --ns3::PhyStatsCalculator::UlSinrFilename=no-op-UlSinrStats.txt
+     --ns3::NrHelper::HandoverAlgorithm=ns3::NrNoOpHandoverAlgorithm
+     --ns3::NrRadioBearerStatsCalculator::DlRlcOutputFilename=no-op-DlRlcStats.txt
+     --ns3::NrRadioBearerStatsCalculator::UlRlcOutputFilename=no-op-UlRlcStats.txt
+     --ns3::NrPhyStatsCalculator::DlRsrpSinrFilename=no-op-DlRsrpSinrStats.txt
+     --ns3::NrPhyStatsCalculator::UlSinrFilename=no-op-UlSinrStats.txt
      --RngRun=1" > no-op.txt
 
    $ ./waf --run="lena-dual-stripe
      --simTime=50 --nBlocks=0 --nMacroEnbSites=7 --nMacroEnbSitesX=2
      --ngc=1 --useUdp=0 --outdoorUeMinSpeed=16.6667 --outdoorUeMaxSpeed=16.6667
-     --ns3::NrHelper::HandoverAlgorithm=ns3::A3RsrpHandoverAlgorithm
-     --ns3::RadioBearerStatsCalculator::DlRlcOutputFilename=a3-rsrp-DlRlcStats.txt
-     --ns3::RadioBearerStatsCalculator::UlRlcOutputFilename=a3-rsrp-UlRlcStats.txt
-     --ns3::PhyStatsCalculator::DlRsrpSinrFilename=a3-rsrp-DlRsrpSinrStats.txt
-     --ns3::PhyStatsCalculator::UlSinrFilename=a3-rsrp-UlSinrStats.txt
+     --ns3::NrHelper::HandoverAlgorithm=ns3::NrA3RsrpHandoverAlgorithm
+     --ns3::NrRadioBearerStatsCalculator::DlRlcOutputFilename=a3-rsrp-DlRlcStats.txt
+     --ns3::NrRadioBearerStatsCalculator::UlRlcOutputFilename=a3-rsrp-UlRlcStats.txt
+     --ns3::NrPhyStatsCalculator::DlRsrpSinrFilename=a3-rsrp-DlRsrpSinrStats.txt
+     --ns3::NrPhyStatsCalculator::UlSinrFilename=a3-rsrp-UlSinrStats.txt
      --RngRun=1" > a3-rsrp.txt
 
    $ ./waf --run="lena-dual-stripe
      --simTime=50 --nBlocks=0 --nMacroEnbSites=7 --nMacroEnbSitesX=2
      --ngc=1 --useUdp=0 --outdoorUeMinSpeed=16.6667 --outdoorUeMaxSpeed=16.6667
-     --ns3::NrHelper::HandoverAlgorithm=ns3::A2A4RsrqHandoverAlgorithm
-     --ns3::RadioBearerStatsCalculator::DlRlcOutputFilename=a2-a4-rsrq-DlRlcStats.txt
-     --ns3::RadioBearerStatsCalculator::UlRlcOutputFilename=a2-a4-rsrq-UlRlcStats.txt
-     --ns3::PhyStatsCalculator::DlRsrpSinrFilename=a2-a4-rsrq-DlRsrpSinrStats.txt
-     --ns3::PhyStatsCalculator::UlSinrFilename=a2-a4-rsrq-UlSinrStats.txt
+     --ns3::NrHelper::HandoverAlgorithm=ns3::NrA2A4RsrqHandoverAlgorithm
+     --ns3::NrRadioBearerStatsCalculator::DlRlcOutputFilename=a2-a4-rsrq-DlRlcStats.txt
+     --ns3::NrRadioBearerStatsCalculator::UlRlcOutputFilename=a2-a4-rsrq-UlRlcStats.txt
+     --ns3::NrPhyStatsCalculator::DlRsrpSinrFilename=a2-a4-rsrq-DlRsrpSinrStats.txt
+     --ns3::NrPhyStatsCalculator::UlSinrFilename=a2-a4-rsrq-UlSinrStats.txt
      --RngRun=1" > a2-a4-rsrq.txt
 
 Some notes on the execution:
@@ -2294,12 +2294,12 @@ Example command to run ``lena-dual-stripe`` with Hard FR algorithm is presented 
    $ ./waf --run="lena-dual-stripe
      --simTime=50 --nBlocks=0 --nMacroEnbSites=7 --nMacroEnbSitesX=2
      --ngc=1 --useUdp=0 --outdoorUeMinSpeed=16.6667 --outdoorUeMaxSpeed=16.6667
-     --ns3::NrHelper::HandoverAlgorithm=ns3::NoOpHandoverAlgorithm
+     --ns3::NrHelper::HandoverAlgorithm=ns3::NrNoOpHandoverAlgorithm
      --ns3::NrHelper::FfrAlgorithm=ns3::NrFrHardAlgorithm
-     --ns3::RadioBearerStatsCalculator::DlRlcOutputFilename=no-op-DlRlcStats.txt
-     --ns3::RadioBearerStatsCalculator::UlRlcOutputFilename=no-op-UlRlcStats.txt
-     --ns3::PhyStatsCalculator::DlRsrpSinrFilename=no-op-DlRsrpSinrStats.txt
-     --ns3::PhyStatsCalculator::UlSinrFilename=no-op-UlSinrStats.txt
+     --ns3::NrRadioBearerStatsCalculator::DlRlcOutputFilename=no-op-DlRlcStats.txt
+     --ns3::NrRadioBearerStatsCalculator::UlRlcOutputFilename=no-op-UlRlcStats.txt
+     --ns3::NrPhyStatsCalculator::DlRsrpSinrFilename=no-op-DlRsrpSinrStats.txt
+     --ns3::NrPhyStatsCalculator::UlSinrFilename=no-op-UlSinrStats.txt
      --RngRun=1" > no-op.txt
 
 Example command to generate REM for RB 1 in data channel from ``lena-dual-stripe`` scenario 
@@ -2308,12 +2308,12 @@ with Hard FR algorithm is presented below::
    $ ./waf --run="lena-dual-stripe
      --simTime=50 --nBlocks=0 --nMacroEnbSites=7 --nMacroEnbSitesX=2
      --ngc=0 --useUdp=0 --outdoorUeMinSpeed=16.6667 --outdoorUeMaxSpeed=16.6667
-     --ns3::NrHelper::HandoverAlgorithm=ns3::NoOpHandoverAlgorithm
+     --ns3::NrHelper::HandoverAlgorithm=ns3::NrNoOpHandoverAlgorithm
      --ns3::NrHelper::FfrAlgorithm=ns3::NrFrHardAlgorithm
-     --ns3::RadioBearerStatsCalculator::DlRlcOutputFilename=no-op-DlRlcStats.txt
-     --ns3::RadioBearerStatsCalculator::UlRlcOutputFilename=no-op-UlRlcStats.txt
-     --ns3::PhyStatsCalculator::DlRsrpSinrFilename=no-op-DlRsrpSinrStats.txt
-     --ns3::PhyStatsCalculator::UlSinrFilename=no-op-UlSinrStats.txt
+     --ns3::NrRadioBearerStatsCalculator::DlRlcOutputFilename=no-op-DlRlcStats.txt
+     --ns3::NrRadioBearerStatsCalculator::UlRlcOutputFilename=no-op-UlRlcStats.txt
+     --ns3::NrPhyStatsCalculator::DlRsrpSinrFilename=no-op-DlRsrpSinrStats.txt
+     --ns3::NrPhyStatsCalculator::UlSinrFilename=no-op-UlSinrStats.txt
      --RngRun=1 --generateRem=true --remRbId=1" > no-op.txt
 
 Radio Environment Maps for RB 1, 10 and 20 generated from ``lena-dual-stripe``

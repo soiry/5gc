@@ -456,7 +456,7 @@ UeManager::SetupDataRadioBearer (EpsBearer bearer, uint8_t bearerId, uint32_t gt
   // if we are using RLC/SM we don't care of anything above RLC
   if (rlcTypeId != NrRlcSm::GetTypeId ())
     {
-      Ptr<McEnbPdcp> pdcp = CreateObject<McEnbPdcp> (); // Modified with McEnbPdcp to support MC
+      Ptr<NrMcEnbPdcp> pdcp = CreateObject<NrMcEnbPdcp> (); // Modified with NrMcEnbPdcp to support MC
                                                         // This will allow to add an X2 interface to pdcp
       pdcp->SetRnti (m_rnti);
       pdcp->SetLcId (lcid);
@@ -1064,13 +1064,13 @@ UeManager::ForwardRlcBuffers(Ptr<NrRlc> rlc, Ptr<NrPdcp> pdcp, uint32_t gtpTeid,
     //Forwarding the packet inside m_x2forwardingBuffer to target eNB. 
 
   // Prepare the variables for the NR to MmWave DC forward
-  Ptr<McEnbPdcp> mcPdcp;
+  Ptr<NrMcEnbPdcp> mcPdcp;
   if(mcNrToMmWaveForwarding)
   {
-    mcPdcp = DynamicCast<McEnbPdcp>(pdcp);
+    mcPdcp = DynamicCast<NrMcEnbPdcp>(pdcp);
     NS_ASSERT_MSG(mcPdcp != 0, "Invalid option for standard PDCP");
     NS_ASSERT_MSG(bid > 0, "Bid can't be 0");
-    NS_ASSERT_MSG(mcPdcp->GetUseMmWaveConnection(), "The McEnbPdcp is not forwarding data to the mmWave eNB, check if the switch happened!");
+    NS_ASSERT_MSG(mcPdcp->GetUseMmWaveConnection(), "The NrMcEnbPdcp is not forwarding data to the mmWave eNB, check if the switch happened!");
   }
    while (!m_x2forwardingBuffer.empty())
   {
@@ -1224,13 +1224,13 @@ UeManager::ForwardRlcBuffers(Ptr<NrRlc> rlc, Ptr<NrPdcp> pdcp, uint32_t gtpTeid,
   NS_LOG_DEBUG(this << " m_x2forw buffer size = " << m_x2forwardingBufferSize);
     //Forwarding the packet inside m_x2forwardingBuffer to target eNB.
   // Prepare the variables for the NR to MmWave DC forward
-  Ptr<McEnbPdcp> mcPdcp;
+  Ptr<NrMcEnbPdcp> mcPdcp;
   if(mcNrToMmWaveForwarding)
   {
-    mcPdcp = DynamicCast<McEnbPdcp>(pdcp);
+    mcPdcp = DynamicCast<NrMcEnbPdcp>(pdcp);
     NS_ASSERT_MSG(mcPdcp != 0, "Invalid option for standard PDCP");
     NS_ASSERT_MSG(bid > 0, "Bid can't be 0");
-    NS_ASSERT_MSG(mcPdcp->GetUseMmWaveConnection(), "The McEnbPdcp is not forwarding data to the mmWave eNB, check if the switch happened!");
+    NS_ASSERT_MSG(mcPdcp->GetUseMmWaveConnection(), "The NrMcEnbPdcp is not forwarding data to the mmWave eNB, check if the switch happened!");
   }
   std::vector<Ptr<Packet>>::iterator iter;
    for (iter = m_x2forwardingBuffer.begin(); iter!=m_x2forwardingBuffer.end(); iter ++)
@@ -1845,7 +1845,7 @@ UeManager::RecvRrcConnectionReconfigurationCompleted (NrRrcSap::RrcConnectionRec
           if(it->second->m_isMc ||it->second->m_isMc_2)
           {
             bool useMmWaveConnection = true;
-            Ptr<McEnbPdcp> pdcp = DynamicCast<McEnbPdcp>(it->second->m_pdcp);
+            Ptr<NrMcEnbPdcp> pdcp = DynamicCast<NrMcEnbPdcp>(it->second->m_pdcp);
             if(pdcp != 0)
             {
               pdcp->SwitchConnection(useMmWaveConnection);
@@ -1862,7 +1862,7 @@ UeManager::RecvRrcConnectionReconfigurationCompleted (NrRrcSap::RrcConnectionRec
             }     
             else
             {
-              NS_FATAL_ERROR("A device defined as MC has not a McEnbPdcp");
+              NS_FATAL_ERROR("A device defined as MC has not a NrMcEnbPdcp");
             }
           }
         }
@@ -1965,7 +1965,7 @@ UeManager::RecvRrcConnectionReconfigurationCompleted (NrRrcSap::RrcConnectionRec
           for ( std::map <uint8_t, Ptr<RlcBearerInfo> >::iterator rlcIt = m_rlcMap.begin ();
                  rlcIt != m_rlcMap.end ();
                  ++rlcIt){
-        	  //DynamicCast<McEnbPdcp>(rlcIt->second->m_rlc)->
+        	  //DynamicCast<NrMcEnbPdcp>(rlcIt->second->m_rlc)->
         	  if (GetIsMc())
         	  rlcIt->second->m_rlc->GetObject<NrRlcUmLowLat>()->SetRlcSN();
         	  else if (GetIsMc_2())
@@ -2106,7 +2106,7 @@ UeManager::RecvRrcSecondaryCellInitialAccessSuccessful(uint16_t mmWaveRnti, uint
     {
       if(!(it->second->m_isMc) || (it->second->m_isMc && m_rrc->m_lastMmWaveCell.find(m_imsi)->second != m_mmWaveCellId))
       {
-    	  Ptr<McEnbPdcp> pdcp = DynamicCast<McEnbPdcp> (it->second->m_pdcp); //before running this line, nr enb will send data sjkang1113
+    	  Ptr<NrMcEnbPdcp> pdcp = DynamicCast<NrMcEnbPdcp> (it->second->m_pdcp); //before running this line, nr enb will send data sjkang1113
 
         if (pdcp != 0)
         {
@@ -2238,7 +2238,7 @@ UeManager::RecvSecondaryCellHandoverCompleted(NgcX2Sap::SecondaryHandoverComplet
   {
     if(!(it->second->m_isMc_2) || (it->second->m_isMc_2 && m_rrc->m_lastMmWaveCell.find(m_imsi)->second != m_mmWaveCellId_first))
     {
-      Ptr<McEnbPdcp> pdcp = DynamicCast<McEnbPdcp> (it->second->m_pdcp); 
+      Ptr<NrMcEnbPdcp> pdcp = DynamicCast<NrMcEnbPdcp> (it->second->m_pdcp); 
       if (pdcp != 0)
       {
         // Updated UeDataParams in the PDCP instance
@@ -2335,7 +2335,7 @@ UeManager::SendRrcConnectionSwitch(bool useMmWaveConnection)
     if(it->second->m_isMc)
     {
       drbidVector.push_back(it->first); 
-      Ptr<McEnbPdcp> pdcp = DynamicCast<McEnbPdcp>(it->second->m_pdcp);
+      Ptr<NrMcEnbPdcp> pdcp = DynamicCast<NrMcEnbPdcp>(it->second->m_pdcp);
       if(pdcp != 0)
       {
         //m_rrc->m_x2SapProvider->
@@ -2373,9 +2373,9 @@ UeManager::SendRrcConnectionSwitch(bool useMmWaveConnection)
           // if we are using RLC/SM we don't care of anything above RLC
           if (rlcTypeId != NrRlcSm::GetTypeId ())
           {
-            DynamicCast<McEnbPdcp>(it->second->m_pdcp)->SetNrRlcSapProvider (rlc->GetNrRlcSapProvider ());
-            rlc->SetNrRlcSapUser (DynamicCast<McEnbPdcp>(it->second->m_pdcp)->GetNrRlcSapUser ());
-            rlc->SetNrRlcAssistantSapUser(DynamicCast<McEnbPdcp>(it->second->m_pdcp)->GetAssi_NrRlcSapUser()); //sjkang
+            DynamicCast<NrMcEnbPdcp>(it->second->m_pdcp)->SetNrRlcSapProvider (rlc->GetNrRlcSapProvider ());
+            rlc->SetNrRlcSapUser (DynamicCast<NrMcEnbPdcp>(it->second->m_pdcp)->GetNrRlcSapUser ());
+            rlc->SetNrRlcAssistantSapUser(DynamicCast<NrMcEnbPdcp>(it->second->m_pdcp)->GetAssi_NrRlcSapUser()); //sjkang
           }
 
           NrEnbCmacSapProvider::LcInfo lcinfo;
@@ -2406,7 +2406,7 @@ UeManager::SendRrcConnectionSwitch(bool useMmWaveConnection)
       }     
       else
       {
-        NS_FATAL_ERROR("A device defined as MC has not a McEnbPdcp");
+        NS_FATAL_ERROR("A device defined as MC has not a NrMcEnbPdcp");
       }
     }
   }
@@ -2798,7 +2798,7 @@ UeManager::RecvNotifyNrMmWaveHandoverCompleted()
 void
 UeManager::RecvAssistantInfo(NgcX2Sap::AssistantInformationForSplitting params){ //sjkang1115
 	std::map <uint8_t, Ptr<NrDataRadioBearerInfo> >::iterator it = m_drbMap.find(params.drbId); //sjkang
-	Ptr<McEnbPdcp>mcpdcp =   DynamicCast<McEnbPdcp>(it->second->m_pdcp); ///sjkang1115
+	Ptr<NrMcEnbPdcp>mcpdcp =   DynamicCast<NrMcEnbPdcp>(it->second->m_pdcp); ///sjkang1115
 	mcpdcp->DoReceiveAssistantInformation(params);//sjkang1115
 }
 void
@@ -2806,7 +2806,7 @@ UeManager::changePathAtPdcp(uint16_t cellId_1, uint16_t cellId_2){
 	for (std::map <uint8_t, Ptr<NrDataRadioBearerInfo> >::iterator it = m_drbMap.begin ();
 	        		       it != m_drbMap.end ();
 	        		       ++it)
-	      DynamicCast<McEnbPdcp>(it->second->m_pdcp)->SetTargetCellIds(cellId_1, cellId_2,m_rrc->GetCellId());
+	      DynamicCast<NrMcEnbPdcp>(it->second->m_pdcp)->SetTargetCellIds(cellId_1, cellId_2,m_rrc->GetCellId());
 /*	m_targetCellId = cellId_1;
 	  for ( std::map <uint8_t, Ptr<RlcBearerInfo> >::iterator rlcIt = m_rlcMap.begin ();
 	          rlcIt != m_rlcMap.end ();
@@ -2827,7 +2827,7 @@ UeManager::SetDuplicationMode(bool isEnableDupli){
 	for (std::map <uint8_t, Ptr<NrDataRadioBearerInfo> >::iterator it = m_drbMap.begin ();
 		        		       it != m_drbMap.end ();
 		        		       ++it)
-		      DynamicCast<McEnbPdcp>(it->second->m_pdcp)->SetPacketDuplicateMode(isEnableDupli); //sjkang0714
+		      DynamicCast<NrMcEnbPdcp>(it->second->m_pdcp)->SetPacketDuplicateMode(isEnableDupli); //sjkang0714
 }
 void
 UeManager::SetRlcBufferForwardMode(uint16_t targetCellID, bool option){

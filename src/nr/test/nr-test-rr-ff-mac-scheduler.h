@@ -37,11 +37,11 @@ using namespace ns3;
  * is equal among users and matches a reference throughput value within a given 
  * tolerance.
  */
-class LenaRrFfMacSchedulerTestCase : public TestCase
+class LenaNrRrFfMacSchedulerTestCase : public TestCase
 {
 public:
-  LenaRrFfMacSchedulerTestCase (uint16_t nUser, uint16_t dist, double thrRefDl, double thrRefUl, bool errorModelEnabled);
-  virtual ~LenaRrFfMacSchedulerTestCase ();
+  LenaNrRrFfMacSchedulerTestCase (uint16_t nUser, uint16_t dist, double thrRefDl, double thrRefUl, bool errorModelEnabled);
+  virtual ~LenaNrRrFfMacSchedulerTestCase ();
 
 private:
   virtual void DoRun (void);
@@ -56,10 +56,10 @@ private:
 
 
 
-class LenaTestRrFfMacSchedulerSuite : public TestSuite
+class LenaTestNrRrFfMacSchedulerSuite : public TestSuite
 {
 public:
-  LenaTestRrFfMacSchedulerSuite ();
+  LenaTestNrRrFfMacSchedulerSuite ();
 };
 
 #endif /* LENA_TEST_RR_FF_MAC_SCHEDULER_H */

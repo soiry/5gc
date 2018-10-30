@@ -159,8 +159,8 @@ main (int argc, char *argv[])
   Ptr<NrHelper> nrHelper = CreateObject<NrHelper> ();
   Ptr<PointToPointNgcHelper> ngcHelper = CreateObject<PointToPointNgcHelper> ();
   nrHelper->SetNgcHelper (ngcHelper);
-  nrHelper->SetSchedulerType ("ns3::RrFfMacScheduler");
-  nrHelper->SetHandoverAlgorithmType ("ns3::NoOpHandoverAlgorithm"); // disable automatic handover
+  nrHelper->SetSchedulerType ("ns3::NrRrFfMacScheduler");
+  nrHelper->SetHandoverAlgorithmType ("ns3::NrNoOpHandoverAlgorithm"); // disable automatic handover
 
   Ptr<Node> upf = ngcHelper->GetUpfNode ();
 
@@ -310,9 +310,9 @@ main (int argc, char *argv[])
   nrHelper->EnableMacTraces ();
   nrHelper->EnableRlcTraces ();
   nrHelper->EnablePdcpTraces ();
-  Ptr<RadioBearerStatsCalculator> rlcStats = nrHelper->GetRlcStats ();
+  Ptr<NrRadioBearerStatsCalculator> rlcStats = nrHelper->GetRlcStats ();
   rlcStats->SetAttribute ("EpochDuration", TimeValue (Seconds (0.05)));
-  Ptr<RadioBearerStatsCalculator> pdcpStats = nrHelper->GetPdcpStats ();
+  Ptr<NrRadioBearerStatsCalculator> pdcpStats = nrHelper->GetPdcpStats ();
   pdcpStats->SetAttribute ("EpochDuration", TimeValue (Seconds (0.05)));
 
 

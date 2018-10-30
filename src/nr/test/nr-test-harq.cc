@@ -28,7 +28,7 @@
 #include <ns3/ptr.h>
 #include <iostream>
 #include <cmath>
-#include <ns3/radio-bearer-stats-calculator.h>
+#include <ns3/nr-radio-bearer-stats-calculator.h>
 #include <ns3/mobility-building-info.h>
 #include <ns3/hybrid-buildings-propagation-loss-model.h>
 #include <ns3/eps-bearer.h>
@@ -113,7 +113,7 @@ LenaHarqTestCase::DoRun (void)
   //Disable Uplink Power Control
   Config::SetDefault ("ns3::NrUePhy::EnableUplinkPowerControl", BooleanValue (false));
 
-//   Config::SetDefault ("ns3::RrFfMacScheduler::HarqEnabled", BooleanValue (false));
+//   Config::SetDefault ("ns3::NrRrFfMacScheduler::HarqEnabled", BooleanValue (false));
 //   LogComponentEnable ("NrEnbRrc", LOG_LEVEL_ALL);
 //   LogComponentEnable ("NrUeRrc", LOG_LEVEL_ALL);
 //   LogComponentEnable ("NrEnbMac", LOG_LEVEL_ALL);
@@ -139,7 +139,7 @@ LenaHarqTestCase::DoRun (void)
 //   LogComponentEnable ("NrUeNetDevice", LOG_LEVEL_ALL);
 //   LogComponentEnable ("NrEnbNetDevice", LOG_LEVEL_ALL);
 
-//   LogComponentEnable ("RrFfMacScheduler", LOG_LEVEL_ALL);
+//   LogComponentEnable ("NrRrFfMacScheduler", LOG_LEVEL_ALL);
 //   LogComponentEnable ("LenaHelper", LOG_LEVEL_ALL);
 //   LogComponentEnable ("RlcStatsCalculator", LOG_LEVEL_ALL);
 
@@ -148,7 +148,7 @@ LenaHarqTestCase::DoRun (void)
 //   LogComponentEnable ("NrEnbMac", LOG_LEVEL_ALL);
 //   LogComponentEnable ("NrEnbPhy", LOG_LEVEL_ALL);
 //   LogComponentEnable ("NrUePhy", LOG_LEVEL_ALL);
-//   LogComponentEnable ("RrFfMacScheduler", LOG_LEVEL_ALL);
+//   LogComponentEnable ("NrRrFfMacScheduler", LOG_LEVEL_ALL);
 //   LogComponentEnable ("LenaHelper", LOG_LEVEL_ALL);
 //   LogComponentEnable ("BuildingsPropagationLossModel", LOG_LEVEL_ALL);
 //   LogComponentEnable ("NrMiErrorModel", LOG_LEVEL_ALL);
@@ -190,8 +190,8 @@ LenaHarqTestCase::DoRun (void)
   // Create Devices and install them in the Nodes (eNB and UE)
   NetDeviceContainer enbDevs;
   NetDeviceContainer ueDevs;
-  lena->SetSchedulerType ("ns3::RrFfMacScheduler");
-  lena->SetSchedulerAttribute ("UlCqiFilter", EnumValue (FfMacScheduler::PUSCH_UL_CQI));
+  lena->SetSchedulerType ("ns3::NrRrFfMacScheduler");
+  lena->SetSchedulerAttribute ("UlCqiFilter", EnumValue (NrFfMacScheduler::PUSCH_UL_CQI));
 
   enbDevs = lena->InstallEnbDevice (enbNodes);
   ueDevs = lena->InstallUeDevice (ueNodes);
@@ -230,7 +230,7 @@ LenaHarqTestCase::DoRun (void)
   Simulator::Stop (Seconds (statsStartTime + statsDuration - 0.0001));
 
   lena->EnableRlcTraces ();
-  Ptr<RadioBearerStatsCalculator> rlcStats = lena->GetRlcStats ();
+  Ptr<NrRadioBearerStatsCalculator> rlcStats = lena->GetRlcStats ();
   rlcStats->SetAttribute ("StartTime", TimeValue (Seconds (statsStartTime)));
   rlcStats->SetAttribute ("EpochDuration", TimeValue (Seconds (statsDuration)));
 

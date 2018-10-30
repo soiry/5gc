@@ -39,11 +39,11 @@ using namespace ns3;
 * is consistent with the definition of throughput to average
 * scheduling
 */
-class LenaTtaFfMacSchedulerTestCase : public TestCase
+class LenaNrTtaFfMacSchedulerTestCase : public TestCase
 {
 public:
-  LenaTtaFfMacSchedulerTestCase (uint16_t nUser, uint16_t dist, double thrRefDl, double thrRefUl,bool errorModelEnabled);
-  virtual ~LenaTtaFfMacSchedulerTestCase ();
+  LenaNrTtaFfMacSchedulerTestCase (uint16_t nUser, uint16_t dist, double thrRefDl, double thrRefUl,bool errorModelEnabled);
+  virtual ~LenaNrTtaFfMacSchedulerTestCase ();
 
 private:
   static std::string BuildNameString (uint16_t nUser, uint16_t dist);
@@ -55,10 +55,10 @@ private:
   bool m_errorModelEnabled;
 };
 
-class LenaTestTtaFfMacSchedulerSuite : public TestSuite
+class LenaTestNrTtaFfMacSchedulerSuite : public TestSuite
 {
 public:
-  LenaTestTtaFfMacSchedulerSuite ();
+  LenaTestNrTtaFfMacSchedulerSuite ();
 };
 
 

@@ -31,7 +31,7 @@
 #include <ns3/packet.h>
 #include <ns3/ptr.h>
 #include <iostream>
-#include "ns3/radio-bearer-stats-calculator.h"
+#include "ns3/nr-radio-bearer-stats-calculator.h"
 #include <ns3/mobility-building-info.h>
 #include <ns3/buildings-propagation-loss-model.h>
 #include <ns3/eps-bearer.h>
@@ -74,10 +74,10 @@ LenaTestMimoSuite::LenaTestMimoSuite ()
   estThrDl.push_back (119100); // interval 1 : estimated throughput for TxMode 1
   estThrDl.push_back (183600); // interval 2 : estimated throughput for TxMode 2
   estThrDl.push_back (193400); // interval 3 : estimated throughput for TxMode 3
-  AddTestCase (new LenaMimoTestCase(300, estThrDl, "ns3::RrFfMacScheduler", true), TestCase::QUICK);
-  AddTestCase (new LenaMimoTestCase(300, estThrDl, "ns3::PfFfMacScheduler", true), TestCase::QUICK);
-  AddTestCase (new LenaMimoTestCase(300, estThrDl, "ns3::RrFfMacScheduler", false), TestCase::QUICK);
-  AddTestCase (new LenaMimoTestCase(300, estThrDl, "ns3::PfFfMacScheduler", false), TestCase::QUICK);
+  AddTestCase (new LenaMimoTestCase(300, estThrDl, "ns3::NrRrFfMacScheduler", true), TestCase::QUICK);
+  AddTestCase (new LenaMimoTestCase(300, estThrDl, "ns3::NrPfFfMacScheduler", true), TestCase::QUICK);
+  AddTestCase (new LenaMimoTestCase(300, estThrDl, "ns3::NrRrFfMacScheduler", false), TestCase::QUICK);
+  AddTestCase (new LenaMimoTestCase(300, estThrDl, "ns3::NrPfFfMacScheduler", false), TestCase::QUICK);
 
 }
 
@@ -129,8 +129,8 @@ LenaMimoTestCase::DoRun (void)
 
 
   Ptr<NrHelper> nrHelper = CreateObject<NrHelper> ();
-  Config::SetDefault ("ns3::RrFfMacScheduler::HarqEnabled", BooleanValue (false));
-  Config::SetDefault ("ns3::PfFfMacScheduler::HarqEnabled", BooleanValue (false));
+  Config::SetDefault ("ns3::NrRrFfMacScheduler::HarqEnabled", BooleanValue (false));
+  Config::SetDefault ("ns3::NrPfFfMacScheduler::HarqEnabled", BooleanValue (false));
   
 //   nrHelper->SetSchedulerAttribute ("HarqEnabled", BooleanValue (false));
   
@@ -198,29 +198,29 @@ LenaMimoTestCase::DoRun (void)
   Ptr<NrEnbNetDevice> enbNetDev = enbDevs.Get (0)->GetObject<NrEnbNetDevice> ();
   
   PointerValue ptrval;
-  enbNetDev->GetAttribute ("FfMacScheduler", ptrval);
-  Ptr<PfFfMacScheduler> pfsched;
-  Ptr<RrFfMacScheduler> rrsched;
-  if (m_schedulerType.compare ("ns3::RrFfMacScheduler") == 0)
+  enbNetDev->GetAttribute ("NrFfMacScheduler", ptrval);
+  Ptr<NrPfFfMacScheduler> pfsched;
+  Ptr<NrRrFfMacScheduler> rrsched;
+  if (m_schedulerType.compare ("ns3::NrRrFfMacScheduler") == 0)
     {
-      rrsched = ptrval.Get<RrFfMacScheduler> ();
+      rrsched = ptrval.Get<NrRrFfMacScheduler> ();
       if (rrsched == 0)
         {
           NS_FATAL_ERROR ("No RR Scheduler available");
         }
-      Simulator::Schedule (Seconds (0.2), &RrFfMacScheduler::TransmissionModeConfigurationUpdate, rrsched, rnti, 1);
-      Simulator::Schedule (Seconds (0.4), &RrFfMacScheduler::TransmissionModeConfigurationUpdate, rrsched, rnti, 2);
+      Simulator::Schedule (Seconds (0.2), &NrRrFfMacScheduler::TransmissionModeConfigurationUpdate, rrsched, rnti, 1);
+      Simulator::Schedule (Seconds (0.4), &NrRrFfMacScheduler::TransmissionModeConfigurationUpdate, rrsched, rnti, 2);
     }
-  else if (m_schedulerType.compare ("ns3::PfFfMacScheduler") == 0)
+  else if (m_schedulerType.compare ("ns3::NrPfFfMacScheduler") == 0)
     {
-      pfsched = ptrval.Get<PfFfMacScheduler> ();
+      pfsched = ptrval.Get<NrPfFfMacScheduler> ();
       if (pfsched == 0)
         {
           NS_FATAL_ERROR ("No Pf Scheduler available");
         }
       
-      Simulator::Schedule (Seconds (0.2), &PfFfMacScheduler::TransmissionModeConfigurationUpdate, pfsched, rnti, 1);
-      Simulator::Schedule (Seconds (0.4), &PfFfMacScheduler::TransmissionModeConfigurationUpdate, pfsched, rnti, 2);
+      Simulator::Schedule (Seconds (0.2), &NrPfFfMacScheduler::TransmissionModeConfigurationUpdate, pfsched, rnti, 1);
+      Simulator::Schedule (Seconds (0.4), &NrPfFfMacScheduler::TransmissionModeConfigurationUpdate, pfsched, rnti, 2);
     }
   else
     {
@@ -228,7 +228,7 @@ LenaMimoTestCase::DoRun (void)
     }
     
   
-  Ptr<RadioBearerStatsCalculator> rlcStats = nrHelper->GetRlcStats ();
+  Ptr<NrRadioBearerStatsCalculator> rlcStats = nrHelper->GetRlcStats ();
   rlcStats->SetAttribute ("EpochDuration", TimeValue (Seconds (0.1)));
 
   NS_LOG_INFO (m_schedulerType << " MIMO test:");
@@ -258,7 +258,7 @@ LenaMimoTestCase::DoRun (void)
 
 
 void
-LenaMimoTestCase::GetRlcBufferSample (Ptr<RadioBearerStatsCalculator> rlcStats, uint64_t imsi, uint8_t lcId)
+LenaMimoTestCase::GetRlcBufferSample (Ptr<NrRadioBearerStatsCalculator> rlcStats, uint64_t imsi, uint8_t lcId)
 {
   m_dlDataRxed.push_back (rlcStats->GetDlRxData (imsi, lcId));
   NS_LOG_INFO (Simulator::Now () << "\t get bytes " << m_dlDataRxed.at (m_dlDataRxed.size () - 1));

@@ -181,8 +181,8 @@ NrUeMeasurementsTestCase::DoRun (void)
   NetDeviceContainer enbDevs;
   NetDeviceContainer ueDevs1;
   NetDeviceContainer ueDevs2;
-  nrHelper->SetSchedulerType ("ns3::RrFfMacScheduler");
-  nrHelper->SetSchedulerAttribute ("UlCqiFilter", EnumValue (FfMacScheduler::PUSCH_UL_CQI));
+  nrHelper->SetSchedulerType ("ns3::NrRrFfMacScheduler");
+  nrHelper->SetSchedulerAttribute ("UlCqiFilter", EnumValue (NrFfMacScheduler::PUSCH_UL_CQI));
   enbDevs = nrHelper->InstallEnbDevice (enbNodes);
   ueDevs1 = nrHelper->InstallUeDevice (ueNodes1);
   ueDevs2 = nrHelper->InstallUeDevice (ueNodes2);
@@ -591,9 +591,9 @@ NrUeMeasurementsPiecewiseTestCase1::DoRun ()
   // Create Devices and install them in the Nodes (eNB and UE)
   NetDeviceContainer enbDevs;
   NetDeviceContainer ueDevs;
-  nrHelper->SetSchedulerType ("ns3::RrFfMacScheduler");
+  nrHelper->SetSchedulerType ("ns3::NrRrFfMacScheduler");
   nrHelper->SetSchedulerAttribute ("UlCqiFilter",
-                                    EnumValue (FfMacScheduler::PUSCH_UL_CQI));
+                                    EnumValue (NrFfMacScheduler::PUSCH_UL_CQI));
   enbDevs = nrHelper->InstallEnbDevice (enbNodes);
   ueDevs = nrHelper->InstallUeDevice (ueNodes);
 
@@ -1177,9 +1177,9 @@ NrUeMeasurementsPiecewiseTestCase2::DoRun ()
   // Create Devices and install them in the Nodes (eNB and UE)
   NetDeviceContainer enbDevs;
   NetDeviceContainer ueDevs;
-  nrHelper->SetSchedulerType ("ns3::RrFfMacScheduler");
+  nrHelper->SetSchedulerType ("ns3::NrRrFfMacScheduler");
   nrHelper->SetSchedulerAttribute ("UlCqiFilter",
-                                    EnumValue (FfMacScheduler::PUSCH_UL_CQI));
+                                    EnumValue (NrFfMacScheduler::PUSCH_UL_CQI));
   enbDevs = nrHelper->InstallEnbDevice (enbNodes);
   ueDevs = nrHelper->InstallUeDevice (ueNodes);
 
