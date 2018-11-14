@@ -68,12 +68,12 @@ public:
    * 
    * \param lteSocket the socket to be used to send/receive packets to/from the LTE radio interface
    * \param s1uSocket the socket to be used to send/receive packets
-   * to/from the S1-U interface connected with the SGW 
+   * to/from the S1-U interface connected with the SMF 
    * \param enbS1uAddress the IPv4 address of the S1-U interface of this eNB
-   * \param sgwS1uAddress the IPv4 address at which this eNB will be able to reach its SGW for S1-U communications
+   * \param smfS1uAddress the IPv4 address at which this eNB will be able to reach its SMF for S1-U communications
    * \param cellId the identifier of the enb
    */
-  EpcEnbApplication1 (Ptr<Socket> lteSocket, Ptr<Socket> s1uSocket, Ipv4Address enbS1uAddress, Ipv4Address sgwS1uAddress, uint16_t cellId);
+  EpcEnbApplication1 (Ptr<Socket> lteSocket, Ptr<Socket> s1uSocket, Ipv4Address enbS1uAddress, Ipv4Address smfS1uAddress, uint16_t cellId);
 
   /**
    * Destructor
@@ -109,7 +109,7 @@ public:
   EpcS1apSapEnb* GetS1apSapEnb ();
  
   /** 
-   * Method to be assigned to the recv callback of the LTE socket. It is called when the eNB receives a data packet from the radio interface that is to be forwarded to the SGW.
+   * Method to be assigned to the recv callback of the LTE socket. It is called when the eNB receives a data packet from the radio interface that is to be forwarded to the SMF.
    * 
    * \param socket pointer to the LTE socket
    */
@@ -117,7 +117,7 @@ public:
 
 
   /** 
-   * Method to be assigned to the recv callback of the S1-U socket. It is called when the eNB receives a data packet from the SGW that is to be forwarded to the UE.
+   * Method to be assigned to the recv callback of the S1-U socket. It is called when the eNB receives a data packet from the SMF that is to be forwarded to the UE.
    * 
    * \param socket pointer to the S1-U socket
    */
@@ -168,7 +168,7 @@ private:
 
 
   /** 
-   * Send a packet to the SGW via the S1-U interface
+   * Send a packet to the SMF via the S1-U interface
    * 
    * \param packet packet to be sent
    * \param teid the Tunnel Enpoint IDentifier
@@ -202,9 +202,9 @@ private:
   Ipv4Address m_enbS1uAddress;
 
   /**
-   * address of the SGW which terminates all S1-U tunnels
+   * address of the SMF which terminates all S1-U tunnels
    */
-  Ipv4Address m_sgwS1uAddress;
+  Ipv4Address m_smfS1uAddress;
 
   /**
    * map of maps telling for each RNTI and BID the corresponding  S1-U TEID

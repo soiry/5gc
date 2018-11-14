@@ -11,7 +11,7 @@
 #include <ns3/packet-socket-helper.h>
 #include <ns3/packet-socket-address.h>
 #include <ns3/epc-enb-application.h>
-#include <ns3/epc-sgw-pgw-application.h>
+#include <ns3/epc-sgw-upf-application.h>
 
 #include <ns3/lte-enb-rrc.h>
 #include <ns3/epc-x2.h>
@@ -56,13 +56,13 @@ OVSPointToPointEpcHelper::AddEnb(Ptr<Node> enb, Ptr<NetDevice> lteEnbNetDevice, 
   // create a point to point link between the new eNB and the SGW with
   // the corresponding new NetDevices on each side  
   NodeContainer enbSgwNodes;
-  enbSgwNodes.Add (m_sgwPgw);
+  enbSgwNodes.Add (m_sgwUpf);
   enbSgwNodes.Add (enb);
   PointToPointHelper p2ph;
   p2ph.SetDeviceAttribute ("DataRate", DataRateValue (m_s1uLinkDataRate));
   p2ph.SetDeviceAttribute ("Mtu", UintegerValue (m_s1uLinkMtu));
   p2ph.SetChannelAttribute ("Delay", TimeValue (m_s1uLinkDelay));
-  NetDeviceContainer enbSgwDevices = p2ph.Install (enb, m_sgwPgw);
+  NetDeviceContainer enbSgwDevices = p2ph.Install (enb, m_sgwUpf);
 
   cout<<"p2p install in pointtopointEpcHelper"<<endl;
 
@@ -115,7 +115,7 @@ OVSPointToPointEpcHelper::AddEnb(Ptr<Node> enb, Ptr<NetDevice> lteEnbNetDevice, 
 
   NS_LOG_INFO ("connect S1-AP interface");
   m_mme->AddEnb (cellId, enbAddress, enbApp->GetS1apSapEnb ());
-  m_sgwPgwApp->AddEnb (cellId, enbAddress, sgwAddress);
+  m_sgwUpfApp->AddEnb (cellId, enbAddress, sgwAddress);
   enbApp->SetS1apSapMme (m_mme->GetS1apSapMme ());
 }
 
