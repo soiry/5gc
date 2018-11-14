@@ -121,6 +121,7 @@ LteUeRrcProtocolReal::DoSendRrcConnectionRequest (LteRrcSap::RrcConnectionReques
   m_rnti = m_rrc->GetRnti ();
   SetEnbRrcSapProvider ();
 
+  std::cout<< "5GC: DoSendRrcConnectionRequest"<<std::endl;
   Simulator::Schedule (RRC_REAL_MSG_DELAY, 
                        &LteEnbRrcSapProvider::RecvRrcConnectionRequest,
                        m_enbRrcSapProvider,
@@ -146,6 +147,7 @@ LteUeRrcProtocolReal::DoSendRrcConnectionRequest (LteRrcSap::RrcConnectionReques
 void 
 LteUeRrcProtocolReal::DoSendRrcConnectionSetupCompleted (LteRrcSap::RrcConnectionSetupCompleted msg)
 {
+  std::cout << "5GC: DoSendRrcConnectionSetupCompleted" << std::endl;
   Ptr<Packet> packet = Create<Packet> ();
 
   RrcConnectionSetupCompleteHeader rrcConnectionSetupCompleteHeader;
@@ -352,6 +354,7 @@ LteUeRrcProtocolReal::DoReceivePdcpPdu (Ptr<Packet> p)
       break;
     case 3:
       // RrcConnectionSetup
+      std::cout << "5GC: RecvRrcConnectionSetup" << std::endl;
       p->RemoveHeader (rrcConnectionSetupHeader);
       rrcConnectionSetupMsg = rrcConnectionSetupHeader.GetMessage ();
       m_ueRrcSapProvider->RecvRrcConnectionSetup (rrcConnectionSetupMsg);
@@ -607,6 +610,7 @@ LteEnbRrcProtocolReal::DoSendRrcConnectionSetup (uint16_t rnti, LteRrcSap::RrcCo
   transmitPdcpPduParameters.rnti = rnti;
   transmitPdcpPduParameters.lcid = 0;
 
+  std::cout<< "5GC: DoSendRrcConnectionSetup"<< std::endl;
   if (m_setupUeParametersMap.find (rnti) == m_setupUeParametersMap.end () )
     {
       NS_LOG_ERROR("RNTI not found in Enb setup parameters Map!");

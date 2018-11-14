@@ -127,8 +127,9 @@ private:
   void DoErabReleaseIndication (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSapAmf::ErabToBeReleasedIndication> erabToBeReleaseIndication);
 
   // N11 SAP AMF forwarded methods
-  void DoCreateSessionResponse (NgcN11SapAmf::CreateSessionResponseMessage msg);
   void DoModifyBearerResponse (NgcN11SapAmf::ModifyBearerResponseMessage msg);
+  void DoUpdateSMContextResponse (NgcN11SapAmf::UpdateSMContextResponseMessage msg);
+  void DoCreateSessionResponse (NgcN11SapAmf::CreateSessionResponseMessage msg);
   void DoDeleteBearerRequest (NgcN11SapAmf::DeleteBearerRequestMessage msg);
 
 

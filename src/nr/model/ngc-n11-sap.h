@@ -96,6 +96,13 @@ public:
   };
 
 
+  //smsohn 
+  struct UpdateSMContextResponseMessage : public GtpcMessage
+  {
+    std::list<BearerContextCreated> bearerContextsCreated;
+  };
+
+
   /** 
    * send a Create Session Response message
    * 
@@ -107,6 +114,11 @@ public:
   {
     uint8_t epsBearerId;
   };
+
+  //smsohn
+  virtual void UpdateSMContextResponse (UpdateSMContextResponseMessage msg) = 0;
+
+
 
   /**
    * Delete Bearer Request message, see 3GPP TS 29.274 Release 9 V9.3.0 section 7.2.9.2
@@ -257,6 +269,7 @@ public:
 
   // inherited from NgcN11SapAmf
   virtual void CreateSessionResponse (CreateSessionResponseMessage msg);
+  virtual void UpdateSMContextResponse (UpdateSMContextResponseMessage msg); //smsohn
   virtual void ModifyBearerResponse (ModifyBearerResponseMessage msg);
   virtual void DeleteBearerRequest (DeleteBearerRequestMessage msg);
 
@@ -281,6 +294,15 @@ void MemberNgcN11SapAmf<C>::CreateSessionResponse (CreateSessionResponseMessage 
 {
   m_owner->DoCreateSessionResponse (msg);
 }
+
+//smsohn
+template <class C>
+void MemberNgcN11SapAmf<C>::UpdateSMContextResponse (UpdateSMContextResponseMessage msg)
+{
+  m_owner->DoUpdateSMContextResponse (msg);
+}
+
+
 
 template <class C>
 void MemberNgcN11SapAmf<C>::DeleteBearerRequest (DeleteBearerRequestMessage msg)

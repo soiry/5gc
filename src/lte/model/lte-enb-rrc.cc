@@ -1696,8 +1696,9 @@ UeManager::RecvRrcConnectionRequest (LteRrcSap::RrcConnectionRequest msg) //sjka
                 m_rrc->m_connectionSetupTimeoutDuration,
                 &LteEnbRrc::ConnectionSetupTimeout, m_rrc, m_rnti);
             SwitchToState (CONNECTION_SETUP);
-            std::cout << "Enb " <<m_rrc->GetCellId()<<" receives RRC connection request from UE "<< GetImsi() <<std::endl;
 
+            std::cout << "Enb " <<m_rrc->GetCellId()<<" receives RRC connection request from UE "<< GetImsi() <<std::endl;
+            std::cout << "5GC: Enb " <<m_rrc->GetCellId()<<" receives RRC connection request from UE "<< GetImsi() <<std::endl;
           }
         else
           {
@@ -1726,7 +1727,7 @@ void
 UeManager::RecvRrcConnectionSetupCompleted (LteRrcSap::RrcConnectionSetupCompleted msg)
 {
   NS_LOG_FUNCTION (this);
-  //std::cout << "received RrcConnectionSetupCompleted  -->" <<std::endl;
+  std::cout << "5GC: received RrcConnectionSetupCompleted" <<std::endl;
   switch (m_state)
     {
     case CONNECTION_SETUP:
@@ -1869,6 +1870,7 @@ UeManager::RecvRrcConnectionReconfigurationCompleted (LteRrcSap::RrcConnectionRe
     // no break so that also the CONNECTION_RECONFIGURATION code is executed
     case CONNECTION_RECONFIGURATION:  //first calll sjkang1016 or second order following MC_
       StartDataRadioBearers ();  //start radio bearers
+      std::cout << "5GC: RecvRrcConnectionReconfigurationCompleted"<<std::endl;
       if (m_needPhyMacConfiguration)
       {
         // configure MAC (and scheduler)
@@ -4937,6 +4939,7 @@ void
 LteEnbRrc::DoRecvRrcConnectionRequest (uint16_t rnti, LteRrcSap::RrcConnectionRequest msg)
 {
   NS_LOG_FUNCTION (this << rnti);
+  std::cout << "5GC: DoRecvRrcConnectionRequest"<<std::endl;
   GetUeManager (rnti)->RecvRrcConnectionRequest (msg);
 }
 
@@ -4944,6 +4947,7 @@ void
 LteEnbRrc::DoRecvRrcConnectionSetupCompleted (uint16_t rnti, LteRrcSap::RrcConnectionSetupCompleted msg)
 {
   NS_LOG_FUNCTION (this << rnti);
+  std::cout << "5GC: DoRecvRrcConnectionSetupCompleted"<<std::endl;
   GetUeManager (rnti)->RecvRrcConnectionSetupCompleted (msg);
 }
 

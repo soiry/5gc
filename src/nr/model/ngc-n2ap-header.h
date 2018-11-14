@@ -58,6 +58,7 @@ public:
     ErabReleaseIndication   = 37,
     InitialContextSetupResponse = 43,
     InitialContextSetupRequest = 41,
+    //smsohn TODO** add procedurecode of N2Request 
     PathSwitchRequestAck = 59
   };
 

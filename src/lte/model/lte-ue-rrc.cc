@@ -1088,6 +1088,7 @@ LteUeRrc::DoRecvRrcConnectionSetup (LteRrcSap::RrcConnectionSetup msg)
 {
   NS_LOG_FUNCTION (this << " RNTI " << m_rnti <<ToString(m_state));
   std::cout << "UE " << m_imsi << " receives RRC connection setup from eNB "<<m_cellId<< std::endl;
+  std::cout << "5GC: DoRecvRrcConnectionSetup"<< std::endl;
   switch (m_state)
     {
     case IDLE_CONNECTING:

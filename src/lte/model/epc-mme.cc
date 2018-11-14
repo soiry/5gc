@@ -181,6 +181,7 @@ void
 EpcMme::DoCreateSessionResponse (EpcS11SapMme::CreateSessionResponseMessage msg)
 {
   NS_LOG_FUNCTION (this << msg.teid);
+  std::cout << "DoCreateSessionResponse" << std::endl;
   uint64_t imsi = msg.teid;
   std::list<EpcS1apSapEnb::ErabToBeSetupItem> erabToBeSetupList;
   for (std::list<EpcS11SapMme::BearerContextCreated>::iterator bit = msg.bearerContextsCreated.begin ();
