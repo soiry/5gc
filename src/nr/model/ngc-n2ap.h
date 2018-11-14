@@ -120,7 +120,7 @@ public:
 
 protected:
   // Interface provided by NgcN2apSapEnbProvider
-  virtual void DoSendInitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t stmsi, uint16_t ecgi);
+  virtual void DoSendRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t stmsi, uint16_t ecgi);
   virtual void DoSendErabReleaseIndication (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSap::ErabToBeReleasedIndication> erabToBeReleaseIndication );
   virtual void DoSendInitialContextSetupResponse (uint64_t amfUeN2Id,
                                                   uint16_t enbUeN2Id,

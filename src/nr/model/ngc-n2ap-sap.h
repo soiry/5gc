@@ -113,7 +113,7 @@ public:
    * \param ecgi in practice, the cell Id
    * 
    */
-  virtual void InitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t stmsi, uint16_t ecgi) = 0;
+  virtual void RegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t stmsi, uint16_t ecgi) = 0;
 
   /**
     * \brief As per 3GPP TS 23.401 Release 9 V9.5.0 Figure 5.4.4.2-1  eNB sends indication of Bearer Release to AMF
@@ -156,7 +156,7 @@ class NgcN2apSapEnbProvider : public NgcN2apSap
 {
 public: 
    
-  virtual void SendInitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t stmsi, uint16_t ecgi) = 0;
+  virtual void SendRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t stmsi, uint16_t ecgi) = 0;
 
   virtual void SendErabReleaseIndication (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeReleasedIndication> erabToBeReleaseIndication ) = 0;
 
@@ -239,7 +239,7 @@ public:
   MemberNgcN2apSapAmf (C* owner);
 
   // inherited from NgcN2apSapAmf
-  virtual void InitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi);
+  virtual void RegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi);
   virtual void ErabReleaseIndication (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeReleasedIndication> erabToBeReleaseIndication );
 
   virtual void InitialContextSetupResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabSetupItem> erabSetupList);
@@ -262,10 +262,10 @@ MemberNgcN2apSapAmf<C>::MemberNgcN2apSapAmf ()
 }
 
 template <class C>
-void MemberNgcN2apSapAmf<C>::InitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi)
+void MemberNgcN2apSapAmf<C>::RegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi)
 {
-  std::cout<<"IintialUeMessage(1,2,3,4) is called" << std::endl;
-  m_owner->DoInitialUeMessage (amfUeN2Id, enbUeN2Id, imsi, ecgi);
+  std::cout<<"RegistrationRequest(1,2,3,4) is called" << std::endl;
+  m_owner->DoRegistrationRequest(amfUeN2Id, enbUeN2Id, imsi, ecgi);
 }
 
 template <class C>
@@ -300,7 +300,7 @@ public:
   MemberNgcN2apSapEnbProvider (C* owner);
 
   // inherited from MemberNgcN2apSapEnbProvider
-  virtual void SendInitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi);
+  virtual void SendRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi);
   virtual void SendErabReleaseIndication (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeReleasedIndication> erabToBeReleaseIndication );
 
   virtual void SendInitialContextSetupResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabSetupItem> erabSetupList);
@@ -323,10 +323,10 @@ MemberNgcN2apSapEnbProvider<C>::MemberNgcN2apSapEnbProvider ()
 }
 
 template <class C>
-void MemberNgcN2apSapEnbProvider<C>::SendInitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi)
+void MemberNgcN2apSapEnbProvider<C>::SendRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi)
 {
  std::cout << "Hihihihihi" << std::endl;
-  m_owner->DoSendInitialUeMessage (amfUeN2Id, enbUeN2Id, imsi, ecgi);
+  m_owner->DoSendRegistrationRequest (amfUeN2Id, enbUeN2Id, imsi, ecgi);
 }
 
 template <class C>

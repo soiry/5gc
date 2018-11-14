@@ -124,9 +124,9 @@ NgcAmf::AddBearer (uint64_t imsi, Ptr<NgcTft> tft, EpsBearer bearer)
 // N2-AP SAP AMF forwarded methods
 
 void 
-NgcAmf::DoInitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t gci)
+NgcAmf::DoRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t gci)
 {
-  std::cout<<"NgcAmf::DoinitialUeMessage (" << amfUeN2Id << ", " << enbUeN2Id << ", " << imsi << ", " << gci << ") is called"<<std::endl;
+  std::cout<<"NgcAmf::DoregistrationRequest (" << amfUeN2Id << ", " << enbUeN2Id << ", " << imsi << ", " << gci << ") is called"<<std::endl;
 
   NS_LOG_FUNCTION (this << amfUeN2Id << enbUeN2Id << imsi << gci);
   std::map<uint64_t, Ptr<UeInfo> >::iterator it = m_ueInfoMap.find (imsi);

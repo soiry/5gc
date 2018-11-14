@@ -1681,8 +1681,8 @@ UeManager::RecvRrcConnectionRequest (NrRrcSap::RrcConnectionRequest msg) //sjkan
             NS_LOG_DEBUG("For imsi " << m_imsi << " m_rrc->m_mmWaveCellSetupCompleted[m_imsi] " << m_rrc->m_mmWaveCellSetupCompleted[m_imsi]);
             if (!m_isMc_2 && !m_isMc && m_rrc->m_n2SapProvider != 0)
               {
-				std::cout << "InitialUeMessage is called" << std::endl;
-                m_rrc->m_n2SapProvider->InitialUeMessage (m_imsi, m_rnti);
+				std::cout << "RegistrationRequest is called" << std::endl;
+                m_rrc->m_n2SapProvider->RegistrationRequest (m_imsi, m_rnti);
               }
 
             // send RRC CONNECTION SETUP to UE

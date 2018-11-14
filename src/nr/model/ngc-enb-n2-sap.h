@@ -49,8 +49,7 @@ public:
    * \param imsi 
    * \param rnti 
    */
-  virtual void InitialUeMessage (uint64_t imsi, uint16_t rnti) = 0;
-  virtual void InitialUeMessage (uint64_t imsi, uint16_t rnti, int dummy) = 0; // jhlim for N2apSapAmf
+  virtual void RegistrationRequest (uint64_t imsi, uint16_t rnti) = 0;
 
   /**
    *  \brief Triggers ngc-enb-application to send ERAB Release Indication message towards AMF
@@ -148,8 +147,7 @@ public:
   MemberNgcEnbN2SapProvider (C* owner);
 
   // inherited from NgcEnbN2SapProvider
-  virtual void InitialUeMessage (uint64_t imsi, uint16_t rnti);
-  virtual void InitialUeMessage (uint64_t imsi, uint16_t rnti, int dummy);
+  virtual void RegistrationRequest (uint64_t imsi, uint16_t rnti);
   virtual void DoSendReleaseIndication (uint64_t imsi, uint16_t rnti, uint8_t bearerId);
 
   virtual void PathSwitchRequest (PathSwitchRequestParameters params);
@@ -173,11 +171,10 @@ MemberNgcEnbN2SapProvider<C>::MemberNgcEnbN2SapProvider ()
 
 
 template <class C>
-void MemberNgcEnbN2SapProvider<C>::InitialUeMessage (uint64_t imsi, uint16_t rnti)
+void MemberNgcEnbN2SapProvider<C>::RegistrationRequest (uint64_t imsi, uint16_t rnti)
 {
-  cout<<"DoInitialUeMessage for Provider is called" << endl;
-  //m_owner->DoInitialUeMessage (imsi, rnti, 0); // jhlim
-  m_owner->DoInitialUeMessage (imsi, rnti);
+  cout<<"DoRegistrationRequest for Provider is called" << endl;
+  m_owner->DoRegistrationRequest (imsi, rnti);
 }
 
 template <class C>
@@ -194,13 +191,6 @@ void MemberNgcEnbN2SapProvider<C>::PathSwitchRequest (PathSwitchRequestParameter
   m_owner->DoPathSwitchRequest (params); // jhlim
 }
 
-/* jhlim */
-template <class C>
-void MemberNgcEnbN2SapProvider<C>::InitialUeMessage (uint64_t imsi, uint16_t rnti, int dummy)
-{
-  cout<<"DoInitialUeMessage for Amf is called" << endl;
-  m_owner->DoInitialUeMessage (imsi, rnti, 0);
-}
 /*
 template <class C>
 void MemberNgcEnbN2SapProvider<C>::DoSendReleaseIndication1 (uint64_t imsi, uint16_t rnti, uint8_t bearerId)

@@ -208,7 +208,7 @@ NgcN2apEnb::RecvFromN2apSocket (Ptr<Socket> socket)
 // Implementation of the N2ap SAP Provider
 //
 void
-NgcN2apEnb::DoSendInitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t stmsi, uint16_t ecgi) 
+NgcN2apEnb::DoSendRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t stmsi, uint16_t ecgi) 
 {
   NS_LOG_FUNCTION (this);
 
@@ -229,21 +229,21 @@ NgcN2apEnb::DoSendInitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint
   NS_LOG_INFO ("Send N2ap message: INITIAL UE MESSAGE " << Simulator::Now ().GetSeconds());
 
   // build the header
-  NgcN2APInitialUeMessageHeader initialMessage;
-  initialMessage.SetAmfUeN2Id(amfUeN2Id);
-  initialMessage.SetEnbUeN2Id(enbUeN2Id);
-  initialMessage.SetSTmsi(stmsi);
-  initialMessage.SetEcgi(ecgi);
-  NS_LOG_INFO ("N2ap Initial Message header " << initialMessage);
+  NgcN2APRegistrationRequestHeader registrationRequest;
+  registrationRequest.SetAmfUeN2Id(amfUeN2Id);
+  registrationRequest.SetEnbUeN2Id(enbUeN2Id);
+  registrationRequest.SetSTmsi(stmsi);
+  registrationRequest.SetEcgi(ecgi);
+  NS_LOG_INFO ("N2ap Registration Request header " << registrationRequest);
 
   NgcN2APHeader n2apHeader;
-  n2apHeader.SetProcedureCode (NgcN2APHeader::InitialUeMessage);
-  n2apHeader.SetLengthOfIes (initialMessage.GetLengthOfIes ());
-  n2apHeader.SetNumberOfIes (initialMessage.GetNumberOfIes ());
+  n2apHeader.SetProcedureCode (NgcN2APHeader::RegistrationRequest);
+  n2apHeader.SetLengthOfIes (registrationRequest.GetLengthOfIes ());
+  n2apHeader.SetNumberOfIes (registrationRequest.GetNumberOfIes ());
   NS_LOG_INFO ("N2ap header: " << n2apHeader);
 
   Ptr<Packet> packet = Create <Packet> ();
-  packet->AddHeader (initialMessage);
+  packet->AddHeader (registrationRequest);
   packet->AddHeader (n2apHeader);
   NS_LOG_INFO ("packetLen = " << packet->GetSize ());
 
@@ -461,17 +461,17 @@ NgcN2apAmf::RecvFromN2apSocket (Ptr<Socket> socket)
 
   uint8_t procedureCode = n2apHeader.GetProcedureCode ();
 
-  if (procedureCode == NgcN2APHeader::InitialUeMessage)
+  if (procedureCode == NgcN2APHeader::RegistrationRequest)
   {
-    NS_LOG_LOGIC ("Recv N2ap message: INITIAL UE MESSAGE");
-    NgcN2APInitialUeMessageHeader initialMessage;
-    packet->RemoveHeader(initialMessage);
-    NS_LOG_INFO ("N2ap Initial Message header " << initialMessage);
+    NS_LOG_LOGIC ("Recv N2ap message: REGISTRATION REQUEST");
+    NgcN2APRegistrationRequestHeader registrationRequest;
+    packet->RemoveHeader(registrationRequest);
+    NS_LOG_INFO ("N2ap Registration Request header " << registrationRequest);
 
-    uint64_t amfUeN2Id = initialMessage.GetAmfUeN2Id();
-    uint16_t enbUeN2Id = initialMessage.GetEnbUeN2Id();
-    uint64_t stmsi = initialMessage.GetSTmsi();
-    uint16_t ecgi = initialMessage.GetEcgi();
+    uint64_t amfUeN2Id = registrationRequest.GetAmfUeN2Id();
+    uint16_t enbUeN2Id = registrationRequest.GetEnbUeN2Id();
+    uint64_t stmsi = registrationRequest.GetSTmsi();
+    uint16_t ecgi = registrationRequest.GetEcgi();
 
     NS_LOG_LOGIC("amfUeN2apId = " << amfUeN2Id);
     NS_LOG_LOGIC("enbUeN2apId = " << enbUeN2Id);
@@ -480,7 +480,7 @@ NgcN2apAmf::RecvFromN2apSocket (Ptr<Socket> socket)
 
     // TODO check if ASSERT is needed
 
-    m_n2apSapUser->InitialUeMessage(amfUeN2Id, enbUeN2Id, stmsi, ecgi);
+    m_n2apSapUser->RegistrationRequest(amfUeN2Id, enbUeN2Id, stmsi, ecgi);
 
   }
   else if (procedureCode == NgcN2APHeader::PathSwitchRequest)

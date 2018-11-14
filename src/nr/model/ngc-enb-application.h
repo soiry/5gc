@@ -147,12 +147,12 @@ public:
 private:
 
   // ENB N2 SAP provider methods
-  void DoInitialUeMessage (uint64_t imsi, uint16_t rnti);
+  void DoRegistrationRequest (uint64_t imsi, uint16_t rnti);
   void DoPathSwitchRequest (NgcEnbN2SapProvider::PathSwitchRequestParameters params);
   void DoUeContextRelease (uint16_t rnti);
 
   /* jhlim */
-  void DoInitialUeMessage (uint64_t imsi, uint16_t rnti, int dummy);
+//  void DoInitialUeMessage (uint64_t imsi, uint16_t rnti, int dummy);
   void DoPathSwitchRequest (NgcEnbN2SapProvider::PathSwitchRequestParameters params, int dummy);
 
   // N2-AP SAP ENB methods

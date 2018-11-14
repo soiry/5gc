@@ -591,12 +591,37 @@ public:
 
   // Messages
 
+  // hmlee
+  struct RrcConnectionRequest
+  {
+    uint64_t ueIdentity;
+    bool isMc;
+    bool isMc_2;
+
+    uint32_t registrationType;
+    uint64_t SUCI;
+    uint64_t GUTI;
+    uint64_t PEI;
+    uint64_t last_TAI;
+    uint32_t radioCapabilityUpdate;
+    uint32_t mmCoreNetworkCapability;
+    uint64_t pduSessionStatus;
+    uint64_t* pduSessionsToBeActivated;
+    bool followOnRequest;
+    bool micoModePreference;
+    uint64_t* requestedDrxParams;
+    uint64_t* uePolicyContainer; // list of PSIs
+
+  };
+
+/*
   struct RrcConnectionRequest
   {
     uint64_t ueIdentity;
     bool isMc;
     bool isMc_2;
   };
+*/
 
   struct RrcConnectionSetup
   {

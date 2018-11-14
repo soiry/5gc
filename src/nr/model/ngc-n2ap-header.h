@@ -53,7 +53,7 @@ public:
 
 
   enum ProcedureCode_t {
-    InitialUeMessage        = 71,
+    RegistrationRequest        = 71,
     PathSwitchRequest       = 58,
     ErabReleaseIndication   = 37,
     InitialContextSetupResponse = 43,
@@ -70,12 +70,12 @@ private:
 };
 
 
-// Header for initial Ue message
-class NgcN2APInitialUeMessageHeader : public Header
+// Header for registration Request message
+class NgcN2APRegistrationRequestHeader : public Header
 {
 public:
-  NgcN2APInitialUeMessageHeader ();
-  virtual ~NgcN2APInitialUeMessageHeader ();
+  NgcN2APRegistrationRequestHeader ();
+  virtual ~NgcN2APRegistrationRequestHeader ();
 
   static TypeId GetTypeId (void);
   virtual TypeId GetInstanceTypeId (void) const;

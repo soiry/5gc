@@ -142,20 +142,21 @@ NgcEnbApplication::GetN2apSapEnb ()
 }
 
 void 
-NgcEnbApplication::DoInitialUeMessage (uint64_t imsi, uint16_t rnti)
+NgcEnbApplication::DoRegistrationRequest (uint64_t imsi, uint16_t rnti)
 {
   NS_LOG_FUNCTION (this);
   // side effect: create entry if not exist
   m_imsiRntiMap[imsi] = rnti;
   //m_n2apSapAmf->InitialUeMessage (imsi, rnti, imsi, m_cellId); // jhlim
   if(m_n2apSapEnbProvider == NULL)
-	  m_n2apSapAmf->InitialUeMessage (imsi, rnti, imsi, m_cellId);
+	  m_n2apSapAmf->RegistrationRequest (imsi, rnti, imsi, m_cellId);
   else
-	  m_n2apSapEnbProvider->SendInitialUeMessage (imsi, rnti, imsi, m_cellId); // TODO if more than one AMF is used, extend this call
+	  m_n2apSapEnbProvider->SendRegistrationRequest (imsi, rnti, imsi, m_cellId); // TODO if more than one AMF is used, extend this call
 
 }
 
-/* jhlim */
+/*
+// jhlim 
 void
 NgcEnbApplication::DoInitialUeMessage (uint64_t imsi, uint16_t rnti, int dummy)
 {
@@ -163,6 +164,7 @@ NgcEnbApplication::DoInitialUeMessage (uint64_t imsi, uint16_t rnti, int dummy)
 	m_imsiRntiMap[imsi] = rnti;
 	m_n2apSapAmf->InitialUeMessage (imsi, rnti, imsi, m_cellId);
 }
+*/
 
 void 
 NgcEnbApplication::DoPathSwitchRequest (NgcEnbN2SapProvider::PathSwitchRequestParameters params)
