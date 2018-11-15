@@ -325,7 +325,7 @@ MemberNgcN2apSapEnbProvider<C>::MemberNgcN2apSapEnbProvider ()
 template <class C>
 void MemberNgcN2apSapEnbProvider<C>::SendRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi)
 {
- std::cout << "Hihihihihi" << std::endl;
+ std::cout << "Hihihihihi" << std::endl; // jhlim
   m_owner->DoSendRegistrationRequest (amfUeN2Id, enbUeN2Id, imsi, ecgi);
 }
 
