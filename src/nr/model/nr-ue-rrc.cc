@@ -798,6 +798,13 @@ NrUeRrc::DoNotifyRandomAccessSuccessful ()
         msg.ueIdentity = m_imsi;
         msg.isMc = m_isSecondaryRRC ; //sjkang // 28G connection
         msg.isMc_2=m_isThirdRrc;// 73G connection
+        
+        // hmlee
+        /*
+        msg.registrationType = registrationType;
+        msg.GUTI = guti;
+        */
+
         m_rrcSapUser->SendRrcConnectionRequest (msg); 
         m_connectionTimeout = Simulator::Schedule (m_t300,
                                                    &NrUeRrc::ConnectionTimeout,

@@ -226,7 +226,7 @@ NgcN2apEnb::DoSendRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, u
   NS_LOG_LOGIC ("sourceSocket = " << sourceSocket);
   NS_LOG_LOGIC ("amfIpAddr = " << amfIpAddr);
 
-  NS_LOG_INFO ("Send N2ap message: INITIAL UE MESSAGE " << Simulator::Now ().GetSeconds());
+  NS_LOG_INFO ("Send N2ap message: REGISTRATION REQUEST " << Simulator::Now ().GetSeconds());
 
   // build the header
   NgcN2APRegistrationRequestHeader registrationRequest;

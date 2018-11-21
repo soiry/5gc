@@ -1663,6 +1663,21 @@ UeManager::CompleteSetupUe (NrEnbRrcSapProvider::CompleteSetupUeParameters param
 }
 
 void
+UeManager::SelectAmf ()
+{
+	uint64_t amfId;
+	bool valid;
+	// GUTI includes valid AMF information
+	if (valid) {
+		return amfId;
+	}
+	// GUTI does not include valid AMF information
+	else {
+		return amfId;
+	}
+}
+
+void
 UeManager::RecvRrcConnectionRequest (NrRrcSap::RrcConnectionRequest msg) //sjkang1015
 {
   NS_LOG_FUNCTION (this<<"nr-enb-rrc::UeManager"<< ToString(m_state));
@@ -1679,6 +1694,10 @@ UeManager::RecvRrcConnectionRequest (NrRrcSap::RrcConnectionRequest msg) //sjkan
             m_rrc->RegisterImsiToRnti(m_imsi, m_rnti);
             m_rrc->m_mmWaveCellSetupCompleted[m_imsi] = false;
             NS_LOG_DEBUG("For imsi " << m_imsi << " m_rrc->m_mmWaveCellSetupCompleted[m_imsi] " << m_rrc->m_mmWaveCellSetupCompleted[m_imsi]);
+
+			// hmlee
+			SelectAmf();
+
             if (!m_isMc_2 && !m_isMc && m_rrc->m_n2SapProvider != 0)
               {
 				std::cout << "RegistrationRequest is called" << std::endl;
