@@ -155,9 +155,31 @@ NgcEnbApplication::DoInitialUeMessage (uint64_t imsi, uint16_t rnti)
 
 }
 
+void 
+NgcEnbApplication::DoN2Message (uint64_t imsi, uint16_t rnti)
+{
+  NS_LOG_FUNCTION (this);
+  // side effect: create entry if not exist
+  m_imsiRntiMap[imsi] = rnti;
+  //m_n2apSapAmf->InitialUeMessage (imsi, rnti, imsi, m_cellId); // jhlim
+  if(m_n2apSapEnbProvider == NULL)
+	  m_n2apSapAmf->InitialUeMessage (imsi, rnti, imsi, m_cellId);
+  else
+	  m_n2apSapEnbProvider->SendInitialUeMessage (imsi, rnti, imsi, m_cellId); // TODO if more than one AMF is used, extend this call
+
+}
+
 /* jhlim */
 void
 NgcEnbApplication::DoInitialUeMessage (uint64_t imsi, uint16_t rnti, int dummy)
+{
+	NS_LOG_FUNCTION (this);
+	m_imsiRntiMap[imsi] = rnti;
+	m_n2apSapAmf->InitialUeMessage (imsi, rnti, imsi, m_cellId);
+}
+
+void
+NgcEnbApplication::DoN2Message (uint64_t imsi, uint16_t rnti, int dummy)
 {
 	NS_LOG_FUNCTION (this);
 	m_imsiRntiMap[imsi] = rnti;

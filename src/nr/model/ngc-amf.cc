@@ -149,6 +149,32 @@ NgcAmf::DoInitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t ims
 }
 
 void 
+NgcAmf::DoUpdateSMContextRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t gci)
+{
+  std::cout<<"NgcAmf::DoinitialUeMessage (" << amfUeN2Id << ", " << enbUeN2Id << ", " << imsi << ", " << gci << ") is called"<<std::endl;
+
+  NS_LOG_FUNCTION (this << amfUeN2Id << enbUeN2Id << imsi << gci);
+  std::map<uint64_t, Ptr<UeInfo> >::iterator it = m_ueInfoMap.find (imsi);
+  NS_ASSERT_MSG (it != m_ueInfoMap.end (), "could not find any UE with IMSI " << imsi);
+  it->second->cellId = gci;
+  NgcN11SapSmf::CreateSessionRequestMessage msg;
+  msg.imsi = imsi;
+  msg.uli.gci = gci;
+  for (std::list<BearerInfo>::iterator bit = it->second->bearersToBeActivated.begin ();
+       bit != it->second->bearersToBeActivated.end ();
+       ++bit)
+    {
+      NgcN11SapSmf::BearerContextToBeCreated bearerContext;
+      bearerContext.epsBearerId =  bit->bearerId; 
+      bearerContext.bearerLevelQos = bit->bearer; 
+      bearerContext.tft = bit->tft;
+      msg.bearerContextsToBeCreated.push_back (bearerContext);
+    }
+  m_n11SapSmf->CreateSessionRequest (msg);
+}
+
+
+void 
 NgcAmf::DoInitialContextSetupResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSapAmf::ErabSetupItem> erabSetupList)
 {
   NS_LOG_FUNCTION (this << amfUeN2Id << enbUeN2Id);
