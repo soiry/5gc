@@ -142,6 +142,7 @@ private:
 
   // ENB N2 SAP provider methods
   void DoInitialUeMessage (uint64_t imsi, uint16_t rnti);
+  void DoN2Message (uint64_t imsi, uint16_t rnti);
   void DoPathSwitchRequest (NgcEnbN2SapProvider::PathSwitchRequestParameters params);
   void DoUeContextRelease (uint16_t rnti);
   

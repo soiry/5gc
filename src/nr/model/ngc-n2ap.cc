@@ -252,6 +252,51 @@ NgcN2apEnb::DoSendInitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint
   sourceSocket->SendTo (packet, 0, InetSocketAddress (amfIpAddr, m_n2apUdpPort));
 }
 
+void
+NgcN2apEnb::DoSendN2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t stmsi, uint16_t ecgi) 
+{
+  NS_LOG_FUNCTION (this);
+
+  NS_LOG_LOGIC("amfUeN2apId = " << amfUeN2Id);
+  NS_LOG_LOGIC("enbUeN2apId = " << enbUeN2Id);
+  NS_LOG_LOGIC("stmsi = " << stmsi);
+  NS_LOG_LOGIC("ecgi = " << ecgi);
+
+  // TODO check if an assert is needed
+
+  Ptr<N2apIfaceInfo> socketInfo = m_n2apInterfaceSockets [m_amfId]; // in case of multiple amf, extend the call
+  Ptr<Socket> sourceSocket = socketInfo->m_localCtrlPlaneSocket;
+  Ipv4Address amfIpAddr = socketInfo->m_remoteIpAddr;
+
+  NS_LOG_LOGIC ("sourceSocket = " << sourceSocket);
+  NS_LOG_LOGIC ("amfIpAddr = " << amfIpAddr);
+
+  NS_LOG_INFO ("Send N2ap message: INITIAL UE MESSAGE " << Simulator::Now ().GetSeconds());
+
+  // build the header
+  NgcN2APN2MessageHeader N2Message;
+  N2Message.SetAmfUeN2Id(amfUeN2Id);
+  N2Message.SetEnbUeN2Id(enbUeN2Id);
+  N2Message.SetSTmsi(stmsi);
+  N2Message.SetEcgi(ecgi);
+  NS_LOG_INFO ("N2ap N2 Message header " << N2Message);
+
+  NgcN2APHeader n2apHeader;
+  n2apHeader.SetProcedureCode (NgcN2APHeader::N2Message);
+  n2apHeader.SetLengthOfIes (N2Message.GetLengthOfIes ());
+  n2apHeader.SetNumberOfIes (N2Message.GetNumberOfIes ());
+  NS_LOG_INFO ("N2ap header: " << n2apHeader);
+
+  Ptr<Packet> packet = Create <Packet> ();
+  packet->AddHeader (N2Message);
+  packet->AddHeader (n2apHeader);
+  NS_LOG_INFO ("packetLen = " << packet->GetSize ());
+
+  // Send the N2ap message through the socket
+  std::cout << "Sends packet to " <<amfIpAddr << ":" <<m_n2apUdpPort << std::endl; // jhlim
+  sourceSocket->SendTo (packet, 0, InetSocketAddress (amfIpAddr, m_n2apUdpPort));
+}
+
 void 
 NgcN2apEnb::DoSendErabReleaseIndication (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSap::ErabToBeReleasedIndication> erabToBeReleaseIndication )
 {

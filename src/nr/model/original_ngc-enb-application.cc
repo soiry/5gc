@@ -138,6 +138,15 @@ NgcEnbApplication1::DoInitialUeMessage (uint64_t imsi, uint16_t rnti)
 }
 
 void 
+NgcEnbApplication1::DoN2Message (uint64_t imsi, uint16_t rnti)
+{
+  NS_LOG_FUNCTION (this);
+  // side effect: create entry if not exist
+  m_imsiRntiMap[imsi] = rnti;
+  m_n2apSapAmf->N2Message (imsi, rnti, imsi, m_cellId);
+}
+
+void 
 NgcEnbApplication1::DoPathSwitchRequest (NgcEnbN2SapProvider::PathSwitchRequestParameters params)
 {
   NS_LOG_FUNCTION (this);

@@ -329,7 +329,7 @@ private:
   void DoSetTemporaryCellRnti (uint16_t rnti);
   void DoNotifyRandomAccessSuccessful ();
   void DoNotifyRandomAccessFailed ();
-  void SendServiceRequest ();
+  void DoSendServiceRequest ();
  
   // NR AS SAP methods
   void DoSetCsgWhiteList (uint32_t csgId);

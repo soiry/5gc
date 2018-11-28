@@ -54,6 +54,7 @@ public:
 
   enum ProcedureCode_t {
     InitialUeMessage        = 71,
+    N2Message               = 73,
     PathSwitchRequest       = 58,
     ErabReleaseIndication   = 37,
     InitialContextSetupResponse = 43,
@@ -109,6 +110,44 @@ private:
   uint16_t          m_ecgi;
 };
 
+// Header for N2 message
+class NgcN2APN2MessageHeader : public Header
+{
+public:
+  NgcN2APN2MessageHeader ();
+  virtual ~NgcN2APN2MessageHeader ();
+
+  static TypeId GetTypeId (void);
+  virtual TypeId GetInstanceTypeId (void) const;
+  virtual uint32_t GetSerializedSize (void) const;
+  virtual void Serialize (Buffer::Iterator start) const;
+  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual void Print (std::ostream &os) const;
+
+
+  uint64_t GetAmfUeN2Id () const;
+  void SetAmfUeN2Id (uint64_t amfUeN2Id);
+
+  uint16_t GetEnbUeN2Id () const;
+  void SetEnbUeN2Id (uint16_t enbUeN2Id);
+
+  uint64_t GetSTmsi () const;
+  void SetSTmsi (uint64_t stmsi);
+
+  uint16_t GetEcgi () const;
+  void SetEcgi (uint16_t ecgi);
+
+  uint32_t GetLengthOfIes () const;
+  uint32_t GetNumberOfIes () const;
+
+private:
+  uint32_t          m_numberOfIes;
+  uint32_t          m_headerLength;
+  uint64_t          m_stmsi;
+  uint64_t          m_amfUeN2Id;
+  uint16_t          m_enbUeN2Id;
+  uint16_t          m_ecgi;
+};
 
 
 class NgcN2APErabReleaseIndicationHeader : public Header

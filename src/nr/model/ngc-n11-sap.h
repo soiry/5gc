@@ -176,6 +176,14 @@ public:
     std::list<BearerContextToBeCreated> bearerContextsToBeCreated;    
   };
 
+  struct UpdateSMContextRequestMessage : public GtpcMessage
+  {
+    uint64_t imsi; 
+    Uli uli; 
+    std::list<BearerContextToBeCreated> bearerContextsToBeCreated;    
+  };
+
+
   /** 
    * send a Create Session Request message
    * 
@@ -187,6 +195,8 @@ public:
   {
     uint8_t epsBearerId;
   };
+
+  virtual void UpdateSMContextRequest (UpdateSMContextRequestMessage msg) = 0;
 
   /**
    * Delete Bearer Command message, see 3GPP TS 29.274 Release 9 V9.3.0 section 7.2.17.1
@@ -311,6 +321,7 @@ public:
 
   // inherited from NgcN11SapSmf
   virtual void CreateSessionRequest (CreateSessionRequestMessage msg);
+  virtual void UpdateSMContextRequest (UpdateSMContextRequestMessage msg);
   virtual void ModifyBearerRequest (ModifyBearerRequestMessage msg);
   virtual void DeleteBearerCommand (DeleteBearerCommandMessage msg);
   virtual void DeleteBearerResponse (DeleteBearerResponseMessage msg);
@@ -336,6 +347,13 @@ void MemberNgcN11SapSmf<C>::CreateSessionRequest (CreateSessionRequestMessage ms
 {
   m_owner->DoCreateSessionRequest (msg);
 }
+
+template <class C>
+void MemberNgcN11SapSmf<C>::UpdateSMContextRequest (UpdateSMContextRequestMessage msg)
+{
+  m_owner->DoUpdateSMContextRequest (msg);
+}
+
 
 template <class C>
 void MemberNgcN11SapSmf<C>::ModifyBearerRequest (ModifyBearerRequestMessage msg)

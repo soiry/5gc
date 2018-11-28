@@ -114,7 +114,7 @@ public:
    * 
    */
   virtual void InitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t stmsi, uint16_t ecgi) = 0;
-
+  virtual void N2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t stmsi, uint16_t ecgi) = 0;
   /**
     * \brief As per 3GPP TS 23.401 Release 9 V9.5.0 Figure 5.4.4.2-1  eNB sends indication of Bearer Release to AMF
     * \brief As per 3GPP TS version 9.8.0 section 8.2.3.2.2, the eNB initiates the procedure by sending an E-RAB RELEASE INDICATION message towards AMF
@@ -157,6 +157,8 @@ class NgcN2apSapEnbProvider : public NgcN2apSap
 public: 
    
   virtual void SendInitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t stmsi, uint16_t ecgi) = 0;
+
+  virtual void SendN2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t stmsi, uint16_t ecgi) = 0;
 
   virtual void SendErabReleaseIndication (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeReleasedIndication> erabToBeReleaseIndication ) = 0;
 
@@ -240,6 +242,8 @@ public:
 
   // inherited from NgcN2apSapAmf
   virtual void InitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi);
+  virtual void N2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi);
+ 
   virtual void ErabReleaseIndication (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeReleasedIndication> erabToBeReleaseIndication );
 
   virtual void InitialContextSetupResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabSetupItem> erabSetupList);
@@ -266,6 +270,13 @@ void MemberNgcN2apSapAmf<C>::InitialUeMessage (uint64_t amfUeN2Id, uint16_t enbU
 {
   std::cout<<"IintialUeMessage(1,2,3,4) is called" << std::endl;
   m_owner->DoInitialUeMessage (amfUeN2Id, enbUeN2Id, imsi, ecgi);
+}
+
+template <class C>
+void MemberNgcN2apSapAmf<C>::N2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi)
+{
+  std::cout<<"N2Message(1,2,3,4) is called" << std::endl;
+  m_owner->DoN2Message (amfUeN2Id, enbUeN2Id, imsi, ecgi);
 }
 
 template <class C>
@@ -301,6 +312,7 @@ public:
 
   // inherited from MemberNgcN2apSapEnbProvider
   virtual void SendInitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi);
+  virtual void SendN2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi);
   virtual void SendErabReleaseIndication (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeReleasedIndication> erabToBeReleaseIndication );
 
   virtual void SendInitialContextSetupResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabSetupItem> erabSetupList);
@@ -327,6 +339,13 @@ void MemberNgcN2apSapEnbProvider<C>::SendInitialUeMessage (uint64_t amfUeN2Id, u
 {
  std::cout << "Hihihihihi" << std::endl;
   m_owner->DoSendInitialUeMessage (amfUeN2Id, enbUeN2Id, imsi, ecgi);
+}
+
+template <class C>
+void MemberNgcN2apSapEnbProvider<C>::SendN2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi)
+{
+ std::cout << "Hihihihihi" << std::endl;
+  m_owner->DoSendN2Message (amfUeN2Id, enbUeN2Id, imsi, ecgi);
 }
 
 template <class C>

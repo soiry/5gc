@@ -328,6 +328,197 @@ NgcN2APInitialUeMessageHeader::GetNumberOfIes () const
   return m_numberOfIes;
 }
 
+NS_OBJECT_ENSURE_REGISTERED (NgcN2APN2MessageHeader);
+
+NgcN2APN2MessageHeader::NgcN2APN2MessageHeader ()
+  : m_numberOfIes (1 + 1 + 1 + 1 + 1 + 1 + 1),
+    m_headerLength (3 + 2 + 6 + 4 + 2 + 9 + 9),
+    m_stmsi (0xfffffffa),
+    m_amfUeN2Id (0xfffffffa),
+    m_enbUeN2Id (0xfffa),
+    m_ecgi (0xfffa)
+{
+}
+
+NgcN2APN2MessageHeader::~NgcN2APN2MessageHeader ()
+{ 
+  m_numberOfIes = 0;
+  m_headerLength = 0;
+  m_stmsi = 0xfffffffb;
+  m_enbUeN2Id = 0xfffb;
+  m_ecgi = 0xfffb;
+  m_amfUeN2Id = 0xfffffffb;
+}
+
+TypeId
+NgcN2APN2MessageHeader::GetTypeId (void)
+{
+  static TypeId tid = TypeId ("ns3::NgcN2APN2MessageHeader")
+    .SetParent<Header> ()
+    .SetGroupName("Nr")
+    .AddConstructor<NgcN2APN2MessageHeader> ()
+  ;
+  return tid;
+}
+
+TypeId
+NgcN2APN2MessageHeader::GetInstanceTypeId (void) const
+{
+  return GetTypeId ();
+}
+
+uint32_t
+NgcN2APN2MessageHeader::GetSerializedSize (void) const
+{
+  return m_headerLength;
+}
+
+void
+NgcN2APN2MessageHeader::Serialize (Buffer::Iterator start) const
+{
+  Buffer::Iterator i = start;
+
+  // message type is already in NgcN2APHeader
+  i.WriteHtonU16 (m_enbUeN2Id);     // m_enbUeN2Id
+  i.WriteU8 (0);                    // criticality = REJECT
+
+  i.WriteU8 (0);                    // NAS PDU, not implemented
+  i.WriteU8 (0);                    // criticality = REJECT
+
+  i.WriteU32 (0);                   // TAI, not implemented
+  i.WriteU8 (0);
+  i.WriteU8 (0);                    // criticality = REJECT
+
+  i.WriteHtonU16 (m_ecgi);          // E-UTRAN CGI, it should have a different size
+  i.WriteU8 (1 << 6);               // criticality = IGNORE
+
+  i.WriteU8 (0);                    // RRC Establishment cause
+  i.WriteU8 (1 << 6);               // criticality = IGNORE
+
+  i.WriteU64 (m_stmsi);             // S-TMSI
+  i.WriteU8 (0);                    // criticality = REJECT
+
+  i.WriteU64 (m_amfUeN2Id);         // amfUeN2Id, not in the standard?
+  i.WriteU8 (0);                    // criticality = REJECT
+
+}
+
+uint32_t
+NgcN2APN2MessageHeader::Deserialize (Buffer::Iterator start)
+{
+  Buffer::Iterator i = start;
+
+  m_headerLength = 0;
+  m_numberOfIes = 0;
+
+  m_enbUeN2Id = i.ReadNtohU16 ();
+  i.ReadU8 ();
+  m_headerLength += 3;
+  m_numberOfIes++;
+
+  i.ReadU8();
+  i.ReadU8();
+  m_headerLength += 2;
+  m_numberOfIes++;
+
+  i.ReadU32 ();                   // TAI, not implemented
+  i.ReadU8 ();
+  i.ReadU8 ();                    
+  m_headerLength += 6;
+  m_numberOfIes++;
+
+  m_ecgi = i.ReadNtohU16 ();    // E-UTRAN CGI, it should have a different size
+  i.ReadU8();
+  m_headerLength += 3;
+  m_numberOfIes++;
+
+  i.ReadU8();
+  i.ReadU8();
+  m_headerLength += 2;
+  m_numberOfIes++;
+
+  m_stmsi = i.ReadU64 ();             // S-TMSI
+  i.ReadU8 ();      
+  m_headerLength += 9;
+  m_numberOfIes++;
+
+  m_amfUeN2Id = i.ReadU64 ();             // AMF UE ID
+  i.ReadU8 ();      
+  m_headerLength += 9;
+  m_numberOfIes++;
+
+  return GetSerializedSize();
+}
+
+void
+NgcN2APN2MessageHeader::Print (std::ostream &os) const
+{
+  os << "AmfUeN2apId = " << m_amfUeN2Id;
+  os << " EnbUeN2Id = " << m_enbUeN2Id;
+  os << " ECGI = " << m_ecgi;
+  os << " S-TMSI = " << m_stmsi;
+}
+
+uint64_t 
+NgcN2APN2MessageHeader::GetAmfUeN2Id () const 
+{
+  return m_amfUeN2Id;
+}
+
+void 
+NgcN2APN2MessageHeader::SetAmfUeN2Id (uint64_t amfUeN2Id) 
+{
+  m_amfUeN2Id = amfUeN2Id;
+}
+
+uint16_t 
+NgcN2APN2MessageHeader::GetEnbUeN2Id () const
+{
+  return m_enbUeN2Id;
+}
+
+void 
+NgcN2APN2MessageHeader::SetEnbUeN2Id (uint16_t enbUeN2Id)
+{
+  m_enbUeN2Id = enbUeN2Id;
+}
+
+uint64_t 
+NgcN2APN2MessageHeader::GetSTmsi () const 
+{
+  return m_stmsi;
+}
+
+void 
+NgcN2APN2MessageHeader::SetSTmsi (uint64_t stmsi) 
+{
+  m_stmsi = stmsi;
+}
+
+uint16_t 
+NgcN2APN2MessageHeader::GetEcgi () const 
+{
+  return m_ecgi;
+}
+
+void 
+NgcN2APN2MessageHeader::SetEcgi (uint16_t ecgi)
+{
+  m_ecgi = ecgi;
+}
+
+uint32_t
+NgcN2APN2MessageHeader::GetLengthOfIes () const
+{
+  return m_headerLength;
+}
+
+uint32_t
+NgcN2APN2MessageHeader::GetNumberOfIes () const
+{
+  return m_numberOfIes;
+}
+
 /////////////////////////////////////////////////////////////////////
 
 NS_OBJECT_ENSURE_REGISTERED (NgcN2APErabReleaseIndicationHeader);

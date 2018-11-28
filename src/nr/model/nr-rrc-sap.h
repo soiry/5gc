@@ -704,7 +704,6 @@ public:
 
   virtual void SendRrcConnectionRequest (RrcConnectionRequest msg) = 0;
   
-
   /**
    * \brief Send an _RRCConnectionSetupComplete_ message to the serving eNodeB
    *        during an RRC connection establishment procedure
