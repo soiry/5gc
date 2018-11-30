@@ -1678,6 +1678,79 @@ UeManager::SelectAmf ()
 }
 
 void
+UeManager::RecvRrcConnectionRequest (NrRrcSap::RrcConnectionRequest msg)
+{
+  NS_LOG_FUNCTION (this<<"nr-enb-rrc::UeManager"<< ToString(m_state));
+  switch (m_state)
+    {
+    case INITIAL_RANDOM_ACCESS:
+      {
+        m_connectionRequestTimeout.Cancel ();
+        m_isMc = msg.isMc; //m_isMc Setting
+        m_isMc_2= msg.isMc_2;
+        if (m_rrc->m_admitRrcConnectionRequest == true)
+          {
+            m_imsi = msg.ueIdentity;
+            m_rrc->RegisterImsiToRnti(m_imsi, m_rnti);
+            m_rrc->m_mmWaveCellSetupCompleted[m_imsi] = false;
+            NS_LOG_DEBUG("For imsi " << m_imsi << " m_rrc->m_mmWaveCellSetupCompleted[m_imsi] " << m_rrc->m_mmWaveCellSetupCompleted[m_imsi]);
+
+			// hmlee
+			/*
+			m_isRegistrationType = msg.registrationType;
+			m_isGuti = msg.GUTI;
+			if (!m_isRegistrationType && !m_isGuti)
+			{
+				std::cout << "RegistrationRequest is called" << std::endl;
+				m_rrc->m_n2SapProvider->RegistrationRequest (m_isRegistrationType, m_isGuti);
+			}
+			*/
+
+            if (!m_isMc_2 && !m_isMc && m_rrc->m_n2SapProvider != 0)
+              {
+				std::cout << "RegistrationRequest is called" << std::endl;
+                m_rrc->m_n2SapProvider->RegistrationRequest (m_imsi, m_rnti);
+              }
+
+            // send RRC CONNECTION SETUP to UE
+            NrRrcSap::RrcConnectionSetup msg2;
+            msg2.rrcTransactionIdentifier = GetNewRrcTransactionIdentifier ();  ///RRC index
+            msg2.radioResourceConfigDedicated = BuildRadioResourceConfigDedicated ();
+            m_rrc->m_rrcSapUser->SendRrcConnectionSetup (m_rnti, msg2);
+
+            RecordDataRadioBearersToBeStarted ();
+            m_connectionSetupTimeout = Simulator::Schedule (
+                m_rrc->m_connectionSetupTimeoutDuration,
+                &NrEnbRrc::ConnectionSetupTimeout, m_rrc, m_rnti);
+            SwitchToState (CONNECTION_SETUP);
+            std::cout << "Enb " <<m_rrc->GetCellId()<<" receives RRC connection request from UE "<< GetImsi() <<std::endl;
+
+          }
+        else
+          {
+            NS_LOG_INFO ("rejecting connection request for RNTI " << m_rnti);
+
+            // send RRC CONNECTION REJECT to UE
+            NrRrcSap::RrcConnectionReject rejectMsg;
+            rejectMsg.waitTime = 3;
+            m_rrc->m_rrcSapUser->SendRrcConnectionReject (m_rnti, rejectMsg);
+
+            m_connectionRejectedTimeout = Simulator::Schedule (
+                m_rrc->m_connectionRejectedTimeoutDuration,
+                &NrEnbRrc::ConnectionRejectedTimeout, m_rrc, m_rnti);
+            SwitchToState (CONNECTION_REJECTED);
+          }
+      }
+      break;
+
+    default:
+      NS_FATAL_ERROR ("method unexpected in state " << ToString (m_state));
+      break;
+    }
+}
+
+/*
+void
 UeManager::RecvRrcConnectionRequest (NrRrcSap::RrcConnectionRequest msg) //sjkang1015
 {
   NS_LOG_FUNCTION (this<<"nr-enb-rrc::UeManager"<< ToString(m_state));
@@ -1740,6 +1813,7 @@ UeManager::RecvRrcConnectionRequest (NrRrcSap::RrcConnectionRequest msg) //sjkan
       break;
     }
 }
+*/
 
 void
 UeManager::RecvRrcConnectionSetupCompleted (NrRrcSap::RrcConnectionSetupCompleted msg)

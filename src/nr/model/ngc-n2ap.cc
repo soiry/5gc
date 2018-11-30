@@ -444,7 +444,7 @@ NgcN2apAmf::AddN2apInterface (uint16_t enbId, Ipv4Address enbAddress)
   m_n2apInterfaceSockets [enbId] = Create<N2apIfaceInfo> (enbAddress, m_localN2APSocket); // TODO m_localN2APSocket is useless
 }
 
-
+//hmlee
 void 
 NgcN2apAmf::RecvFromN2apSocket (Ptr<Socket> socket)
 {
@@ -472,6 +472,7 @@ NgcN2apAmf::RecvFromN2apSocket (Ptr<Socket> socket)
     uint16_t enbUeN2Id = registrationRequest.GetEnbUeN2Id();
     uint64_t stmsi = registrationRequest.GetSTmsi();
     uint16_t ecgi = registrationRequest.GetEcgi();
+
 
     NS_LOG_LOGIC("amfUeN2apId = " << amfUeN2Id);
     NS_LOG_LOGIC("enbUeN2apId = " << enbUeN2Id);
