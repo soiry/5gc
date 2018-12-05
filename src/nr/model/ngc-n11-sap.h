@@ -86,6 +86,20 @@ public:
     Ptr<NgcTft> tft;
   };
 
+  struct N2SMInformationCreated
+  {
+    uint8_t QFI; //epsBearerId -> QFI
+    EpsBearer bearerLevelQos;
+    //CNN3TunnelInfo;
+    //S-NSSAI; 
+    //UEIntegrityProtectionMaximumDataRate
+
+    NgcN11Sap::Fteid smfFteid;
+    //uint8_t epsBearerId; 
+    Ptr<NgcTft> tft;
+  };
+
+
 
   /**     
    * Create Session Response message, see 3GPP TS 29.274 7.2.2
@@ -99,7 +113,7 @@ public:
   //smsohn 
   struct UpdateSMContextResponseMessage : public GtpcMessage
   {
-    std::list<BearerContextCreated> bearerContextsCreated;
+    std::list<N2SMInformationCreated> N2SMInformationsCreated;
   };
 
 

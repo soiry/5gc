@@ -80,6 +80,16 @@ public:
     uint32_t    smfTeid;    
   };
 
+  //smsohn
+  struct QoSFlowToBeSetupItem
+  {
+    uint8_t    erabId;
+    EpsBearer   erabLevelQosParameters;
+    Ipv4Address transportLayerAddress;
+    uint32_t    smfTeid;    
+  };
+
+
   /**
    * E-RABs Switched in Uplink Item IE, see 3GPP TS 36.413 9.1.5.9
    * 

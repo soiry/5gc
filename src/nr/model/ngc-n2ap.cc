@@ -177,7 +177,24 @@ NgcN2apEnb::RecvFromN2apSocket (Ptr<Socket> socket)
     NS_LOG_LOGIC ("enbUeN2apId " << enbUeN2apId);
 
     m_n2apSapUser->InitialContextSetupRequest(amfUeN2apId, enbUeN2apId, erabToBeSetup);
-  //smsohn TODO**: NGCN2APHeader::InitialContextSetupRequest + NgcN2APInitialContextSetupRequestHeader
+   
+  }
+  else if (procedureCode == NgcN2APHeader::N2Request) //smsohn
+  {
+    NS_LOG_LOGIC ("Recv N2ap message: N2 REQUEST");
+    NgcN2APN2RequestHeader reqHeader;
+    packet->RemoveHeader(reqHeader);
+
+    NS_LOG_INFO ("N2ap N2 Request " << reqHeader);
+
+    uint64_t amfUeN2apId = reqHeader.GetAmfUeN2Id();
+    uint16_t enbUeN2apId = reqHeader.GetEnbUeN2Id();
+    std::list<NgcN2apSap::ErabToBeSetupItem> erabToBeSetup = reqHeader.GetErabToBeSetupItem ();
+    
+    NS_LOG_LOGIC ("amfUeN2apId " << amfUeN2apId);
+    NS_LOG_LOGIC ("enbUeN2apId " << enbUeN2apId);
+
+    m_n2apSapUser->N2Request(amfUeN2apId, enbUeN2apId, erabToBeSetup);
    
   }
   else if (procedureCode == NgcN2APHeader::PathSwitchRequestAck)
@@ -593,14 +610,13 @@ NgcN2apAmf::DoSendN2Request (uint64_t amfUeN2Id,
 
   NS_LOG_LOGIC ("enbIpAddr = " << enbIpAddr);
 
-  NS_LOG_INFO ("Send N2ap message: INITIAL CONTEXT SETUP REQUEST " << Simulator::Now ().GetSeconds());
+  NS_LOG_INFO ("Send N2ap message: N2 REQUEST " << Simulator::Now ().GetSeconds());
 
-  NgcN2APInitialContextSetupRequestHeader reqHeader;
-  //smsohn TODO: NGCN2APInitialContextSetupRequestHeader
+  NgcN2APN2RequestHeader reqHeader;
   reqHeader.SetAmfUeN2Id(amfUeN2Id);
   reqHeader.SetEnbUeN2Id(enbUeN2Id);
   reqHeader.SetErabToBeSetupItem(erabToBeSetupList);
-  NS_LOG_INFO ("N2AP Initial Context Setup Request header " << reqHeader);
+  NS_LOG_INFO ("N2AP N2 Request header " << reqHeader);
 
   NgcN2APHeader n2apHeader;
   n2apHeader.SetProcedureCode (NgcN2APHeader::InitialContextSetupRequest);
