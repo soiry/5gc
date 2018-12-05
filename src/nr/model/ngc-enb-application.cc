@@ -153,25 +153,30 @@ NgcEnbApplication::GetCmState(uint64_t imsi)
 	std::string state = "CM-IDLE"; // UE doesn't have a connected AMF.
 	return state;
 }
-void
+
+/* jhlim */
+NgcN2apSapAmf*
+NgcEnbApplication::GetUeConnectedAmf(uint64_t imsi)
+{
+	// find AMF included in imsi(5G-GUTI).
+	return m_n2apSapAmf;
+}
+
+NgcN2apSapAmf*
 NgcEnbApplication::DoAmfSelection(uint64_t imsi)
 {
 	std::string state = GetCmState(imsi);
 	NS_ASSERT_MSG((state != "CM-CONNECTED") && (state != "CM-IDLE"), "UE's CM-STATE has wrong value.");
 	if(state == "CM-CONNECTED") {
+		return GetUeConnectedAmf(imsi)
 	}
 	else if(state == "CM-IDLE") {
+		return m_n2apSapAmf;
 	}
-	// Assume that appropriate AMF is selected.
-}
-void
-NgcEnbApplication::GetUeConnectedAmf(uint64_t imsi)
-{
-	// Find AMF included in imsi(5G-GUTI).
 }
 
 /* jhlim: In 5G, one of AMFs is selected.
-		 But in lena, only one AMF is already selected by Enb  */
+		 But in lena, only one AMF is registered by Enb  */
 void 
 NgcEnbApplication::DoRegistrationRequest (uint64_t imsi, uint16_t rnti)
 {
@@ -179,19 +184,12 @@ NgcEnbApplication::DoRegistrationRequest (uint64_t imsi, uint16_t rnti)
   // side effect: create entry if not exist
   m_imsiRntiMap[imsi] = rnti;
 
-  /* jhlim: If UE's id(imsi) is 5G-GUTI, then it is not initial RR.
-  			Else if UE's id is SUCI, then it is initial RR.		*/
-
-  if(!is5gGuti(imsi)) {
-	  DoAmfSelection(imsi);
-  }
-  else {
-	  GetUeConnectedAmf(imsi);
-  }
+  /* jhlim: 2. AMF Selection */
+  if(m_n2apSapEnbProvider == NULL)
+	  m_n2apSapAmf = DoAmfSelection(imsi);
 	  
   /* jhlim: forwards the Registration Request to an AMF */
 
-  //m_n2apSapAmf->InitialUeMessage (imsi, rnti, imsi, m_cellId); // jhlim
   if(m_n2apSapEnbProvider == NULL)
 	  m_n2apSapAmf->RegistrationRequest (imsi, rnti, imsi, m_cellId);
   else
