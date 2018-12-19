@@ -225,13 +225,13 @@ NgcAmfApplication::DoUpdateSMContextResponse (NgcN11SapAmf::UpdateSMContextRespo
   NS_LOG_FUNCTION (this << msg.teid);
   uint64_t imsi = msg.teid;
   std::list<NgcN2apSapEnb::ErabToBeSetupItem> erabToBeSetupList;
-  for (std::list<NgcN11SapAmf::BearerContextCreated>::iterator bit = msg.bearerContextsCreated.begin ();
-       bit != msg.bearerContextsCreated.end ();
+  for (std::list<NgcN11SapAmf::N2SMInformationCreated>::iterator bit = msg.N2SMInformationCreated.begin ();
+       bit != msg.N2SMInformationCreated.end ();
        ++bit)
     {
       NgcN2apSapEnb::ErabToBeSetupItem erab;
-      erab.erabId = bit->epsBearerId;
-      erab.erabLevelQosParameters = bit->bearerLevelQos;
+      erab.erabId = bit->qfi;
+      erab.erabLevelQosParameters = bit->flowLevelQos;
       erab.transportLayerAddress = bit->smfFteid.address;
       erab.smfTeid = bit->smfFteid.teid;      
       erabToBeSetupList.push_back (erab);

@@ -106,8 +106,11 @@ public:
    * \param tft traffic flow template of the bearer
    * \param bearer QoS characteristics of the bearer
    */
-  uint8_t AddBearer (uint64_t imsi, Ptr<NgcTft> tft, EpsBearer bearer);
 
+  uint8_t AddBearer (uint64_t imsi, Ptr<NgcTft> tft, EpsBearer bearer);
+  
+  //smsohn 
+  uint8_t AddFlow (uint64_t imsi, Ptr<NgcTft> tft, QosFlow flow);
 
 private:
 
@@ -122,7 +125,8 @@ private:
   	
   //smsohn
   void DoUpdateSMContextResponse (NgcN11SapAmf::UpdateSMContextResponseMessage msg);
-  void DoCreateSessionResponse (NgcN11SapAmf::CreateSessionResponseMessage msg);
+ 
+ void DoCreateSessionResponse (NgcN11SapAmf::CreateSessionResponseMessage msg);
   void DoDeleteBearerRequest (NgcN11SapAmf::DeleteBearerRequestMessage msg);
 
 
@@ -136,10 +140,20 @@ private:
     EpsBearer bearer;
     uint8_t bearerId;
   };
-  
+ 
+  /**
+   * Hold info on an Qos Flow to be activated
+   * smsohn
+   */
+  struct FlowInfo
+  {
+    Ptr<NgcTft> tft;
+    QosFlow flow;
+    uint8_t flowId;
+  }; 
   /**
    * Hold info on a UE
-   * 
+   * smsohn TODO 
    */
   struct UeInfo : public SimpleRefCount<UeInfo>
   {
@@ -163,6 +177,14 @@ private:
    * \param epsBearerId Bearer Id which need to be removed corresponding to UE
    */
   void RemoveBearer (Ptr<UeInfo> ueInfo, uint8_t epsBearerId);
+
+  /**
+   * \brief This Function erases all contexts of flow from AMF side
+   * \param ueInfo UE information pointer
+   * \param qfi flow Id which need to be removed corresponding to UE
+   */
+  void RemoveFlow (Ptr<UeInfo> ueInfo, uint8_t qfi);
+
 
   /**
    * Hold info on a ENB
