@@ -331,6 +331,21 @@ NgcEnbApplication::DoInitialContextSetupRequest (uint64_t amfUeN2Id, uint16_t en
     }
 }
 
+//jhlim
+void 
+NgcEnbApplication::DoIdentityRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id)
+{
+  NS_LOG_FUNCTION (this);
+  NS_LOG_INFO("In EnpEnbApplication DoIdentityRequest");
+
+  uint64_t imsi = amfUeN2Id;
+  std::map<uint64_t, uint16_t>::iterator imsiIt = m_imsiRntiMap.find (imsi);
+  uint16_t rnti = imsiIt->second;
+  
+  struct NgcEnbN2SapUser::DataRadioBearerSetupRequestParameters params; // need to be changed.
+  params.rnti = rnti;
+  m_n2SapUser->IdentityRequest(params);
+}
 void 
 NgcEnbApplication::DoPathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t gci, std::list<NgcN2apSapEnb::ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList)
 {

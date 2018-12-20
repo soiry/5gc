@@ -519,7 +519,14 @@ UeManager::SetupDataRadioBearer (EpsBearer bearer, uint8_t bearerId, uint32_t gt
   drbInfo->m_isMc_2 =false;
   ScheduleRrcConnectionReconfiguration ();
 }
+//jhlim
+void
+UeManager::IdentityRequest ()
+{
+ NS_LOG_FUNCTION (this << (uint32_t) m_rnti);
 
+ // ScheduleIdentityRequest ();
+}
 void
 UeManager::RecordDataRadioBearersToBeStarted ()
 {
@@ -5101,7 +5108,13 @@ NrEnbRrc::DoDataRadioBearerSetupRequest (NgcEnbN2SapUser::DataRadioBearerSetupRe
  	Ptr<UeManager> ueManager = GetUeManager (request.rnti);
    ueManager->SetupDataRadioBearer (request.bearer, request.bearerId, request.gtpTeid, request.transportLayerAddress);
 }
-
+// jhlim
+void
+NrEnbRrc::DoIdentityRequest (NgcEnbN2SapUser::DataRadioBearerSetupRequestParameters request)
+{
+  Ptr<UeManager> ueManager = GetUeManager (request.rnti);
+  ueManager->IdentityRequest ();
+}
 void 
 NrEnbRrc::DoPathSwitchRequestAcknowledge (NgcEnbN2SapUser::PathSwitchRequestAcknowledgeParameters params)
 {

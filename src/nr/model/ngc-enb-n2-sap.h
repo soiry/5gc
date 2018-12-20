@@ -122,6 +122,9 @@ public:
    */
   virtual void DataRadioBearerSetupRequest (DataRadioBearerSetupRequestParameters params) = 0;
 
+  //jhlim
+  virtual void IdentityRequest (DataRadioBearerSetupRequestParameters params) = 0;
+
   
   struct PathSwitchRequestAcknowledgeParameters
   {
@@ -226,6 +229,8 @@ public:
   // inherited from NgcEnbN2SapUser
   virtual void DataRadioBearerSetupRequest (DataRadioBearerSetupRequestParameters params);
   virtual void PathSwitchRequestAcknowledge (PathSwitchRequestAcknowledgeParameters params);
+  // jhlim
+  virtual void IdentityRequest (DataRadioBearerSetupRequestParameters params);
 
 private:
   MemberNgcEnbN2SapUser ();
@@ -248,7 +253,12 @@ void MemberNgcEnbN2SapUser<C>::DataRadioBearerSetupRequest (DataRadioBearerSetup
 {
   m_owner->DoDataRadioBearerSetupRequest (params);
 }
-
+// jhlim
+template <class C>
+void MemberNgcEnbN2SapUser<C>::IdentityRequest (DataRadioBearerSetupRequestParameters params)
+{
+  m_owner->DoIdentitySetupRequest (params);
+}
 template <class C>
 void MemberNgcEnbN2SapUser<C>::PathSwitchRequestAcknowledge (PathSwitchRequestAcknowledgeParameters params)
 {

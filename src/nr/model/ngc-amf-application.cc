@@ -151,7 +151,12 @@ void
 NgcAmfApplication::NamfCommunicationRegistrationCompleteNotify(imsi)
 {
 }
-
+bool
+NgcAmfApplication::IsGuti(uint64_t imsi)
+{
+	//check whether imsi is GUTI or not.
+	return false;
+}
 // N2-AP SAP AMF forwarded methods
 /*
 void 
@@ -182,12 +187,6 @@ NgcAmfApplication::DoRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id
 }
 */
 
-bool
-NgcAmfApplication::IsGuti(uint64_t imsi)
-{
-	//check whether imsi is GUTI or not.
-	return false;
-}
 
 /* jhlim: 3. Registration Request
 	Receive N2 message (N2 parameters, Registration Request (as in step 1), and UE access selection and PDU session selection information, UE Context request) */
@@ -198,6 +197,7 @@ NgcAmfApplication::DoRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id
   std::map<uint64_t, Ptr<UeInfo> >::iterator it = m_ueInfoMap.find (imsi);
   NS_ASSERT_MSG (it != m_ueInfoMap.end (), "could not find any UE with IMSI " << imsi);
   it->second->cellId = gci;
+  uint16_t cellId = it->second->cellId;
 
   // Conditional 4-5.
   if(IsGuti(imsi)) // if GUTI exists, 
@@ -220,7 +220,12 @@ NgcAmfApplication::DoRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id
   // m_n2apsapAmfProvider->SendRegistrationAccept();
 }
 
+void
+NgcAmfApplication::DoRegistrationComplete ()
+{
+	NS_LOG_FUNCTION (this);
 
+}
 void 
 NgcAmfApplication::DoIdentityResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSapAmf::ErabSetupItem> erabSetupList)
 {

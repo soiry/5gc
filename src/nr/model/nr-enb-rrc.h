@@ -1114,6 +1114,9 @@ private:
 
   void DoDataRadioBearerSetupRequest (NgcEnbN2SapUser::DataRadioBearerSetupRequestParameters params);
   void DoPathSwitchRequestAcknowledge (NgcEnbN2SapUser::PathSwitchRequestAcknowledgeParameters params);
+  // jhlim
+  void DoIdentityRequest (NgcEnbN2SapUser::DataRadioBearerSetupRequestParameters params);
+  
 
   // X2 SAP methods
 
