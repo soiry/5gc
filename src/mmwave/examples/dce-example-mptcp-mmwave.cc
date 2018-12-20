@@ -313,7 +313,7 @@ int main (int argc, char *argv[])
   enbNodes.Create(1);
 
   mmWaveHelper->SetEpcHelper (mmWaveEpcHelper);
-  Ptr<Node> pgw = mmWaveEpcHelper->GetPgwNode ();
+  Ptr<Node> upf = mmWaveEpcHelper->GetUpfNode ();
   setPos (enbNodes.Get (0), 0, 0, 3);
   BuildingsHelper::Install (enbNodes);
 
@@ -340,7 +340,7 @@ int main (int argc, char *argv[])
 
   for(uint32_t i = 0; i < numberOfNodes; i++)
   {
-    devices2 = pointToPoint.Install (serverNodes.Get (i), pgw);
+    devices2 = pointToPoint.Install (serverNodes.Get (i), upf);
     if2 = address2.Assign (devices2);
     address2.NewNetwork ();
 
@@ -362,7 +362,7 @@ int main (int argc, char *argv[])
   lteEnbNodes.Create(1);
 
   lteHelper_2->SetEpcHelper (epcHelper_2);
-  pgw = epcHelper_2->GetPgwNode ();
+  upf = epcHelper_2->GetUpfNode ();
   setPos (lteEnbNodes.Get (0), 0, 0, 3);
   BuildingsHelper::Install (lteEnbNodes);
   //Simulator::Schedule(Seconds(10.0), &changePos, lteEnbNodes.Get (0), 60, +15000, 3);
@@ -391,7 +391,7 @@ int main (int argc, char *argv[])
   
   for(uint32_t i = 0; i < numberOfNodes; i++)
   {
-    devices3 = pointToPoint.Install (serverNodes.Get (i), pgw);
+    devices3 = pointToPoint.Install (serverNodes.Get (i), upf);
     if3 = address2.Assign (devices3);
     address2.NewNetwork ();
 
@@ -410,7 +410,7 @@ int main (int argc, char *argv[])
     NS_LOG_UNCOND("route add 8.0.0.0/8 via " << if3.GetAddress (1, 0) << " dev sim" << 1 << " table " << (2) << " node " << serverNodes.Get (i));
     LinuxStackHelper::RunIp (serverNodes.Get (i), Seconds (0.1), cmd_oss.str ().c_str ());
   }
-  setPos (pgw, 70, 0, 0);
+  setPos (upf, 70, 0, 0);
 
   // default route
   for(uint32_t i = 0; i < numberOfNodes; i++)

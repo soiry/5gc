@@ -38,7 +38,7 @@ namespace ns3 {
 class Node;
 class NetDevice1;
 class VirtualNetDevice1;
-class EpcSgwPgwApplication;
+class EpcSmfUpfApplication;
 class EpcX2;
 class EpcMme;
 class EpcUeNas;
@@ -131,13 +131,13 @@ public:
 
   /** 
    * 
-   * \return a pointer to the node implementing PGW
+   * \return a pointer to the node implementing UPF
    * functionality. Note that in this particular implementation this
-   * node will also hold the SGW functionality. The primary use
+   * node will also hold the SMF functionality. The primary use
    * intended for this method is to allow the user to configure the Gi
-   * interface of the PGW, i.e., to connect the PGW to the internet.
+   * interface of the UPF, i.e., to connect the UPF to the internet.
    */
-  virtual Ptr<Node> GetPgwNode () = 0;
+  virtual Ptr<Node> GetUpfNode () = 0;
 
   /** 
    * Assign IPv4 addresses to UE devices

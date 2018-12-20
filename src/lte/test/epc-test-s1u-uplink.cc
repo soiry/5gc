@@ -292,7 +292,7 @@ void
 EpcS1uUlTestCase::DoRun ()
 {
   Ptr<PointToPointEpcHelper> epcHelper = CreateObject<PointToPointEpcHelper> ();
-  Ptr<Node> pgw = epcHelper->GetPgwNode ();
+  Ptr<Node> upf = epcHelper->GetUpfNode ();
 
   // allow jumbo packets
   Config::SetDefault ("ns3::CsmaNetDevice::Mtu", UintegerValue (30000));
@@ -309,7 +309,7 @@ EpcS1uUlTestCase::DoRun ()
   // Create the internet
   PointToPointHelper p2ph;
   p2ph.SetDeviceAttribute ("DataRate",  DataRateValue (DataRate ("100Gb/s")));
-  NetDeviceContainer internetDevices = p2ph.Install (pgw, remoteHost);  
+  NetDeviceContainer internetDevices = p2ph.Install (upf, remoteHost);  
   Ipv4AddressHelper ipv4h;
   ipv4h.SetBase ("1.0.0.0", "255.0.0.0");
   Ipv4InterfaceContainer internetNodesIpIfaceContainer = ipv4h.Assign (internetDevices);

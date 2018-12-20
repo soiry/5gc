@@ -546,20 +546,20 @@ main (int argc, char *argv[])
   // parse again so you can override default values from the command line
   cmd.Parse(argc, argv);
 
-   // Get SGW/PGW and create a single RemoteHost 
-  Ptr<Node> pgw = epcHelper->GetPgwNode ();
+   // Get SMF/UPF and create a single RemoteHost 
+  Ptr<Node> upf = epcHelper->GetUpfNode ();
   NodeContainer remoteHostContainer;
   remoteHostContainer.Create (1);
   Ptr<Node> remoteHost = remoteHostContainer.Get (0);
   InternetStackHelper internet;
   internet.Install (remoteHostContainer);
 
-  // Create the Internet by connecting remoteHost to pgw. Setup routing too
+  // Create the Internet by connecting remoteHost to upf. Setup routing too
   PointToPointHelper p2ph;
   p2ph.SetDeviceAttribute ("DataRate", DataRateValue (DataRate ("100Gb/s")));
   p2ph.SetDeviceAttribute ("Mtu", UintegerValue (2500));
   p2ph.SetChannelAttribute ("Delay", TimeValue (Seconds (0.010)));
-  NetDeviceContainer internetDevices = p2ph.Install (pgw, remoteHost);
+  NetDeviceContainer internetDevices = p2ph.Install (upf, remoteHost);
   Ipv4AddressHelper ipv4h;
   ipv4h.SetBase ("1.0.0.0", "255.0.0.0");
   Ipv4InterfaceContainer internetIpIfaces = ipv4h.Assign (internetDevices);

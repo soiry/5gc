@@ -347,7 +347,7 @@ main (int argc, char *argv[])
  // LogComponentEnable ("mmWavePhyRxTrace", LOG_FUNCTION);
   //LogComponentEnable ("MmWaveRrMacScheduler", LOG_FUNCTION);
  // LogComponentEnable("McUeNetDevice", LOG_FUNCTION);
- // LogComponentEnable("EpcSgwPgwApplication", LOG_FUNCTION);
+ // LogComponentEnable("EpcSgwUpfApplication", LOG_FUNCTION);
  // LogComponentEnable("EpcEnbApplication", LOG_FUNCTION);
   //LogComponentEnable("MmWaveEnbMac", LOG_LOGIC);
  // LogComponentEnable("MmWaveEnbPhy", LOG_FUNCTION);
@@ -499,7 +499,7 @@ main (int argc, char *argv[])
 
 	   uint16_t nodeNum=1;
 
-	   Ptr<Node> pgw = epcHelper->GetPgwNode ();
+	   Ptr<Node> upf = epcHelper->GetUpfNode ();
 	     NodeContainer remoteHostContainer;
 	     remoteHostContainer.Create (nodeNum);
 	      InternetStackHelper internet;
@@ -509,13 +509,13 @@ main (int argc, char *argv[])
 	     Ptr<Node> remoteHost ;
 	     for (uint16_t i=0 ; i<nodeNum; i++)
 	     {
-	     // Create the Internet by connecting remoteHost to pgw. Setup routing too
+	     // Create the Internet by connecting remoteHost to upf. Setup routing too
 	     remoteHost = remoteHostContainer.Get (i);
 	     PointToPointHelper p2ph;
 	     p2ph.SetDeviceAttribute ("DataRate", DataRateValue (DataRate ("100Gb/s")));
 	     p2ph.SetDeviceAttribute ("Mtu", UintegerValue (2500));
 	     p2ph.SetChannelAttribute ("Delay", TimeValue (Seconds (0.010)));
-	     NetDeviceContainer internetDevices = p2ph.Install (pgw, remoteHost);
+	     NetDeviceContainer internetDevices = p2ph.Install (upf, remoteHost);
 
 	     Ipv4AddressHelper ipv4h;
 		    std::ostringstream subnet;

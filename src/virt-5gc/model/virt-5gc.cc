@@ -33,7 +33,7 @@ namespace ns3 {
 	Virt5gc::InitVirt5gc ()
 	{
 		totAttr = 4;
-		pgwN = 0;
+		upfN = 0;
 		mmeN = 0;
 		ueN = 0;
 		enbN = 0;
@@ -42,7 +42,7 @@ namespace ns3 {
 		scaleInRate = 0;
 		scaleOutRate = 0;
 		mmeVmN = 0;
-		pgwVmN = 0;
+		upfVmN = 0;
 	}
 
 
@@ -200,7 +200,7 @@ namespace ns3 {
 		epcHelper = CreateObject<OvsPointToPointEpcHelper> ();
 		lteHelper->SetEpcHelper(epcHelper);
 
-		/* Generate Lte components (PGW/SGW, eNB, UE)
+		/* Generate Lte components (UPF/SMF, eNB, UE)
 		 * MME is not implemented yet
 		 */
 		for (i = 0; i < totNode && !topgen.eof(); i++)
@@ -211,7 +211,7 @@ namespace ns3 {
 
 			/* If a component is
 			 * 0: MME
-			 * 1: SGW/PGW
+			 * 1: SMF/UPF
 			 * 2: eNB
 			 * 3: UE
 			 */
@@ -225,7 +225,7 @@ namespace ns3 {
 
 			Virt5gcNode tmpNode(nodeIdx, x, y, component);
 
-			// If component is MME or SGW/PGW, then read Vm, PM info
+			// If component is MME or SMF/UPF, then read Vm, PM info
 			if (component == 0 || component == 1) {
 				lineBuffer >> vm;
 				std::pair<int, int> tmpPair(vm, nodeIdx);
@@ -241,8 +241,8 @@ namespace ns3 {
 				mmeVmN++;
 			}
 			else if (component == 1) {
-				pgwN++;
-				pgwVmN++;
+				upfN++;
+				upfVmN++;
 			}
 			else if (component == 2) {
 				Ptr<Node> tmpNode = CreateObject<Node> ();
@@ -270,8 +270,8 @@ namespace ns3 {
 		 * and map the Ue nodes and Enb nodes
 		 */
 		int ueId, enbId, bw;
-		int ueSub = pgwN + mmeN + enbN + 1;
-		int enbSub = pgwN + mmeN + 1;
+		int ueSub = upfN + mmeN + enbN + 1;
+		int enbSub = upfN + mmeN + 1;
 		for (i = 0; i < totLink && !topgen.eof(); i++)
 		{
 			this->getline (topgen, line);
@@ -576,13 +576,13 @@ namespace ns3 {
 		bool outFlag = false;
 		int inFlag, comp;
 		std::list<Virt5gcNode>::iterator itor;
-		double mme_delay = 0, pgw_delay = 0;
+		double mme_delay = 0, upf_delay = 0;
 
 		Time time = Simulator::Now();
 		for (itor = nodeList.begin(); itor != nodeList.end(); itor++) {
 			comp = (*itor).GetComponent();
 			//mme_delay = 0.0;
-			//pgw_delay = 0.0;
+			//upf_delay = 0.0;
 			inFlag = 0;
 			outFlag = false;
 
@@ -666,14 +666,14 @@ namespace ns3 {
 
 			}
 
-			// pgw/sgw
+			// upf/smf
 			else if (comp == 1) {
 
 				std::pair<int, int> cpuInfo = (*itor).GetCpuInfo();
 				std::pair<int, int> diskInfo = (*itor).GetDiskInfo();
 				std::pair<int, int> memInfo = (*itor).GetMemInfo();
 
-				//std::cout << "pgw " << cpuInfo.first << " " << cpuInfo.second << " " << diskInfo.first << " " << diskInfo.second << " " << memInfo.first << " " << memInfo.second << "\n";
+				//std::cout << "upf " << cpuInfo.first << " " << cpuInfo.second << " " << diskInfo.first << " " << diskInfo.second << " " << memInfo.first << " " << memInfo.second << "\n";
 
 				
 				if ((memInfo.first < memInfo.second) || (cpuInfo.first < cpuInfo.second) || (diskInfo.first < diskInfo.second)) {
@@ -697,16 +697,16 @@ namespace ns3 {
 					newVm.SetId(++lastVmId);
 					tempVms.push_back(&newVm);
 					
-					pgw_delay = scaleOut(&tempVms, cpuInfo, memInfo, diskInfo);
+					upf_delay = scaleOut(&tempVms, cpuInfo, memInfo, diskInfo);
 
 					vmList.push_back(newVm);
 					(*itor).SetVm(lastVmId);
-					(*itor).SetMemInfo(memInfo.first + (memInfo.first/pgwVmN), memInfo.second);
-					(*itor).SetCpuInfo(cpuInfo.first + (cpuInfo.first/pgwVmN), cpuInfo.second);
-					(*itor).SetDiskInfo(diskInfo.first + (diskInfo.first/pgwVmN), diskInfo.second);
-					pgwVmN++;
+					(*itor).SetMemInfo(memInfo.first + (memInfo.first/upfVmN), memInfo.second);
+					(*itor).SetCpuInfo(cpuInfo.first + (cpuInfo.first/upfVmN), cpuInfo.second);
+					(*itor).SetDiskInfo(diskInfo.first + (diskInfo.first/upfVmN), diskInfo.second);
+					upfVmN++;
 
-					*scalingStream->GetStream() << time.GetSeconds() << ", " << (*itor).GetId() << ", 0, " << pgw_delay << std::endl;
+					*scalingStream->GetStream() << time.GetSeconds() << ", " << (*itor).GetId() << ", 0, " << upf_delay << std::endl;
 				}
 
 				// do scale in
@@ -720,17 +720,17 @@ namespace ns3 {
 					vmList.remove(**itor2);
 					tempVms.remove(*itor2);
 
-					pgw_delay = scaleIn(&tempVms, cpuInfo, memInfo, diskInfo);
-					//g_delay.SetValue(DoubleValue(pgw_delay));
+					upf_delay = scaleIn(&tempVms, cpuInfo, memInfo, diskInfo);
+					//g_delay.SetValue(DoubleValue(upf_delay));
 					//g_time.SetValue(TimeValue(time));
 
-					(*itor).SetMemInfo(memInfo.first - (memInfo.first/pgwVmN), memInfo.second);
-					(*itor).SetCpuInfo(cpuInfo.first - (cpuInfo.first/pgwVmN), cpuInfo.second);
-					(*itor).SetDiskInfo(diskInfo.first - (diskInfo.first/pgwVmN), diskInfo.second);
+					(*itor).SetMemInfo(memInfo.first - (memInfo.first/upfVmN), memInfo.second);
+					(*itor).SetCpuInfo(cpuInfo.first - (cpuInfo.first/upfVmN), cpuInfo.second);
+					(*itor).SetDiskInfo(diskInfo.first - (diskInfo.first/upfVmN), diskInfo.second);
 
-					pgwVmN--;
+					upfVmN--;
 
-					*scalingStream->GetStream() << time.GetSeconds() << ", " << (*itor).GetId() << ", 1, " << pgw_delay << std::endl;	
+					*scalingStream->GetStream() << time.GetSeconds() << ", " << (*itor).GetId() << ", 1, " << upf_delay << std::endl;	
 				}
 
 				
@@ -746,12 +746,12 @@ namespace ns3 {
 		}
 
 		
-		if (mme_delay > pgw_delay) {
+		if (mme_delay > upf_delay) {
 			g_delay.SetValue(DoubleValue(mme_delay));
 			g_time.SetValue(TimeValue(time));
 		}
 		else {
-			g_delay.SetValue(DoubleValue(pgw_delay));
+			g_delay.SetValue(DoubleValue(upf_delay));
 			g_time.SetValue(TimeValue(time));
 		}
 	}

@@ -159,6 +159,10 @@ private:
 
   // N2-AP SAP ENB methods
   void DoInitialContextSetupRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSapEnb::ErabToBeSetupItem> erabToBeSetupList);
+  //smsohn
+  void DoN2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSapEnb::ErabToBeSetupItem> erabToBeSetupList);
+  
+
   void DoPathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, std::list<NgcN2apSapEnb::ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList);
 
   /** 

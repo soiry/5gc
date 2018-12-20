@@ -82,18 +82,18 @@ EpcEnbApplication::DoDispose (void)
 }
 
 
-EpcEnbApplication::EpcEnbApplication (Ptr<Socket> lteSocket, Ptr<Socket> s1uSocket, Ipv4Address enbS1uAddress, Ipv4Address sgwS1uAddress, uint16_t cellId)
+EpcEnbApplication::EpcEnbApplication (Ptr<Socket> lteSocket, Ptr<Socket> s1uSocket, Ipv4Address enbS1uAddress, Ipv4Address smfS1uAddress, uint16_t cellId)
   : m_lteSocket (lteSocket),
     m_s1uSocket (s1uSocket),    
     m_enbS1uAddress (enbS1uAddress),
-    m_sgwS1uAddress (sgwS1uAddress),
+    m_smfS1uAddress (smfS1uAddress),
     m_gtpuUdpPort (2152), // fixed by the standard
     m_s1SapUser (0),
     m_s1apSapEnbProvider (0),
 	//m_s1apSapMme (0), // jhlim
     m_cellId (cellId)
 {
-  NS_LOG_FUNCTION (this << lteSocket << s1uSocket << sgwS1uAddress);
+  NS_LOG_FUNCTION (this << lteSocket << s1uSocket << smfS1uAddress);
   m_s1uSocket->SetRecvCallback (MakeCallback (&EpcEnbApplication::RecvFromS1uSocket, this));
   m_lteSocket->SetRecvCallback (MakeCallback (&EpcEnbApplication::RecvFromLteSocket, this));
   m_s1SapProvider = new MemberEpcEnbS1SapProvider<EpcEnbApplication> (this);
@@ -276,7 +276,7 @@ EpcEnbApplication::DoInitialContextSetupRequest (uint64_t mmeUeS1Id, uint16_t en
       params.rnti = rnti;
       params.bearer = erabIt->erabLevelQosParameters;
       params.bearerId = erabIt->erabId;
-      params.gtpTeid = erabIt->sgwTeid;
+      params.gtpTeid = erabIt->smfTeid;
       m_s1SapUser->DataRadioBearerSetupRequest (params);
 
       EpsFlowId_t rbid (rnti, erabIt->erabId);
@@ -382,7 +382,7 @@ EpcEnbApplication::SendToS1uSocket (Ptr<Packet> packet, uint32_t teid)
   gtpu.SetLength (packet->GetSize () + gtpu.GetSerializedSize () - 8);  
   packet->AddHeader (gtpu);
   uint32_t flags = 0;
-  m_s1uSocket->SendTo (packet, flags, InetSocketAddress (m_sgwS1uAddress, m_gtpuUdpPort));
+  m_s1uSocket->SendTo (packet, flags, InetSocketAddress (m_smfS1uAddress, m_gtpuUdpPort));
 }
 
 void

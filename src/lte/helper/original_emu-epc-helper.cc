@@ -31,7 +31,7 @@
 #include <ns3/packet-socket-address.h>
 #include <ns3/epc-enb-application.h>
 #include <ns3/original_epc-enb-application.h> //sjkang_x
-#include <ns3/epc-sgw-pgw-application.h>
+#include <ns3/epc-smf-upf-application.h>
 #include <ns3/emu-fd-net-device-helper.h>
 
 #include <ns3/lte-enb-rrc.h>
@@ -72,20 +72,20 @@ EmuEpcHelper1::GetTypeId (void)
     .SetParent<EpcHelper1> ()
     .SetGroupName("Lte")
     .AddConstructor<EmuEpcHelper1> ()
-    .AddAttribute ("sgwDeviceName", 
-                   "The name of the device used for the S1-U interface of the SGW",
+    .AddAttribute ("smfDeviceName", 
+                   "The name of the device used for the S1-U interface of the SMF",
                    StringValue ("veth0"),
-                   MakeStringAccessor (&EmuEpcHelper1::m_sgwDeviceName),
+                   MakeStringAccessor (&EmuEpcHelper1::m_smfDeviceName),
                    MakeStringChecker ())
     .AddAttribute ("enbDeviceName", 
                    "The name of the device used for the S1-U interface of the eNB",
                    StringValue ("veth1"),
                    MakeStringAccessor (&EmuEpcHelper1::m_enbDeviceName),
                    MakeStringChecker ())
-    .AddAttribute ("SgwMacAddress", 
-                   "MAC address used for the SGW ",
+    .AddAttribute ("SmfMacAddress", 
+                   "MAC address used for the SMF ",
                    StringValue ("00:00:00:59:00:aa"),
-                   MakeStringAccessor (&EmuEpcHelper1::m_sgwMacAddress),
+                   MakeStringAccessor (&EmuEpcHelper1::m_smfMacAddress),
                    MakeStringChecker ())
     .AddAttribute ("EnbMacAddressBase", 
                    "First 5 bytes of the Enb MAC address base",
@@ -107,15 +107,15 @@ EmuEpcHelper1::DoInitialize ()
 
   
  
-  // create SgwPgwNode
-  m_sgwPgw = CreateObject<Node> ();
+  // create SmfUpfNode
+  m_smfUpf = CreateObject<Node> ();
   InternetStackHelper internet;
   internet.SetIpv4StackInstall (true);
-  internet.Install (m_sgwPgw);
+  internet.Install (m_smfUpf);
   
   // create S1-U socket
-  Ptr<Socket> sgwPgwS1uSocket = Socket::CreateSocket (m_sgwPgw, TypeId::LookupByName ("ns3::UdpSocketFactory"));
-  int retval = sgwPgwS1uSocket->Bind (InetSocketAddress (Ipv4Address::GetAny (), m_gtpuUdpPort));
+  Ptr<Socket> smfUpfS1uSocket = Socket::CreateSocket (m_smfUpf, TypeId::LookupByName ("ns3::UdpSocketFactory"));
+  int retval = smfUpfS1uSocket->Bind (InetSocketAddress (Ipv4Address::GetAny (), m_gtpuUdpPort));
   NS_ASSERT (retval == 0);
 
   // create TUN device implementing tunneling of user data over GTP-U/UDP/IP 
@@ -126,39 +126,39 @@ EmuEpcHelper1::DoInitialize ()
   // yes we need this
   m_tunDevice->SetAddress (Mac48Address::Allocate ()); 
 
-  m_sgwPgw->AddDevice (m_tunDevice);
+  m_smfUpf->AddDevice (m_tunDevice);
   NetDeviceContainer tunDeviceContainer;
   tunDeviceContainer.Add (m_tunDevice);
   
   // the TUN device is on the same subnet as the UEs, so when a packet
   // addressed to an UE arrives at the intenet to the WAN interface of
-  // the PGW it will be forwarded to the TUN device. 
+  // the UPF it will be forwarded to the TUN device. 
   Ipv4InterfaceContainer tunDeviceIpv4IfContainer = m_ueAddressHelper.Assign (tunDeviceContainer);  
 
-  // create EpcSgwPgwApplication
-  m_sgwPgwApp = CreateObject<EpcSgwPgwApplication> (m_tunDevice, sgwPgwS1uSocket);
-  m_sgwPgw->AddApplication (m_sgwPgwApp);
+  // create EpcSmfUpfApplication
+  m_smfUpfApp = CreateObject<EpcSmfUpfApplication> (m_tunDevice, smfUpfS1uSocket);
+  m_smfUpf->AddApplication (m_smfUpfApp);
   
-  // connect SgwPgwApplication and virtual net device for tunneling
-  m_tunDevice->SetSendCallback (MakeCallback (&EpcSgwPgwApplication::RecvFromTunDevice, m_sgwPgwApp));
+  // connect SmfUpfApplication and virtual net device for tunneling
+  m_tunDevice->SetSendCallback (MakeCallback (&EpcSmfUpfApplication::RecvFromTunDevice, m_smfUpfApp));
 
-  // Create MME and connect with SGW via S11 interface
+  // Create MME and connect with SMF via S11 interface
   m_mme = CreateObject<EpcMme> ();
-  m_mme->SetS11SapSgw (m_sgwPgwApp->GetS11SapSgw ());
-  m_sgwPgwApp->SetS11SapMme (m_mme->GetS11SapMme ());
+  m_mme->SetS11SapSmf (m_smfUpfApp->GetS11SapSmf ());
+  m_smfUpfApp->SetS11SapMme (m_mme->GetS11SapMme ());
 
-  // Create EmuFdNetDevice for SGW
+  // Create EmuFdNetDevice for SMF
   EmuFdNetDeviceHelper emu;
-  NS_LOG_LOGIC ("SGW device: " << m_sgwDeviceName);
-  emu.SetDeviceName (m_sgwDeviceName);
-  NetDeviceContainer sgwDevices = emu.Install (m_sgwPgw);
-  Ptr<NetDevice> sgwDevice = sgwDevices.Get (0);
-  NS_LOG_LOGIC ("MAC address of SGW: " << m_sgwMacAddress);
-  sgwDevice->SetAttribute ("Address", Mac48AddressValue (m_sgwMacAddress.c_str ()));
+  NS_LOG_LOGIC ("SMF device: " << m_smfDeviceName);
+  emu.SetDeviceName (m_smfDeviceName);
+  NetDeviceContainer smfDevices = emu.Install (m_smfUpf);
+  Ptr<NetDevice> smfDevice = smfDevices.Get (0);
+  NS_LOG_LOGIC ("MAC address of SMF: " << m_smfMacAddress);
+  smfDevice->SetAttribute ("Address", Mac48AddressValue (m_smfMacAddress.c_str ()));
 
-  // we use a /8 subnet so the SGW and the eNBs can talk directly to each other
+  // we use a /8 subnet so the SMF and the eNBs can talk directly to each other
   m_epcIpv4AddressHelper.SetBase ("10.0.0.0", "255.255.255.0", "0.0.0.1");  
-  m_sgwIpIfaces = m_epcIpv4AddressHelper.Assign (sgwDevices);
+  m_smfIpIfaces = m_epcIpv4AddressHelper.Assign (smfDevices);
   m_epcIpv4AddressHelper.SetBase ("10.0.0.0", "255.0.0.0", "0.0.0.101");  
   
   
@@ -171,8 +171,8 @@ EmuEpcHelper1::DoDispose ()
   NS_LOG_FUNCTION (this);
   m_tunDevice->SetSendCallback (MakeNullCallback<bool, Ptr<Packet>, const Address&, const Address&, uint16_t> ());
   m_tunDevice = 0;
-  m_sgwPgwApp = 0;  
-  m_sgwPgw->Dispose ();
+  m_smfUpfApp = 0;  
+  m_smfUpf->Dispose ();
 }
 
 
@@ -192,7 +192,7 @@ EmuEpcHelper1::AddEnb (Ptr<Node> enb, Ptr<NetDevice> lteEnbNetDevice, uint16_t c
 
 
 
-  // Create an EmuFdNetDevice for the eNB to connect with the SGW and other eNBs
+  // Create an EmuFdNetDevice for the eNB to connect with the SMF and other eNBs
   EmuFdNetDeviceHelper emu;
   NS_LOG_LOGIC ("eNB device: " << m_enbDeviceName);
   emu.SetDeviceName (m_enbDeviceName);  
@@ -212,7 +212,7 @@ EmuEpcHelper1::AddEnb (Ptr<Node> enb, Ptr<NetDevice> lteEnbNetDevice, uint16_t c
   NS_LOG_LOGIC ("number of Ipv4 ifaces of the eNB after assigning Ipv4 addr to S1 dev: " << enb->GetObject<Ipv4> ()->GetNInterfaces ());
   
   Ipv4Address enbAddress = enbIpIfaces.GetAddress (0);
-  Ipv4Address sgwAddress = m_sgwIpIfaces.GetAddress (0);
+  Ipv4Address smfAddress = m_smfIpIfaces.GetAddress (0);
 
   // create S1-U socket for the ENB
   Ptr<Socket> enbS1uSocket = Socket::CreateSocket (enb, TypeId::LookupByName ("ns3::UdpSocketFactory"));
@@ -235,8 +235,8 @@ EmuEpcHelper1::AddEnb (Ptr<Node> enb, Ptr<NetDevice> lteEnbNetDevice, uint16_t c
   
 
   NS_LOG_INFO ("create EpcEnbApplication");
- //<EpcEnbApplication> enbApp = CreateObject<EpcEnbApplication> (enbLteSocket, enbS1uSocket, enbAddress, sgwAddress, cellId);
-  Ptr<EpcEnbApplication1> enbApp = CreateObject<EpcEnbApplication1> (enbLteSocket, enbS1uSocket, enbAddress, sgwAddress, cellId); //sjkang_x
+ //<EpcEnbApplication> enbApp = CreateObject<EpcEnbApplication> (enbLteSocket, enbS1uSocket, enbAddress, smfAddress, cellId);
+  Ptr<EpcEnbApplication1> enbApp = CreateObject<EpcEnbApplication1> (enbLteSocket, enbS1uSocket, enbAddress, smfAddress, cellId); //sjkang_x
   enb->AddApplication (enbApp);
   NS_ASSERT (enb->GetNApplications () == 1);
   NS_ASSERT_MSG (enb->GetApplication (0)->GetObject<EpcEnbApplication> () != 0, "cannot retrieve EpcEnbApplication");
@@ -249,7 +249,7 @@ EmuEpcHelper1::AddEnb (Ptr<Node> enb, Ptr<NetDevice> lteEnbNetDevice, uint16_t c
 
   NS_LOG_INFO ("connect S1-AP interface");
   m_mme->AddEnb (cellId, enbAddress, enbApp->GetS1apSapEnb ());
-  m_sgwPgwApp->AddEnb (cellId, enbAddress, sgwAddress);
+  m_smfUpfApp->AddEnb (cellId, enbAddress, smfAddress);
   enbApp->SetS1apSapMme (m_mme->GetS1apSapMme ());
 }
 
@@ -310,7 +310,7 @@ EmuEpcHelper1::AddUe (Ptr<NetDevice> ueDevice, uint64_t imsi)
   NS_LOG_FUNCTION (this << imsi << ueDevice );
   
   m_mme->AddUe (imsi);
-  m_sgwPgwApp->AddUe (imsi);
+  m_smfUpfApp->AddUe (imsi);
   
 }
 
@@ -319,7 +319,7 @@ EmuEpcHelper1::ActivateEpsBearer (Ptr<NetDevice> ueDevice, uint64_t imsi, Ptr<Ep
 {
   NS_LOG_FUNCTION (this << ueDevice << imsi);
 
-  // we now retrieve the IPv4 address of the UE and notify it to the SGW;
+  // we now retrieve the IPv4 address of the UE and notify it to the SMF;
   // we couldn't do it before since address assignment is triggered by
   // the user simulation program, rather than done by the EPC   
   Ptr<Node> ueNode = ueDevice->GetNode (); 
@@ -329,7 +329,7 @@ EmuEpcHelper1::ActivateEpsBearer (Ptr<NetDevice> ueDevice, uint64_t imsi, Ptr<Ep
   NS_ASSERT (interface >= 0);
   NS_ASSERT (ueIpv4->GetNAddresses (interface) == 1);
   Ipv4Address ueAddr = ueIpv4->GetAddress (interface, 0).GetLocal ();
-  NS_LOG_LOGIC (" UE IP address: " << ueAddr);  m_sgwPgwApp->SetUeAddress (imsi, ueAddr);
+  NS_LOG_LOGIC (" UE IP address: " << ueAddr);  m_smfUpfApp->SetUeAddress (imsi, ueAddr);
   
   uint8_t bearerId = m_mme->AddBearer (imsi, tft, bearer);
   Ptr<LteUeNetDevice> ueLteDevice = ueDevice->GetObject<LteUeNetDevice> ();
@@ -342,9 +342,9 @@ EmuEpcHelper1::ActivateEpsBearer (Ptr<NetDevice> ueDevice, uint64_t imsi, Ptr<Ep
 
 
 Ptr<Node>
-EmuEpcHelper1::GetPgwNode ()
+EmuEpcHelper1::GetUpfNode ()
 {
-  return m_sgwPgw;
+  return m_smfUpf;
 }
 
 
@@ -360,7 +360,7 @@ Ipv4Address
 EmuEpcHelper1::GetUeDefaultGatewayAddress ()
 {
   // return the address of the tun device
-  return m_sgwPgw->GetObject<Ipv4> ()->GetAddress (1, 0).GetLocal ();
+  return m_smfUpf->GetObject<Ipv4> ()->GetAddress (1, 0).GetLocal ();
 }
 
 

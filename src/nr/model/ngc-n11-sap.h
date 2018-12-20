@@ -86,6 +86,27 @@ public:
     Ptr<NgcTft> tft;
   };
 
+  struct N2SMInformationCreated
+  {
+    
+    QosFlow flowLevelQos;
+
+    uint8_t pduSessionID;
+    uint8_t qfi; //epsBearerId -> QFI
+    uint8_t qosProfile
+    uint8_t cnN3TunnelInfo;
+    uint8_t s-nssai; 
+    uint8_t userPlaneSecurityEnforcement;
+    uint8_t ueIntegrityProtectionMaximumDataRate;
+
+    uint8_t cause;
+
+    NgcN11Sap::Fteid smfFteid; //TODO: upfFteid????
+    //uint8_t epsBearerId; 
+    Ptr<NgcTft> tft;
+  };
+
+
 
   /**     
    * Create Session Response message, see 3GPP TS 29.274 7.2.2
@@ -93,6 +114,13 @@ public:
   struct CreateSessionResponseMessage : public GtpcMessage
   {
     std::list<BearerContextCreated> bearerContextsCreated;
+  };
+
+
+  //smsohn 
+  struct UpdateSMContextResponseMessage : public GtpcMessage
+  {
+    std::list<N2SMInformationCreated> N2SMInformationsCreated;
   };
 
 
@@ -107,6 +135,11 @@ public:
   {
     uint8_t epsBearerId;
   };
+
+  //smsohn
+  virtual void UpdateSMContextResponse (UpdateSMContextResponseMessage msg) = 0;
+
+
 
   /**
    * Delete Bearer Request message, see 3GPP TS 29.274 Release 9 V9.3.0 section 7.2.9.2
@@ -267,6 +300,7 @@ public:
 
   // inherited from NgcN11SapAmf
   virtual void CreateSessionResponse (CreateSessionResponseMessage msg);
+  virtual void UpdateSMContextResponse (UpdateSMContextResponseMessage msg); //smsohn
   virtual void ModifyBearerResponse (ModifyBearerResponseMessage msg);
   virtual void DeleteBearerRequest (DeleteBearerRequestMessage msg);
 
@@ -291,6 +325,15 @@ void MemberNgcN11SapAmf<C>::CreateSessionResponse (CreateSessionResponseMessage 
 {
   m_owner->DoCreateSessionResponse (msg);
 }
+
+//smsohn
+template <class C>
+void MemberNgcN11SapAmf<C>::UpdateSMContextResponse (UpdateSMContextResponseMessage msg)
+{
+  m_owner->DoUpdateSMContextResponse (msg);
+}
+
+
 
 template <class C>
 void MemberNgcN11SapAmf<C>::DeleteBearerRequest (DeleteBearerRequestMessage msg)

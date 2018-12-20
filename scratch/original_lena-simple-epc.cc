@@ -92,7 +92,7 @@ main (int argc, char *argv[])
   // parse again so you can override default values from the command line
   cmd.Parse(argc, argv);
 
-  Ptr<Node> pgw = epcHelper->GetPgwNode ();
+  Ptr<Node> upf = epcHelper->GetUpfNode ();
 
 
    // Create a single RemoteHost
@@ -107,7 +107,7 @@ main (int argc, char *argv[])
   p2ph.SetDeviceAttribute ("DataRate", DataRateValue (DataRate ("100Gb/s")));
   p2ph.SetDeviceAttribute ("Mtu", UintegerValue (1500));
   p2ph.SetChannelAttribute ("Delay", TimeValue (Seconds (0.010)));
-  NetDeviceContainer internetDevices = p2ph.Install (pgw, remoteHost);
+  NetDeviceContainer internetDevices = p2ph.Install (upf, remoteHost);
   Ipv4AddressHelper ipv4h;
   ipv4h.SetBase ("1.0.0.0", "255.0.0.0");
   Ipv4InterfaceContainer internetIpIfaces = ipv4h.Assign (internetDevices);
@@ -245,7 +245,7 @@ main (int argc, char *argv[])
   // Uncomment to enable PCAP tracing
   //p2ph.EnablePcapAll("lena-epc-first");
 
-  cout<<"pgw getNdevices:"<<pgw->GetNDevices()<<endl;
+  cout<<"upf getNdevices:"<<upf->GetNDevices()<<endl;
 
   Simulator::Stop(Seconds(simTime));
   Simulator::Run();

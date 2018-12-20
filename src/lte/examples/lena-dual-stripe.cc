@@ -640,12 +640,12 @@ main (int argc, char *argv[])
       p2ph.SetDeviceAttribute ("DataRate", DataRateValue (DataRate ("100Gb/s")));
       p2ph.SetDeviceAttribute ("Mtu", UintegerValue (1500));
       p2ph.SetChannelAttribute ("Delay", TimeValue (Seconds (0.010)));
-      Ptr<Node> pgw = epcHelper->GetPgwNode ();
-      NetDeviceContainer internetDevices = p2ph.Install (pgw, remoteHost);
+      Ptr<Node> upf = epcHelper->GetUpfNode ();
+      NetDeviceContainer internetDevices = p2ph.Install (upf, remoteHost);
       Ipv4AddressHelper ipv4h;
       ipv4h.SetBase ("1.0.0.0", "255.0.0.0");
       Ipv4InterfaceContainer internetIpIfaces = ipv4h.Assign (internetDevices);
-      // in this container, interface 0 is the pgw, 1 is the remoteHost
+      // in this container, interface 0 is the upf, 1 is the remoteHost
       remoteHostAddr = internetIpIfaces.GetAddress (1);
 
       Ipv4StaticRoutingHelper ipv4RoutingHelper;

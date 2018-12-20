@@ -947,7 +947,7 @@ EpcS1APInitialContextSetupRequestHeader::Serialize (Buffer::Iterator start) cons
       i.WriteU8 (l_iter->erabLevelQosParameters.arp.preemptionCapability);
       i.WriteU8 (l_iter->erabLevelQosParameters.arp.preemptionVulnerability);
       i.WriteHtonU32 (l_iter->transportLayerAddress.Get ());
-      i.WriteHtonU32 (l_iter->sgwTeid);
+      i.WriteHtonU32 (l_iter->smfTeid);
 
       i.WriteU8(0); // a criticaloty each, REJECT
     }
@@ -998,7 +998,7 @@ EpcS1APInitialContextSetupRequestHeader::Deserialize (Buffer::Iterator start)
     erabItem.erabLevelQosParameters.arp.preemptionVulnerability = i.ReadU8 ();
 
     erabItem.transportLayerAddress = Ipv4Address (i.ReadNtohU32 ());
-    erabItem.sgwTeid = i.ReadNtohU32 ();
+    erabItem.smfTeid = i.ReadNtohU32 ();
 
     i.ReadU8 ();
 

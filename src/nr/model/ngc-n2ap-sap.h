@@ -80,6 +80,16 @@ public:
     uint32_t    smfTeid;    
   };
 
+  //smsohn
+  struct QoSFlowToBeSetupItem
+  {
+    uint8_t    erabId;
+    EpsBearer   erabLevelQosParameters;
+    Ipv4Address transportLayerAddress;
+    uint32_t    smfTeid;    
+  };
+
+
   /**
    * E-RABs Switched in Uplink Item IE, see 3GPP TS 36.413 9.1.5.9
    * 
@@ -136,6 +146,9 @@ public:
   virtual void InitialContextSetupResponse (uint64_t amfUeN2Id,
                                             uint16_t enbUeN2Id,
                                             std::list<ErabSetupItem> erabSetupList) = 0;
+
+
+
 
   /**
    * PATH SWITCH REQUEST message, see 3GPP TS 36.413 9.1.5.8
@@ -196,6 +209,12 @@ public:
                                            uint16_t enbUeN2Id,
                                            std::list<ErabToBeSetupItem> erabToBeSetupList) = 0;
 
+  //smsohn add parameters
+  virtual void N2Request (uint64_t amfUeN2Id,
+                                           uint16_t enbUeN2Id,
+                                           std::list<ErabToBeSetupItem> erabToBeSetupList) = 0;
+
+
   /**
    * PATH SWITCH REQUEST ACKNOWLEDGE message, see 3GPP TS 36.413 9.1.5.9
    * 
@@ -221,6 +240,14 @@ public:
                                            uint16_t enbUeN2Id,
                                            std::list<ErabToBeSetupItem> erabToBeSetupList,
                                            uint16_t cellId) = 0;
+
+  //smsohn add parameters
+  virtual void SendN2Request (uint64_t amfUeN2Id,
+                                           uint16_t enbUeN2Id,
+                                           std::list<ErabToBeSetupItem> erabToBeSetupList,
+                                           uint16_t cellId) = 0;
+
+
 
   virtual void SendPathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, std::list<ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList) = 0;
 
@@ -381,6 +408,10 @@ public:
 
   // inherited from NgcN2apSapEnb
   virtual void InitialContextSetupRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList);
+ 
+  //smsohn add parameters 
+  virtual void N2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList);
+  
   virtual void PathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, std::list<ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList);
 
 private:
@@ -405,6 +436,15 @@ void MemberNgcN2apSapEnb<C>::InitialContextSetupRequest (uint64_t amfUeN2Id, uin
   m_owner->DoInitialContextSetupRequest (amfUeN2Id, enbUeN2Id, erabToBeSetupList);
 }
 
+//smsohn add parameters
+template <class C>
+void MemberNgcN2apSapEnb<C>::N2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList)
+{
+  m_owner->DoN2Request (amfUeN2Id, enbUeN2Id, erabToBeSetupList);
+}
+
+
+
 template <class C>
 void MemberNgcN2apSapEnb<C>::PathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, std::list<ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList)
 {
@@ -425,6 +465,10 @@ public:
 
   // inherited from NgcN2apSapAmfProvider
   virtual void SendInitialContextSetupRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList, uint16_t cellId);
+  
+  //smsohn add parameters
+  virtual void SendN2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList, uint16_t cellId);
+ 
   virtual void SendPathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, std::list<ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList);
 
 private:
@@ -447,6 +491,14 @@ template <class C>
 void MemberNgcN2apSapAmfProvider<C>::SendInitialContextSetupRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList, uint16_t cellId)
 {
   m_owner->DoSendInitialContextSetupRequest (amfUeN2Id, enbUeN2Id, erabToBeSetupList, cellId);
+}
+
+
+//smsohn add parameters
+template <class C>
+void MemberNgcN2apSapAmfProvider<C>::SendN2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList, uint16_t cellId)
+{
+  m_owner->DoSendN2Request (amfUeN2Id, enbUeN2Id, erabToBeSetupList, cellId);
 }
 
 template <class C>

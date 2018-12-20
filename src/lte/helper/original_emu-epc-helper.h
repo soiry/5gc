@@ -35,7 +35,7 @@ namespace ns3 {
 class Node;
 class NetDevice;
 class VirtualNetDevice;
-class EpcSgwPgwApplication;
+class EpcSmfUpfApplication;
 class EpcX2;
 class EpcMme;
 
@@ -45,7 +45,7 @@ class EpcMme;
  * \brief Create an EPC network using EmuFdNetDevice 
  *
  * This Helper will create an EPC network topology comprising of a
- * single node that implements both the SGW and PGW functionality, and
+ * single node that implements both the SMF and UPF functionality, and
  * an MME node. The S1-U, X2-U and X2-C interfaces are realized using
  * EmuFdNetDevice; in particular, one device is used to send all the
  * traffic related to these interfaces. 
@@ -78,7 +78,7 @@ public:
   virtual void AddUe (Ptr<NetDevice> ueLteDevice, uint64_t imsi);
   virtual void AddX2Interface (Ptr<Node> enbNode1, Ptr<Node> enbNode2);
   virtual uint8_t ActivateEpsBearer (Ptr<NetDevice> ueLteDevice, uint64_t imsi, Ptr<EpcTft> tft, EpsBearer bearer);
-  virtual Ptr<Node> GetPgwNode ();
+  virtual Ptr<Node> GetUpfNode ();
   virtual Ipv4InterfaceContainer AssignUeIpv4Address (NetDeviceContainer ueDevices);
   virtual Ipv4Address GetUeDefaultGatewayAddress ();
 
@@ -87,19 +87,19 @@ public:
 private:
 
   /** 
-   * helper to assign addresses to UE devices as well as to the TUN device of the SGW/PGW
+   * helper to assign addresses to UE devices as well as to the TUN device of the SMF/UPF
    */
   Ipv4AddressHelper m_ueAddressHelper; 
 
   /**
-   * SGW-PGW network element
+   * SMF-UPF network element
    */  
-  Ptr<Node> m_sgwPgw; 
+  Ptr<Node> m_smfUpf; 
 
   /**
-   * SGW-PGW application
+   * SMF-UPF application
    */
-  Ptr<EpcSgwPgwApplication> m_sgwPgwApp;
+  Ptr<EpcSmfUpfApplication> m_smfUpfApp;
 
   /**
    * TUN device implementing tunneling of user data over GTP-U/UDP/IP
@@ -128,14 +128,14 @@ private:
   std::map<uint64_t, Ptr<NetDevice> > m_imsiEnbDeviceMap;
 
   /**
-   * Container for Ipv4Interfaces of the SGW/PGW
+   * Container for Ipv4Interfaces of the SMF/UPF
    */
-  Ipv4InterfaceContainer m_sgwIpIfaces; 
+  Ipv4InterfaceContainer m_smfIpIfaces; 
 
   /**
-   * The name of the device used for the S1-U interface of the SGW
+   * The name of the device used for the S1-U interface of the SMF
    */
-  std::string m_sgwDeviceName;
+  std::string m_smfDeviceName;
 
   /**
    * The name of the device used for the S1-U interface of the eNB
@@ -143,9 +143,9 @@ private:
   std::string m_enbDeviceName;
 
   /**
-   * MAC address used for the SGW
+   * MAC address used for the SMF
    */
-  std::string m_sgwMacAddress;
+  std::string m_smfMacAddress;
 
   /**
    * First 5 bytes of the Enb MAC address base

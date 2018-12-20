@@ -177,7 +177,26 @@ NgcN2apEnb::RecvFromN2apSocket (Ptr<Socket> socket)
     NS_LOG_LOGIC ("enbUeN2apId " << enbUeN2apId);
 
     m_n2apSapUser->InitialContextSetupRequest(amfUeN2apId, enbUeN2apId, erabToBeSetup);
-  } 
+   
+  }
+  else if (procedureCode == NgcN2APHeader::N2Request) //smsohn
+  {
+    NS_LOG_LOGIC ("Recv N2ap message: N2 REQUEST");
+    NgcN2APN2RequestHeader reqHeader;
+    packet->RemoveHeader(reqHeader);
+
+    NS_LOG_INFO ("N2ap N2 Request " << reqHeader);
+
+    uint64_t amfUeN2apId = reqHeader.GetAmfUeN2Id();
+    uint16_t enbUeN2apId = reqHeader.GetEnbUeN2Id();
+    std::list<NgcN2apSap::ErabToBeSetupItem> erabToBeSetup = reqHeader.GetErabToBeSetupItem ();
+    
+    NS_LOG_LOGIC ("amfUeN2apId " << amfUeN2apId);
+    NS_LOG_LOGIC ("enbUeN2apId " << enbUeN2apId);
+
+    m_n2apSapUser->N2Request(amfUeN2apId, enbUeN2apId, erabToBeSetup);
+   
+  }
   else if (procedureCode == NgcN2APHeader::PathSwitchRequestAck)
   {
     NS_LOG_LOGIC ("Recv N2ap message: PATH SWITCH REQUEST ACK");
@@ -614,6 +633,52 @@ NgcN2apAmf::DoSendInitialContextSetupRequest (uint64_t amfUeN2Id,
   // Send the N2ap message through the socket
   m_localN2APSocket->SendTo (packet, 0, InetSocketAddress (enbIpAddr, m_n2apUdpPort));
 }
+
+//smsohn
+void 
+NgcN2apAmf::DoSendN2Request (uint64_t amfUeN2Id,
+                                           uint16_t enbUeN2Id,
+                                           std::list<NgcN2apSap::ErabToBeSetupItem> erabToBeSetupList,
+                                           uint16_t cellId)
+{
+  NS_LOG_FUNCTION (this);
+
+  NS_LOG_LOGIC("amfUeN2apId = " << amfUeN2Id);
+  NS_LOG_LOGIC("enbUeN2apId = " << enbUeN2Id);
+  NS_LOG_LOGIC("eNB id = " << cellId);
+
+  NS_ASSERT_MSG (m_n2apInterfaceSockets.find (cellId) != m_n2apInterfaceSockets.end (),
+               "Missing infos for cellId = " << cellId);
+
+  Ptr<N2apIfaceInfo> socketInfo = m_n2apInterfaceSockets [cellId];
+  Ipv4Address enbIpAddr = socketInfo->m_remoteIpAddr;
+
+  NS_LOG_LOGIC ("enbIpAddr = " << enbIpAddr);
+
+  NS_LOG_INFO ("Send N2ap message: N2 REQUEST " << Simulator::Now ().GetSeconds());
+
+  NgcN2APN2RequestHeader reqHeader;
+  reqHeader.SetAmfUeN2Id(amfUeN2Id);
+  reqHeader.SetEnbUeN2Id(enbUeN2Id);
+  reqHeader.SetErabToBeSetupItem(erabToBeSetupList);
+  NS_LOG_INFO ("N2AP N2 Request header " << reqHeader);
+
+  NgcN2APHeader n2apHeader;
+  n2apHeader.SetProcedureCode (NgcN2APHeader::InitialContextSetupRequest);
+  n2apHeader.SetLengthOfIes (reqHeader.GetLengthOfIes ());
+  n2apHeader.SetNumberOfIes (reqHeader.GetNumberOfIes ());
+  NS_LOG_INFO ("N2ap header: " << n2apHeader);
+
+  Ptr<Packet> packet = Create <Packet> ();
+  packet->AddHeader (reqHeader);
+  packet->AddHeader (n2apHeader);
+  NS_LOG_INFO ("packetLen = " << packet->GetSize ());
+
+  // Send the N2ap message through the socket
+  m_localN2APSocket->SendTo (packet, 0, InetSocketAddress (enbIpAddr, m_n2apUdpPort));
+}
+
+
 
 void 
 NgcN2apAmf::DoSendPathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, 

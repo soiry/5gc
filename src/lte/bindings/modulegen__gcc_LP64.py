@@ -130,22 +130,22 @@ def register_types(module):
     module.add_class('ModifyBearerResponseMessage', parent=root_module['ns3::EpcS11Sap::GtpcMessage'], outer_class=root_module['ns3::EpcS11SapMme'])
     ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapMme::ModifyBearerResponseMessage::Cause [enumeration]
     module.add_enum('Cause', ['REQUEST_ACCEPTED', 'REQUEST_ACCEPTED_PARTIALLY', 'REQUEST_REJECTED', 'CONTEXT_NOT_FOUND'], outer_class=root_module['ns3::EpcS11SapMme::ModifyBearerResponseMessage'])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw [class]
-    module.add_class('EpcS11SapSgw', parent=root_module['ns3::EpcS11Sap'])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::BearerContextRemovedSgwPgw [struct]
-    module.add_class('BearerContextRemovedSgwPgw', outer_class=root_module['ns3::EpcS11SapSgw'])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::BearerContextToBeCreated [struct]
-    module.add_class('BearerContextToBeCreated', outer_class=root_module['ns3::EpcS11SapSgw'])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::BearerContextToBeRemoved [struct]
-    module.add_class('BearerContextToBeRemoved', outer_class=root_module['ns3::EpcS11SapSgw'])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::CreateSessionRequestMessage [struct]
-    module.add_class('CreateSessionRequestMessage', parent=root_module['ns3::EpcS11Sap::GtpcMessage'], outer_class=root_module['ns3::EpcS11SapSgw'])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::DeleteBearerCommandMessage [struct]
-    module.add_class('DeleteBearerCommandMessage', parent=root_module['ns3::EpcS11Sap::GtpcMessage'], outer_class=root_module['ns3::EpcS11SapSgw'])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::DeleteBearerResponseMessage [struct]
-    module.add_class('DeleteBearerResponseMessage', parent=root_module['ns3::EpcS11Sap::GtpcMessage'], outer_class=root_module['ns3::EpcS11SapSgw'])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::ModifyBearerRequestMessage [struct]
-    module.add_class('ModifyBearerRequestMessage', parent=root_module['ns3::EpcS11Sap::GtpcMessage'], outer_class=root_module['ns3::EpcS11SapSgw'])
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf [class]
+    module.add_class('EpcS11SapSmf', parent=root_module['ns3::EpcS11Sap'])
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::BearerContextRemovedSmfUpf [struct]
+    module.add_class('BearerContextRemovedSmfUpf', outer_class=root_module['ns3::EpcS11SapSmf'])
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::BearerContextToBeCreated [struct]
+    module.add_class('BearerContextToBeCreated', outer_class=root_module['ns3::EpcS11SapSmf'])
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::BearerContextToBeRemoved [struct]
+    module.add_class('BearerContextToBeRemoved', outer_class=root_module['ns3::EpcS11SapSmf'])
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::CreateSessionRequestMessage [struct]
+    module.add_class('CreateSessionRequestMessage', parent=root_module['ns3::EpcS11Sap::GtpcMessage'], outer_class=root_module['ns3::EpcS11SapSmf'])
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::DeleteBearerCommandMessage [struct]
+    module.add_class('DeleteBearerCommandMessage', parent=root_module['ns3::EpcS11Sap::GtpcMessage'], outer_class=root_module['ns3::EpcS11SapSmf'])
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::DeleteBearerResponseMessage [struct]
+    module.add_class('DeleteBearerResponseMessage', parent=root_module['ns3::EpcS11Sap::GtpcMessage'], outer_class=root_module['ns3::EpcS11SapSmf'])
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::ModifyBearerRequestMessage [struct]
+    module.add_class('ModifyBearerRequestMessage', parent=root_module['ns3::EpcS11Sap::GtpcMessage'], outer_class=root_module['ns3::EpcS11SapSmf'])
     ## epc-s1ap-sap.h (module 'lte'): ns3::EpcS1apSap [class]
     module.add_class('EpcS1apSap')
     ## epc-s1ap-sap.h (module 'lte'): ns3::EpcS1apSapEnb [class]
@@ -974,8 +974,8 @@ def register_types(module):
     module.add_class('EpcHelper', parent=root_module['ns3::Object'])
     ## epc-mme.h (module 'lte'): ns3::EpcMme [class]
     module.add_class('EpcMme', parent=root_module['ns3::Object'])
-    ## epc-sgw-pgw-application.h (module 'lte'): ns3::EpcSgwPgwApplication [class]
-    module.add_class('EpcSgwPgwApplication', parent=root_module['ns3::Application'])
+    ## epc-smf-upf-application.h (module 'lte'): ns3::EpcSmfUpfApplication [class]
+    module.add_class('EpcSmfUpfApplication', parent=root_module['ns3::Application'])
     ## epc-tft.h (module 'lte'): ns3::EpcTft [class]
     module.add_class('EpcTft', parent=root_module['ns3::SimpleRefCount< ns3::EpcTft, ns3::empty, ns3::DefaultDeleter<ns3::EpcTft> >'])
     ## epc-tft.h (module 'lte'): ns3::EpcTft::Direction [enumeration]
@@ -1324,9 +1324,9 @@ def register_types(module):
     module.add_container('std::list< ns3::EpcEnbS1SapProvider::BearerToBeSwitched >', 'ns3::EpcEnbS1SapProvider::BearerToBeSwitched', container_type=u'list')
     module.add_container('std::list< ns3::EpcS11SapMme::BearerContextCreated >', 'ns3::EpcS11SapMme::BearerContextCreated', container_type=u'list')
     module.add_container('std::list< ns3::EpcS11SapMme::BearerContextRemoved >', 'ns3::EpcS11SapMme::BearerContextRemoved', container_type=u'list')
-    module.add_container('std::list< ns3::EpcS11SapSgw::BearerContextToBeCreated >', 'ns3::EpcS11SapSgw::BearerContextToBeCreated', container_type=u'list')
-    module.add_container('std::list< ns3::EpcS11SapSgw::BearerContextToBeRemoved >', 'ns3::EpcS11SapSgw::BearerContextToBeRemoved', container_type=u'list')
-    module.add_container('std::list< ns3::EpcS11SapSgw::BearerContextRemovedSgwPgw >', 'ns3::EpcS11SapSgw::BearerContextRemovedSgwPgw', container_type=u'list')
+    module.add_container('std::list< ns3::EpcS11SapSmf::BearerContextToBeCreated >', 'ns3::EpcS11SapSmf::BearerContextToBeCreated', container_type=u'list')
+    module.add_container('std::list< ns3::EpcS11SapSmf::BearerContextToBeRemoved >', 'ns3::EpcS11SapSmf::BearerContextToBeRemoved', container_type=u'list')
+    module.add_container('std::list< ns3::EpcS11SapSmf::BearerContextRemovedSmfUpf >', 'ns3::EpcS11SapSmf::BearerContextRemovedSmfUpf', container_type=u'list')
     module.add_container('std::list< ns3::EpcS1apSapEnb::ErabToBeSetupItem >', 'ns3::EpcS1apSapEnb::ErabToBeSetupItem', container_type=u'list')
     module.add_container('std::list< ns3::EpcS1apSapEnb::ErabSwitchedInUplinkItem >', 'ns3::EpcS1apSapEnb::ErabSwitchedInUplinkItem', container_type=u'list')
     module.add_container('std::list< ns3::EpcS1apSapMme::ErabToBeReleasedIndication >', 'ns3::EpcS1apSapMme::ErabToBeReleasedIndication', container_type=u'list')
@@ -1647,14 +1647,14 @@ def register_methods(root_module):
     register_Ns3EpcS11SapMmeCreateSessionResponseMessage_methods(root_module, root_module['ns3::EpcS11SapMme::CreateSessionResponseMessage'])
     register_Ns3EpcS11SapMmeDeleteBearerRequestMessage_methods(root_module, root_module['ns3::EpcS11SapMme::DeleteBearerRequestMessage'])
     register_Ns3EpcS11SapMmeModifyBearerResponseMessage_methods(root_module, root_module['ns3::EpcS11SapMme::ModifyBearerResponseMessage'])
-    register_Ns3EpcS11SapSgw_methods(root_module, root_module['ns3::EpcS11SapSgw'])
-    register_Ns3EpcS11SapSgwBearerContextRemovedSgwPgw_methods(root_module, root_module['ns3::EpcS11SapSgw::BearerContextRemovedSgwPgw'])
-    register_Ns3EpcS11SapSgwBearerContextToBeCreated_methods(root_module, root_module['ns3::EpcS11SapSgw::BearerContextToBeCreated'])
-    register_Ns3EpcS11SapSgwBearerContextToBeRemoved_methods(root_module, root_module['ns3::EpcS11SapSgw::BearerContextToBeRemoved'])
-    register_Ns3EpcS11SapSgwCreateSessionRequestMessage_methods(root_module, root_module['ns3::EpcS11SapSgw::CreateSessionRequestMessage'])
-    register_Ns3EpcS11SapSgwDeleteBearerCommandMessage_methods(root_module, root_module['ns3::EpcS11SapSgw::DeleteBearerCommandMessage'])
-    register_Ns3EpcS11SapSgwDeleteBearerResponseMessage_methods(root_module, root_module['ns3::EpcS11SapSgw::DeleteBearerResponseMessage'])
-    register_Ns3EpcS11SapSgwModifyBearerRequestMessage_methods(root_module, root_module['ns3::EpcS11SapSgw::ModifyBearerRequestMessage'])
+    register_Ns3EpcS11SapSmf_methods(root_module, root_module['ns3::EpcS11SapSmf'])
+    register_Ns3EpcS11SapSmfBearerContextRemovedSmfUpf_methods(root_module, root_module['ns3::EpcS11SapSmf::BearerContextRemovedSmfUpf'])
+    register_Ns3EpcS11SapSmfBearerContextToBeCreated_methods(root_module, root_module['ns3::EpcS11SapSmf::BearerContextToBeCreated'])
+    register_Ns3EpcS11SapSmfBearerContextToBeRemoved_methods(root_module, root_module['ns3::EpcS11SapSmf::BearerContextToBeRemoved'])
+    register_Ns3EpcS11SapSmfCreateSessionRequestMessage_methods(root_module, root_module['ns3::EpcS11SapSmf::CreateSessionRequestMessage'])
+    register_Ns3EpcS11SapSmfDeleteBearerCommandMessage_methods(root_module, root_module['ns3::EpcS11SapSmf::DeleteBearerCommandMessage'])
+    register_Ns3EpcS11SapSmfDeleteBearerResponseMessage_methods(root_module, root_module['ns3::EpcS11SapSmf::DeleteBearerResponseMessage'])
+    register_Ns3EpcS11SapSmfModifyBearerRequestMessage_methods(root_module, root_module['ns3::EpcS11SapSmf::ModifyBearerRequestMessage'])
     register_Ns3EpcS1apSap_methods(root_module, root_module['ns3::EpcS1apSap'])
     register_Ns3EpcS1apSapEnb_methods(root_module, root_module['ns3::EpcS1apSapEnb'])
     register_Ns3EpcS1apSapEnbErabSwitchedInUplinkItem_methods(root_module, root_module['ns3::EpcS1apSapEnb::ErabSwitchedInUplinkItem'])
@@ -2006,7 +2006,7 @@ def register_methods(root_module):
     register_Ns3EpcEnbApplicationEpsFlowId_t_methods(root_module, root_module['ns3::EpcEnbApplication::EpsFlowId_t'])
     register_Ns3EpcHelper_methods(root_module, root_module['ns3::EpcHelper'])
     register_Ns3EpcMme_methods(root_module, root_module['ns3::EpcMme'])
-    register_Ns3EpcSgwPgwApplication_methods(root_module, root_module['ns3::EpcSgwPgwApplication'])
+    register_Ns3EpcSmfUpfApplication_methods(root_module, root_module['ns3::EpcSmfUpfApplication'])
     register_Ns3EpcTft_methods(root_module, root_module['ns3::EpcTft'])
     register_Ns3EpcTftPacketFilter_methods(root_module, root_module['ns3::EpcTft::PacketFilter'])
     register_Ns3EpcTftClassifier_methods(root_module, root_module['ns3::EpcTftClassifier'])
@@ -3122,8 +3122,8 @@ def register_Ns3EpcS11SapMmeBearerContextCreated_methods(root_module, cls):
     cls.add_instance_attribute('bearerLevelQos', 'ns3::EpsBearer', is_const=False)
     ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapMme::BearerContextCreated::epsBearerId [variable]
     cls.add_instance_attribute('epsBearerId', 'uint8_t', is_const=False)
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapMme::BearerContextCreated::sgwFteid [variable]
-    cls.add_instance_attribute('sgwFteid', 'ns3::EpcS11Sap::Fteid', is_const=False)
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapMme::BearerContextCreated::smfFteid [variable]
+    cls.add_instance_attribute('smfFteid', 'ns3::EpcS11Sap::Fteid', is_const=False)
     ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapMme::BearerContextCreated::tft [variable]
     cls.add_instance_attribute('tft', 'ns3::Ptr< ns3::EpcTft >', is_const=False)
     return
@@ -3164,103 +3164,103 @@ def register_Ns3EpcS11SapMmeModifyBearerResponseMessage_methods(root_module, cls
     cls.add_instance_attribute('cause', 'ns3::EpcS11SapMme::ModifyBearerResponseMessage::Cause', is_const=False)
     return
 
-def register_Ns3EpcS11SapSgw_methods(root_module, cls):
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::EpcS11SapSgw() [constructor]
+def register_Ns3EpcS11SapSmf_methods(root_module, cls):
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::EpcS11SapSmf() [constructor]
     cls.add_constructor([])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::EpcS11SapSgw(ns3::EpcS11SapSgw const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::EpcS11SapSgw const &', 'arg0')])
-    ## epc-s11-sap.h (module 'lte'): void ns3::EpcS11SapSgw::CreateSessionRequest(ns3::EpcS11SapSgw::CreateSessionRequestMessage msg) [member function]
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::EpcS11SapSmf(ns3::EpcS11SapSmf const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::EpcS11SapSmf const &', 'arg0')])
+    ## epc-s11-sap.h (module 'lte'): void ns3::EpcS11SapSmf::CreateSessionRequest(ns3::EpcS11SapSmf::CreateSessionRequestMessage msg) [member function]
     cls.add_method('CreateSessionRequest', 
                    'void', 
-                   [param('ns3::EpcS11SapSgw::CreateSessionRequestMessage', 'msg')], 
+                   [param('ns3::EpcS11SapSmf::CreateSessionRequestMessage', 'msg')], 
                    is_pure_virtual=True, is_virtual=True)
-    ## epc-s11-sap.h (module 'lte'): void ns3::EpcS11SapSgw::DeleteBearerCommand(ns3::EpcS11SapSgw::DeleteBearerCommandMessage msg) [member function]
+    ## epc-s11-sap.h (module 'lte'): void ns3::EpcS11SapSmf::DeleteBearerCommand(ns3::EpcS11SapSmf::DeleteBearerCommandMessage msg) [member function]
     cls.add_method('DeleteBearerCommand', 
                    'void', 
-                   [param('ns3::EpcS11SapSgw::DeleteBearerCommandMessage', 'msg')], 
+                   [param('ns3::EpcS11SapSmf::DeleteBearerCommandMessage', 'msg')], 
                    is_pure_virtual=True, is_virtual=True)
-    ## epc-s11-sap.h (module 'lte'): void ns3::EpcS11SapSgw::DeleteBearerResponse(ns3::EpcS11SapSgw::DeleteBearerResponseMessage msg) [member function]
+    ## epc-s11-sap.h (module 'lte'): void ns3::EpcS11SapSmf::DeleteBearerResponse(ns3::EpcS11SapSmf::DeleteBearerResponseMessage msg) [member function]
     cls.add_method('DeleteBearerResponse', 
                    'void', 
-                   [param('ns3::EpcS11SapSgw::DeleteBearerResponseMessage', 'msg')], 
+                   [param('ns3::EpcS11SapSmf::DeleteBearerResponseMessage', 'msg')], 
                    is_pure_virtual=True, is_virtual=True)
-    ## epc-s11-sap.h (module 'lte'): void ns3::EpcS11SapSgw::ModifyBearerRequest(ns3::EpcS11SapSgw::ModifyBearerRequestMessage msg) [member function]
+    ## epc-s11-sap.h (module 'lte'): void ns3::EpcS11SapSmf::ModifyBearerRequest(ns3::EpcS11SapSmf::ModifyBearerRequestMessage msg) [member function]
     cls.add_method('ModifyBearerRequest', 
                    'void', 
-                   [param('ns3::EpcS11SapSgw::ModifyBearerRequestMessage', 'msg')], 
+                   [param('ns3::EpcS11SapSmf::ModifyBearerRequestMessage', 'msg')], 
                    is_pure_virtual=True, is_virtual=True)
     return
 
-def register_Ns3EpcS11SapSgwBearerContextRemovedSgwPgw_methods(root_module, cls):
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::BearerContextRemovedSgwPgw::BearerContextRemovedSgwPgw() [constructor]
+def register_Ns3EpcS11SapSmfBearerContextRemovedSmfUpf_methods(root_module, cls):
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::BearerContextRemovedSmfUpf::BearerContextRemovedSmfUpf() [constructor]
     cls.add_constructor([])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::BearerContextRemovedSgwPgw::BearerContextRemovedSgwPgw(ns3::EpcS11SapSgw::BearerContextRemovedSgwPgw const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::EpcS11SapSgw::BearerContextRemovedSgwPgw const &', 'arg0')])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::BearerContextRemovedSgwPgw::epsBearerId [variable]
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::BearerContextRemovedSmfUpf::BearerContextRemovedSmfUpf(ns3::EpcS11SapSmf::BearerContextRemovedSmfUpf const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::EpcS11SapSmf::BearerContextRemovedSmfUpf const &', 'arg0')])
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::BearerContextRemovedSmfUpf::epsBearerId [variable]
     cls.add_instance_attribute('epsBearerId', 'uint8_t', is_const=False)
     return
 
-def register_Ns3EpcS11SapSgwBearerContextToBeCreated_methods(root_module, cls):
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::BearerContextToBeCreated::BearerContextToBeCreated() [constructor]
+def register_Ns3EpcS11SapSmfBearerContextToBeCreated_methods(root_module, cls):
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::BearerContextToBeCreated::BearerContextToBeCreated() [constructor]
     cls.add_constructor([])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::BearerContextToBeCreated::BearerContextToBeCreated(ns3::EpcS11SapSgw::BearerContextToBeCreated const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::EpcS11SapSgw::BearerContextToBeCreated const &', 'arg0')])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::BearerContextToBeCreated::bearerLevelQos [variable]
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::BearerContextToBeCreated::BearerContextToBeCreated(ns3::EpcS11SapSmf::BearerContextToBeCreated const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::EpcS11SapSmf::BearerContextToBeCreated const &', 'arg0')])
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::BearerContextToBeCreated::bearerLevelQos [variable]
     cls.add_instance_attribute('bearerLevelQos', 'ns3::EpsBearer', is_const=False)
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::BearerContextToBeCreated::epsBearerId [variable]
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::BearerContextToBeCreated::epsBearerId [variable]
     cls.add_instance_attribute('epsBearerId', 'uint8_t', is_const=False)
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::BearerContextToBeCreated::sgwFteid [variable]
-    cls.add_instance_attribute('sgwFteid', 'ns3::EpcS11Sap::Fteid', is_const=False)
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::BearerContextToBeCreated::tft [variable]
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::BearerContextToBeCreated::smfFteid [variable]
+    cls.add_instance_attribute('smfFteid', 'ns3::EpcS11Sap::Fteid', is_const=False)
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::BearerContextToBeCreated::tft [variable]
     cls.add_instance_attribute('tft', 'ns3::Ptr< ns3::EpcTft >', is_const=False)
     return
 
-def register_Ns3EpcS11SapSgwBearerContextToBeRemoved_methods(root_module, cls):
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::BearerContextToBeRemoved::BearerContextToBeRemoved() [constructor]
+def register_Ns3EpcS11SapSmfBearerContextToBeRemoved_methods(root_module, cls):
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::BearerContextToBeRemoved::BearerContextToBeRemoved() [constructor]
     cls.add_constructor([])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::BearerContextToBeRemoved::BearerContextToBeRemoved(ns3::EpcS11SapSgw::BearerContextToBeRemoved const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::EpcS11SapSgw::BearerContextToBeRemoved const &', 'arg0')])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::BearerContextToBeRemoved::epsBearerId [variable]
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::BearerContextToBeRemoved::BearerContextToBeRemoved(ns3::EpcS11SapSmf::BearerContextToBeRemoved const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::EpcS11SapSmf::BearerContextToBeRemoved const &', 'arg0')])
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::BearerContextToBeRemoved::epsBearerId [variable]
     cls.add_instance_attribute('epsBearerId', 'uint8_t', is_const=False)
     return
 
-def register_Ns3EpcS11SapSgwCreateSessionRequestMessage_methods(root_module, cls):
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::CreateSessionRequestMessage::CreateSessionRequestMessage() [constructor]
+def register_Ns3EpcS11SapSmfCreateSessionRequestMessage_methods(root_module, cls):
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::CreateSessionRequestMessage::CreateSessionRequestMessage() [constructor]
     cls.add_constructor([])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::CreateSessionRequestMessage::CreateSessionRequestMessage(ns3::EpcS11SapSgw::CreateSessionRequestMessage const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::EpcS11SapSgw::CreateSessionRequestMessage const &', 'arg0')])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::CreateSessionRequestMessage::bearerContextsToBeCreated [variable]
-    cls.add_instance_attribute('bearerContextsToBeCreated', 'std::list< ns3::EpcS11SapSgw::BearerContextToBeCreated >', is_const=False)
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::CreateSessionRequestMessage::imsi [variable]
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::CreateSessionRequestMessage::CreateSessionRequestMessage(ns3::EpcS11SapSmf::CreateSessionRequestMessage const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::EpcS11SapSmf::CreateSessionRequestMessage const &', 'arg0')])
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::CreateSessionRequestMessage::bearerContextsToBeCreated [variable]
+    cls.add_instance_attribute('bearerContextsToBeCreated', 'std::list< ns3::EpcS11SapSmf::BearerContextToBeCreated >', is_const=False)
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::CreateSessionRequestMessage::imsi [variable]
     cls.add_instance_attribute('imsi', 'uint64_t', is_const=False)
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::CreateSessionRequestMessage::uli [variable]
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::CreateSessionRequestMessage::uli [variable]
     cls.add_instance_attribute('uli', 'ns3::EpcS11Sap::Uli', is_const=False)
     return
 
-def register_Ns3EpcS11SapSgwDeleteBearerCommandMessage_methods(root_module, cls):
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::DeleteBearerCommandMessage::DeleteBearerCommandMessage() [constructor]
+def register_Ns3EpcS11SapSmfDeleteBearerCommandMessage_methods(root_module, cls):
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::DeleteBearerCommandMessage::DeleteBearerCommandMessage() [constructor]
     cls.add_constructor([])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::DeleteBearerCommandMessage::DeleteBearerCommandMessage(ns3::EpcS11SapSgw::DeleteBearerCommandMessage const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::EpcS11SapSgw::DeleteBearerCommandMessage const &', 'arg0')])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::DeleteBearerCommandMessage::bearerContextsToBeRemoved [variable]
-    cls.add_instance_attribute('bearerContextsToBeRemoved', 'std::list< ns3::EpcS11SapSgw::BearerContextToBeRemoved >', is_const=False)
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::DeleteBearerCommandMessage::DeleteBearerCommandMessage(ns3::EpcS11SapSmf::DeleteBearerCommandMessage const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::EpcS11SapSmf::DeleteBearerCommandMessage const &', 'arg0')])
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::DeleteBearerCommandMessage::bearerContextsToBeRemoved [variable]
+    cls.add_instance_attribute('bearerContextsToBeRemoved', 'std::list< ns3::EpcS11SapSmf::BearerContextToBeRemoved >', is_const=False)
     return
 
-def register_Ns3EpcS11SapSgwDeleteBearerResponseMessage_methods(root_module, cls):
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::DeleteBearerResponseMessage::DeleteBearerResponseMessage() [constructor]
+def register_Ns3EpcS11SapSmfDeleteBearerResponseMessage_methods(root_module, cls):
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::DeleteBearerResponseMessage::DeleteBearerResponseMessage() [constructor]
     cls.add_constructor([])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::DeleteBearerResponseMessage::DeleteBearerResponseMessage(ns3::EpcS11SapSgw::DeleteBearerResponseMessage const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::EpcS11SapSgw::DeleteBearerResponseMessage const &', 'arg0')])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::DeleteBearerResponseMessage::bearerContextsRemoved [variable]
-    cls.add_instance_attribute('bearerContextsRemoved', 'std::list< ns3::EpcS11SapSgw::BearerContextRemovedSgwPgw >', is_const=False)
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::DeleteBearerResponseMessage::DeleteBearerResponseMessage(ns3::EpcS11SapSmf::DeleteBearerResponseMessage const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::EpcS11SapSmf::DeleteBearerResponseMessage const &', 'arg0')])
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::DeleteBearerResponseMessage::bearerContextsRemoved [variable]
+    cls.add_instance_attribute('bearerContextsRemoved', 'std::list< ns3::EpcS11SapSmf::BearerContextRemovedSmfUpf >', is_const=False)
     return
 
-def register_Ns3EpcS11SapSgwModifyBearerRequestMessage_methods(root_module, cls):
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::ModifyBearerRequestMessage::ModifyBearerRequestMessage() [constructor]
+def register_Ns3EpcS11SapSmfModifyBearerRequestMessage_methods(root_module, cls):
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::ModifyBearerRequestMessage::ModifyBearerRequestMessage() [constructor]
     cls.add_constructor([])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::ModifyBearerRequestMessage::ModifyBearerRequestMessage(ns3::EpcS11SapSgw::ModifyBearerRequestMessage const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::EpcS11SapSgw::ModifyBearerRequestMessage const &', 'arg0')])
-    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSgw::ModifyBearerRequestMessage::uli [variable]
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::ModifyBearerRequestMessage::ModifyBearerRequestMessage(ns3::EpcS11SapSmf::ModifyBearerRequestMessage const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::EpcS11SapSmf::ModifyBearerRequestMessage const &', 'arg0')])
+    ## epc-s11-sap.h (module 'lte'): ns3::EpcS11SapSmf::ModifyBearerRequestMessage::uli [variable]
     cls.add_instance_attribute('uli', 'ns3::EpcS11Sap::Uli', is_const=False)
     return
 
@@ -3310,8 +3310,8 @@ def register_Ns3EpcS1apSapEnbErabToBeSetupItem_methods(root_module, cls):
     cls.add_instance_attribute('erabId', 'uint8_t', is_const=False)
     ## epc-s1ap-sap.h (module 'lte'): ns3::EpcS1apSapEnb::ErabToBeSetupItem::erabLevelQosParameters [variable]
     cls.add_instance_attribute('erabLevelQosParameters', 'ns3::EpsBearer', is_const=False)
-    ## epc-s1ap-sap.h (module 'lte'): ns3::EpcS1apSapEnb::ErabToBeSetupItem::sgwTeid [variable]
-    cls.add_instance_attribute('sgwTeid', 'uint32_t', is_const=False)
+    ## epc-s1ap-sap.h (module 'lte'): ns3::EpcS1apSapEnb::ErabToBeSetupItem::smfTeid [variable]
+    cls.add_instance_attribute('smfTeid', 'uint32_t', is_const=False)
     ## epc-s1ap-sap.h (module 'lte'): ns3::EpcS1apSapEnb::ErabToBeSetupItem::transportLayerAddress [variable]
     cls.add_instance_attribute('transportLayerAddress', 'ns3::Ipv4Address', is_const=False)
     return
@@ -12980,8 +12980,8 @@ def register_Ns3EnumValue_methods(root_module, cls):
 def register_Ns3EpcEnbApplication_methods(root_module, cls):
     ## epc-enb-application.h (module 'lte'): ns3::EpcEnbApplication::EpcEnbApplication(ns3::EpcEnbApplication const & arg0) [copy constructor]
     cls.add_constructor([param('ns3::EpcEnbApplication const &', 'arg0')])
-    ## epc-enb-application.h (module 'lte'): ns3::EpcEnbApplication::EpcEnbApplication(ns3::Ptr<ns3::Socket> lteSocket, ns3::Ptr<ns3::Socket> s1uSocket, ns3::Ipv4Address enbS1uAddress, ns3::Ipv4Address sgwS1uAddress, uint16_t cellId) [constructor]
-    cls.add_constructor([param('ns3::Ptr< ns3::Socket >', 'lteSocket'), param('ns3::Ptr< ns3::Socket >', 's1uSocket'), param('ns3::Ipv4Address', 'enbS1uAddress'), param('ns3::Ipv4Address', 'sgwS1uAddress'), param('uint16_t', 'cellId')])
+    ## epc-enb-application.h (module 'lte'): ns3::EpcEnbApplication::EpcEnbApplication(ns3::Ptr<ns3::Socket> lteSocket, ns3::Ptr<ns3::Socket> s1uSocket, ns3::Ipv4Address enbS1uAddress, ns3::Ipv4Address smfS1uAddress, uint16_t cellId) [constructor]
+    cls.add_constructor([param('ns3::Ptr< ns3::Socket >', 'lteSocket'), param('ns3::Ptr< ns3::Socket >', 's1uSocket'), param('ns3::Ipv4Address', 'enbS1uAddress'), param('ns3::Ipv4Address', 'smfS1uAddress'), param('uint16_t', 'cellId')])
     ## epc-enb-application.h (module 'lte'): ns3::EpcEnbS1SapProvider * ns3::EpcEnbApplication::GetS1SapProvider() [member function]
     cls.add_method('GetS1SapProvider', 
                    'ns3::EpcEnbS1SapProvider *', 
@@ -13068,8 +13068,8 @@ def register_Ns3EpcHelper_methods(root_module, cls):
                    'void', 
                    [], 
                    is_virtual=True)
-    ## epc-helper.h (module 'lte'): ns3::Ptr<ns3::Node> ns3::EpcHelper::GetPgwNode() [member function]
-    cls.add_method('GetPgwNode', 
+    ## epc-helper.h (module 'lte'): ns3::Ptr<ns3::Node> ns3::EpcHelper::GetUpfNode() [member function]
+    cls.add_method('GetUpfNode', 
                    'ns3::Ptr< ns3::Node >', 
                    [], 
                    is_pure_virtual=True, is_virtual=True)
@@ -13115,10 +13115,10 @@ def register_Ns3EpcMme_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## epc-mme.h (module 'lte'): void ns3::EpcMme::SetS11SapSgw(ns3::EpcS11SapSgw * s) [member function]
-    cls.add_method('SetS11SapSgw', 
+    ## epc-mme.h (module 'lte'): void ns3::EpcMme::SetS11SapSmf(ns3::EpcS11SapSmf * s) [member function]
+    cls.add_method('SetS11SapSmf', 
                    'void', 
-                   [param('ns3::EpcS11SapSgw *', 's')])
+                   [param('ns3::EpcS11SapSmf *', 's')])
     ## epc-mme.h (module 'lte'): void ns3::EpcMme::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
@@ -13126,54 +13126,54 @@ def register_Ns3EpcMme_methods(root_module, cls):
                    visibility='protected', is_virtual=True)
     return
 
-def register_Ns3EpcSgwPgwApplication_methods(root_module, cls):
-    ## epc-sgw-pgw-application.h (module 'lte'): ns3::EpcSgwPgwApplication::EpcSgwPgwApplication(ns3::EpcSgwPgwApplication const & arg0) [copy constructor]
-    cls.add_constructor([param('ns3::EpcSgwPgwApplication const &', 'arg0')])
-    ## epc-sgw-pgw-application.h (module 'lte'): ns3::EpcSgwPgwApplication::EpcSgwPgwApplication(ns3::Ptr<ns3::VirtualNetDevice> const tunDevice, ns3::Ptr<ns3::Socket> const s1uSocket) [constructor]
+def register_Ns3EpcSmfUpfApplication_methods(root_module, cls):
+    ## epc-smf-upf-application.h (module 'lte'): ns3::EpcSmfUpfApplication::EpcSmfUpfApplication(ns3::EpcSmfUpfApplication const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::EpcSmfUpfApplication const &', 'arg0')])
+    ## epc-smf-upf-application.h (module 'lte'): ns3::EpcSmfUpfApplication::EpcSmfUpfApplication(ns3::Ptr<ns3::VirtualNetDevice> const tunDevice, ns3::Ptr<ns3::Socket> const s1uSocket) [constructor]
     cls.add_constructor([param('ns3::Ptr< ns3::VirtualNetDevice > const', 'tunDevice'), param('ns3::Ptr< ns3::Socket > const', 's1uSocket')])
-    ## epc-sgw-pgw-application.h (module 'lte'): void ns3::EpcSgwPgwApplication::AddEnb(uint16_t cellId, ns3::Ipv4Address enbAddr, ns3::Ipv4Address sgwAddr) [member function]
+    ## epc-smf-upf-application.h (module 'lte'): void ns3::EpcSmfUpfApplication::AddEnb(uint16_t cellId, ns3::Ipv4Address enbAddr, ns3::Ipv4Address smfAddr) [member function]
     cls.add_method('AddEnb', 
                    'void', 
-                   [param('uint16_t', 'cellId'), param('ns3::Ipv4Address', 'enbAddr'), param('ns3::Ipv4Address', 'sgwAddr')])
-    ## epc-sgw-pgw-application.h (module 'lte'): void ns3::EpcSgwPgwApplication::AddUe(uint64_t imsi) [member function]
+                   [param('uint16_t', 'cellId'), param('ns3::Ipv4Address', 'enbAddr'), param('ns3::Ipv4Address', 'smfAddr')])
+    ## epc-smf-upf-application.h (module 'lte'): void ns3::EpcSmfUpfApplication::AddUe(uint64_t imsi) [member function]
     cls.add_method('AddUe', 
                    'void', 
                    [param('uint64_t', 'imsi')])
-    ## epc-sgw-pgw-application.h (module 'lte'): void ns3::EpcSgwPgwApplication::DoDispose() [member function]
+    ## epc-smf-upf-application.h (module 'lte'): void ns3::EpcSmfUpfApplication::DoDispose() [member function]
     cls.add_method('DoDispose', 
                    'void', 
                    [], 
                    is_virtual=True)
-    ## epc-sgw-pgw-application.h (module 'lte'): ns3::EpcS11SapSgw * ns3::EpcSgwPgwApplication::GetS11SapSgw() [member function]
-    cls.add_method('GetS11SapSgw', 
-                   'ns3::EpcS11SapSgw *', 
+    ## epc-smf-upf-application.h (module 'lte'): ns3::EpcS11SapSmf * ns3::EpcSmfUpfApplication::GetS11SapSmf() [member function]
+    cls.add_method('GetS11SapSmf', 
+                   'ns3::EpcS11SapSmf *', 
                    [])
-    ## epc-sgw-pgw-application.h (module 'lte'): static ns3::TypeId ns3::EpcSgwPgwApplication::GetTypeId() [member function]
+    ## epc-smf-upf-application.h (module 'lte'): static ns3::TypeId ns3::EpcSmfUpfApplication::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## epc-sgw-pgw-application.h (module 'lte'): void ns3::EpcSgwPgwApplication::RecvFromS1uSocket(ns3::Ptr<ns3::Socket> socket) [member function]
+    ## epc-smf-upf-application.h (module 'lte'): void ns3::EpcSmfUpfApplication::RecvFromS1uSocket(ns3::Ptr<ns3::Socket> socket) [member function]
     cls.add_method('RecvFromS1uSocket', 
                    'void', 
                    [param('ns3::Ptr< ns3::Socket >', 'socket')])
-    ## epc-sgw-pgw-application.h (module 'lte'): bool ns3::EpcSgwPgwApplication::RecvFromTunDevice(ns3::Ptr<ns3::Packet> packet, ns3::Address const & source, ns3::Address const & dest, uint16_t protocolNumber) [member function]
+    ## epc-smf-upf-application.h (module 'lte'): bool ns3::EpcSmfUpfApplication::RecvFromTunDevice(ns3::Ptr<ns3::Packet> packet, ns3::Address const & source, ns3::Address const & dest, uint16_t protocolNumber) [member function]
     cls.add_method('RecvFromTunDevice', 
                    'bool', 
                    [param('ns3::Ptr< ns3::Packet >', 'packet'), param('ns3::Address const &', 'source'), param('ns3::Address const &', 'dest'), param('uint16_t', 'protocolNumber')])
-    ## epc-sgw-pgw-application.h (module 'lte'): void ns3::EpcSgwPgwApplication::SendToS1uSocket(ns3::Ptr<ns3::Packet> packet, ns3::Ipv4Address enbS1uAddress, uint32_t teid) [member function]
+    ## epc-smf-upf-application.h (module 'lte'): void ns3::EpcSmfUpfApplication::SendToS1uSocket(ns3::Ptr<ns3::Packet> packet, ns3::Ipv4Address enbS1uAddress, uint32_t teid) [member function]
     cls.add_method('SendToS1uSocket', 
                    'void', 
                    [param('ns3::Ptr< ns3::Packet >', 'packet'), param('ns3::Ipv4Address', 'enbS1uAddress'), param('uint32_t', 'teid')])
-    ## epc-sgw-pgw-application.h (module 'lte'): void ns3::EpcSgwPgwApplication::SendToTunDevice(ns3::Ptr<ns3::Packet> packet, uint32_t teid) [member function]
+    ## epc-smf-upf-application.h (module 'lte'): void ns3::EpcSmfUpfApplication::SendToTunDevice(ns3::Ptr<ns3::Packet> packet, uint32_t teid) [member function]
     cls.add_method('SendToTunDevice', 
                    'void', 
                    [param('ns3::Ptr< ns3::Packet >', 'packet'), param('uint32_t', 'teid')])
-    ## epc-sgw-pgw-application.h (module 'lte'): void ns3::EpcSgwPgwApplication::SetS11SapMme(ns3::EpcS11SapMme * s) [member function]
+    ## epc-smf-upf-application.h (module 'lte'): void ns3::EpcSmfUpfApplication::SetS11SapMme(ns3::EpcS11SapMme * s) [member function]
     cls.add_method('SetS11SapMme', 
                    'void', 
                    [param('ns3::EpcS11SapMme *', 's')])
-    ## epc-sgw-pgw-application.h (module 'lte'): void ns3::EpcSgwPgwApplication::SetUeAddress(uint64_t imsi, ns3::Ipv4Address ueAddr) [member function]
+    ## epc-smf-upf-application.h (module 'lte'): void ns3::EpcSmfUpfApplication::SetUeAddress(uint64_t imsi, ns3::Ipv4Address ueAddr) [member function]
     cls.add_method('SetUeAddress', 
                    'void', 
                    [param('uint64_t', 'imsi'), param('ns3::Ipv4Address', 'ueAddr')])
@@ -18753,8 +18753,8 @@ def register_Ns3PointToPointEpcHelper_methods(root_module, cls):
                    'void', 
                    [], 
                    is_virtual=True)
-    ## point-to-point-epc-helper.h (module 'lte'): ns3::Ptr<ns3::Node> ns3::PointToPointEpcHelper::GetPgwNode() [member function]
-    cls.add_method('GetPgwNode', 
+    ## point-to-point-epc-helper.h (module 'lte'): ns3::Ptr<ns3::Node> ns3::PointToPointEpcHelper::GetUpfNode() [member function]
+    cls.add_method('GetUpfNode', 
                    'ns3::Ptr< ns3::Node >', 
                    [], 
                    is_virtual=True)
@@ -20448,8 +20448,8 @@ def register_Ns3EmuEpcHelper_methods(root_module, cls):
                    'void', 
                    [], 
                    is_virtual=True)
-    ## emu-epc-helper.h (module 'lte'): ns3::Ptr<ns3::Node> ns3::EmuEpcHelper::GetPgwNode() [member function]
-    cls.add_method('GetPgwNode', 
+    ## emu-epc-helper.h (module 'lte'): ns3::Ptr<ns3::Node> ns3::EmuEpcHelper::GetUpfNode() [member function]
+    cls.add_method('GetUpfNode', 
                    'ns3::Ptr< ns3::Node >', 
                    [], 
                    is_virtual=True)
