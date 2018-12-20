@@ -1677,6 +1677,15 @@ UeManager::SelectAmf ()
 	}
 }
 
+// hmlee
+/*
+void
+UeManager::RecvRrcIdentityRequest (NrRrcSap::RrcIdentityRequest msg)
+{
+	TODO: Relay message to the AMF
+}
+*/
+
 void
 UeManager::RecvRrcConnectionRequest (NrRrcSap::RrcConnectionRequest msg)
 {
@@ -5025,6 +5034,16 @@ NrEnbRrc::DoCompleteSetupUe (uint16_t rnti, NrEnbRrcSapProvider::CompleteSetupUe
   NS_LOG_FUNCTION (this << rnti);
    GetUeManager (rnti)->CompleteSetupUe (params);
 }
+
+// hmlee
+/*
+void
+NrEnbRrc::DoRecvRrcInitialRequest (uint16_t rnti, NrRrcSap::RrcInitialRequest msg)
+{
+  NS_LOG_FUNCTION (this << rnti);
+  GetUeManager (rnti)->RecvRrcInitialRequest (msg);
+}
+*/
 
 void
 NrEnbRrc::DoRecvRrcConnectionRequest (uint16_t rnti, NrRrcSap::RrcConnectionRequest msg)

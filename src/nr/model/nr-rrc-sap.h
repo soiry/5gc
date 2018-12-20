@@ -721,6 +721,9 @@ public:
 
   virtual void Setup (SetupParameters params) = 0;
 
+  // hmlee
+  // viritual void SendRrcIdentityRequest (RrcIdentityRequest msg) = 0;
+
   /**
    * \brief Send an _RRCConnectionRequest message to the serving eNodeB
    *        during an RRC connection establishment procedure
@@ -988,6 +991,9 @@ public:
 
   virtual void CompleteSetupUe (uint16_t rnti, CompleteSetupUeParameters params) = 0;
 
+  // hmlee
+  // virtual void RecvRrcIdentityRequest (uint16_t rnti, RrcIdentityRequest msg) = 0;
+
   /**
    * \brief Receive an _RRCConnectionRequest_ message from a UE
    *        during an RRC connection establishment procedure
@@ -1073,6 +1079,8 @@ public:
 
   // inherited from NrUeRrcSapUser
   virtual void Setup (SetupParameters params);
+  // hmlee
+  // virtual void SendRrcIdentityRequest (RrcIdentityRequest msg);
   virtual void SendRrcConnectionRequest (RrcConnectionRequest msg);
   virtual void SendRrcConnectionSetupCompleted (RrcConnectionSetupCompleted msg);
   virtual void SendRrcConnectionReconfigurationCompleted (RrcConnectionReconfigurationCompleted msg);
@@ -1103,6 +1111,16 @@ MemberNrUeRrcSapUser<C>::Setup (SetupParameters params)
 {
   m_owner->DoSetup (params);
 }
+
+// hmlee
+/*
+template <class C>
+void
+MemberNrUeRrcSapUser<C>::SendIdentityRequest (RrcIdentityRequest msg)
+{
+  m_owner->DoSendIdentityRequest (msg);
+}
+*/
 
 template <class C>
 void
@@ -1427,6 +1445,8 @@ public:
   // methods inherited from NrEnbRrcSapProvider go here
 
   virtual void CompleteSetupUe (uint16_t rnti, CompleteSetupUeParameters params);
+  // hmlee
+  // virtual void RecvRrcIdentityRequest (uint16_t rnti, RrcIdentityRequest msg);
   virtual void RecvRrcConnectionRequest (uint16_t rnti, RrcConnectionRequest msg);
   virtual void RecvRrcConnectionSetupCompleted (uint16_t rnti, RrcConnectionSetupCompleted msg);
   virtual void RecvRrcConnectionReconfigurationCompleted (uint16_t rnti, RrcConnectionReconfigurationCompleted msg);
@@ -1457,6 +1477,16 @@ MemberNrEnbRrcSapProvider<C>::CompleteSetupUe (uint16_t rnti, CompleteSetupUePar
 {
   m_owner->DoCompleteSetupUe (rnti, params);
 }
+
+// hmlee
+/*
+template <class C>
+void
+MemberNrEnbRrcSapProvider<C>::RecvRrcIdentityRequest (uint16_t rnti, RrcIdentityRequest msg)
+{
+  Simulator::ScheduleNow (&C::DoRecvRrcIdentityRequest, m_owner, rnti, msg);
+}
+*/
 
 template <class C>
 void

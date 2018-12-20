@@ -278,6 +278,10 @@ public:
 
   /// Part of the RRC protocol. Implement the NrEnbRrcSapProvider::CompleteSetupUe interface.
   void CompleteSetupUe (NrEnbRrcSapProvider::CompleteSetupUeParameters params);
+  
+  // hmlee
+  // void RecvRrcIdentityRequest (NrRrcSap::RrcIdentityRequest msg);
+
   /// Part of the RRC protocol. Implement the NrEnbRrcSapProvider::RecvRrcConnectionRequest interface.
   void RecvRrcConnectionRequest (NrRrcSap::RrcConnectionRequest msg);
   /// Part of the RRC protocol. Implement the NrEnbRrcSapProvider::RecvRrcConnectionSetupCompleted interface.
@@ -1088,6 +1092,10 @@ private:
 
   /// Part of the RRC protocol. Forwarding NrEnbRrcSapProvider::CompleteSetupUe interface to UeManager::CompleteSetupUe
   void DoCompleteSetupUe (uint16_t rnti, NrEnbRrcSapProvider::CompleteSetupUeParameters params);
+  
+  // hmlee
+  // DoRecvRrcIdentityRequest (uint16_t rnti, NrRrcSap::RrcIdentityRequest msg);
+
   /// Part of the RRC protocol. Forwarding NrEnbRrcSapProvider::RecvRrcConnectionRequest interface to UeManager::RecvRrcConnectionRequest
   void DoRecvRrcConnectionRequest (uint16_t rnti, NrRrcSap::RrcConnectionRequest msg);
   /// Part of the RRC protocol. Forwarding NrEnbRrcSapProvider::RecvRrcConnectionSetupCompleted interface to UeManager::RecvRrcConnectionSetupCompleted

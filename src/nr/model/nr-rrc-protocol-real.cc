@@ -113,6 +113,23 @@ NrUeRrcProtocolReal::DoSetup (NrUeRrcSapUser::SetupParameters params)
   m_ueRrcSapProvider->CompleteSetup (m_completeSetupParameters);
 }
 
+// hmlee
+/*
+void
+NrUeRrcProtocolRead::DoSendIdentityRequest (NrRrcSap::RrcIdentityRequest msg)
+{
+	
+  m_rnti = m_rrc->GetRnti ();
+
+  Simulator::Schedule (RRC_REAL_MSG_DELAY, 
+                       &NrEnbRrcSapProvider::RecvRrcIdentityRequest,
+                       m_enbRrcSapProvider,
+                       m_rnti, 
+                       msg);
+
+}
+*/
+
 void 
 NrUeRrcProtocolReal::DoSendRrcConnectionRequest (NrRrcSap::RrcConnectionRequest msg)
 {
