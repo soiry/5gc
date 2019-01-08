@@ -207,15 +207,15 @@ NgcAmfApplication::DoRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id
   // if(imsi == NULL)  // if SUCI is not sent by the UE nor the old AMF
   // suci = m_n2apSapAmfProvider->SendIdentityRequest (amfUeN2Id, enbUeN2Id, cellId);
   
-  // Conditional 10.
+  // Conditional 8.
   // if old AMF exists,
   // NamfCommunicationRegistrationCompleteNotify(imsi);
 
-  // Conditional 11.
+  // Conditional 9.
   // if PEI is not exists,
   // pei = m_n2apSapAmfProvider->SendIdentityRequest (amfUeN2Id, enbUeN2Id, cellId);
   
-  // 21. Registration Accept
+  // 11. Registration Accept
   //     (5G-GUTI, Registration Area, PDU Session status, ...) 
   // m_n2apsapAmfProvider->SendRegistrationAccept();
 }
