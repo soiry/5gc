@@ -5355,6 +5355,20 @@ RrcConnectionReconfigurationHeader::GetPhysicalConfigDedicated () const
   return m_radioResourceConfigDedicated.physicalConfigDedicated;
 }
 
+// jhlim
+//////////////////// IdentityRequestHeader class ////////////////////
+RrcIdentityRequestHeader::RrcIdentityRequestHeader ()
+{
+}
+RrcIdentityRequestHeader::~RrcIdentityRequestHeader ()
+{
+}
+
+void
+RrcIdentityRequestHeader::SetMessage (NrRrcSap::RrcIdentityRequest msg)
+{
+}
+
 
 //////////////////// HandoverPreparationInfoHeader class ////////////////////////
 

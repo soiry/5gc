@@ -1315,6 +1315,17 @@ else{  //this is the case of handover
 }
 }
 
+// jhlim
+void
+NrUeRrc::DoRecvRrcIdentityRequest (NrRrcSap::RrcIdentityRequest msg)
+{
+  NS_LOG_FUNCTION (this << " RNTI " << m_rnti << ToString(m_state));
+  std::cout << "UE receives RRC identity request message from source eNB at time  "<<Simulator::Now().GetSeconds()<< std::endl;
+  
+  NrRrcSap::RrcIdentityResponse msg2;
+  m_rrcSapUser->SendRrcIdentityResponse (msg2);
+}
+
 void 
 NrUeRrc::DoRecvRrcConnectionReestablishment (NrRrcSap::RrcConnectionReestablishment msg)
 {

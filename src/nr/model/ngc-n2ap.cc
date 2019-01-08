@@ -397,13 +397,6 @@ NgcN2apEnb::DoSendIdentityResponse (uint64_t amfUeN2Id,
   sourceSocket->SendTo (packet, 0, InetSocketAddress (amfIpAddr, m_n2apUdpPort));
 }
 
-// jhlim
-void 
-NgcN2apEnb::DoSendPathSwitchRequest (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t gci, 
-            std::list<NgcN2apSap::ErabSwitchedInDownlinkItem> erabToBeSwitchedInDownlinkList)
-{
-  NS_LOG_FUNCTION (this);
-
 void 
 NgcN2apEnb::DoSendPathSwitchRequest (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t gci, 
             std::list<NgcN2apSap::ErabSwitchedInDownlinkItem> erabToBeSwitchedInDownlinkList)

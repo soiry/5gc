@@ -130,6 +130,19 @@ NrUeRrcProtocolRead::DoSendIdentityRequest (NrRrcSap::RrcIdentityRequest msg)
 }
 */
 
+// jhlim: Send IdentityResponse to Enb.
+void
+NrUeRrcProtocolReal::DoSendRrcIdentityResponse (NrRrcSap::RrcIdentityResponse msg)
+{
+  m_rnti = m_rrc->GetRnti ();
+  //SetEnbRrcSapProvider ();
+  Simulator::Schedule (RRC_REAL_MSG_DELAY,
+  					  &NrEnbRrcSapProvider::RecvRrcIdentityResponse,
+					  m_enbRrcSapProvider,
+					  m_rnti,
+					  msg);
+}
+
 void 
 NrUeRrcProtocolReal::DoSendRrcConnectionRequest (NrRrcSap::RrcConnectionRequest msg)
 {
@@ -707,7 +720,24 @@ NrEnbRrcProtocolReal::DoSendRrcConnectionReconfiguration (uint16_t rnti, NrRrcSa
 
   m_setupUeParametersMap[rnti].srb1SapProvider->TransmitPdcpSdu (transmitPdcpSduParameters);
 }
+// jhlim: Send IdentityRequest Message to UE.
+void
+NrEnbRrcProtocolReal::DoSendRrcIdentityRequest (uint16_t rnti, NrRrcSap::RrcIdentityRequest msg)
+{
+  Ptr<Packet> packet = Create<Packet> ();
 
+ RrcIdentityRequestHeader rrcIdentityRequestHeader;
+ rrcIdentityRequestHeader.SetMessage (msg);
+
+ packet->AddHeader (rrcIdentityRequestHeader);
+
+ NrPdcpSapProvider::TransmitPdcpSduParameters transmitPdcpSduParameters;
+ transmitPdcpSduParameters.pdcpSdu = packet;
+ transmitPdcpSduParameters.rnti = rnti;
+ transmitPdcpSduParameters.lcid = 1;
+
+ m_setupUeParametersMap[rnti].srb1SapProvider->TransmitPdcpSdu (transmitPdcpSduParameters);
+}
 void 
 NrEnbRrcProtocolReal::DoSendRrcConnectionReestablishment (uint16_t rnti, NrRrcSap::RrcConnectionReestablishment msg)
 {

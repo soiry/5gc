@@ -137,18 +137,18 @@ NgcAmfApplication::AddBearer (uint64_t imsi, Ptr<NgcTft> tft, EpsBearer bearer)
 void
 NgcAmfApplication::NamfCommunicationUeContextTransfer(uint64_t imsi)
 {
-	uint64_t context;
+	uint64_t context = imsi;
 	NamfCommunicationUeContextTransferResponse(imsi, context);
 }
 
 void
-NgcAmfApplication::NamfCommunicationUeContextTransferResponse(uint64_t context)
+NgcAmfApplication::NamfCommunicationUeContextTransferResponse(uint64_t imsi, uint64_t context)
 {
 	// Now new AMF gets a UE's context from the old AMF.
 }
 
 void
-NgcAmfApplication::NamfCommunicationRegistrationCompleteNotify(imsi)
+NgcAmfApplication::NamfCommunicationRegistrationCompleteNotify(uint64_t imsi)
 {
 }
 bool
@@ -197,7 +197,7 @@ NgcAmfApplication::DoRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id
   std::map<uint64_t, Ptr<UeInfo> >::iterator it = m_ueInfoMap.find (imsi);
   NS_ASSERT_MSG (it != m_ueInfoMap.end (), "could not find any UE with IMSI " << imsi);
   it->second->cellId = gci;
-  uint16_t cellId = it->second->cellId;
+  //uint16_t cellId = it->second->cellId;
 
   // Conditional 4-5.
   if(IsGuti(imsi)) // if GUTI exists, 
@@ -226,8 +226,9 @@ NgcAmfApplication::DoRegistrationComplete ()
 	NS_LOG_FUNCTION (this);
 
 }
+// jhlim
 void 
-NgcAmfApplication::DoIdentityResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSapAmf::ErabSetupItem> erabSetupList)
+NgcAmfApplication::DoIdentityResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id)
 {
   NS_LOG_FUNCTION (this << amfUeN2Id << enbUeN2Id);
 }

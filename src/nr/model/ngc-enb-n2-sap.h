@@ -51,6 +51,9 @@ public:
    */
   virtual void RegistrationRequest (uint64_t imsi, uint16_t rnti) = 0;
 
+  //jhlim
+  virtual void IdentityResponse (uint64_t imsi, uint16_t rnti) = 0;
+
   /**
    *  \brief Triggers ngc-enb-application to send ERAB Release Indication message towards AMF
    *  \param imsi the UE IMSI
@@ -116,6 +119,12 @@ public:
     Ipv4Address transportLayerAddress; /**< IP Address of the SMF, see 36.423 9.2.1 */
   };
 
+  // jhlim
+  struct IdentityRequestParameters
+  {
+	uint16_t rnti;
+  };
+
   /**
    * request the setup of a DataRadioBearer
    * 
@@ -123,7 +132,7 @@ public:
   virtual void DataRadioBearerSetupRequest (DataRadioBearerSetupRequestParameters params) = 0;
 
   //jhlim
-  virtual void IdentityRequest (DataRadioBearerSetupRequestParameters params) = 0;
+  virtual void IdentityRequest (IdentityRequestParameters params) = 0;
 
   
   struct PathSwitchRequestAcknowledgeParameters
@@ -151,6 +160,8 @@ public:
 
   // inherited from NgcEnbN2SapProvider
   virtual void RegistrationRequest (uint64_t imsi, uint16_t rnti);
+  // jhlim
+  virtual void IdentityResponse (uint64_t imsi, uint16_t rnti);
   virtual void DoSendReleaseIndication (uint64_t imsi, uint16_t rnti, uint8_t bearerId);
 
   virtual void PathSwitchRequest (PathSwitchRequestParameters params);
@@ -178,6 +189,13 @@ void MemberNgcEnbN2SapProvider<C>::RegistrationRequest (uint64_t imsi, uint16_t 
 {
   cout<<"DoRegistrationRequest for Provider is called" << endl;
   m_owner->DoRegistrationRequest (imsi, rnti);
+}
+// jhlim
+template <class C>
+void MemberNgcEnbN2SapProvider<C>::IdentityResponse (uint64_t imsi, uint16_t rnti)
+{
+  cout<<"DoIdentityResponse for Provider is called" << endl;
+  m_owner->DoIdentityResponse (imsi, rnti);
 }
 
 template <class C>
@@ -230,7 +248,7 @@ public:
   virtual void DataRadioBearerSetupRequest (DataRadioBearerSetupRequestParameters params);
   virtual void PathSwitchRequestAcknowledge (PathSwitchRequestAcknowledgeParameters params);
   // jhlim
-  virtual void IdentityRequest (DataRadioBearerSetupRequestParameters params);
+  virtual void IdentityRequest (IdentityRequestParameters params);
 
 private:
   MemberNgcEnbN2SapUser ();
@@ -255,9 +273,9 @@ void MemberNgcEnbN2SapUser<C>::DataRadioBearerSetupRequest (DataRadioBearerSetup
 }
 // jhlim
 template <class C>
-void MemberNgcEnbN2SapUser<C>::IdentityRequest (DataRadioBearerSetupRequestParameters params)
+void MemberNgcEnbN2SapUser<C>::IdentityRequest (IdentityRequestParameters params)
 {
-  m_owner->DoIdentitySetupRequest (params);
+  m_owner->DoIdentityRequest (params);
 }
 template <class C>
 void MemberNgcEnbN2SapUser<C>::PathSwitchRequestAcknowledge (PathSwitchRequestAcknowledgeParameters params)

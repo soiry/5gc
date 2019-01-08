@@ -651,6 +651,13 @@ public:
     uint8_t rrcTransactionIdentifier;
   };
 
+  //jhlim
+  struct RrcIdentityRequest
+  {
+  };
+  struct RrcIdentityResponse
+  {
+  };
 
   struct RrcConnectionReestablishmentRequest
   {
@@ -722,7 +729,7 @@ public:
   virtual void Setup (SetupParameters params) = 0;
 
   // hmlee
-  // viritual void SendRrcIdentityRequest (RrcIdentityRequest msg) = 0;
+  virtual void SendRrcIdentityResponse (RrcIdentityResponse msg) = 0;
 
   /**
    * \brief Send an _RRCConnectionRequest message to the serving eNodeB
@@ -818,6 +825,9 @@ public:
    */
   virtual void RecvRrcConnectionReconfiguration (RrcConnectionReconfiguration msg) = 0;
 
+  //jhlim
+  virtual void RecvRrcIdentityRequest (RrcIdentityRequest msg) = 0;
+
   /**
    * \brief Receive an _RRCConnectionReestablishment_ message from the serving eNodeB
    *        during an RRC connection re-establishment procedure
@@ -886,6 +896,9 @@ public:
 
   virtual void SetupUe (uint16_t rnti, SetupUeParameters params) = 0;
   virtual void RemoveUe (uint16_t rnti) = 0;
+
+  // jhlim
+  virtual void SendRrcIdentityRequest (uint16_t rnti, RrcIdentityRequest msg) = 0;
 
   /**
    * \brief Send a _SystemInformation_ message to all attached UEs
@@ -991,8 +1004,8 @@ public:
 
   virtual void CompleteSetupUe (uint16_t rnti, CompleteSetupUeParameters params) = 0;
 
-  // hmlee
-  // virtual void RecvRrcIdentityRequest (uint16_t rnti, RrcIdentityRequest msg) = 0;
+  // hmlee, jhlim
+  virtual void RecvRrcIdentityResponse (uint16_t rnti, RrcIdentityResponse msg) = 0;
 
   /**
    * \brief Receive an _RRCConnectionRequest_ message from a UE
@@ -1079,8 +1092,8 @@ public:
 
   // inherited from NrUeRrcSapUser
   virtual void Setup (SetupParameters params);
-  // hmlee
-  // virtual void SendRrcIdentityRequest (RrcIdentityRequest msg);
+  // hmlee, jhlim
+  virtual void SendRrcIdentityResponse (RrcIdentityResponse msg);
   virtual void SendRrcConnectionRequest (RrcConnectionRequest msg);
   virtual void SendRrcConnectionSetupCompleted (RrcConnectionSetupCompleted msg);
   virtual void SendRrcConnectionReconfigurationCompleted (RrcConnectionReconfigurationCompleted msg);
@@ -1112,15 +1125,13 @@ MemberNrUeRrcSapUser<C>::Setup (SetupParameters params)
   m_owner->DoSetup (params);
 }
 
-// hmlee
-/*
+// hmlee, jhlim
 template <class C>
 void
-MemberNrUeRrcSapUser<C>::SendIdentityRequest (RrcIdentityRequest msg)
+MemberNrUeRrcSapUser<C>::SendRrcIdentityResponse (RrcIdentityResponse msg)
 {
-  m_owner->DoSendIdentityRequest (msg);
+  m_owner->DoSendRrcIdentityResponse (msg);
 }
-*/
 
 template <class C>
 void
@@ -1193,6 +1204,7 @@ public:
   virtual void RecvRrcConnectionReject (RrcConnectionReject msg);
   virtual void RecvRrcConnectToMmWave (uint16_t mmWaveCellId, uint16_t mmWaveCellId_2); //sjkang
   virtual void RecvRrcConnectionSwitch (RrcConnectionSwitch msg);
+  virtual void RecvRrcIdentityRequest (RrcIdentityRequest msg); //jhlim
 
 private:
   MemberNrUeRrcSapProvider ();
@@ -1236,6 +1248,14 @@ void
 MemberNrUeRrcSapProvider<C>::RecvRrcConnectionReconfiguration (RrcConnectionReconfiguration msg)
 {
   Simulator::ScheduleNow (&C::DoRecvRrcConnectionReconfiguration, m_owner, msg);
+}
+
+// jhlim
+template <class C>
+void
+MemberNrUeRrcSapProvider<C>::RecvRrcIdentityRequest (RrcIdentityRequest msg)
+{
+  Simulator::ScheduleNow (&C::DoRecvRrcIdentityRequest, m_owner, msg);
 }
 
 template <class C>
@@ -1309,6 +1329,9 @@ public:
   virtual Ptr<Packet> EncodeHandoverCommand (RrcConnectionReconfiguration msg);
   virtual RrcConnectionReconfiguration DecodeHandoverCommand (Ptr<Packet> p);
 
+  // jhlim
+  virtual void SendRrcIdentityRequest (uint16_t rnti, RrcIdentityRequest msg);
+
 private:
   MemberNrEnbRrcSapUser ();
   C* m_owner;
@@ -1358,6 +1381,14 @@ void
 MemberNrEnbRrcSapUser<C>::SendRrcConnectionReconfiguration (uint16_t rnti, RrcConnectionReconfiguration msg)
 {
   m_owner->DoSendRrcConnectionReconfiguration (rnti, msg);
+}
+
+// jhlim
+template <class C>
+void
+MemberNrEnbRrcSapUser<C>::SendRrcIdentityRequest (uint16_t rnti, RrcIdentityRequest msg)
+{
+  m_owner->DoSendRrcIdentityRequest (rnti, msg);
 }
 
 template <class C>
@@ -1446,7 +1477,7 @@ public:
 
   virtual void CompleteSetupUe (uint16_t rnti, CompleteSetupUeParameters params);
   // hmlee
-  // virtual void RecvRrcIdentityRequest (uint16_t rnti, RrcIdentityRequest msg);
+  virtual void RecvRrcIdentityResponse (uint16_t rnti, RrcIdentityResponse msg);
   virtual void RecvRrcConnectionRequest (uint16_t rnti, RrcConnectionRequest msg);
   virtual void RecvRrcConnectionSetupCompleted (uint16_t rnti, RrcConnectionSetupCompleted msg);
   virtual void RecvRrcConnectionReconfigurationCompleted (uint16_t rnti, RrcConnectionReconfigurationCompleted msg);
@@ -1479,14 +1510,12 @@ MemberNrEnbRrcSapProvider<C>::CompleteSetupUe (uint16_t rnti, CompleteSetupUePar
 }
 
 // hmlee
-/*
 template <class C>
 void
-MemberNrEnbRrcSapProvider<C>::RecvRrcIdentityRequest (uint16_t rnti, RrcIdentityRequest msg)
+MemberNrEnbRrcSapProvider<C>::RecvRrcIdentityResponse (uint16_t rnti, RrcIdentityResponse msg)
 {
-  Simulator::ScheduleNow (&C::DoRecvRrcIdentityRequest, m_owner, rnti, msg);
+  Simulator::ScheduleNow (&C::DoRecvRrcIdentityResponse, m_owner, rnti, msg);
 }
-*/
 
 template <class C>
 void

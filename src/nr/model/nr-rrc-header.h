@@ -600,6 +600,23 @@ private:
   NrRrcSap::AsConfig m_asConfig;
 };
 
+// jhlim
+class RrcIdentityRequestHeader : public RrcDlDcchMessage
+{
+public:
+  RrcIdentityRequestHeader ();
+  ~RrcIdentityRequestHeader ();
+/*
+  void PreSerialize () const;
+  uint32_t Deserialize (Buffer::Iterator bIterator);
+  void Print (std::ostream &os) const;
+*/
+
+  void SetMessage (NrRrcSap::RrcIdentityRequest msg);
+//  NrRrcSap::RrcIdentityRequest GetMessage () const;
+
+};
+
 /**
 * This class manages the serialization/deserialization of RRCConnectionReestablishmentRequest IE
 */

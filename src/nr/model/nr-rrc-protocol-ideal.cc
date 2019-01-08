@@ -138,6 +138,18 @@ NrUeRrcProtocolIdeal::DoSendRrcConnectionReconfigurationCompleted (NrRrcSap::Rrc
                         msg);
 }
 
+// jhlim
+void
+NrUeRrcProtocolIdeal::DoSendRrcIdentityResponse (NrRrcSap::RrcIdentityResponse msg)
+{
+  m_rnti = m_rrc->GetRnti ();
+  //SetEnbRrcSapProvider ();
+  Simulator::Schedule (RRC_IDEAL_MSG_DELAY,
+  						&NrEnbRrcSapProvider::RecvRrcIdentityResponse,
+						m_enbRrcSapProvider,
+						m_rnti,
+						msg);
+}
 void 
 NrUeRrcProtocolIdeal::DoSendRrcConnectionReestablishmentRequest (NrRrcSap::RrcConnectionReestablishmentRequest msg)
 {
@@ -383,6 +395,16 @@ NrEnbRrcProtocolIdeal::DoSendRrcConnectionReconfiguration (uint16_t rnti, NrRrcS
 {
   Simulator::Schedule (RRC_IDEAL_MSG_DELAY, 
 		       &NrUeRrcSapProvider::RecvRrcConnectionReconfiguration,
+		       GetUeRrcSapProvider (rnti), 
+		       msg);
+}
+
+// jhlim
+void
+NrEnbRrcProtocolIdeal::DoSendRrcIdentityRequest (uint16_t rnti, NrRrcSap::RrcIdentityRequest msg)
+{
+  Simulator::Schedule (RRC_IDEAL_MSG_DELAY, 
+		       &NrUeRrcSapProvider::RecvRrcIdentityRequest,
 		       GetUeRrcSapProvider (rnti), 
 		       msg);
 }

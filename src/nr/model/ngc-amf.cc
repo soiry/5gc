@@ -284,4 +284,16 @@ void NgcAmf::RemoveBearer (Ptr<UeInfo> ueInfo, uint8_t epsBearerId)
     }
 }
 
+// jhlim
+void
+NgcAmf::DoIdentityRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId)
+{
+  NS_LOG_FUNCTION (this);
+}
+void
+NgcAmf::DoIdentityResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id)
+{
+  NS_LOG_FUNCTION (this);
+}
+
 } // namespace ns3

@@ -58,7 +58,8 @@ public:
     ErabReleaseIndication   = 37,
     InitialContextSetupResponse = 43,
     InitialContextSetupRequest = 41,
-    PathSwitchRequestAck = 59
+    PathSwitchRequestAck = 59,
+	IdentityRequest = 77
   };
 
 
@@ -291,12 +292,11 @@ private:
 };
 
 /* jhlim */
-/*
-class NgcN2APIdentityRequestHeader : public Header
+class IdentityRequest : public Header
 {
 public:
-  NgcN2APIdentityRequestHeader ();
-  virtual ~NgcN2APIdentityRequestHeader ();
+  IdentityRequest ();
+  virtual ~IdentityRequest ();
 
   static TypeId GetTypeId (void);
   virtual TypeId GetInstanceTypeId (void) const;
@@ -325,7 +325,7 @@ private:
   uint16_t          m_ecgi;
   uint64_t          m_amfUeN2Id;
 };
-*/
+
 
 
 }
