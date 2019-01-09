@@ -197,13 +197,6 @@ NgcN2apEnb::RecvFromN2apSocket (Ptr<Socket> socket)
 
     m_n2apSapUser->PathSwitchRequestAcknowledge(enbUeN2apId, amfUeN2apId, ecgi, pathErab);
   }
-  // hmlee
-  /*
-  else if (procedureCode == NgcN2APHeader::IdentityRequest)
-  {
-  	m_n2apSapUser->IdentityRequestResponse ();
-  }
-  */
   else if (procedureCode == NgcN2APHeader::IdentityRequest) /* jhlim: for signal 6. */
   {
 	  /* Not implemented */
@@ -228,15 +221,6 @@ NgcN2apEnb::RecvFromN2apSocket (Ptr<Socket> socket)
     NS_ASSERT_MSG (false, "ProcedureCode NOT SUPPORTED!!!");
   }
 }
-
-// hmlee
-/*
-void
-NgcN2apEnb::DoSendInitialRequest ()
-{
-	sourceSocket->SendTo (packet, 0, InetSocketAddress (amfIpAddr, m_n2apUdpPort));
-}
-*/
 
 //
 // Implementation of the N2ap SAP Provider
@@ -520,7 +504,6 @@ NgcN2apAmf::AddN2apInterface (uint16_t enbId, Ipv4Address enbAddress)
   m_n2apInterfaceSockets [enbId] = Create<N2apIfaceInfo> (enbAddress, m_localN2APSocket); // TODO m_localN2APSocket is useless
 }
 
-//hmlee
 void 
 NgcN2apAmf::RecvFromN2apSocket (Ptr<Socket> socket)
 {
@@ -597,27 +580,11 @@ NgcN2apAmf::RecvFromN2apSocket (Ptr<Socket> socket)
 
     m_n2apSapUser->ErabReleaseIndication (amfUeN2Id, enbUeN2Id, erabToBeReleaseIndication);
   }
-  // hmlee
-  /*
-  else if (procedureCode == NgcN2APHeader::IdentityRequest)
-  {
-  	  m_n2apSapUser->IdentityRequest ()
-  }
-  */
   else
   {
     NS_ASSERT_MSG (false, "ProcedureCode NOT SUPPORTED!!!");
   }
 }
-
-// hmlee
-/*
-void
-NgcN2apAmf::DoSendInitialRequest ()
-{
-	m_localN2APSocket->SendTo (packet, 0, InetSocketAddress (enbIpAddr, m_n2apUdpPort));
-}
-*/
 
 void 
 NgcN2apAmf::DoSendInitialContextSetupRequest (uint64_t amfUeN2Id,

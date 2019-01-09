@@ -147,15 +147,6 @@ NgcAmfApplication::NamfCommunicationUeContextTransferResponse(uint64_t imsi, uin
 	// Now new AMF gets a UE's context from the old AMF.
 }
 
-// hmlee
-/*
-void
-NgcAmfApplication::DoIdentityRequest () 
-{
-	TODO Send packet to AN
-}
-*/
-
 void
 NgcAmfApplication::NamfCommunicationRegistrationCompleteNotify(uint64_t imsi)
 {

@@ -113,23 +113,6 @@ NrUeRrcProtocolReal::DoSetup (NrUeRrcSapUser::SetupParameters params)
   m_ueRrcSapProvider->CompleteSetup (m_completeSetupParameters);
 }
 
-// hmlee
-/*
-void
-NrUeRrcProtocolReal::DoSendIdentityRequest (NrRrcSap::RrcIdentityRequest msg)
-{
-	
-  m_rnti = m_rrc->GetRnti ();
-
-  Simulator::Schedule (RRC_REAL_MSG_DELAY, 
-                       &NrEnbRrcSapProvider::RecvRrcIdentityRequest,
-                       m_enbRrcSapProvider,
-                       m_rnti, 
-                       msg);
-
-}
-*/
-
 // jhlim: Send IdentityResponse to Enb.
 void
 NrUeRrcProtocolReal::DoSendRrcIdentityResponse (NrRrcSap::RrcIdentityResponse msg)
