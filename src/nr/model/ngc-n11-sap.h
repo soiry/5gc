@@ -92,8 +92,8 @@ public:
     QosFlow flowLevelQos;
 
     uint8_t pduSessionID;
-    uint8_t qfi; //epsBearerId -> QFI
-    uint8_t qosProfile
+    uint8_t qosFlowId; //epsBearerId -> QFI
+    uint8_t qosProfile;
     uint8_t cnN3TunnelInfo;
     uint8_t s-nssai; 
     uint8_t userPlaneSecurityEnforcement;

@@ -216,7 +216,7 @@ NgcAmf::DoUpdateSMContextResponse (NgcN11SapAmf::UpdateSMContextResponseMessage 
        ++bit)
     {
       NgcN2apSapEnb::ErabToBeSetupItem erab;
-      erab.erabId = bit->qfi;
+      erab.erabId = bit->qosFlowId;
       erab.erabLevelQosParameters = bit->flowLevelQos;
       erab.transportLayerAddress = bit->smfFteid.address;
       erab.smfTeid = bit->smfFteid.teid;      

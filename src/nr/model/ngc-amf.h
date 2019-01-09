@@ -181,9 +181,9 @@ private:
   /**
    * \brief This Function erases all contexts of flow from AMF side
    * \param ueInfo UE information pointer
-   * \param qfi flow Id which need to be removed corresponding to UE
+   * \param qos flow Id which need to be removed corresponding to UE
    */
-  void RemoveFlow (Ptr<UeInfo> ueInfo, uint8_t qfi);
+  void RemoveFlow (Ptr<UeInfo> ueInfo, uint8_t qosFlowId);
 
 
   /**
