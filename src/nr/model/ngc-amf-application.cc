@@ -198,27 +198,32 @@ NgcAmfApplication::DoRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id
   std::map<uint64_t, Ptr<UeInfo> >::iterator it = m_ueInfoMap.find (imsi);
   NS_ASSERT_MSG (it != m_ueInfoMap.end (), "could not find any UE with IMSI " << imsi);
   it->second->cellId = gci;
-  //uint16_t cellId = it->second->cellId;
+  uint16_t cellId = it->second->cellId;
+  std::string identityRequest;
 
   // Conditional 4-5.
-  if(IsGuti(imsi)) // if GUTI exists, 
-     NamfCommunicationUeContextTransfer(imsi); // call this to Old AMF.  
+  //if(IsGuti(imsi)) 
+  // if GUTI exists, 
+   NamfCommunicationUeContextTransfer(imsi); // call this to Old AMF.  
   
   // Conditional 6-7. Identity Request message to UE by NAS signal
-  // if(imsi == NULL)  // if SUCI is not sent by the UE nor the old AMF
-  // suci = m_n2apSapAmfProvider->SendIdentityRequest (amfUeN2Id, enbUeN2Id, cellId);
+  // if neither UE nor old AMF send SUCI
+  identityRequest = "suci";
+  m_n2apSapAmfProvider->SendIdentityRequest (amfUeN2Id, enbUeN2Id, cellId, identityRequest);
   
   // Conditional 8.
   // if old AMF exists,
   // NamfCommunicationRegistrationCompleteNotify(imsi);
 
-  // Conditional 9.
+  // Conditional 9. (same as 6-7)
   // if PEI is not exists,
-  // pei = m_n2apSapAmfProvider->SendIdentityRequest (amfUeN2Id, enbUeN2Id, cellId);
+  identityRequest = "pei";
+  m_n2apSapAmfProvider->SendIdentityRequest (amfUeN2Id, enbUeN2Id, cellId, identityRequest);
   
   // 11-12. Registration Accept
-  //     (5G-GUTI, Registration Area, PDU Session status, ...) 
-  // m_n2apsapAmfProvider->SendRegistrationAccept();
+  //     (5G-GUTI, Registration Area, PDU Session status, ...)
+  uint64_t guti = 1; // assign 5G-GUTI for UE
+  m_n2apSapAmfProvider->SendRegistrationAccept(amfUeN2Id, enbUeN2Id, cellId, guti);
 }
 
 void
