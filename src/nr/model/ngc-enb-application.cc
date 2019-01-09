@@ -175,6 +175,21 @@ NgcEnbApplication::DoAmfSelection(uint64_t imsi)
 	}
 }
 
+// hmlee
+/*
+void
+NgcEnbApplication::DoIdentityRequest ()
+{
+
+}
+
+void
+NgcEnbApplication::DoIdentityRequestResponse()
+{
+
+}
+*/
+
 /* jhlim: In 5G, one of AMFs is selected.
 		 But in lena, only one AMF is registered by Enb  */
 void 

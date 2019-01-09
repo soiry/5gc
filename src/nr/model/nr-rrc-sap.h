@@ -590,7 +590,6 @@ public:
   };
 
   // Messages
-
   // hmlee
   struct RrcConnectionRequest
   {
@@ -598,6 +597,7 @@ public:
     bool isMc;
     bool isMc_2;
 
+	/*
     uint32_t registrationType;
     uint64_t SUCI;
     uint64_t GUTI;
@@ -611,7 +611,7 @@ public:
     bool micoModePreference;
     uint64_t* requestedDrxParams;
     uint64_t* uePolicyContainer; // list of PSIs
-
+	*/
   };
 
 /*

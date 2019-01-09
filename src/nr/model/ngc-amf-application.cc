@@ -145,6 +145,14 @@ NgcAmfApplication::NamfCommunicationUeContextTransferResponse(uint64_t guti)
 	// return the UE context of the identified UE.
 }
 
+// hmlee
+/*
+void
+NgcAmfApplication::DoIdentityRequest () 
+{
+	TODO Send packet to AN
+}
+*/
 
 // N2-AP SAP AMF forwarded methods
 /*

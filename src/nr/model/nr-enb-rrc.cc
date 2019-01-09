@@ -1682,7 +1682,13 @@ UeManager::SelectAmf ()
 void
 UeManager::RecvRrcIdentityRequest (NrRrcSap::RrcIdentityRequest msg)
 {
-	TODO: Relay message to the AMF
+	TODO: Relay message to the AN 
+}
+
+void
+UeManager::RecvRrcIdentityRequestResponse ()
+{
+
 }
 */
 
@@ -5038,10 +5044,16 @@ NrEnbRrc::DoCompleteSetupUe (uint16_t rnti, NrEnbRrcSapProvider::CompleteSetupUe
 // hmlee
 /*
 void
-NrEnbRrc::DoRecvRrcInitialRequest (uint16_t rnti, NrRrcSap::RrcInitialRequest msg)
+NrEnbRrc::DoRecvRrcIdentityRequest (uint16_t rnti, NrRrcSap::RrcInitialRequest msg)
 {
   NS_LOG_FUNCTION (this << rnti);
   GetUeManager (rnti)->RecvRrcInitialRequest (msg);
+}
+
+void
+NrEnbRrc::DoRecvRrcIdentityRequestResponse ()
+{
+
 }
 */
 

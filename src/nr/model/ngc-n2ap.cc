@@ -196,13 +196,28 @@ NgcN2apEnb::RecvFromN2apSocket (Ptr<Socket> socket)
     NS_LOG_LOGIC ("ecgi " << ecgi);
 
     m_n2apSapUser->PathSwitchRequestAcknowledge(enbUeN2apId, amfUeN2apId, ecgi, pathErab);
-  }  
+  }
+  // hmlee
+  /*
+  else if (procedureCode == NgcN2APHeader::IdentityRequest)
+  {
+  	m_n2apSapUser->IdentityRequestResponse ();
+  }
+  */
   else
   {
     NS_ASSERT_MSG (false, "ProcedureCode NOT SUPPORTED!!!");
   }
 }
 
+// hmlee
+/*
+void
+NgcN2apEnb::DoSendInitialRequest ()
+{
+	sourceSocket->SendTo (packet, 0, InetSocketAddress (amfIpAddr, m_n2apUdpPort));
+}
+*/
 
 //
 // Implementation of the N2ap SAP Provider
@@ -521,11 +536,27 @@ NgcN2apAmf::RecvFromN2apSocket (Ptr<Socket> socket)
 
     m_n2apSapUser->ErabReleaseIndication (amfUeN2Id, enbUeN2Id, erabToBeReleaseIndication);
   }
+  // hmlee
+  /*
+  else if (procedureCode == NgcN2APHeader::IdentityRequest)
+  {
+  	  m_n2apSapUser->IdentityRequest ()
+  }
+  */
   else
   {
     NS_ASSERT_MSG (false, "ProcedureCode NOT SUPPORTED!!!");
   }
 }
+
+// hmlee
+/*
+void
+NgcN2apAmf::DoSendInitialRequest ()
+{
+	m_localN2APSocket->SendTo (packet, 0, InetSocketAddress (enbIpAddr, m_n2apUdpPort));
+}
+*/
 
 void 
 NgcN2apAmf::DoSendInitialContextSetupRequest (uint64_t amfUeN2Id,

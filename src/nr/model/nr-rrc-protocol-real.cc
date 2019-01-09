@@ -116,7 +116,7 @@ NrUeRrcProtocolReal::DoSetup (NrUeRrcSapUser::SetupParameters params)
 // hmlee
 /*
 void
-NrUeRrcProtocolRead::DoSendIdentityRequest (NrRrcSap::RrcIdentityRequest msg)
+NrUeRrcProtocolReal::DoSendIdentityRequest (NrRrcSap::RrcIdentityRequest msg)
 {
 	
   m_rnti = m_rrc->GetRnti ();
