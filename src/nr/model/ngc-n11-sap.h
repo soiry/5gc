@@ -92,7 +92,7 @@ public:
     QosFlow flowLevelQos;
 
     uint8_t pduSessionID;
-    uint8_t qfi; //epsBearerId -> QFI
+    uint8_t qosFlowId; //epsBearerId -> QFI
     uint8_t qosProfile
     uint8_t cnN3TunnelInfo;
     uint8_t s-nssai; 
@@ -200,10 +200,21 @@ public:
 
   //yjshin
   struct N2SMInformationToBeCreated
-  {    
-    NgcN11Sap::Fteid smfFteid;
-    uint8_t qosFlowId; 
-    EpsBearer flowLevelQos; 
+  {     
+    QosFlow flowLevelQos;
+
+    uint8_t pduSessionID;
+    uint8_t qosFlowId; //epsBearerId -> QFI
+    uint8_t qosProfile
+    uint8_t cnN3TunnelInfo;
+    uint8_t s-nssai; 
+    uint8_t userPlaneSecurityEnforcement;
+    uint8_t ueIntegrityProtectionMaximumDataRate;
+
+    uint8_t cause;
+
+    NgcN11Sap::Fteid smfFteid; //TODO: upfFteid????
+    //uint8_t epsBearerId; 
     Ptr<NgcTft> tft;
   };
   

@@ -120,6 +120,8 @@ def register_types(module):
     module.add_class('NgcN11SapAmf', parent=root_module['ns3::NgcN11Sap'])
     ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated [struct]
     module.add_class('BearerContextCreated', outer_class=root_module['ns3::NgcN11SapAmf'])
+    ##yjshin
+    module.add_class('N2SMInformationCreated', outer_class=root_module['ns3::NgcN11SapAmf'])
     ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextRemoved [struct]
     module.add_class('BearerContextRemoved', outer_class=root_module['ns3::NgcN11SapAmf'])
     ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::CreateSessionResponseMessage [struct]
@@ -136,6 +138,8 @@ def register_types(module):
     module.add_class('BearerContextRemovedSmfUpf', outer_class=root_module['ns3::NgcN11SapSmf'])
     ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::BearerContextToBeCreated [struct]
     module.add_class('BearerContextToBeCreated', outer_class=root_module['ns3::NgcN11SapSmf'])
+    ##yjshin
+    module.add_class('N2SMInformationToBeCreated', outer_class=root_module['ns3::NgcN11SapSmf'])
     ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::BearerContextToBeRemoved [struct]
     module.add_class('BearerContextToBeRemoved', outer_class=root_module['ns3::NgcN11SapSmf'])
     ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::CreateSessionRequestMessage [struct]
@@ -1326,8 +1330,10 @@ def register_types(module):
     module.add_container('std::vector< ns3::DlInfoListElement_s::HarqStatus_e >', 'ns3::DlInfoListElement_s::HarqStatus_e', container_type=u'vector')
     module.add_container('std::list< ns3::NgcEnbN2SapProvider::BearerToBeSwitched >', 'ns3::NgcEnbN2SapProvider::BearerToBeSwitched', container_type=u'list')
     module.add_container('std::list< ns3::NgcN11SapAmf::BearerContextCreated >', 'ns3::NgcN11SapAmf::BearerContextCreated', container_type=u'list')
+    module.add_container('std::list< ns3::NgcN11SapAmf::N2SMInformationCreated >', 'ns3::NgcN11SapAmf::N2SMInformationCreated', container_type=u'list')##yjshin
     module.add_container('std::list< ns3::NgcN11SapAmf::BearerContextRemoved >', 'ns3::NgcN11SapAmf::BearerContextRemoved', container_type=u'list')
     module.add_container('std::list< ns3::NgcN11SapSmf::BearerContextToBeCreated >', 'ns3::NgcN11SapSmf::BearerContextToBeCreated', container_type=u'list')
+    module.add_container('std::list< ns3::NgcN11SapSmf::N2SMInformationToBeCreated >', 'ns3::NgcN11SapSmf::N2SMInformationToBeCreated', container_type=u'list')##yjshin
     module.add_container('std::list< ns3::NgcN11SapSmf::BearerContextToBeRemoved >', 'ns3::NgcN11SapSmf::BearerContextToBeRemoved', container_type=u'list')
     module.add_container('std::list< ns3::NgcN11SapSmf::BearerContextRemovedSmfUpf >', 'ns3::NgcN11SapSmf::BearerContextRemovedSmfUpf', container_type=u'list')
     module.add_container('std::list< ns3::NgcN2apSapEnb::ErabToBeSetupItem >', 'ns3::NgcN2apSapEnb::ErabToBeSetupItem', container_type=u'list')
@@ -1646,6 +1652,7 @@ def register_methods(root_module):
     register_Ns3NgcN11SapUli_methods(root_module, root_module['ns3::NgcN11Sap::Uli'])
     register_Ns3NgcN11SapAmf_methods(root_module, root_module['ns3::NgcN11SapAmf'])
     register_Ns3NgcN11SapAmfBearerContextCreated_methods(root_module, root_module['ns3::NgcN11SapAmf::BearerContextCreated'])
+    register_Ns3NgcN11SapAmfN2SMInformationCreated_methods(root_module, root_module['ns3::NgcN11SapAmf::N2SMInformationCreated'])##yjshin
     register_Ns3NgcN11SapAmfBearerContextRemoved_methods(root_module, root_module['ns3::NgcN11SapAmf::BearerContextRemoved'])
     register_Ns3NgcN11SapAmfCreateSessionResponseMessage_methods(root_module, root_module['ns3::NgcN11SapAmf::CreateSessionResponseMessage'])
     register_Ns3NgcN11SapAmfDeleteBearerRequestMessage_methods(root_module, root_module['ns3::NgcN11SapAmf::DeleteBearerRequestMessage'])
@@ -1653,6 +1660,7 @@ def register_methods(root_module):
     register_Ns3NgcN11SapSmf_methods(root_module, root_module['ns3::NgcN11SapSmf'])
     register_Ns3NgcN11SapSmfBearerContextRemovedSmfUpf_methods(root_module, root_module['ns3::NgcN11SapSmf::BearerContextRemovedSmfUpf'])
     register_Ns3NgcN11SapSmfBearerContextToBeCreated_methods(root_module, root_module['ns3::NgcN11SapSmf::BearerContextToBeCreated'])
+    register_Ns3NgcN11SapSmfN2SMInformationToBeCreated_methods(root_module, root_module['ns3::NgcN11SapSmf::N2SMInformationToBeCreated'])##yjshin
     register_Ns3NgcN11SapSmfBearerContextToBeRemoved_methods(root_module, root_module['ns3::NgcN11SapSmf::BearerContextToBeRemoved'])
     register_Ns3NgcN11SapSmfCreateSessionRequestMessage_methods(root_module, root_module['ns3::NgcN11SapSmf::CreateSessionRequestMessage'])
     register_Ns3NgcN11SapSmfDeleteBearerCommandMessage_methods(root_module, root_module['ns3::NgcN11SapSmf::DeleteBearerCommandMessage'])
@@ -3154,6 +3162,18 @@ def register_Ns3NgcN11SapAmfN2SMInformationCreated_methods(root_module, cls):
     cls.add_instance_attribute('smfFteid', 'ns3::NgcN11Sap::Fteid', is_const=False)
     ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::tft [variable]
     cls.add_instance_attribute('tft', 'ns3::Ptr< ns3::NgcTft >', is_const=False)
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::pduSessionID [variable]
+    cls.add_instance_attribute('pduSessionID', 'uint8_t', is_const=False) 
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::qosProfile [variable]
+    cls.add_instance_attribute('qosProfile', 'uint8_t', is_const=False)
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::cnN2TunnelInfo [variable]
+    cls.add_instance_attribute('cnN3TunnelInfo', 'uint8_t', is_const=False)
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::s-nssai [variable]
+    cls.add_instance_attribute('s-nssai', 'uint8_t', is_const=False)
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::userPlaneSecurityEnforcement [variable]
+    cls.add_instance_attribute('userPlaneSecurityEnforcement', 'uint8_t', is_const=False)
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::ueIntegrityProtectionMaximumDataRate [variable]
+    cls.add_instance_attribute('ueIntegrityProtectionMaximumDataRate', 'uint8_t', is_const=False)
     return
 
 def register_Ns3NgcN11SapAmfCreateSessionResponseMessage_methods(root_module, cls):
@@ -3240,14 +3260,26 @@ def register_Ns3NgcN11SapSmfN2SMInformationToBeCreated_methods(root_module, cls)
     cls.add_constructor([])
     ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::BearerContextToBeCreated::BearerContextToBeCreated(ns3::NgcN11SapSmf::BearerContextToBeCreated const & arg0) [copy constructor]
     cls.add_constructor([param('ns3::NgcN11SapSmf::N2SMInformationToBeCreated const &', 'arg0')])
-    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::BearerContextToBeCreated::bearerLevelQos [variable]
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::bearerLevelQos [variable]
     cls.add_instance_attribute('flowLevelQos', 'ns3::QosFlow', is_const=False)
-    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::BearerContextToBeCreated::epsBearerId [variable]
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::epsBearerId [variable]
     cls.add_instance_attribute('qosFlowId', 'uint8_t', is_const=False)
-    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::BearerContextToBeCreated::smfFteid [variable]
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::smfFteid [variable]
     cls.add_instance_attribute('smfFteid', 'ns3::NgcN11Sap::Fteid', is_const=False)
-    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::BearerContextToBeCreated::tft [variable]
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::tft [variable]
     cls.add_instance_attribute('tft', 'ns3::Ptr< ns3::NgcTft >', is_const=False)
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::pduSessionID [variable]
+    cls.add_instance_attribute('pduSessionID', 'uint8_t', is_const=False) 
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::qosProfile [variable]
+    cls.add_instance_attribute('qosProfile', 'uint8_t', is_const=False)
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::cnN2TunnelInfo [variable]
+    cls.add_instance_attribute('cnN3TunnelInfo', 'uint8_t', is_const=False)
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::s-nssai [variable]
+    cls.add_instance_attribute('s-nssai', 'uint8_t', is_const=False)
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::userPlaneSecurityEnforcement [variable]
+    cls.add_instance_attribute('userPlaneSecurityEnforcement', 'uint8_t', is_const=False)
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::ueIntegrityProtectionMaximumDataRate [variable]
+    cls.add_instance_attribute('ueIntegrityProtectionMaximumDataRate', 'uint8_t', is_const=False)
     return
 
 def register_Ns3NgcN11SapSmfBearerContextToBeRemoved_methods(root_module, cls):
