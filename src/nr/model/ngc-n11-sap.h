@@ -120,7 +120,7 @@ public:
   //smsohn 
   struct UpdateSMContextResponseMessage : public GtpcMessage
   {
-    std::list<N2SMInformationCreated> n2SMInformationsCreated;
+    std::list<N2SMInformationCreated> n2SMInformationCreated;
   };
 
 
