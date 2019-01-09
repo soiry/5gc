@@ -237,7 +237,6 @@ NgcN2apEnb::RecvFromN2apSocket (Ptr<Socket> socket)
   }
 }
 
-
 //
 // Implementation of the N2ap SAP Provider
 //
@@ -560,7 +559,6 @@ NgcN2apAmf::AddN2apInterface (uint16_t enbId, Ipv4Address enbAddress)
   m_n2apInterfaceSockets [enbId] = Create<N2apIfaceInfo> (enbAddress, m_localN2APSocket); // TODO m_localN2APSocket is useless
 }
 
-//hmlee
 void 
 NgcN2apAmf::RecvFromN2apSocket (Ptr<Socket> socket)
 {

@@ -5096,16 +5096,6 @@ NrEnbRrc::DoCompleteSetupUe (uint16_t rnti, NrEnbRrcSapProvider::CompleteSetupUe
    GetUeManager (rnti)->CompleteSetupUe (params);
 }
 
-// hmlee
-/*
-void
-NrEnbRrc::DoRecvRrcInitialRequest (uint16_t rnti, NrRrcSap::RrcInitialRequest msg)
-{
-  NS_LOG_FUNCTION (this << rnti);
-  GetUeManager (rnti)->RecvRrcInitialRequest (msg);
-}
-*/
-
 void
 NrEnbRrc::DoRecvRrcConnectionRequest (uint16_t rnti, NrRrcSap::RrcConnectionRequest msg)
 {

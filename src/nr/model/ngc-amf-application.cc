@@ -157,6 +157,7 @@ NgcAmfApplication::IsGuti(uint64_t imsi)
 	//check whether imsi is GUTI or not.
 	return false;
 }
+
 // N2-AP SAP AMF forwarded methods
 /*
 void 
