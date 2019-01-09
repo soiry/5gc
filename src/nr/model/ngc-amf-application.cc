@@ -147,7 +147,6 @@ NgcAmfApplication::NamfCommunicationUeContextTransferResponse(uint64_t imsi, uin
 	// Now new AMF gets a UE's context from the old AMF.
 }
 
-<<<<<<< HEAD
 // hmlee
 /*
 void
@@ -157,7 +156,6 @@ NgcAmfApplication::DoIdentityRequest ()
 }
 */
 
-=======
 void
 NgcAmfApplication::NamfCommunicationRegistrationCompleteNotify(uint64_t imsi)
 {
@@ -168,7 +166,7 @@ NgcAmfApplication::IsGuti(uint64_t imsi)
 	//check whether imsi is GUTI or not.
 	return false;
 }
->>>>>>> 315cb320e9dfb0a5f1568d424c3babf2a83b431c
+
 // N2-AP SAP AMF forwarded methods
 /*
 void 

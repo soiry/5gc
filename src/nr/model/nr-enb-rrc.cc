@@ -1695,8 +1695,7 @@ UeManager::SelectAmf ()
 		return amfId;
 	}
 }
-<<<<<<< HEAD
-
+*/
 // hmlee
 /*
 void
@@ -1710,8 +1709,6 @@ UeManager::RecvRrcIdentityRequestResponse ()
 {
 
 }
-=======
->>>>>>> 315cb320e9dfb0a5f1568d424c3babf2a83b431c
 */
 void
 UeManager::RecvRrcConnectionRequest (NrRrcSap::RrcConnectionRequest msg)

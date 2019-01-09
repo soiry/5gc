@@ -197,7 +197,6 @@ NgcN2apEnb::RecvFromN2apSocket (Ptr<Socket> socket)
 
     m_n2apSapUser->PathSwitchRequestAcknowledge(enbUeN2apId, amfUeN2apId, ecgi, pathErab);
   }
-<<<<<<< HEAD
   // hmlee
   /*
   else if (procedureCode == NgcN2APHeader::IdentityRequest)
@@ -205,7 +204,6 @@ NgcN2apEnb::RecvFromN2apSocket (Ptr<Socket> socket)
   	m_n2apSapUser->IdentityRequestResponse ();
   }
   */
-=======
   else if (procedureCode == NgcN2APHeader::IdentityRequest) /* jhlim: for signal 6. */
   {
 	  /* Not implemented */
@@ -225,7 +223,6 @@ NgcN2apEnb::RecvFromN2apSocket (Ptr<Socket> socket)
 	m_n2apSapUser->IdentityRequest(amfUeN2apId, enbUeN2apId);
 	*/
   }
->>>>>>> 315cb320e9dfb0a5f1568d424c3babf2a83b431c
   else
   {
     NS_ASSERT_MSG (false, "ProcedureCode NOT SUPPORTED!!!");
