@@ -1083,6 +1083,7 @@ template <class C>
 void
 MemberLteUeRrcSapUser<C>::SendRrcConnectionRequest (RrcConnectionRequest msg)
 {
+  std::cout << "5GC: SendRrcConnectionRequest"<<std::endl;
   m_owner->DoSendRrcConnectionRequest (msg);
 }
 
@@ -1090,6 +1091,7 @@ template <class C>
 void
 MemberLteUeRrcSapUser<C>::SendRrcConnectionSetupCompleted (RrcConnectionSetupCompleted msg)
 {
+  std::cout << "5GC:: SendRrcConnectionSetupCompleted"<<std::endl;
   m_owner->DoSendRrcConnectionSetupCompleted (msg);
 }
 
@@ -1185,6 +1187,7 @@ template <class C>
 void
 MemberLteUeRrcSapProvider<C>::RecvRrcConnectionSetup (RrcConnectionSetup msg)
 {
+  std::cout << "RecvRrcConnectionSetup" <<std::endl;
   Simulator::ScheduleNow (&C::DoRecvRrcConnectionSetup, m_owner, msg);
 }
 
@@ -1444,6 +1447,7 @@ template <class C>
 void
 MemberLteEnbRrcSapProvider<C>::RecvRrcConnectionSetupCompleted (uint16_t rnti, RrcConnectionSetupCompleted msg)
 {
+  std::cout << "RecvRrcConnectionSetupCompleted" <<std::endl;
   Simulator::ScheduleNow (&C::DoRecvRrcConnectionSetupCompleted, m_owner, rnti, msg);
 }
 

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * Original work authors (from lte-enb-rrc.cc):
+ * Original work authors (from nr-enb-rrc.cc):
  * - Nicola Baldo <nbaldo@cttc.es>
  * - Marco Miozzo <mmiozzo@cttc.es>
  * - Manuel Requena <manuel.requena@cttc.es>
@@ -28,9 +28,9 @@
 #ifndef A2_A4_RSRQ_HANDOVER_ALGORITHM_H
 #define A2_A4_RSRQ_HANDOVER_ALGORITHM_H
 
-#include <ns3/lte-handover-algorithm.h>
-#include <ns3/lte-handover-management-sap.h>
-#include <ns3/lte-rrc-sap.h>
+#include <ns3/nr-handover-algorithm.h>
+#include <ns3/nr-handover-management-sap.h>
+#include <ns3/nr-rrc-sap.h>
 #include <ns3/simple-ref-count.h>
 #include <ns3/ptr.h>
 #include <map>
@@ -61,47 +61,47 @@ namespace ns3 {
  * The following code snippet is an example of using and configuring the
  * handover algorithm in a simulation program:
  *
- *     Ptr<LteHelper> lteHelper = CreateObject<LteHelper> ();
+ *     Ptr<NrHelper> nrHelper = CreateObject<NrHelper> ();
  *
  *     NodeContainer enbNodes;
  *     // configure the nodes here...
  *
- *     lteHelper->SetHandoverAlgorithmType ("ns3::A2A4RsrqHandoverAlgorithm");
- *     lteHelper->SetHandoverAlgorithmAttribute ("ServingCellThreshold",
+ *     nrHelper->SetHandoverAlgorithmType ("ns3::NrA2A4RsrqHandoverAlgorithm");
+ *     nrHelper->SetHandoverAlgorithmAttribute ("ServingCellThreshold",
  *                                               UintegerValue (30));
- *     lteHelper->SetHandoverAlgorithmAttribute ("NeighbourCellOffset",
+ *     nrHelper->SetHandoverAlgorithmAttribute ("NeighbourCellOffset",
  *                                               UintegerValue (1));
- *     NetDeviceContainer enbLteDevs = lteHelper->InstallEnbDevice (enbNodes);
+ *     NetDeviceContainer enbNrDevs = nrHelper->InstallEnbDevice (enbNodes);
  *
  * \note Setting the handover algorithm type and attributes after the call to
- *       LteHelper::InstallEnbDevice does not have any effect to the devices
+ *       NrHelper::InstallEnbDevice does not have any effect to the devices
  *       that have already been installed.
  */
-class A2A4RsrqHandoverAlgorithm : public LteHandoverAlgorithm
+class NrA2A4RsrqHandoverAlgorithm : public NrHandoverAlgorithm
 {
 public:
   /// Creates an A2-A4-RSRQ handover algorithm instance.
-  A2A4RsrqHandoverAlgorithm ();
+  NrA2A4RsrqHandoverAlgorithm ();
 
-  virtual ~A2A4RsrqHandoverAlgorithm ();
+  virtual ~NrA2A4RsrqHandoverAlgorithm ();
 
   // inherited from Object
   static TypeId GetTypeId ();
 
-  // inherited from LteHandoverAlgorithm
-  virtual void SetLteHandoverManagementSapUser (LteHandoverManagementSapUser* s);
-  virtual LteHandoverManagementSapProvider* GetLteHandoverManagementSapProvider ();
+  // inherited from NrHandoverAlgorithm
+  virtual void SetNrHandoverManagementSapUser (NrHandoverManagementSapUser* s);
+  virtual NrHandoverManagementSapProvider* GetNrHandoverManagementSapProvider ();
 
   // let the forwarder class access the protected and private members
-  friend class MemberLteHandoverManagementSapProvider<A2A4RsrqHandoverAlgorithm>;
+  friend class MemberNrHandoverManagementSapProvider<NrA2A4RsrqHandoverAlgorithm>;
 
 protected:
   // inherited from Object
   virtual void DoInitialize ();
   virtual void DoDispose ();
 
-  // inherited from LteHandoverAlgorithm as a Handover Management SAP implementation
-  void DoReportUeMeas (uint16_t rnti, LteRrcSap::MeasResults measResults);
+  // inherited from NrHandoverAlgorithm as a Handover Management SAP implementation
+  void DoReportUeMeas (uint16_t rnti, NrRrcSap::MeasResults measResults);
 
 private:
   /**
@@ -182,11 +182,11 @@ private:
   uint8_t m_neighbourCellOffset;
 
   /// Interface to the eNodeB RRC instance.
-  LteHandoverManagementSapUser* m_handoverManagementSapUser;
+  NrHandoverManagementSapUser* m_handoverManagementSapUser;
   /// Receive API calls from the eNodeB RRC instance.
-  LteHandoverManagementSapProvider* m_handoverManagementSapProvider;
+  NrHandoverManagementSapProvider* m_handoverManagementSapProvider;
 
-}; // end of class A2A4RsrqHandoverAlgorithm
+}; // end of class NrA2A4RsrqHandoverAlgorithm
 
 
 } // end of namespace ns3

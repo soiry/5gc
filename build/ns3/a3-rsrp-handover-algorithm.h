@@ -22,9 +22,9 @@
 #ifndef A3_RSRP_HANDOVER_ALGORITHM_H
 #define A3_RSRP_HANDOVER_ALGORITHM_H
 
-#include <ns3/lte-handover-algorithm.h>
-#include <ns3/lte-handover-management-sap.h>
-#include <ns3/lte-rrc-sap.h>
+#include <ns3/nr-handover-algorithm.h>
+#include <ns3/nr-handover-management-sap.h>
+#include <ns3/nr-rrc-sap.h>
 #include <ns3/nstime.h>
 
 namespace ns3 {
@@ -46,47 +46,47 @@ namespace ns3 {
  * The following code snippet is an example of using and configuring the
  * handover algorithm in a simulation program:
  *
- *     Ptr<LteHelper> lteHelper = CreateObject<LteHelper> ();
+ *     Ptr<NrHelper> nrHelper = CreateObject<NrHelper> ();
  *
  *     NodeContainer enbNodes;
  *     // configure the nodes here...
  *
- *     lteHelper->SetHandoverAlgorithmType ("ns3::A3RsrpHandoverAlgorithm");
- *     lteHelper->SetHandoverAlgorithmAttribute ("Hysteresis",
+ *     nrHelper->SetHandoverAlgorithmType ("ns3::NrA3RsrpHandoverAlgorithm");
+ *     nrHelper->SetHandoverAlgorithmAttribute ("Hysteresis",
  *                                               DoubleValue (3.0));
- *     lteHelper->SetHandoverAlgorithmAttribute ("TimeToTrigger",
+ *     nrHelper->SetHandoverAlgorithmAttribute ("TimeToTrigger",
  *                                               TimeValue (MilliSeconds (256)));
- *     NetDeviceContainer enbLteDevs = lteHelper->InstallEnbDevice (enbNodes);
+ *     NetDeviceContainer enbNrDevs = nrHelper->InstallEnbDevice (enbNodes);
  *
  * \note Setting the handover algorithm type and attributes after the call to
- *       LteHelper::InstallEnbDevice does not have any effect to the devices
+ *       NrHelper::InstallEnbDevice does not have any effect to the devices
  *       that have already been installed.
  */
-class A3RsrpHandoverAlgorithm : public LteHandoverAlgorithm
+class NrA3RsrpHandoverAlgorithm : public NrHandoverAlgorithm
 {
 public:
   /// Creates a strongest cell handover algorithm instance.
-  A3RsrpHandoverAlgorithm ();
+  NrA3RsrpHandoverAlgorithm ();
 
-  virtual ~A3RsrpHandoverAlgorithm ();
+  virtual ~NrA3RsrpHandoverAlgorithm ();
 
   // inherited from Object
   static TypeId GetTypeId ();
 
-  // inherited from LteHandoverAlgorithm
-  virtual void SetLteHandoverManagementSapUser (LteHandoverManagementSapUser* s);
-  virtual LteHandoverManagementSapProvider* GetLteHandoverManagementSapProvider ();
+  // inherited from NrHandoverAlgorithm
+  virtual void SetNrHandoverManagementSapUser (NrHandoverManagementSapUser* s);
+  virtual NrHandoverManagementSapProvider* GetNrHandoverManagementSapProvider ();
 
   // let the forwarder class access the protected and private members
-  friend class MemberLteHandoverManagementSapProvider<A3RsrpHandoverAlgorithm>;
+  friend class MemberNrHandoverManagementSapProvider<NrA3RsrpHandoverAlgorithm>;
 
 protected:
   // inherited from Object
   virtual void DoInitialize ();
   virtual void DoDispose ();
 
-  // inherited from LteHandoverAlgorithm as a Handover Management SAP implementation
-  void DoReportUeMeas (uint16_t rnti, LteRrcSap::MeasResults measResults);
+  // inherited from NrHandoverAlgorithm as a Handover Management SAP implementation
+  void DoReportUeMeas (uint16_t rnti, NrRrcSap::MeasResults measResults);
 
 private:
   /**
@@ -113,11 +113,11 @@ private:
   Time m_timeToTrigger;
 
   /// Interface to the eNodeB RRC instance.
-  LteHandoverManagementSapUser* m_handoverManagementSapUser;
+  NrHandoverManagementSapUser* m_handoverManagementSapUser;
   /// Receive API calls from the eNodeB RRC instance.
-  LteHandoverManagementSapProvider* m_handoverManagementSapProvider;
+  NrHandoverManagementSapProvider* m_handoverManagementSapProvider;
 
-}; // end of class A3RsrpHandoverAlgorithm
+}; // end of class NrA3RsrpHandoverAlgorithm
 
 
 } // end of namespace ns3

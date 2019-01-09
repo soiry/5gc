@@ -1695,6 +1695,7 @@ def register_methods(root_module):
     register_Ns3NgcX2SapProvider_methods(root_module, root_module['ns3::NgcX2SapProvider'])
     register_Ns3NgcX2SapUser_methods(root_module, root_module['ns3::NgcX2SapUser'])
     register_Ns3EpsBearer_methods(root_module, root_module['ns3::EpsBearer'])
+    register_Ns3QosFlow_methods(root_module, root_module['ns::QosFlow']) ##yjshin
     register_Ns3NrEutranMeasurementMapping_methods(root_module, root_module['ns3::NrEutranMeasurementMapping'])
     register_Ns3EventId_methods(root_module, root_module['ns3::EventId'])
     register_Ns3FfMacCschedSapProvider_methods(root_module, root_module['ns3::FfMacCschedSapProvider'])
@@ -1923,6 +1924,7 @@ def register_methods(root_module):
     register_Ns3Chunk_methods(root_module, root_module['ns3::Chunk'])
     register_Ns3DownlinkNrGlobalPathlossDatabase_methods(root_module, root_module['ns3::DownlinkNrGlobalPathlossDatabase'])
     register_Ns3EpsBearerTag_methods(root_module, root_module['ns3::EpsBearerTag'])
+    register_Ns3QosFlowTag_methods(root_module, root_module['ns3::QosFlowTag']) ##yjshin
     register_Ns3Header_methods(root_module, root_module['ns3::Header'])
     register_Ns3Ipv4Header_methods(root_module, root_module['ns3::Ipv4Header'])
     register_Ns3NrEnbRrcSapProvider_methods(root_module, root_module['ns3::NrEnbRrcSapProvider'])

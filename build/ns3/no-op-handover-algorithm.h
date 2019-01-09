@@ -22,9 +22,9 @@
 #ifndef NO_OP_HANDOVER_ALGORITHM_H
 #define NO_OP_HANDOVER_ALGORITHM_H
 
-#include <ns3/lte-handover-algorithm.h>
-#include <ns3/lte-handover-management-sap.h>
-#include <ns3/lte-rrc-sap.h>
+#include <ns3/nr-handover-algorithm.h>
+#include <ns3/nr-handover-management-sap.h>
+#include <ns3/nr-rrc-sap.h>
 
 namespace ns3 {
 
@@ -36,41 +36,41 @@ namespace ns3 {
  * triggering of handover. This is the default choice.
  *
  * To enable automatic handover, please select another handover algorithm, i.e.,
- * another child class of LteHandoverAlgorithm.
+ * another child class of NrHandoverAlgorithm.
  */
-class NoOpHandoverAlgorithm : public LteHandoverAlgorithm
+class NrNoOpHandoverAlgorithm : public NrHandoverAlgorithm
 {
 public:
   /// Creates a No-op handover algorithm instance.
-  NoOpHandoverAlgorithm ();
+  NrNoOpHandoverAlgorithm ();
 
-  virtual ~NoOpHandoverAlgorithm ();
+  virtual ~NrNoOpHandoverAlgorithm ();
 
   // inherited from Object
   static TypeId GetTypeId ();
 
-  // inherited from LteHandoverAlgorithm
-  virtual void SetLteHandoverManagementSapUser (LteHandoverManagementSapUser* s);
-  virtual LteHandoverManagementSapProvider* GetLteHandoverManagementSapProvider ();
+  // inherited from NrHandoverAlgorithm
+  virtual void SetNrHandoverManagementSapUser (NrHandoverManagementSapUser* s);
+  virtual NrHandoverManagementSapProvider* GetNrHandoverManagementSapProvider ();
 
   // let the forwarder class access the protected and private members
-  friend class MemberLteHandoverManagementSapProvider<NoOpHandoverAlgorithm>;
+  friend class MemberNrHandoverManagementSapProvider<NrNoOpHandoverAlgorithm>;
 
 protected:
   // inherited from Object
   virtual void DoInitialize ();
   virtual void DoDispose ();
 
-  // inherited from LteHandoverAlgorithm as a Handover Management SAP implementation
-  void DoReportUeMeas (uint16_t rnti, LteRrcSap::MeasResults measResults);
+  // inherited from NrHandoverAlgorithm as a Handover Management SAP implementation
+  void DoReportUeMeas (uint16_t rnti, NrRrcSap::MeasResults measResults);
 
 private:
   /// Interface to the eNodeB RRC instance.
-  LteHandoverManagementSapUser* m_handoverManagementSapUser;
+  NrHandoverManagementSapUser* m_handoverManagementSapUser;
   /// Receive API calls from the eNodeB RRC instance.
-  LteHandoverManagementSapProvider* m_handoverManagementSapProvider;
+  NrHandoverManagementSapProvider* m_handoverManagementSapProvider;
 
-}; // end of class NoOpHandoverAlgorithm
+}; // end of class NrNoOpHandoverAlgorithm
 
 
 } // end of namespace ns3

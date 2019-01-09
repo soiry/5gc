@@ -30,7 +30,7 @@ class Tag;
 
 /**
  * Tag used to define the RNTI and EPS bearer ID for packets
- * interchanged between the EpcEnbApplication and the LteEnbNetDevice 
+ * interchanged between the NgcEnbApplication and the NrEnbNetDevice 
  */
 
 class EpsBearerTag : public Tag

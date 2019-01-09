@@ -5,8 +5,8 @@
  *      Author: netlab
  */
 
-#ifndef NS3_DC_SRC_LTE_MODEL_MYAPPTAG_H_
-#define NS3_DC_SRC_LTE_MODEL_MYAPPTAG_H_
+#ifndef NS3_DC_SRC_NR_MODEL_MYAPPTAG_H_
+#define NS3_DC_SRC_NR_MODEL_MYAPPTAG_H_
 
 #include "ns3/tag.h"
 #include "ns3/uinteger.h"
@@ -43,4 +43,4 @@ public:
 };
 
 }
-#endif /* NS3_DC_SRC_LTE_MODEL_MYAPPTAG_H_ */
+#endif /* NS3_DC_SRC_NR_MODEL_MYAPPTAG_H_ */

@@ -34,7 +34,7 @@ namespace ns3 {
  *
  * This abstract class defines the MAC Scheduler interface specified in the
  * Femto Forum Technical Document:
- *   - LTE MAC Scheduler Interface Specification v1.11
+ *   - NR MAC Scheduler Interface Specification v1.11
  *
  * The Technical Document contains a detailed description of the API.
  * The documentation of this class refers to sections of this Technical Document.

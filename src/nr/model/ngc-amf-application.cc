@@ -184,7 +184,7 @@ NgcAmfApplication::DoN2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t
       bearerContext.bearerLevelQos = bit->bearer; 
       bearerContext.tft = bit->tft;
       //std::cout << "sjkang1021---------->" <<std::endl;
-      msg.n2SMInformationToBeCreated.push_back (bearerContext);
+      msg.bearerContextsToBeCreated.push_back (bearerContext);
     }
   m_n11SapSmf->UpdateSMContextRequest (msg);
 }
@@ -252,8 +252,8 @@ NgcAmfApplication::DoUpdateSMContextResponse (NgcN11SapAmf::UpdateSMContextRespo
   NS_LOG_FUNCTION (this << msg.teid);
   uint64_t imsi = msg.teid;
   std::list<NgcN2apSapEnb::ErabToBeSetupItem> erabToBeSetupList;
-  for (std::list<NgcN11SapAmf::N2SMInformationCreated>::iterator bit = msg.N2SMInformationCreated.begin ();
-       bit != msg.N2SMInformationCreated.end ();
+  for (std::list<NgcN11SapAmf::N2SMInformationCreated>::iterator bit = msg.n2SMInformationCreated.begin ();
+       bit != msg.n2SMInformationCreated.end ();
        ++bit)
     {
       NgcN2apSapEnb::ErabToBeSetupItem erab;

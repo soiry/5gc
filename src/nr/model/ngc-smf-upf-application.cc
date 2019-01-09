@@ -323,13 +323,21 @@ NgcSmfUpfApplication::DoUpdateSMContextRequest (NgcN11SapSmf::UpdateSMContextReq
       uint32_t teid = ++m_teidCount;  
       ueit->second->AddBearer (bit->tft, bit->epsBearerId, teid);
 
+      
+      NgcN11SapAmf::N2SMInformationCreated bearerContext;
+      bearerContext.smfFteid.teid = teid;
+      bearerContext.smfFteid.address = enbit->second.smfAddr;
+      bearerContext.qosFlowId =  bit->epsBearerId; 
+      bearerContext.flowLevelQos = bit->bearerLevelQos; 
+      bearerContext.tft = bit->tft;
+/*
       NgcN11SapAmf::BearerContextCreated bearerContext;
       bearerContext.smfFteid.teid = teid;
       bearerContext.smfFteid.address = enbit->second.smfAddr;
       bearerContext.epsBearerId =  bit->epsBearerId; 
       bearerContext.bearerLevelQos = bit->bearerLevelQos; 
-      bearerContext.tft = bit->tft;
-      res.bearerContextsCreated.push_back (bearerContext);
+      bearerContext.tft = bit->tft;*/
+      res.n2SMInformationCreated.push_back (bearerContext);
     }
   m_n11SapAmf->UpdateSMContextResponse (res);
   
