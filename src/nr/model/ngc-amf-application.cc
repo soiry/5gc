@@ -184,7 +184,7 @@ NgcAmfApplication::DoN2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t
       bearerContext.bearerLevelQos = bit->bearer; 
       bearerContext.tft = bit->tft;
       //std::cout << "sjkang1021---------->" <<std::endl;
-      msg.bearerContextsToBeCreated.push_back (bearerContext);
+      msg.n2SMInformationToBeCreated.push_back (bearerContext);
     }
   m_n11SapSmf->UpdateSMContextRequest (msg);
 }
@@ -257,7 +257,7 @@ NgcAmfApplication::DoUpdateSMContextResponse (NgcN11SapAmf::UpdateSMContextRespo
        ++bit)
     {
       NgcN2apSapEnb::ErabToBeSetupItem erab;
-      erab.erabId = bit->qfi;
+      erab.erabId = bit->qosFlowId;
       erab.erabLevelQosParameters = bit->flowLevelQos;
       erab.transportLayerAddress = bit->smfFteid.address;
       erab.smfTeid = bit->smfFteid.teid;      
