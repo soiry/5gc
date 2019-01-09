@@ -120,7 +120,7 @@ public:
   //smsohn 
   struct UpdateSMContextResponseMessage : public GtpcMessage
   {
-    std::list<N2SMInformationCreated> N2SMInformationsCreated;
+    std::list<N2SMInformationCreated> n2SMInformationsCreated;
   };
 
 
@@ -198,6 +198,14 @@ public:
     Ptr<NgcTft> tft;
   };
 
+  //yjshin
+  struct N2SMInformationToBeCreated
+  {    
+    NgcN11Sap::Fteid smfFteid;
+    uint8_t qosFlowId; 
+    EpsBearer flowLevelQos; 
+    Ptr<NgcTft> tft;
+  };
   
   /**     
    * Create Session Request message, see 3GPP TS 29.274 7.2.1
@@ -209,11 +217,12 @@ public:
     std::list<BearerContextToBeCreated> bearerContextsToBeCreated;    
   };
 
+  //yjshin
   struct UpdateSMContextRequestMessage : public GtpcMessage
   {
     uint64_t imsi; 
     Uli uli; 
-    std::list<BearerContextToBeCreated> bearerContextsToBeCreated;    
+    std::list<N2SMInformationToBeCreated> n2SMInformationToBeCreated;    
   };
 
 

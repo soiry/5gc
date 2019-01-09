@@ -309,7 +309,7 @@ NgcSmfUpfApplication::DoUpdateSMContextRequest (NgcN11SapSmf::UpdateSMContextReq
   Ipv4Address enbAddr = enbit->second.enbAddr;
   ueit->second->SetEnbAddr (enbAddr);
 
-  NgcN11SapAmf::CreateSessionResponseMessage res;
+  NgcN11SapAmf::UpdateSMContextResponseMessage res;
   res.teid = req.imsi; // trick to avoid the need for allocating TEIDs on the N11 interface
 
   for (std::list<NgcN11SapSmf::BearerContextToBeCreated>::iterator bit = req.bearerContextsToBeCreated.begin ();
@@ -331,7 +331,7 @@ NgcSmfUpfApplication::DoUpdateSMContextRequest (NgcN11SapSmf::UpdateSMContextReq
       bearerContext.tft = bit->tft;
       res.bearerContextsCreated.push_back (bearerContext);
     }
-  m_n11SapAmf->CreateSessionResponse (res);
+  m_n11SapAmf->UpdateSMContextResponse (res);
   
 }
 void 

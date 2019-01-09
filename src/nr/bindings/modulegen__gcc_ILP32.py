@@ -210,8 +210,10 @@ def register_types(module):
     module.add_class('NgcX2SapUser', parent=root_module['ns3::NgcX2Sap'])
     ## eps-bearer.h (module 'nr'): ns3::EpsBearer [struct]
     module.add_class('EpsBearer')
+    module.add_class('QosFlow') ##yjshin
     ## eps-bearer.h (module 'nr'): ns3::EpsBearer::Qci [enumeration]
     module.add_enum('Qci', ['GBR_CONV_VOICE', 'GBR_CONV_VIDEO', 'GBR_GAMING', 'GBR_NON_CONV_VIDEO', 'NGBR_IMS', 'NGBR_VIDEO_TCP_OPERATOR', 'NGBR_VOICE_VIDEO_GAMING', 'NGBR_VIDEO_TCP_PREMIUM', 'NGBR_VIDEO_TCP_DEFAULT'], outer_class=root_module['ns3::EpsBearer'])
+    module.add_enum('Qci', ['GBR_CONV_VOICE', 'GBR_CONV_VIDEO', 'GBR_GAMING', 'GBR_NON_CONV_VIDEO', 'NGBR_IMS', 'NGBR_VIDEO_TCP_OPERATOR', 'NGBR_VOICE_VIDEO_GAMING', 'NGBR_VIDEO_TCP_PREMIUM', 'NGBR_VIDEO_TCP_DEFAULT'], outer_class=root_module['ns3::QosFlow'])
     ## nr-common.h (module 'nr'): ns3::NrEutranMeasurementMapping [class]
     module.add_class('NrEutranMeasurementMapping')
     ## event-id.h (module 'core'): ns3::EventId [class]
@@ -746,6 +748,7 @@ def register_types(module):
     module.add_class('DownlinkNrGlobalPathlossDatabase', parent=root_module['ns3::NrGlobalPathlossDatabase'])
     ## eps-bearer-tag.h (module 'nr'): ns3::EpsBearerTag [class]
     module.add_class('EpsBearerTag', parent=root_module['ns3::Tag'])
+    module.add_class('QosFlowTag', parent=root_module['ns3::Tag']) ##yjshin
     ## header.h (module 'network'): ns3::Header [class]
     module.add_class('Header', import_from_module='ns.network', parent=root_module['ns3::Chunk'])
     ## ipv4-header.h (module 'internet'): ns3::Ipv4Header [class]
@@ -3137,6 +3140,22 @@ def register_Ns3NgcN11SapAmfBearerContextRemoved_methods(root_module, cls):
     cls.add_instance_attribute('epsBearerId', 'uint8_t', is_const=False)
     return
 
+##yjshin
+def register_Ns3NgcN11SapAmfN2SMInformationCreated_methods(root_module, cls): 
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::BearerContextCreated() [constructor]
+    cls.add_constructor([])
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::BearerContextCreated(ns3::NgcN11SapAmf::BearerContextCreated const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NgcN11SapAmf::N2SMInformationCreated const &', 'arg0')])
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::bearerLevelQos [variable]
+    cls.add_instance_attribute('flowLevelQos', 'ns3::QosFlow', is_const=False)
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::epsBearerId [variable]
+    cls.add_instance_attribute('qosFlowId', 'uint8_t', is_const=False)
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::smfFteid [variable]
+    cls.add_instance_attribute('smfFteid', 'ns3::NgcN11Sap::Fteid', is_const=False)
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::tft [variable]
+    cls.add_instance_attribute('tft', 'ns3::Ptr< ns3::NgcTft >', is_const=False)
+    return
+
 def register_Ns3NgcN11SapAmfCreateSessionResponseMessage_methods(root_module, cls):
     ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::CreateSessionResponseMessage::CreateSessionResponseMessage() [constructor]
     cls.add_constructor([])
@@ -3209,6 +3228,22 @@ def register_Ns3NgcN11SapSmfBearerContextToBeCreated_methods(root_module, cls):
     cls.add_instance_attribute('bearerLevelQos', 'ns3::EpsBearer', is_const=False)
     ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::BearerContextToBeCreated::epsBearerId [variable]
     cls.add_instance_attribute('epsBearerId', 'uint8_t', is_const=False)
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::BearerContextToBeCreated::smfFteid [variable]
+    cls.add_instance_attribute('smfFteid', 'ns3::NgcN11Sap::Fteid', is_const=False)
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::BearerContextToBeCreated::tft [variable]
+    cls.add_instance_attribute('tft', 'ns3::Ptr< ns3::NgcTft >', is_const=False)
+    return
+
+##yjshin
+def register_Ns3NgcN11SapSmfN2SMInformationToBeCreated_methods(root_module, cls):
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::BearerContextToBeCreated::BearerContextToBeCreated() [constructor]
+    cls.add_constructor([])
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::BearerContextToBeCreated::BearerContextToBeCreated(ns3::NgcN11SapSmf::BearerContextToBeCreated const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NgcN11SapSmf::N2SMInformationToBeCreated const &', 'arg0')])
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::BearerContextToBeCreated::bearerLevelQos [variable]
+    cls.add_instance_attribute('flowLevelQos', 'ns3::QosFlow', is_const=False)
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::BearerContextToBeCreated::epsBearerId [variable]
+    cls.add_instance_attribute('qosFlowId', 'uint8_t', is_const=False)
     ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::BearerContextToBeCreated::smfFteid [variable]
     cls.add_instance_attribute('smfFteid', 'ns3::NgcN11Sap::Fteid', is_const=False)
     ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::BearerContextToBeCreated::tft [variable]
@@ -3773,6 +3808,44 @@ def register_Ns3EpsBearer_methods(root_module, cls):
     cls.add_constructor([param('ns3::EpsBearer::Qci', 'x')])
     ## eps-bearer.h (module 'nr'): ns3::EpsBearer::EpsBearer(ns3::EpsBearer::Qci x, ns3::GbrQosInformation y) [constructor]
     cls.add_constructor([param('ns3::EpsBearer::Qci', 'x'), param('ns3::GbrQosInformation', 'y')])
+    ## eps-bearer.h (module 'nr'): uint16_t ns3::EpsBearer::GetPacketDelayBudgetMs() const [member function]
+    cls.add_method('GetPacketDelayBudgetMs', 
+                   'uint16_t', 
+                   [], 
+                   is_const=True)
+    ## eps-bearer.h (module 'nr'): double ns3::EpsBearer::GetPacketErrorLossRate() const [member function]
+    cls.add_method('GetPacketErrorLossRate', 
+                   'double', 
+                   [], 
+                   is_const=True)
+    ## eps-bearer.h (module 'nr'): uint8_t ns3::EpsBearer::GetPriority() const [member function]
+    cls.add_method('GetPriority', 
+                   'uint8_t', 
+                   [], 
+                   is_const=True)
+    ## eps-bearer.h (module 'nr'): bool ns3::EpsBearer::IsGbr() const [member function]
+    cls.add_method('IsGbr', 
+                   'bool', 
+                   [], 
+                   is_const=True)
+    ## eps-bearer.h (module 'nr'): ns3::EpsBearer::arp [variable]
+    cls.add_instance_attribute('arp', 'ns3::AllocationRetentionPriority', is_const=False)
+    ## eps-bearer.h (module 'nr'): ns3::EpsBearer::gbrQosInfo [variable]
+    cls.add_instance_attribute('gbrQosInfo', 'ns3::GbrQosInformation', is_const=False)
+    ## eps-bearer.h (module 'nr'): ns3::EpsBearer::qci [variable]
+    cls.add_instance_attribute('qci', 'ns3::EpsBearer::Qci', is_const=False)
+    return
+
+##yjshin
+def register_Ns3QosFlow_methods(root_module, cls):
+    ## eps-bearer.h (module 'nr'): ns3::EpsBearer::EpsBearer(ns3::EpsBearer const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::QosFlow const &', 'arg0')])
+    ## eps-bearer.h (module 'nr'): ns3::EpsBearer::EpsBearer() [constructor]
+    cls.add_constructor([])
+    ## eps-bearer.h (module 'nr'): ns3::EpsBearer::EpsBearer(ns3::EpsBearer::Qci x) [constructor]
+    cls.add_constructor([param('ns3::QosFlow::Qci', 'x')])
+    ## eps-bearer.h (module 'nr'): ns3::EpsBearer::EpsBearer(ns3::EpsBearer::Qci x, ns3::GbrQosInformation y) [constructor]
+    cls.add_constructor([param('ns3::QosFlow::Qci', 'x'), param('ns3::GbrQosInformation', 'y')])
     ## eps-bearer.h (module 'nr'): uint16_t ns3::EpsBearer::GetPacketDelayBudgetMs() const [member function]
     cls.add_method('GetPacketDelayBudgetMs', 
                    'uint16_t', 
@@ -9116,6 +9189,64 @@ def register_Ns3DownlinkNrGlobalPathlossDatabase_methods(root_module, cls):
 def register_Ns3EpsBearerTag_methods(root_module, cls):
     ## eps-bearer-tag.h (module 'nr'): ns3::EpsBearerTag::EpsBearerTag(ns3::EpsBearerTag const & arg0) [copy constructor]
     cls.add_constructor([param('ns3::EpsBearerTag const &', 'arg0')])
+    ## eps-bearer-tag.h (module 'nr'): ns3::EpsBearerTag::EpsBearerTag() [constructor]
+    cls.add_constructor([])
+    ## eps-bearer-tag.h (module 'nr'): ns3::EpsBearerTag::EpsBearerTag(uint16_t rnti, uint8_t bid) [constructor]
+    cls.add_constructor([param('uint16_t', 'rnti'), param('uint8_t', 'bid')])
+    ## eps-bearer-tag.h (module 'nr'): void ns3::EpsBearerTag::Deserialize(ns3::TagBuffer i) [member function]
+    cls.add_method('Deserialize', 
+                   'void', 
+                   [param('ns3::TagBuffer', 'i')], 
+                   is_virtual=True)
+    ## eps-bearer-tag.h (module 'nr'): uint8_t ns3::EpsBearerTag::GetBid() const [member function]
+    cls.add_method('GetBid', 
+                   'uint8_t', 
+                   [], 
+                   is_const=True)
+    ## eps-bearer-tag.h (module 'nr'): ns3::TypeId ns3::EpsBearerTag::GetInstanceTypeId() const [member function]
+    cls.add_method('GetInstanceTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_const=True, is_virtual=True)
+    ## eps-bearer-tag.h (module 'nr'): uint16_t ns3::EpsBearerTag::GetRnti() const [member function]
+    cls.add_method('GetRnti', 
+                   'uint16_t', 
+                   [], 
+                   is_const=True)
+    ## eps-bearer-tag.h (module 'nr'): uint32_t ns3::EpsBearerTag::GetSerializedSize() const [member function]
+    cls.add_method('GetSerializedSize', 
+                   'uint32_t', 
+                   [], 
+                   is_const=True, is_virtual=True)
+    ## eps-bearer-tag.h (module 'nr'): static ns3::TypeId ns3::EpsBearerTag::GetTypeId() [member function]
+    cls.add_method('GetTypeId', 
+                   'ns3::TypeId', 
+                   [], 
+                   is_static=True)
+    ## eps-bearer-tag.h (module 'nr'): void ns3::EpsBearerTag::Print(std::ostream & os) const [member function]
+    cls.add_method('Print', 
+                   'void', 
+                   [param('std::ostream &', 'os')], 
+                   is_const=True, is_virtual=True)
+    ## eps-bearer-tag.h (module 'nr'): void ns3::EpsBearerTag::Serialize(ns3::TagBuffer i) const [member function]
+    cls.add_method('Serialize', 
+                   'void', 
+                   [param('ns3::TagBuffer', 'i')], 
+                   is_const=True, is_virtual=True)
+    ## eps-bearer-tag.h (module 'nr'): void ns3::EpsBearerTag::SetBid(uint8_t bid) [member function]
+    cls.add_method('SetBid', 
+                   'void', 
+                   [param('uint8_t', 'bid')])
+    ## eps-bearer-tag.h (module 'nr'): void ns3::EpsBearerTag::SetRnti(uint16_t rnti) [member function]
+    cls.add_method('SetRnti', 
+                   'void', 
+                   [param('uint16_t', 'rnti')])
+    return
+
+##yjshin
+def register_Ns3QosFlowTag_methods(root_module, cls):
+    ## eps-bearer-tag.h (module 'nr'): ns3::EpsBearerTag::EpsBearerTag(ns3::EpsBearerTag const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::QosFlowTag const &', 'arg0')])
     ## eps-bearer-tag.h (module 'nr'): ns3::EpsBearerTag::EpsBearerTag() [constructor]
     cls.add_constructor([])
     ## eps-bearer-tag.h (module 'nr'): ns3::EpsBearerTag::EpsBearerTag(uint16_t rnti, uint8_t bid) [constructor]
