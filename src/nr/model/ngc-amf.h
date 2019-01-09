@@ -125,6 +125,8 @@ private:
   // jhlim
   void DoIdentityRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId);
   void DoIdentityResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id);
+  void DoRegistrationAccept (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId, uint64_t guti);
+  void DoRegistrationComplete (uint64_t amfUeN2Id, uint16_t enbUeN2Id);
 
 
   /**

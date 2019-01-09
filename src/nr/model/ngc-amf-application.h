@@ -136,7 +136,7 @@ private:
   void NamfCommunicationUeContextTransferResponse(uint64_t imsi, uint64_t context);
   void NamfCommunicationRegistrationCompleteNotify(uint64_t imsi);
   bool IsGuti(uint64_t imsi);
-  void DoRegistrationComplete();
+  void DoRegistrationComplete(uint64_t amfUeN2Id, uint16_t enbUeN2Id);
   void DoIdentityResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id);
 
 

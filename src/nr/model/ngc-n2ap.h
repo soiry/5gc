@@ -120,6 +120,7 @@ public:
 
 protected:
   // Interface provided by NgcN2apSapEnbProvider
+  // jhlim
   virtual void DoSendRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t stmsi, uint16_t ecgi);
   virtual void DoSendErabReleaseIndication (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSap::ErabToBeReleasedIndication> erabToBeReleaseIndication );
   virtual void DoSendInitialContextSetupResponse (uint64_t amfUeN2Id,
@@ -128,8 +129,10 @@ protected:
   virtual void DoSendPathSwitchRequest (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t gci, std::list<NgcN2apSap::ErabSwitchedInDownlinkItem> erabToBeSwitchedInDownlinkList)
   ;
 
+  // jhlim
   virtual void DoSendIdentityResponse (uint64_t amfUeN2Id,
   									   uint16_t enbUeN2Id);
+  virtual void DoSendRegistrationComplete (uint64_t amfUeN2Id, uint16_t enbUeN2Id);
 
   NgcN2apSapEnb* m_n2apSapUser;
   NgcN2apSapEnbProvider* m_n2apSapProvider;
@@ -225,9 +228,14 @@ protected:
   virtual void DoSendPathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, 
                                         std::list<NgcN2apSap::ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList);
 
+  // jhlim
   virtual void DoSendIdentityRequest (uint64_t amfUeN2Id,
   								uint16_t enbUeN2Id,
 								uint16_t cellId);
+  virtual void DoSendRegistrationAccept (uint64_t amfUeN2Id,
+  								uint16_t enbUeN2Id, 
+								uint16_t cellId,
+								uint64_t guti);
 
   NgcN2apSapAmf* m_n2apSapUser;
   NgcN2apSapAmfProvider* m_n2apSapProvider;

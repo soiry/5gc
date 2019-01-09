@@ -145,6 +145,7 @@ public:
 
   // jhlim
   virtual void IdentityResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id) = 0;
+  virtual void RegistrationComplete (uint64_t amfUeN2Id, uint16_t enbUeN2Id) = 0;
   //virtual void IdentityRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId) = 0;
 };
 
@@ -174,7 +175,8 @@ public:
   //virtual void SendIdentityRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId) = 0;
   virtual void SendIdentityResponse (uint64_t amfUeN2Id,
   								uint16_t enbUeN2Id) = 0;
-  
+  virtual void SendRegistrationComplete (uint64_t amfUeN2Id,
+  								uint16_t enbUeN2Id) = 0;
 
 };
 
@@ -206,6 +208,9 @@ public:
   // jhlim
   virtual void IdentityRequest (uint64_t amfUeN2Id,
   								uint16_t enbUeN2Id) = 0;
+  virtual void RegistrationAccept (uint64_t amfUeN2Id,
+  								   uint16_t enbUeN2Id,
+								   uint64_t guti) = 0;
 
   /**
    * PATH SWITCH REQUEST ACKNOWLEDGE message, see 3GPP TS 36.413 9.1.5.9
@@ -239,6 +244,10 @@ public:
   virtual void SendIdentityRequest (uint64_t amfUeN2Id,
   								uint16_t enbUeN2Id,
 								uint16_t cellId) = 0;
+  virtual void SendRegistrationAccept (uint64_t amfUeN2Id,
+  								uint16_t enbUeN2Id,
+								uint16_t cellId,
+								uint64_t guti) = 0;
 };
 
 
@@ -262,6 +271,7 @@ public:
   // jhlim
   //virtual void IdentityRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId);
   virtual void IdentityResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id);
+  virtual void RegistrationComplete (uint64_t amfUeN2Id, uint16_t enbUeN2Id);
   // jhlim
   //virtual void DoIdentityResponse (uint64_t imsi, uint16_t rnti) = 0;
   //virtual void DoIdentityRequest (uint64_t imsi, uint16_t rnti) = 0;
@@ -293,17 +303,15 @@ void MemberNgcN2apSapAmf<C>::RegistrationRequest (uint64_t amfUeN2Id, uint16_t e
 }
 
 // jhlim
-/*
-template <class C>
-void MemberNgcN2apSapAmf<C>::IdentityRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId)
-{
-  m_owner->DoIdentityRequest(amfUeN2Id, enbUeN2Id, cellId);
-}
-*/
 template <class C>
 void MemberNgcN2apSapAmf<C>::IdentityResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id)
 {
   m_owner->DoIdentityResponse(amfUeN2Id, enbUeN2Id);
+}
+template <class C>
+void MemberNgcN2apSapAmf<C>::RegistrationComplete (uint64_t amfUeN2Id, uint16_t enbUeN2Id)
+{
+  m_owner->DoRegistrationComplete(amfUeN2Id, enbUeN2Id);
 }
 
 template <class C>
@@ -344,8 +352,8 @@ public:
   virtual void SendInitialContextSetupResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabSetupItem> erabSetupList);
   virtual void SendPathSwitchRequest (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, std::list<ErabSwitchedInDownlinkItem> erabToBeSwitchedInDownlinkList);
  //jhlim
-  //virtual void SendIdentityRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId);
   virtual void SendIdentityResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id);
+  virtual void SendRegistrationComplete (uint64_t amfUeN2Id, uint16_t enbUeN2Id);
 
 private:
   MemberNgcN2apSapEnbProvider ();
@@ -381,17 +389,15 @@ void MemberNgcN2apSapEnbProvider<C>::SendInitialContextSetupResponse (uint64_t a
   m_owner->DoSendInitialContextSetupResponse (amfUeN2Id, enbUeN2Id, erabSetupList);
 }
 // jhlim
-/*
-template <class C>
-void MemberNgcN2apSapEnbProvider<C>::SendIdentityRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId)
-{
-  m_owner->DoSendIdentityRequest (amfUeN2Id, enbUeN2Id, cellId);
-}
-*/
 template <class C>
 void MemberNgcN2apSapEnbProvider<C>::SendIdentityResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id)
 {
   m_owner->DoSendIdentityResponse (amfUeN2Id, enbUeN2Id);
+}
+template <class C>
+void MemberNgcN2apSapEnbProvider<C>::SendRegistrationComplete (uint64_t amfUeN2Id, uint16_t enbUeN2Id)
+{
+  m_owner->DoSendRegistrationComplete (amfUeN2Id, enbUeN2Id);
 }
 
 template <class C>
@@ -418,6 +424,7 @@ public:
   virtual void PathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, std::list<ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList);
   // jhlim
   virtual void IdentityRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id);
+  virtual void RegistrationAccept (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t guti);
 
 private:
   MemberNgcN2apSapEnb ();
@@ -447,6 +454,11 @@ void MemberNgcN2apSapEnb<C>::IdentityRequest (uint64_t amfUeN2Id, uint16_t enbUe
   m_owner->DoIdentityRequest (amfUeN2Id, enbUeN2Id);
 }
 template <class C>
+void MemberNgcN2apSapEnb<C>::RegistrationAccept (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t guti)
+{
+  m_owner->DoRegistrationAccept (amfUeN2Id, enbUeN2Id, guti);
+}
+template <class C>
 void MemberNgcN2apSapEnb<C>::PathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, std::list<ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList)
 {
   m_owner->DoPathSwitchRequestAcknowledge (enbUeN2Id, amfUeN2Id, cgi, erabToBeSwitchedInUplinkList);
@@ -467,7 +479,10 @@ public:
   // inherited from NgcN2apSapAmfProvider
   virtual void SendInitialContextSetupRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList, uint16_t cellId);
   virtual void SendPathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, std::list<ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList);
+  // jhlim
   virtual void SendIdentityRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId);
+  virtual void SendRegistrationAccept (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId, uint64_t guti);
+  
 
 private:
   MemberNgcN2apSapAmfProvider ();
@@ -496,7 +511,11 @@ void MemberNgcN2apSapAmfProvider<C>::SendIdentityRequest (uint64_t amfUeN2Id, ui
 {
   m_owner->DoSendIdentityRequest (amfUeN2Id, enbUeN2Id, cellId);
 }
-
+template <class C>
+void MemberNgcN2apSapAmfProvider<C>::SendRegistrationAccept (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId, uint64_t guti)
+{
+  m_owner->DoSendIdentityRequest (amfUeN2Id, enbUeN2Id, cellId);
+}
 template <class C>
 void MemberNgcN2apSapAmfProvider<C>::SendPathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, std::list<ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList)
 {

@@ -373,6 +373,7 @@ private:
   void DoRecvRrcConnectionSwitch (NrRrcSap::RrcConnectionSwitch msg);
   // jhlim
   void DoRecvRrcIdentityRequest (NrRrcSap::RrcIdentityRequest msg);
+  void DoRecvRrcRegistrationAccept (NrRrcSap::RrcRegistrationAccept msg); 
   
 
  

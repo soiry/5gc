@@ -1063,6 +1063,18 @@ NgcN2APInitialContextSetupRequestHeader::SetEnbUeN2Id (uint16_t enbUeN2Id)
 {
   m_enbUeN2Id = enbUeN2Id;
 }
+// jhlim
+uint64_t 
+NgcN2APInitialContextSetupRequestHeader::GetGuti () const
+{
+  return m_guti;
+}
+
+void 
+NgcN2APInitialContextSetupRequestHeader::SetGuti (uint64_t guti)
+{
+  m_guti = guti;
+}
 
 std::list<NgcN2apSap::ErabToBeSetupItem>
 NgcN2APInitialContextSetupRequestHeader::GetErabToBeSetupItem () const 
@@ -1088,7 +1100,6 @@ NgcN2APInitialContextSetupRequestHeader::GetNumberOfIes () const
 {
   return m_numberOfIes;
 }
-
 /////////////////////////////////////////////////////////////////////
 
 NS_OBJECT_ENSURE_REGISTERED (NgcN2APPathSwitchRequestAcknowledgeHeader);

@@ -203,7 +203,7 @@ NgcAmfApplication::DoRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id
   if(IsGuti(imsi)) // if GUTI exists, 
      NamfCommunicationUeContextTransfer(imsi); // call this to Old AMF.  
   
-  // Conditional 6. Identity Request message to UE by NAS signal
+  // Conditional 6-7. Identity Request message to UE by NAS signal
   // if(imsi == NULL)  // if SUCI is not sent by the UE nor the old AMF
   // suci = m_n2apSapAmfProvider->SendIdentityRequest (amfUeN2Id, enbUeN2Id, cellId);
   
@@ -215,15 +215,16 @@ NgcAmfApplication::DoRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id
   // if PEI is not exists,
   // pei = m_n2apSapAmfProvider->SendIdentityRequest (amfUeN2Id, enbUeN2Id, cellId);
   
-  // 11. Registration Accept
+  // 11-12. Registration Accept
   //     (5G-GUTI, Registration Area, PDU Session status, ...) 
   // m_n2apsapAmfProvider->SendRegistrationAccept();
 }
 
 void
-NgcAmfApplication::DoRegistrationComplete ()
+NgcAmfApplication::DoRegistrationComplete (uint64_t amfUeN2Id, uint16_t enbUeN2Id)
 {
 	NS_LOG_FUNCTION (this);
+	NS_LOG_INFO("Registration Compelete.");
 
 }
 // jhlim

@@ -410,8 +410,11 @@ public:
 // jhlim
   void IdentityRequest (NgcEnbN2SapUser::IdentityRequestParameters params);
   void ScheduleRrcIdentityRequest ();
+  void RegistrationAccept (NgcEnbN2SapUser::RegistrationAcceptParameters params);
+  void ScheduleRrcRegistrationAccept ();
   void SelectAmf ();
   void RecvRrcIdentityResponse (NrRrcSap::RrcIdentityResponse msg);
+  void RecvRrcRegistrationComplete (NrRrcSap::RrcRegistrationComplete msg);
 
 
 private:
@@ -469,6 +472,7 @@ private:
 
   // jhlim
   NrRrcSap::RrcIdentityRequest BuildRrcIdentityRequest ();
+  NrRrcSap::RrcRegistrationAccept BuildRrcRegistrationAccept ();
 
   /** 
    * 
@@ -1128,6 +1132,8 @@ private:
   // jhlim
   void DoIdentityRequest (NgcEnbN2SapUser::IdentityRequestParameters params);
   void DoRecvRrcIdentityResponse (uint16_t rnti, NrRrcSap::RrcIdentityResponse msg);
+  void DoRegistrationAccept (NgcEnbN2SapUser::RegistrationAcceptParameters params);
+  void DoRecvRrcRegistrationComplete (uint16_t rnti, NrRrcSap::RrcRegistrationComplete msg);
   
 
   // X2 SAP methods

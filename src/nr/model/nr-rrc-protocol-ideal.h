@@ -67,7 +67,7 @@ public:
 
   // jhlim
   void DoSendRrcIdentityResponse (NrRrcSap::RrcIdentityResponse msg);
-  
+  void DoSendRrcRegistrationComplete (NrRrcSap::RrcRegistrationComplete msg);
 
 private:
 
@@ -140,6 +140,7 @@ private:
 
   // jhlim
   void DoSendRrcIdentityRequest (uint16_t rnti, NrRrcSap::RrcIdentityRequest msg); // to UE
+  void DoSendRrcRegistrationAccept (uint16_t rnti, NrRrcSap::RrcRegistrationAccept msg); // to UE
 
 
   uint16_t m_rnti;

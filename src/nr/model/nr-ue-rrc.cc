@@ -1325,6 +1325,15 @@ NrUeRrc::DoRecvRrcIdentityRequest (NrRrcSap::RrcIdentityRequest msg)
   NrRrcSap::RrcIdentityResponse msg2;
   m_rrcSapUser->SendRrcIdentityResponse (msg2);
 }
+void
+NrUeRrc::DoRecvRrcRegistrationAccept (NrRrcSap::RrcRegistrationAccept msg)
+{
+  NS_LOG_FUNCTION (this << " RNTI " << m_rnti << ToString(m_state));
+  std::cout << "UE receives RRC registration accept message from source eNB at time  "<<Simulator::Now().GetSeconds()<< std::endl;
+  
+  NrRrcSap::RrcRegistrationComplete msg2;
+  m_rrcSapUser->SendRrcRegistrationComplete (msg2);
+}
 
 void 
 NrUeRrc::DoRecvRrcConnectionReestablishment (NrRrcSap::RrcConnectionReestablishment msg)

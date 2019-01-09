@@ -528,6 +528,14 @@ UeManager::IdentityRequest (NgcEnbN2SapUser::IdentityRequestParameters params)
  ScheduleRrcIdentityRequest ();
 }
 void
+UeManager::RegistrationAccept (NgcEnbN2SapUser::RegistrationAcceptParameters params)
+{
+ NS_LOG_FUNCTION (this << (uint32_t) m_rnti);
+
+ ScheduleRrcRegistrationAccept ();
+}
+
+void
 UeManager::RecordDataRadioBearersToBeStarted ()
 {
   NS_LOG_FUNCTION (this << (uint32_t) m_rnti);
@@ -664,6 +672,14 @@ UeManager::ScheduleRrcIdentityRequest ()
   std::cout << "Enb will send identity request message to UE " <<m_rnti << std::endl;
   NrRrcSap::RrcIdentityRequest msg = BuildRrcIdentityRequest ();
   m_rrc->m_rrcSapUser->SendRrcIdentityRequest (m_rnti, msg);
+}
+void 
+UeManager::ScheduleRrcRegistrationAccept ()
+{
+  NS_LOG_FUNCTION (this << ToString(m_state));
+  std::cout << "Enb will send registration accept message to UE " <<m_rnti << std::endl;
+  NrRrcSap::RrcRegistrationAccept msg = BuildRrcRegistrationAccept ();
+  m_rrc->m_rrcSapUser->SendRrcRegistrationAccept (m_rnti, msg);
 }
 
 void 
@@ -2121,6 +2137,16 @@ UeManager::RecvRrcIdentityResponse (NrRrcSap::RrcIdentityResponse msg)
   m_rrc->m_n2SapProvider->IdentityResponse (m_imsi, m_rnti);
 
 }
+void
+UeManager::RecvRrcRegistrationComplete (NrRrcSap::RrcRegistrationComplete msg)
+{
+  NS_LOG_FUNCTION (this<<ToString(m_state));
+
+  //send msg to AMF
+  m_rrc->m_n2SapProvider->RegistrationComplete (m_imsi, m_rnti);
+
+}
+
 
 void 
 UeManager::RecvRrcConnectionReestablishmentRequest (NrRrcSap::RrcConnectionReestablishmentRequest msg)
@@ -2744,6 +2770,12 @@ NrRrcSap::RrcIdentityRequest
 UeManager::BuildRrcIdentityRequest ()
 {
   NrRrcSap::RrcIdentityRequest msg;
+  return msg;
+}
+NrRrcSap::RrcRegistrationAccept
+UeManager::BuildRrcRegistrationAccept ()
+{
+  NrRrcSap::RrcRegistrationAccept msg;
   return msg;
 }
 
@@ -5104,6 +5136,13 @@ NrEnbRrc::DoRecvRrcIdentityResponse (uint16_t rnti, NrRrcSap::RrcIdentityRespons
   NS_LOG_INFO("Received RRC identity response ");
   GetUeManager (rnti)->RecvRrcIdentityResponse (msg);
 }
+void
+NrEnbRrc::DoRecvRrcRegistrationComplete (uint16_t rnti, NrRrcSap::RrcRegistrationComplete msg)
+{
+  NS_LOG_FUNCTION (this << rnti);
+  NS_LOG_INFO("Received RRC registration complete ");
+  GetUeManager (rnti)->RecvRrcRegistrationComplete (msg);
+}
 
 void 
 NrEnbRrc::DoRecvRrcConnectionReestablishmentRequest (uint16_t rnti, NrRrcSap::RrcConnectionReestablishmentRequest msg)
@@ -5146,6 +5185,13 @@ NrEnbRrc::DoIdentityRequest (NgcEnbN2SapUser::IdentityRequestParameters params)
   NS_LOG_FUNCTION (this << params.rnti);
   Ptr<UeManager> ueManager = GetUeManager (params.rnti);
   ueManager->IdentityRequest (params);
+}
+void
+NrEnbRrc::DoRegistrationAccept (NgcEnbN2SapUser::RegistrationAcceptParameters params)
+{
+  NS_LOG_FUNCTION (this << params.rnti);
+  Ptr<UeManager> ueManager = GetUeManager (params.rnti);
+  ueManager->RegistrationAccept (params);
 }
 void 
 NrEnbRrc::DoPathSwitchRequestAcknowledge (NgcEnbN2SapUser::PathSwitchRequestAcknowledgeParameters params)

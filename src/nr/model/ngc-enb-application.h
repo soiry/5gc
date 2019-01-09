@@ -151,6 +151,8 @@ private:
   // jhlim
   void DoIdentityRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id);
   void DoIdentityResponse (uint64_t imsi, uint16_t rnti);
+  void DoRegistrationAccept (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t guti);
+  void DoRegistrationComplete (uint64_t imsi, uint16_t rnti);
   void DoPathSwitchRequest (NgcEnbN2SapProvider::PathSwitchRequestParameters params);
   void DoUeContextRelease (uint16_t rnti);
 

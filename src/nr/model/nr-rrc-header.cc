@@ -5356,18 +5356,50 @@ RrcConnectionReconfigurationHeader::GetPhysicalConfigDedicated () const
 }
 
 // jhlim
-//////////////////// IdentityRequestHeader class ////////////////////
+//////////////////// IdentityRequest,Response,RegistrationAccept,CompleteHeader class ////////////////////
 RrcIdentityRequestHeader::RrcIdentityRequestHeader ()
 {
 }
 RrcIdentityRequestHeader::~RrcIdentityRequestHeader ()
 {
 }
-
 void
 RrcIdentityRequestHeader::SetMessage (NrRrcSap::RrcIdentityRequest msg)
 {
 }
+RrcIdentityResponseHeader::RrcIdentityResponseHeader ()
+{
+}
+RrcIdentityResponseHeader::~RrcIdentityResponseHeader ()
+{
+}
+void
+RrcIdentityResponseHeader::SetMessage (NrRrcSap::RrcIdentityResponse msg)
+{
+}
+
+RrcRegistrationAcceptHeader::RrcRegistrationAcceptHeader ()
+{
+}
+RrcRegistrationAcceptHeader::~RrcRegistrationAcceptHeader ()
+{
+}
+void
+RrcRegistrationAcceptHeader::SetMessage (NrRrcSap::RrcRegistrationAccept msg)
+{
+}
+
+RrcRegistrationCompleteHeader::RrcRegistrationCompleteHeader ()
+{
+}
+RrcRegistrationCompleteHeader::~RrcRegistrationCompleteHeader ()
+{
+}
+void
+RrcRegistrationCompleteHeader::SetMessage (NrRrcSap::RrcRegistrationComplete msg)
+{
+}
+
 
 
 //////////////////// HandoverPreparationInfoHeader class ////////////////////////

@@ -74,6 +74,7 @@ public:
 
   // jhlim
   void DoSendRrcIdentityResponse (NrRrcSap::RrcIdentityResponse msg);
+  void DoSendRrcRegistrationComplete (NrRrcSap::RrcRegistrationComplete msg);
 private:
   // methods forwarded from NrUeRrcSapUser
   void DoSetup (NrUeRrcSapUser::SetupParameters params);
@@ -135,6 +136,7 @@ public:
 
   // jhlim
   void DoSendRrcIdentityRequest (uint16_t rnti, NrRrcSap::RrcIdentityRequest msg); // to UE
+  void DoSendRrcRegistrationAccept (uint16_t rnti, NrRrcSap::RrcRegistrationAccept msg); // to UE
 private:
   // methods forwarded from NrEnbRrcSapUser
   void DoSetupUe (uint16_t rnti, NrEnbRrcSapUser::SetupUeParameters params);

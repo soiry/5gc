@@ -53,6 +53,7 @@ public:
 
   //jhlim
   virtual void IdentityResponse (uint64_t imsi, uint16_t rnti) = 0;
+  virtual void RegistrationComplete (uint64_t imsi, uint16_t rnti) = 0;
 
   /**
    *  \brief Triggers ngc-enb-application to send ERAB Release Indication message towards AMF
@@ -124,6 +125,11 @@ public:
   {
 	uint16_t rnti;
   };
+  struct RegistrationAcceptParameters
+  {
+    uint16_t rnti;
+	uint64_t guti;
+  };
 
   /**
    * request the setup of a DataRadioBearer
@@ -133,6 +139,7 @@ public:
 
   //jhlim
   virtual void IdentityRequest (IdentityRequestParameters params) = 0;
+  virtual void RegistrationAccept (RegistrationAcceptParameters params) = 0;
 
   
   struct PathSwitchRequestAcknowledgeParameters
@@ -162,6 +169,7 @@ public:
   virtual void RegistrationRequest (uint64_t imsi, uint16_t rnti);
   // jhlim
   virtual void IdentityResponse (uint64_t imsi, uint16_t rnti);
+  virtual void RegistrationComplete (uint64_t imsi, uint16_t rnti);
   virtual void DoSendReleaseIndication (uint64_t imsi, uint16_t rnti, uint8_t bearerId);
 
   virtual void PathSwitchRequest (PathSwitchRequestParameters params);
@@ -194,8 +202,12 @@ void MemberNgcEnbN2SapProvider<C>::RegistrationRequest (uint64_t imsi, uint16_t 
 template <class C>
 void MemberNgcEnbN2SapProvider<C>::IdentityResponse (uint64_t imsi, uint16_t rnti)
 {
-  cout<<"DoIdentityResponse for Provider is called" << endl;
   m_owner->DoIdentityResponse (imsi, rnti);
+}
+template <class C>
+void MemberNgcEnbN2SapProvider<C>::RegistrationComplete (uint64_t imsi, uint16_t rnti)
+{
+  m_owner->DoRegistrationComplete (imsi, rnti);
 }
 
 template <class C>
@@ -249,6 +261,7 @@ public:
   virtual void PathSwitchRequestAcknowledge (PathSwitchRequestAcknowledgeParameters params);
   // jhlim
   virtual void IdentityRequest (IdentityRequestParameters params);
+  virtual void RegistrationAccept (RegistrationAcceptParameters params);
 
 private:
   MemberNgcEnbN2SapUser ();
@@ -276,6 +289,11 @@ template <class C>
 void MemberNgcEnbN2SapUser<C>::IdentityRequest (IdentityRequestParameters params)
 {
   m_owner->DoIdentityRequest (params);
+}
+template <class C>
+void MemberNgcEnbN2SapUser<C>::RegistrationAccept (RegistrationAcceptParameters params)
+{
+  m_owner->DoRegistrationAccept (params);
 }
 template <class C>
 void MemberNgcEnbN2SapUser<C>::PathSwitchRequestAcknowledge (PathSwitchRequestAcknowledgeParameters params)

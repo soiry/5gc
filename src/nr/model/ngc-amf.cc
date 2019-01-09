@@ -295,5 +295,15 @@ NgcAmf::DoIdentityResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id)
 {
   NS_LOG_FUNCTION (this);
 }
+void
+NgcAmf::DoRegistrationAccept (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId, uint64_t guti)
+{
+  NS_LOG_FUNCTION (this);
+}
+void
+NgcAmf::DoRegistrationComplete (uint64_t amfUeN2Id, uint16_t enbUeN2Id)
+{
+  NS_LOG_FUNCTION (this);
+}
 
 } // namespace ns3

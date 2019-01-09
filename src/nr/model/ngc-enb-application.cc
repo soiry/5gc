@@ -210,6 +210,18 @@ NgcEnbApplication::DoIdentityResponse (uint64_t imsi, uint16_t rnti)
   else
 	  m_n2apSapEnbProvider->SendIdentityResponse (imsi, rnti); // TODO if more than one AMF is used, extend this call
 }
+void
+NgcEnbApplication::DoRegistrationComplete (uint64_t imsi, uint16_t rnti)
+{
+  NS_LOG_FUNCTION (this);
+
+  m_imsiRntiMap[imsi] = rnti;
+
+  if(m_n2apSapEnbProvider == NULL)
+	  m_n2apSapAmf->RegistrationComplete (imsi, rnti);
+  else
+	  m_n2apSapEnbProvider->SendRegistrationComplete (imsi, rnti);
+}
 
 void 
 NgcEnbApplication::DoPathSwitchRequest (NgcEnbN2SapProvider::PathSwitchRequestParameters params)
@@ -347,6 +359,19 @@ NgcEnbApplication::DoIdentityRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id)
   struct NgcEnbN2SapUser::IdentityRequestParameters params;
   params.rnti = rnti;
   m_n2SapUser->IdentityRequest(params);
+}
+void 
+NgcEnbApplication::DoRegistrationAccept (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t guti)
+{
+  NS_LOG_FUNCTION (this);
+  NS_LOG_INFO("In EnpEnbApplication DoRegistrationAccept");
+
+  uint64_t imsi = amfUeN2Id;
+  std::map<uint64_t, uint16_t>::iterator imsiIt = m_imsiRntiMap.find (imsi);
+  uint16_t rnti = imsiIt->second;
+  struct NgcEnbN2SapUser::RegistrationAcceptParameters params;
+  params.rnti = rnti;
+  m_n2SapUser->RegistrationAccept(params);
 }
 void 
 NgcEnbApplication::DoPathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t gci, std::list<NgcN2apSapEnb::ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList)

@@ -199,10 +199,8 @@ NgcN2apEnb::RecvFromN2apSocket (Ptr<Socket> socket)
   }
   else if (procedureCode == NgcN2APHeader::IdentityRequest) /* jhlim: for signal 6. */
   {
-	  /* Not implemented */
-	  /*
 	NS_LOG_LOGIC ("Recv N2ap message: IDENTITY REQUEST ");
-	NgcN2APIdentityRequestHeader reqHeader;
+	NgcN2APInitialContextSetupRequestHeader reqHeader; // fix to Identity request header.
 	packet->RemoveHeader(reqHeader);
 
 	NS_LOG_INFO ("N2ap Identity Request " << reqHeader);
@@ -214,7 +212,24 @@ NgcN2apEnb::RecvFromN2apSocket (Ptr<Socket> socket)
 	NS_LOG_LOGIC ("enbUeN2apId " << enbUeN2apId);
 
 	m_n2apSapUser->IdentityRequest(amfUeN2apId, enbUeN2apId);
-	*/
+  }
+  else if (procedureCode == NgcN2APHeader::RegistrationAccept) /* jhlim: for signal 11. */
+  {
+	NS_LOG_LOGIC ("Recv N2ap message: REGISTRATION ACCEPT ");
+	NgcN2APInitialContextSetupRequestHeader reqHeader;
+	packet->RemoveHeader(reqHeader);
+
+	NS_LOG_INFO ("N2ap Registration Accept " << reqHeader);
+
+	uint64_t amfUeN2apId = reqHeader.GetAmfUeN2Id();
+	uint16_t enbUeN2apId = reqHeader.GetEnbUeN2Id();
+	uint64_t guti = reqHeader.GetGuti();
+
+	NS_LOG_LOGIC ("amfUeN2apId " << amfUeN2apId);
+	NS_LOG_LOGIC ("enbUeN2apId " << enbUeN2apId);
+	NS_LOG_LOGIC ("guti " << guti);
+
+	m_n2apSapUser->RegistrationAccept(amfUeN2apId, enbUeN2apId, guti);
   }
   else
   {
@@ -376,14 +391,54 @@ NgcN2apEnb::DoSendIdentityResponse (uint64_t amfUeN2Id,
 
   NS_LOG_INFO ("Send N2ap message: IDENTITY RESPONSE " << Simulator::Now ().GetSeconds());
 
-  NgcN2APInitialContextSetupResponseHeader indHeader; // jhlim: Header can be changed.
+  NgcN2APInitialContextSetupResponseHeader indHeader; // fix to IdentityResponseHeader.
   
   indHeader.SetAmfUeN2Id(amfUeN2Id);
   indHeader.SetEnbUeN2Id(enbUeN2Id);
   NS_LOG_INFO ("N2AP Identity Response header " << indHeader);
 
   NgcN2APHeader n2apHeader;
-  n2apHeader.SetProcedureCode (NgcN2APHeader::InitialContextSetupResponse);
+  n2apHeader.SetProcedureCode (NgcN2APHeader::IdentityResponse);
+  n2apHeader.SetLengthOfIes (indHeader.GetLengthOfIes ());
+  n2apHeader.SetNumberOfIes (indHeader.GetNumberOfIes ());
+  NS_LOG_INFO ("N2ap header: " << n2apHeader);
+
+  Ptr<Packet> packet = Create <Packet> ();
+  packet->AddHeader (indHeader);
+  packet->AddHeader (n2apHeader);
+  NS_LOG_INFO ("packetLen = " << packet->GetSize ());
+
+  // Send the N2ap message through the socket
+  sourceSocket->SendTo (packet, 0, InetSocketAddress (amfIpAddr, m_n2apUdpPort));
+}
+void 
+NgcN2apEnb::DoSendRegistrationComplete (uint64_t amfUeN2Id,
+              uint16_t enbUeN2Id) 
+{
+  NS_LOG_FUNCTION (this);
+
+  NS_LOG_LOGIC("amfUeN2apId = " << amfUeN2Id);
+  NS_LOG_LOGIC("enbUeN2apId = " << enbUeN2Id);
+
+  // TODO check if an assert is needed
+
+  Ptr<N2apIfaceInfo> socketInfo = m_n2apInterfaceSockets [m_amfId]; // in case of multiple amf, extend the call
+  Ptr<Socket> sourceSocket = socketInfo->m_localCtrlPlaneSocket;
+  Ipv4Address amfIpAddr = socketInfo->m_remoteIpAddr;
+
+  NS_LOG_LOGIC ("sourceSocket = " << sourceSocket);
+  NS_LOG_LOGIC ("amfIpAddr = " << amfIpAddr);
+
+  NS_LOG_INFO ("Send N2ap message: REGISTRATION COMPLETE " << Simulator::Now ().GetSeconds());
+
+  NgcN2APInitialContextSetupResponseHeader indHeader; // fix to RegistrationCompleteHeader.
+  
+  indHeader.SetAmfUeN2Id(amfUeN2Id);
+  indHeader.SetEnbUeN2Id(enbUeN2Id);
+  NS_LOG_INFO ("N2AP Registration Complete header " << indHeader);
+
+  NgcN2APHeader n2apHeader;
+  n2apHeader.SetProcedureCode (NgcN2APHeader::RegistrationComplete);
   n2apHeader.SetLengthOfIes (indHeader.GetLengthOfIes ());
   n2apHeader.SetNumberOfIes (indHeader.GetNumberOfIes ());
   NS_LOG_INFO ("N2ap header: " << n2apHeader);
@@ -654,14 +709,14 @@ NgcN2apAmf::DoSendIdentityRequest (uint64_t amfUeN2Id,
 
   NS_LOG_INFO ("Send N2ap message: IDENTITY REQUEST " << Simulator::Now ().GetSeconds());
 
-  NgcN2APInitialContextSetupRequestHeader reqHeader; // Header should be changed to IdentityRequestHeader
+  NgcN2APInitialContextSetupRequestHeader reqHeader; // fix to IdentityRequestHeader.
   
   reqHeader.SetAmfUeN2Id(amfUeN2Id);
   reqHeader.SetEnbUeN2Id(enbUeN2Id);
   NS_LOG_INFO ("N2AP Identity Request header " << reqHeader);
 
   NgcN2APHeader n2apHeader;
-  n2apHeader.SetProcedureCode (NgcN2APHeader::InitialContextSetupRequest);
+  n2apHeader.SetProcedureCode (NgcN2APHeader::IdentityRequest);
   n2apHeader.SetLengthOfIes (reqHeader.GetLengthOfIes ());
   n2apHeader.SetNumberOfIes (reqHeader.GetNumberOfIes ());
   NS_LOG_INFO ("N2ap header: " << n2apHeader);
@@ -674,7 +729,46 @@ NgcN2apAmf::DoSendIdentityRequest (uint64_t amfUeN2Id,
   // Send the N2ap message through the socket
   m_localN2APSocket->SendTo (packet, 0, InetSocketAddress (enbIpAddr, m_n2apUdpPort));
 }
+void
+NgcN2apAmf::DoSendRegistrationAccept (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId, uint64_t guti)
+{
+  NS_LOG_FUNCTION (this);
 
+  NS_LOG_LOGIC("amfUeN2apId = " << amfUeN2Id);
+  NS_LOG_LOGIC("enbUeN2apId = " << enbUeN2Id);
+  NS_LOG_LOGIC("eNB id = " << cellId);
+
+  NS_ASSERT_MSG (m_n2apInterfaceSockets.find (cellId) != m_n2apInterfaceSockets.end (),
+               "Missing infos for cellId = " << cellId);
+
+  Ptr<N2apIfaceInfo> socketInfo = m_n2apInterfaceSockets [cellId];
+  Ipv4Address enbIpAddr = socketInfo->m_remoteIpAddr;
+
+  NS_LOG_LOGIC ("enbIpAddr = " << enbIpAddr);
+
+  NS_LOG_INFO ("Send N2ap message: REGISTRATION ACCEPT " << Simulator::Now ().GetSeconds());
+
+  NgcN2APInitialContextSetupRequestHeader reqHeader; // fix to RegistraionAcceptHeader
+  
+  reqHeader.SetAmfUeN2Id(amfUeN2Id);
+  reqHeader.SetEnbUeN2Id(enbUeN2Id);
+  NS_LOG_INFO ("N2AP Registration Accept header " << reqHeader);
+
+  NgcN2APHeader n2apHeader;
+  n2apHeader.SetProcedureCode (NgcN2APHeader::RegistrationAccept);
+  n2apHeader.SetLengthOfIes (reqHeader.GetLengthOfIes ());
+  n2apHeader.SetNumberOfIes (reqHeader.GetNumberOfIes ());
+  NS_LOG_INFO ("N2ap header: " << n2apHeader);
+
+  Ptr<Packet> packet = Create <Packet> ();
+  packet->AddHeader (reqHeader);
+  packet->AddHeader (n2apHeader);
+  NS_LOG_INFO ("packetLen = " << packet->GetSize ());
+
+  // Send the N2ap message through the socket
+  m_localN2APSocket->SendTo (packet, 0, InetSocketAddress (enbIpAddr, m_n2apUdpPort));
+}
+  
 void 
 NgcN2apAmf::DoSendPathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, 
                                         std::list<NgcN2apSap::ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList)
