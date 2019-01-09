@@ -210,8 +210,10 @@ def register_types(module):
     module.add_class('NgcX2SapUser', parent=root_module['ns3::NgcX2Sap'])
     ## eps-bearer.h (module 'nr'): ns3::EpsBearer [struct]
     module.add_class('EpsBearer')
+    module.add_class('QosFlow') ##yjshin
     ## eps-bearer.h (module 'nr'): ns3::EpsBearer::Qci [enumeration]
     module.add_enum('Qci', ['GBR_CONV_VOICE', 'GBR_CONV_VIDEO', 'GBR_GAMING', 'GBR_NON_CONV_VIDEO', 'NGBR_IMS', 'NGBR_VIDEO_TCP_OPERATOR', 'NGBR_VOICE_VIDEO_GAMING', 'NGBR_VIDEO_TCP_PREMIUM', 'NGBR_VIDEO_TCP_DEFAULT'], outer_class=root_module['ns3::EpsBearer'])
+    module.add_enum('Qci', ['GBR_CONV_VOICE', 'GBR_CONV_VIDEO', 'GBR_GAMING', 'GBR_NON_CONV_VIDEO', 'NGBR_IMS', 'NGBR_VIDEO_TCP_OPERATOR', 'NGBR_VOICE_VIDEO_GAMING', 'NGBR_VIDEO_TCP_PREMIUM', 'NGBR_VIDEO_TCP_DEFAULT'], outer_class=root_module['ns3::QosFlow'])
     ## nr-common.h (module 'nr'): ns3::NrEutranMeasurementMapping [class]
     module.add_class('NrEutranMeasurementMapping')
     ## event-id.h (module 'core'): ns3::EventId [class]
@@ -746,6 +748,7 @@ def register_types(module):
     module.add_class('DownlinkNrGlobalPathlossDatabase', parent=root_module['ns3::NrGlobalPathlossDatabase'])
     ## eps-bearer-tag.h (module 'nr'): ns3::EpsBearerTag [class]
     module.add_class('EpsBearerTag', parent=root_module['ns3::Tag'])
+    module.add_class('QosFlowTag', parent=root_module['ns3::Tag']) ##yjshin
     ## header.h (module 'network'): ns3::Header [class]
     module.add_class('Header', import_from_module='ns.network', parent=root_module['ns3::Chunk'])
     ## ipv4-header.h (module 'internet'): ns3::Ipv4Header [class]
@@ -3135,6 +3138,22 @@ def register_Ns3NgcN11SapAmfBearerContextRemoved_methods(root_module, cls):
     cls.add_constructor([param('ns3::NgcN11SapAmf::BearerContextRemoved const &', 'arg0')])
     ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextRemoved::epsBearerId [variable]
     cls.add_instance_attribute('epsBearerId', 'uint8_t', is_const=False)
+    return
+
+##yjshin
+def register_Ns3NgcN11SapAmfN2SMInformationCreated_methods(root_module, cls): 
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::BearerContextCreated() [constructor]
+    cls.add_constructor([])
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::BearerContextCreated(ns3::NgcN11SapAmf::BearerContextCreated const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NgcN11SapAmf::N2SMInformationCreated const &', 'arg0')])
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::bearerLevelQos [variable]
+    cls.add_instance_attribute('flowLevelQos', 'ns3::QosFlow', is_const=False)
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::epsBearerId [variable]
+    cls.add_instance_attribute('qosFlowId', 'uint8_t', is_const=False)
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::smfFteid [variable]
+    cls.add_instance_attribute('smfFteid', 'ns3::NgcN11Sap::Fteid', is_const=False)
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapAmf::BearerContextCreated::tft [variable]
+    cls.add_instance_attribute('tft', 'ns3::Ptr< ns3::NgcTft >', is_const=False)
     return
 
 def register_Ns3NgcN11SapAmfCreateSessionResponseMessage_methods(root_module, cls):
