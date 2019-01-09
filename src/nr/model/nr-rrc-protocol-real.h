@@ -72,6 +72,8 @@ public:
   void SetUeRrc (Ptr<NrUeRrc> rrc);
   void DoReceiveNrAssistantInfo(NgcX2Sap::AssistantInformationForSplitting info); //sjkang
 
+  // jhlim
+  void DoSendRrcIdentityResponse (NrRrcSap::RrcIdentityResponse msg);
 private:
   // methods forwarded from NrUeRrcSapUser
   void DoSetup (NrUeRrcSapUser::SetupParameters params);
@@ -131,6 +133,8 @@ public:
   virtual void SendNrAssi(NgcX2Sap::AssistantInformationForSplitting info); //sjkang
   void DoReceiveNrAssistantInfo(NgcX2Sap::AssistantInformationForSplitting info); //sjkang
 
+  // jhlim
+  void DoSendRrcIdentityRequest (uint16_t rnti, NrRrcSap::RrcIdentityRequest msg); // to UE
 private:
   // methods forwarded from NrEnbRrcSapUser
   void DoSetupUe (uint16_t rnti, NrEnbRrcSapUser::SetupUeParameters params);
@@ -160,6 +164,7 @@ private:
   std::map<uint16_t, NrUeRrcSapProvider*> m_enbRrcSapProviderMap;
   std::map<uint16_t, NrEnbRrcSapUser::SetupUeParameters> m_setupUeParametersMap;
   std::map<uint16_t, NrEnbRrcSapProvider::CompleteSetupUeParameters> m_completeSetupUeParametersMap;
+
 
 };
 

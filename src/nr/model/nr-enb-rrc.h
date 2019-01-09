@@ -406,6 +406,14 @@ public:
   void SetDuplicationMode(bool); //sjkang
   void SetRlcBufferForwardMode(uint16_t targetCellID,bool option); //sjkang
 //  void UeContextRelease(NgcX2SapProvider::UeContextReleaseParams); //sjkang
+
+// jhlim
+  void IdentityRequest (NgcEnbN2SapUser::IdentityRequestParameters params);
+  void ScheduleRrcIdentityRequest ();
+  void SelectAmf ();
+  void RecvRrcIdentityResponse (NrRrcSap::RrcIdentityResponse msg);
+
+
 private:
   //Lossless HO: merge 2 buffers into 1 with increment order.
   std::vector < NrRlcAm::RetxPdu > MergeBuffers(std::vector < NrRlcAm::RetxPdu > first, std::vector < NrRlcAm::RetxPdu > second);
@@ -458,6 +466,9 @@ private:
    * current configuration
    */
   NrRrcSap::RrcConnectionReconfiguration BuildRrcConnectionReconfiguration ();
+
+  // jhlim
+  NrRrcSap::RrcIdentityRequest BuildRrcIdentityRequest ();
 
   /** 
    * 
@@ -1114,6 +1125,10 @@ private:
 
   void DoDataRadioBearerSetupRequest (NgcEnbN2SapUser::DataRadioBearerSetupRequestParameters params);
   void DoPathSwitchRequestAcknowledge (NgcEnbN2SapUser::PathSwitchRequestAcknowledgeParameters params);
+  // jhlim
+  void DoIdentityRequest (NgcEnbN2SapUser::IdentityRequestParameters params);
+  void DoRecvRrcIdentityResponse (uint16_t rnti, NrRrcSap::RrcIdentityResponse msg);
+  
 
   // X2 SAP methods
 
@@ -1188,6 +1203,8 @@ private:
    * \return the type of RLC that is to be created for the given EPS bearer
    */
   TypeId GetRlcType (EpsBearer bearer);
+
+  void DoRecvIdentityResponse (uint16_t rnti, NrRrcSap::RrcIdentityResponse msg);
 
 
 

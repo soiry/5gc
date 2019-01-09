@@ -168,9 +168,9 @@ NgcEnbApplication::DoAmfSelection(uint64_t imsi)
 	std::string state = GetCmState(imsi);
 	NS_ASSERT_MSG((state != "CM-CONNECTED") && (state != "CM-IDLE"), "UE's CM-STATE has wrong value.");
 	if(state == "CM-CONNECTED") {
-		return GetUeConnectedAmf(imsi)
+		return GetUeConnectedAmf(imsi);
 	}
-	else if(state == "CM-IDLE") {
+	else { // state "CM-IDLE")
 		return m_n2apSapAmf;
 	}
 }
@@ -212,16 +212,19 @@ NgcEnbApplication::DoRegistrationRequest (uint64_t imsi, uint16_t rnti)
 
 }
 
-/*
-// jhlim 
+// jhlim
 void
-NgcEnbApplication::DoInitialUeMessage (uint64_t imsi, uint16_t rnti, int dummy)
+NgcEnbApplication::DoIdentityResponse (uint64_t imsi, uint16_t rnti)
 {
-	NS_LOG_FUNCTION (this);
-	m_imsiRntiMap[imsi] = rnti;
-	m_n2apSapAmf->InitialUeMessage (imsi, rnti, imsi, m_cellId);
+  NS_LOG_FUNCTION (this);
+
+  m_imsiRntiMap[imsi] = rnti;
+
+  if(m_n2apSapEnbProvider == NULL)
+	  m_n2apSapAmf->IdentityResponse (imsi, rnti);
+  else
+	  m_n2apSapEnbProvider->SendIdentityResponse (imsi, rnti); // TODO if more than one AMF is used, extend this call
 }
-*/
 
 void 
 NgcEnbApplication::DoPathSwitchRequest (NgcEnbN2SapProvider::PathSwitchRequestParameters params)
@@ -346,6 +349,20 @@ NgcEnbApplication::DoInitialContextSetupRequest (uint64_t amfUeN2Id, uint16_t en
     }
 }
 
+//jhlim
+void 
+NgcEnbApplication::DoIdentityRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id)
+{
+  NS_LOG_FUNCTION (this);
+  NS_LOG_INFO("In EnpEnbApplication DoIdentityRequest");
+
+  uint64_t imsi = amfUeN2Id;
+  std::map<uint64_t, uint16_t>::iterator imsiIt = m_imsiRntiMap.find (imsi);
+  uint16_t rnti = imsiIt->second;
+  struct NgcEnbN2SapUser::IdentityRequestParameters params;
+  params.rnti = rnti;
+  m_n2SapUser->IdentityRequest(params);
+}
 void 
 NgcEnbApplication::DoPathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t gci, std::list<NgcN2apSapEnb::ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList)
 {

@@ -58,7 +58,8 @@ public:
     ErabReleaseIndication   = 37,
     InitialContextSetupResponse = 43,
     InitialContextSetupRequest = 41,
-    PathSwitchRequestAck = 59
+    PathSwitchRequestAck = 59,
+	IdentityRequest = 77
   };
 
 
@@ -289,6 +290,43 @@ private:
   uint64_t          m_amfUeN2Id;
   std::list<NgcN2apSap::ErabSwitchedInUplinkItem> m_erabToBeSwitchedInUplinkList;
 };
+
+/* jhlim */
+class IdentityRequest : public Header
+{
+public:
+  IdentityRequest ();
+  virtual ~IdentityRequest ();
+
+  static TypeId GetTypeId (void);
+  virtual TypeId GetInstanceTypeId (void) const;
+  virtual uint32_t GetSerializedSize (void) const;
+  virtual void Serialize (Buffer::Iterator start) const;
+  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual void Print (std::ostream &os) const;
+
+
+  uint64_t GetAmfUeN2Id () const;
+  void SetAmfUeN2Id (uint64_t amfUeN2Id);
+
+  uint16_t GetEnbUeN2Id () const;
+  void SetEnbUeN2Id (uint16_t enbUeN2Id);
+
+  uint16_t GetEcgi () const;
+  void SetEcgi (uint16_t ecgi);
+
+  uint32_t GetLengthOfIes () const;
+  uint32_t GetNumberOfIes () const;
+
+private:
+  uint32_t          m_numberOfIes;
+  uint32_t          m_headerLength;
+  uint16_t          m_enbUeN2Id;
+  uint16_t          m_ecgi;
+  uint64_t          m_amfUeN2Id;
+};
+
+
 
 }
 

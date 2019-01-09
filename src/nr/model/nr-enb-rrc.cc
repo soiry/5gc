@@ -519,7 +519,14 @@ UeManager::SetupDataRadioBearer (EpsBearer bearer, uint8_t bearerId, uint32_t gt
   drbInfo->m_isMc_2 =false;
   ScheduleRrcConnectionReconfiguration ();
 }
+//jhlim
+void
+UeManager::IdentityRequest (NgcEnbN2SapUser::IdentityRequestParameters params)
+{
+ NS_LOG_FUNCTION (this << (uint32_t) m_rnti);
 
+ ScheduleRrcIdentityRequest ();
+}
 void
 UeManager::RecordDataRadioBearersToBeStarted ()
 {
@@ -647,6 +654,16 @@ UeManager::ScheduleRrcConnectionReconfiguration ()
       NS_FATAL_ERROR ("method unexpected in state " << ToString (m_state));
       break;
     }
+}
+
+//jhlim
+void 
+UeManager::ScheduleRrcIdentityRequest ()
+{
+  NS_LOG_FUNCTION (this << ToString(m_state));
+  std::cout << "Enb will send identity request message to UE " <<m_rnti << std::endl;
+  NrRrcSap::RrcIdentityRequest msg = BuildRrcIdentityRequest ();
+  m_rrc->m_rrcSapUser->SendRrcIdentityRequest (m_rnti, msg);
 }
 
 void 
@@ -1662,6 +1679,8 @@ UeManager::CompleteSetupUe (NrEnbRrcSapProvider::CompleteSetupUeParameters param
   m_srb1->m_pdcp->SetNrPdcpSapUser (params.srb1SapUser);
 }
 
+// jhlim: annotation
+/*
 void
 UeManager::SelectAmf ()
 {
@@ -1676,6 +1695,7 @@ UeManager::SelectAmf ()
 		return amfId;
 	}
 }
+<<<<<<< HEAD
 
 // hmlee
 /*
@@ -1690,8 +1710,9 @@ UeManager::RecvRrcIdentityRequestResponse ()
 {
 
 }
+=======
+>>>>>>> 315cb320e9dfb0a5f1568d424c3babf2a83b431c
 */
-
 void
 UeManager::RecvRrcConnectionRequest (NrRrcSap::RrcConnectionRequest msg)
 {
@@ -2105,6 +2126,17 @@ UeManager::RecvRrcConnectionReconfigurationCompleted (NrRrcSap::RrcConnectionRec
       NS_FATAL_ERROR ("method unexpected in state " << ToString (m_state));
       break;
     }
+}
+
+//jhlim
+void
+UeManager::RecvRrcIdentityResponse (NrRrcSap::RrcIdentityResponse msg)
+{
+  NS_LOG_FUNCTION (this<<ToString(m_state));
+
+  //send msg to AMF
+  m_rrc->m_n2SapProvider->IdentityResponse (m_imsi, m_rnti);
+
 }
 
 void 
@@ -2721,6 +2753,14 @@ UeManager::BuildRrcConnectionReconfiguration ()
   msg.haveMeasConfig = true;
   msg.measConfig = m_rrc->m_ueMeasConfig;
 
+  return msg;
+}
+
+// jhlim
+NrRrcSap::RrcIdentityRequest
+UeManager::BuildRrcIdentityRequest ()
+{
+  NrRrcSap::RrcIdentityRequest msg;
   return msg;
 }
 
@@ -5079,6 +5119,15 @@ NrEnbRrc::DoRecvRrcConnectionReconfigurationCompleted (uint16_t rnti, NrRrcSap::
   GetUeManager (rnti)->RecvRrcConnectionReconfigurationCompleted (msg);
 }
 
+// jhlim
+void
+NrEnbRrc::DoRecvRrcIdentityResponse (uint16_t rnti, NrRrcSap::RrcIdentityResponse msg)
+{
+  NS_LOG_FUNCTION (this << rnti);
+  NS_LOG_INFO("Received RRC identity response ");
+  GetUeManager (rnti)->RecvRrcIdentityResponse (msg);
+}
+
 void 
 NrEnbRrc::DoRecvRrcConnectionReestablishmentRequest (uint16_t rnti, NrRrcSap::RrcConnectionReestablishmentRequest msg)
 {
@@ -5113,7 +5162,14 @@ NrEnbRrc::DoDataRadioBearerSetupRequest (NgcEnbN2SapUser::DataRadioBearerSetupRe
  	Ptr<UeManager> ueManager = GetUeManager (request.rnti);
    ueManager->SetupDataRadioBearer (request.bearer, request.bearerId, request.gtpTeid, request.transportLayerAddress);
 }
-
+// jhlim
+void
+NrEnbRrc::DoIdentityRequest (NgcEnbN2SapUser::IdentityRequestParameters params)
+{
+  NS_LOG_FUNCTION (this << params.rnti);
+  Ptr<UeManager> ueManager = GetUeManager (params.rnti);
+  ueManager->IdentityRequest (params);
+}
 void 
 NrEnbRrc::DoPathSwitchRequestAcknowledge (NgcEnbN2SapUser::PathSwitchRequestAcknowledgeParameters params)
 {

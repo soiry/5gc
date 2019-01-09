@@ -371,6 +371,9 @@ private:
   void DoRecvRrcConnectToMmWave (uint16_t mmWaveCellId, uint16_t mmWaveCellId_2); //sjkang
   /// Part of the RRC protocol. Implement the NrUeRrcSapProvider:;RecvRrcConnectionSwitch interface.
   void DoRecvRrcConnectionSwitch (NrRrcSap::RrcConnectionSwitch msg);
+  // jhlim
+  void DoRecvRrcIdentityRequest (NrRrcSap::RrcIdentityRequest msg);
+  
 
  
   // INTERNAL METHODS

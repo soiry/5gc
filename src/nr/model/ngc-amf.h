@@ -122,6 +122,10 @@ private:
   void DoModifyBearerResponse (NgcN11SapAmf::ModifyBearerResponseMessage msg);
   void DoDeleteBearerRequest (NgcN11SapAmf::DeleteBearerRequestMessage msg);
 
+  // jhlim
+  void DoIdentityRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId);
+  void DoIdentityResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id);
+
 
   /**
    * Hold info on an EPS bearer to be activated
