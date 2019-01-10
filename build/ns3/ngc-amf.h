@@ -149,9 +149,10 @@ private:
   struct FlowInfo
   {
     Ptr<NgcTft> tft;
-    EpsBearer flow;
+    EpsBearer flow; //Todo
     uint8_t flowId;
   }; 
+
   /**
    * Hold info on a UE
    * smsohn TODO 
@@ -165,7 +166,6 @@ private:
     std::list<BearerInfo> bearersToBeActivated;
     uint16_t bearerCounter;
   };
-
   /**
    * UeInfo stored by IMSI
    * 

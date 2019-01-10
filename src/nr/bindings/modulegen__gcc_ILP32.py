@@ -144,6 +144,8 @@ def register_types(module):
     module.add_class('BearerContextToBeRemoved', outer_class=root_module['ns3::NgcN11SapSmf'])
     ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::CreateSessionRequestMessage [struct]
     module.add_class('CreateSessionRequestMessage', parent=root_module['ns3::NgcN11Sap::GtpcMessage'], outer_class=root_module['ns3::NgcN11SapSmf'])
+    ##yjshin
+    module.add_class('UpdateSMContextRequestMessage', parent=root_module['ns3::NgcN11Sap::GtpcMessage'], outer_class=root_module['ns3::NgcN11SapSmf'])
     ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::DeleteBearerCommandMessage [struct]
     module.add_class('DeleteBearerCommandMessage', parent=root_module['ns3::NgcN11Sap::GtpcMessage'], outer_class=root_module['ns3::NgcN11SapSmf'])
     ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::DeleteBearerResponseMessage [struct]
@@ -1006,7 +1008,7 @@ def register_types(module):
     ## ngc-x2-header.h (module 'nr'): ns3::NgcX2Header [class]
     module.add_class('NgcX2Header', parent=root_module['ns3::Header'])
     ## ngc-x2-header.h (module 'nr'): ns3::NgcX2Header::ProcedureCode_t [enumeration]
-    module.add_enum('ProcedureCode_t', ['HandoverPreparation', 'LoadIndication', 'SnStatusTransfer', 'UeContextRelease', 'ResourceStatusReporting'], outer_class=root_module['ns3::NgcX2Header'])
+    module.add_enum('ProcedureCode_t', ['HandoverPreparation', 'LoadIndication', 'SnS##yjshintatusTransfer', 'UeContextRelease', 'ResourceStatusReporting'], outer_class=root_module['ns3::NgcX2Header'])
     ## ngc-x2-header.h (module 'nr'): ns3::NgcX2Header::TypeOfMessage_t [enumeration]
     module.add_enum('TypeOfMessage_t', ['InitiatingMessage', 'SuccessfulOutcome', 'UnsuccessfulOutcome'], outer_class=root_module['ns3::NgcX2Header'])
     ## ngc-x2-header.h (module 'nr'): ns3::NgcX2LoadInformationHeader [class]
@@ -1663,6 +1665,7 @@ def register_methods(root_module):
     register_Ns3NgcN11SapSmfN2SMInformationToBeCreated_methods(root_module, root_module['ns3::NgcN11SapSmf::N2SMInformationToBeCreated'])##yjshin
     register_Ns3NgcN11SapSmfBearerContextToBeRemoved_methods(root_module, root_module['ns3::NgcN11SapSmf::BearerContextToBeRemoved'])
     register_Ns3NgcN11SapSmfCreateSessionRequestMessage_methods(root_module, root_module['ns3::NgcN11SapSmf::CreateSessionRequestMessage'])
+    register_Ns3NgcN11SapSmfUpdateSMContextRequestMessage_methods(root_module, root_module['ns3::NgcN11SapSmf::UpdateSMContextRequestMessage'])##yjshin
     register_Ns3NgcN11SapSmfDeleteBearerCommandMessage_methods(root_module, root_module['ns3::NgcN11SapSmf::DeleteBearerCommandMessage'])
     register_Ns3NgcN11SapSmfDeleteBearerResponseMessage_methods(root_module, root_module['ns3::NgcN11SapSmf::DeleteBearerResponseMessage'])
     register_Ns3NgcN11SapSmfModifyBearerRequestMessage_methods(root_module, root_module['ns3::NgcN11SapSmf::ModifyBearerRequestMessage'])
@@ -2987,6 +2990,11 @@ def register_Ns3NgcEnbN2SapProvider_methods(root_module, cls):
                    'void', 
                    [param('uint64_t', 'imsi'), param('uint16_t', 'rnti')], 
                    is_pure_virtual=True, is_virtual=True)
+    ##yjshin
+    cls.add_method('N2Message', 
+                   'void', 
+                   [param('uint64_t', 'imsi'), param('uint16_t', 'rnti')], 
+                   is_pure_virtual=True, is_virtual=True)
     ## ngc-enb-n2-sap.h (module 'nr'): void ns3::NgcEnbN2SapProvider::PathSwitchRequest(ns3::NgcEnbN2SapProvider::PathSwitchRequestParameters params) [member function]
     cls.add_method('PathSwitchRequest', 
                    'void', 
@@ -3215,6 +3223,11 @@ def register_Ns3NgcN11SapSmf_methods(root_module, cls):
                    'void', 
                    [param('ns3::NgcN11SapSmf::CreateSessionRequestMessage', 'msg')], 
                    is_pure_virtual=True, is_virtual=True)
+    ##yjshin
+    cls.add_method('UpdateSMContextRequest', 
+                   'void', 
+                   [param('ns3::NgcN11SapSmf::UpdateSMContextRequestMessage', 'msg')], 
+                   is_pure_virtual=True, is_virtual=True)
     ## ngc-n11-sap.h (module 'nr'): void ns3::NgcN11SapSmf::DeleteBearerCommand(ns3::NgcN11SapSmf::DeleteBearerCommandMessage msg) [member function]
     cls.add_method('DeleteBearerCommand', 
                    'void', 
@@ -3305,6 +3318,21 @@ def register_Ns3NgcN11SapSmfCreateSessionRequestMessage_methods(root_module, cls
     ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::CreateSessionRequestMessage::uli [variable]
     cls.add_instance_attribute('uli', 'ns3::NgcN11Sap::Uli', is_const=False)
     return
+
+##yjshin
+def register_Ns3NgcN11SapSmfUpdateSMContextRequestMessage_methods(root_module, cls):
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::CreateSessionRequestMessage::CreateSessionRequestMessage() [constructor]
+    cls.add_constructor([])
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::CreateSessionRequestMessage::CreateSessionRequestMessage(ns3::NgcN11SapSmf::CreateSessionRequestMessage const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::NgcN11SapSmf::UpdateSMContextRequestMessage const &', 'arg0')])
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::CreateSessionRequestMessage::bearerContextsToBeCreated [variable]
+    cls.add_instance_attribute('n2SMInformationToBeCreated', 'std::list< ns3::NgcN11SapSmf::N2SMInformationToBeCreated >', is_const=False)
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::CreateSessionRequestMessage::imsi [variable]
+    cls.add_instance_attribute('imsi', 'uint64_t', is_const=False)
+    ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::CreateSessionRequestMessage::uli [variable]
+    cls.add_instance_attribute('uli', 'ns3::NgcN11Sap::Uli', is_const=False)
+    return
+
 
 def register_Ns3NgcN11SapSmfDeleteBearerCommandMessage_methods(root_module, cls):
     ## ngc-n11-sap.h (module 'nr'): ns3::NgcN11SapSmf::DeleteBearerCommandMessage::DeleteBearerCommandMessage() [constructor]
@@ -3402,6 +3430,11 @@ def register_Ns3NgcN2apSapAmf_methods(root_module, cls):
                    is_pure_virtual=True, is_virtual=True)
     ## ngc-n2ap-sap.h (module 'nr'): void ns3::NgcN2apSapAmf::InitialUeMessage(uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t stmsi, uint16_t ecgi) [member function]
     cls.add_method('InitialUeMessage', 
+                   'void', 
+                   [param('uint64_t', 'amfUeN2Id'), param('uint16_t', 'enbUeN2Id'), param('uint64_t', 'stmsi'), param('uint16_t', 'ecgi')], 
+                   is_pure_virtual=True, is_virtual=True)
+    ##yjshin
+    cls.add_method('N2Message', 
                    'void', 
                    [param('uint64_t', 'amfUeN2Id'), param('uint16_t', 'enbUeN2Id'), param('uint64_t', 'stmsi'), param('uint16_t', 'ecgi')], 
                    is_pure_virtual=True, is_virtual=True)
@@ -7164,6 +7197,11 @@ def register_Ns3NrUeCmacSapUser_methods(root_module, cls):
                    'void', 
                    [], 
                    is_pure_virtual=True, is_virtual=True)
+    ##yjshin
+    cls.add_method('SendServiceRequest', 
+                   'void', 
+                   [], 
+                   is_pure_virtual=True, is_virtual=True)   
     ## nr-ue-cmac-sap.h (module 'nr'): void ns3::NrUeCmacSapUser::SetTemporaryCellRnti(uint16_t rnti) [member function]
     cls.add_method('SetTemporaryCellRnti', 
                    'void', 
