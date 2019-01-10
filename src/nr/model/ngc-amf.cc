@@ -148,6 +148,20 @@ NgcAmf::DoRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t 
   m_n11SapSmf->CreateSessionRequest (msg);
 }
 
+// hmlee
+void
+NgcAmf::DoNsmfPDUSessionUpdateSMContext ()
+{
+	// Need implementation in SMF
+}
+
+// hmlee
+void
+NgcAmf::DoNsmfPDUSessionReleaseSMContext ()
+{
+	// Need implementation in SMF
+}
+
 void 
 NgcAmf::DoInitialContextSetupResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSapAmf::ErabSetupItem> erabSetupList)
 {

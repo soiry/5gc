@@ -128,6 +128,9 @@ private:
   void DoRegistrationAccept (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId, uint64_t guti);
   void DoRegistrationComplete (uint64_t amfUeN2Id, uint16_t enbUeN2Id);
 
+  // hmlee
+  void DoNsmfPDUSessionUpdateSMContext();
+  void DoNsmfPDUSessionReleaseSMContext();
 
   /**
    * Hold info on an EPS bearer to be activated

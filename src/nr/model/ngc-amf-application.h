@@ -139,6 +139,9 @@ private:
   void DoRegistrationComplete(uint64_t amfUeN2Id, uint16_t enbUeN2Id);
   void DoIdentityResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id);
 
+  // hmlee
+  void DoNsmfPDUSessionUpdateSMContext();
+  void DoNsmfPDUSessionReleaseSMContext();
 
   /**
    * Hold info on an EPS bearer to be activated

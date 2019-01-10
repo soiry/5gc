@@ -240,6 +240,20 @@ NgcAmfApplication::DoIdentityResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id)
   NS_LOG_FUNCTION (this << amfUeN2Id << enbUeN2Id);
 }
 
+// hmlee
+void
+NgcAmfApplication::DoNsmfPDUSessionUpdateSMContext()
+{
+
+}
+
+// hmlee
+void
+NgcAmfApplication::DoNsmfPDUSessionReleaseSMContext()
+{
+
+}
+
 void 
 NgcAmfApplication::DoInitialContextSetupResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSapAmf::ErabSetupItem> erabSetupList)
 {
