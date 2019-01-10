@@ -144,6 +144,14 @@ private:
     EpsBearer bearer;
     uint8_t bearerId;
   };
+
+  //yjshin
+  struct FlowInfo
+  {
+    Ptr<NgcTft> tft;
+    EpsBearer flow; //Todo
+    uint8_t flowId;
+  };
   
   /**
    * Hold info on a UE
@@ -170,6 +178,9 @@ private:
    * \param ueInfo UE information pointer
    * \param epsBearerId Bearer Id which need to be removed corresponding to UE
    */
+
+
+
   void RemoveBearer (Ptr<UeInfo> ueInfo, uint8_t epsBearerId);
 
   /**

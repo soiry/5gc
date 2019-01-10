@@ -178,13 +178,13 @@ NgcAmfApplication::DoN2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t
        bit != it->second->bearersToBeActivated.end ();
        ++bit)
     {
-      NgcN11SapSmf::BearerContextToBeCreated bearerContext;
-      bearerContext.epsBearerId =  bit->bearerId;
+      NgcN11SapSmf::N2SMInformationToBeCreated n2SMInformation;
+      n2SMInformation.qosFlowId =  bit->bearerId;
       NS_LOG_INFO("Amf: sending as bearerId " << (uint32_t) bit->bearerId);
-      bearerContext.bearerLevelQos = bit->bearer; 
-      bearerContext.tft = bit->tft;
+      n2SMInformation.flowLevelQos = bit->bearer; 
+      n2SMInformation.tft = bit->tft;
       //std::cout << "sjkang1021---------->" <<std::endl;
-      msg.bearerContextsToBeCreated.push_back (bearerContext);
+      msg.n2SMInformationToBeCreated.push_back (n2SMInformation);
     }
   m_n11SapSmf->UpdateSMContextRequest (msg);
 }

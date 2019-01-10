@@ -231,7 +231,7 @@ public:
   {
     uint64_t imsi; 
     Uli uli; 
-    std::list<BearerContextToBeCreated> bearerContextsToBeCreated;    //Todo
+    std::list<N2SMInformationToBeCreated> n2SMInformationToBeCreated;    //Todo
   };
 
 

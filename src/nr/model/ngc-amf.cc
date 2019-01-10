@@ -164,11 +164,11 @@ NgcAmf::DoN2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint
        bit != it->second->bearersToBeActivated.end ();
        ++bit)
     {
-      NgcN11SapSmf::BearerContextToBeCreated bearerContext;
-      bearerContext.epsBearerId =  bit->bearerId; 
-      bearerContext.bearerLevelQos = bit->bearer; 
-      bearerContext.tft = bit->tft;
-      msg.bearerContextsToBeCreated.push_back (bearerContext);
+      NgcN11SapSmf::N2SMInformationToBeCreated n2SMInformation;
+      n2SMInformation.qosFlowId =  bit->bearerId; 
+      n2SMInformation.flowLevelQos = bit->bearer; 
+      n2SMInformation.tft = bit->tft;
+      msg.n2SMInformationToBeCreated.push_back (n2SMInformation);
     }
   m_n11SapSmf->UpdateSMContextRequest (msg);
 }

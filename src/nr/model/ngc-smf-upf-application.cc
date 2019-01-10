@@ -312,8 +312,8 @@ NgcSmfUpfApplication::DoUpdateSMContextRequest (NgcN11SapSmf::UpdateSMContextReq
   NgcN11SapAmf::UpdateSMContextResponseMessage res;
   res.teid = req.imsi; // trick to avoid the need for allocating TEIDs on the N11 interface
 
-  for (std::list<NgcN11SapSmf::BearerContextToBeCreated>::iterator bit = req.bearerContextsToBeCreated.begin ();
-       bit != req.bearerContextsToBeCreated.end ();
+  for (std::list<NgcN11SapSmf::N2SMInformationToBeCreated>::iterator bit = req.n2SMInformationToBeCreated.begin ();
+       bit != req.n2SMInformationToBeCreated.end ();
        ++bit)
     {
       // simple sanity check. If you ever need more than 4M teids
@@ -321,15 +321,15 @@ NgcSmfUpfApplication::DoUpdateSMContextRequest (NgcN11SapSmf::UpdateSMContextReq
       // management algorithm. 
       NS_ABORT_IF (m_teidCount == 0xFFFFFFFF);
       uint32_t teid = ++m_teidCount;  
-      ueit->second->AddBearer (bit->tft, bit->epsBearerId, teid);
+      ueit->second->AddBearer (bit->tft, bit->qosFlowId, teid);
 
       
-      NgcN11SapAmf::N2SMInformationCreated bearerContext;
-      bearerContext.smfFteid.teid = teid;
-      bearerContext.smfFteid.address = enbit->second.smfAddr;
-      bearerContext.qosFlowId =  bit->epsBearerId; 
-      bearerContext.flowLevelQos = bit->bearerLevelQos; 
-      bearerContext.tft = bit->tft;
+      NgcN11SapAmf::N2SMInformationCreated n2SMInformation;
+      n2SMInformation.smfFteid.teid = teid;
+      n2SMInformation.smfFteid.address = enbit->second.smfAddr;
+      n2SMInformation.qosFlowId =  bit->qosFlowId; 
+      n2SMInformation.flowLevelQos = bit->flowLevelQos; 
+      n2SMInformation.tft = bit->tft;
 /*
       NgcN11SapAmf::BearerContextCreated bearerContext;
       bearerContext.smfFteid.teid = teid;
@@ -337,7 +337,7 @@ NgcSmfUpfApplication::DoUpdateSMContextRequest (NgcN11SapSmf::UpdateSMContextReq
       bearerContext.epsBearerId =  bit->epsBearerId; 
       bearerContext.bearerLevelQos = bit->bearerLevelQos; 
       bearerContext.tft = bit->tft;*/
-      res.n2SMInformationCreated.push_back (bearerContext);
+      res.n2SMInformationCreated.push_back (n2SMInformation);
     }
   m_n11SapAmf->UpdateSMContextResponse (res);
   
