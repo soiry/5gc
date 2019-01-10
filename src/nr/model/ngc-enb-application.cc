@@ -311,7 +311,7 @@ NgcEnbApplication::DoInitialContextSetupRequest (uint64_t amfUeN2Id, uint16_t en
 
 //smsohn 
 void 
-NgcEnbApplication::DoN2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSapEnb::ErabToBeSetupItem> erabToBeSetupList)
+NgcEnbApplication::DoN2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSapEnb::ErabToBeSetupItem> erabToBeSetupList, uint16_t cause)
 { //sjkang1021
   NS_LOG_FUNCTION (this);
   NS_LOG_INFO("In EnpEnbApplication DoN2Request size of the erabToBeSetupList is " << erabToBeSetupList.size());

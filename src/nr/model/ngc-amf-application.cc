@@ -270,7 +270,9 @@ NgcAmfApplication::DoUpdateSMContextResponse (NgcN11SapAmf::UpdateSMContextRespo
   uint64_t amfUeN2Id = it->second->amfUeN2Id;
   std::map<uint16_t, Ptr<EnbInfo> >::iterator jt = m_enbInfoMap.find (cellId);
   NS_ASSERT_MSG (jt != m_enbInfoMap.end (), "could not find any eNB with CellId " << cellId);
-  m_n2apSapAmfProvider->SendN2Request (amfUeN2Id, enbUeN2Id, erabToBeSetupList, cellId);
+
+  uint16_t cause = 0; //smsohn
+  m_n2apSapAmfProvider->SendN2Request (amfUeN2Id, enbUeN2Id, erabToBeSetupList, cellId, cause);
 }
 
 

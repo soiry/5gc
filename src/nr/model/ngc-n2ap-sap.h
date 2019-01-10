@@ -212,7 +212,7 @@ public:
   //smsohn add parameters
   virtual void N2Request (uint64_t amfUeN2Id,
                                            uint16_t enbUeN2Id,
-                                           std::list<ErabToBeSetupItem> erabToBeSetupList) = 0;
+                                           std::list<ErabToBeSetupItem> erabToBeSetupList, uint16_t cause) = 0;
 
 
   /**
@@ -245,7 +245,8 @@ public:
   virtual void SendN2Request (uint64_t amfUeN2Id,
                                            uint16_t enbUeN2Id,
                                            std::list<ErabToBeSetupItem> erabToBeSetupList,
-                                           uint16_t cellId) = 0;
+                                           uint16_t cellId, 
+                                           uint16_t cause) = 0;
 
 
 
@@ -410,7 +411,7 @@ public:
   virtual void InitialContextSetupRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList);
  
   //smsohn add parameters 
-  virtual void N2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList);
+  virtual void N2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList, uint16_t cause);
   
   virtual void PathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, std::list<ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList);
 
@@ -438,9 +439,9 @@ void MemberNgcN2apSapEnb<C>::InitialContextSetupRequest (uint64_t amfUeN2Id, uin
 
 //smsohn add parameters
 template <class C>
-void MemberNgcN2apSapEnb<C>::N2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList)
+void MemberNgcN2apSapEnb<C>::N2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList, uint16_t cause)
 {
-  m_owner->DoN2Request (amfUeN2Id, enbUeN2Id, erabToBeSetupList);
+  m_owner->DoN2Request (amfUeN2Id, enbUeN2Id, erabToBeSetupList, cause);
 }
 
 
@@ -467,7 +468,7 @@ public:
   virtual void SendInitialContextSetupRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList, uint16_t cellId);
   
   //smsohn add parameters
-  virtual void SendN2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList, uint16_t cellId);
+  virtual void SendN2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList, uint16_t cellId, uint16_t cause);
  
   virtual void SendPathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, std::list<ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList);
 
@@ -496,9 +497,9 @@ void MemberNgcN2apSapAmfProvider<C>::SendInitialContextSetupRequest (uint64_t am
 
 //smsohn add parameters
 template <class C>
-void MemberNgcN2apSapAmfProvider<C>::SendN2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList, uint16_t cellId)
+void MemberNgcN2apSapAmfProvider<C>::SendN2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList, uint16_t cellId, uint16_t cause)
 {
-  m_owner->DoSendN2Request (amfUeN2Id, enbUeN2Id, erabToBeSetupList, cellId);
+  m_owner->DoSendN2Request (amfUeN2Id, enbUeN2Id, erabToBeSetupList, cellId, cause);
 }
 
 template <class C>

@@ -179,7 +179,7 @@ NgcN2apEnb::RecvFromN2apSocket (Ptr<Socket> socket)
     m_n2apSapUser->InitialContextSetupRequest(amfUeN2apId, enbUeN2apId, erabToBeSetup);
    
   }
-  else if (procedureCode == NgcN2APHeader::N2Request) //smsohn
+  else if (procedureCode == NgcN2APHeader::N2Request) //smsohn TODO: add cause to N2RequestHeader
   {
     NS_LOG_LOGIC ("Recv N2ap message: N2 REQUEST");
     NgcN2APN2RequestHeader reqHeader;
@@ -194,7 +194,8 @@ NgcN2apEnb::RecvFromN2apSocket (Ptr<Socket> socket)
     NS_LOG_LOGIC ("amfUeN2apId " << amfUeN2apId);
     NS_LOG_LOGIC ("enbUeN2apId " << enbUeN2apId);
 
-    m_n2apSapUser->N2Request(amfUeN2apId, enbUeN2apId, erabToBeSetup);
+    uint16_t cause = 0;
+    m_n2apSapUser->N2Request(amfUeN2apId, enbUeN2apId, erabToBeSetup, cause);
    
   }
   else if (procedureCode == NgcN2APHeader::PathSwitchRequestAck)
@@ -639,7 +640,7 @@ void
 NgcN2apAmf::DoSendN2Request (uint64_t amfUeN2Id,
                                            uint16_t enbUeN2Id,
                                            std::list<NgcN2apSap::ErabToBeSetupItem> erabToBeSetupList,
-                                           uint16_t cellId)
+                                           uint16_t cellId, uint16_t cause)
 {
   NS_LOG_FUNCTION (this);
 
@@ -675,6 +676,7 @@ NgcN2apAmf::DoSendN2Request (uint64_t amfUeN2Id,
   NS_LOG_INFO ("packetLen = " << packet->GetSize ());
 
   // Send the N2ap message through the socket
+  std::cout << "Sends packet to " <<enbIpAddr << ":" <<m_n2apUdpPort << std::endl; //smsohn
   m_localN2APSocket->SendTo (packet, 0, InetSocketAddress (enbIpAddr, m_n2apUdpPort));
 }
 

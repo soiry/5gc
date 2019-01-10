@@ -223,7 +223,8 @@ protected:
   virtual void DoSendN2Request (uint64_t amfUeN2Id,
                                            uint16_t enbUeN2Id,
                                            std::list<NgcN2apSap::ErabToBeSetupItem> erabToBeSetupList,
-                                           uint16_t cellId);
+                                           uint16_t cellId,
+					   uint16_t cause);
 
 
   virtual void DoSendPathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, 
