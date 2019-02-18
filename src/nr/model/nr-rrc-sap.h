@@ -615,6 +615,8 @@ public:
   };
 
 /*
+=======
+
   struct RrcConnectionRequest
   {
     uint64_t ueIdentity;
@@ -744,8 +746,9 @@ public:
    *        (Section 5.3.3 of TS 36.331).
    * \param msg the message
    */
-  virtual void SendRrcConnectionRequest (RrcConnectionRequest msg) = 0;
 
+  virtual void SendRrcConnectionRequest (RrcConnectionRequest msg) = 0;
+  
   /**
    * \brief Send an _RRCConnectionSetupComplete_ message to the serving eNodeB
    *        during an RRC connection establishment procedure
@@ -1026,6 +1029,7 @@ public:
    */
   virtual void RecvRrcConnectionRequest (uint16_t rnti,
                                          RrcConnectionRequest msg) = 0;
+
 
   /**
    * \brief Receive an _RRCConnectionSetupComplete_ message from a UE

@@ -65,6 +65,7 @@ public:
 
   virtual void SetTemporaryCellRnti (uint16_t rnti);
   virtual void NotifyRandomAccessSuccessful ();
+  virtual void SendServiceRequest ();
   virtual void NotifyRandomAccessFailed ();
 
 private:
@@ -91,6 +92,15 @@ UeMemberNrUeCmacSapUser::NotifyRandomAccessSuccessful ()
   NS_LOG_FUNCTION(this);
 	m_rrc->DoNotifyRandomAccessSuccessful ();
 }
+
+
+void
+UeMemberNrUeCmacSapUser::SendServiceRequest ()
+{
+  NS_LOG_FUNCTION(this);
+	m_rrc->DoSendServiceRequest ();
+}
+
 
 void
 UeMemberNrUeCmacSapUser::NotifyRandomAccessFailed ()
@@ -734,7 +744,7 @@ NrUeRrc::DoNotifyRandomAccessSuccessful ()
         msg.ueIdentity = m_imsi;
         msg.isMc = m_isSecondaryRRC ; //sjkang // 28G connection
         msg.isMc_2=m_isThirdRrc;// 73G connection
-        m_rrcSapUser->SendRrcConnectionRequest (msg); 
+        m_rrcSapUser->SendRrcConnectionRequest (msg);
         m_connectionTimeout = Simulator::Schedule (m_t300,
                                                    &NrUeRrc::ConnectionTimeout,
                                                    this);
@@ -842,6 +852,35 @@ NrUeRrc::DoNotifyRandomAccessSuccessful ()
           NS_LOG_UNCOND("DoNotifyRandomAccessSuccessful at time " << Simulator::Now().GetSeconds());
           m_switchToMmWaveTrace(m_imsi, m_cellId, m_rnti);
         }
+      }
+      break;
+
+    default:
+      NS_FATAL_ERROR ("unexpected event in state " << ToString (m_state));
+      break; 
+    }
+}
+
+void
+NrUeRrc::DoSendServiceRequest (){
+
+  m_randomAccessSuccessfulTrace (m_imsi, m_cellId, m_rnti);
+
+  switch (m_state)
+    {
+    case IDLE_RANDOM_ACCESS:
+      {
+        // we just received a RAR with a T-C-RNTI and an UL grant
+        // send RRC connection request as message 3 of the random access procedure 
+        SwitchToState (IDLE_CONNECTING);
+        NrRrcSap::RrcConnectionRequest msg;
+        msg.ueIdentity = m_imsi;
+        msg.isMc = m_isSecondaryRRC ; //sjkang // 28G connection
+        msg.isMc_2=m_isThirdRrc;// 73G connection
+        m_rrcSapUser->SendRrcConnectionRequest (msg);
+        m_connectionTimeout = Simulator::Schedule (m_t300,
+                                                   &NrUeRrc::ConnectionTimeout,
+                                                   this);
       }
       break;
 

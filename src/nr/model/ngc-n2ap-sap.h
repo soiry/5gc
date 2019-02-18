@@ -80,6 +80,16 @@ public:
     uint32_t    smfTeid;    
   };
 
+  //smsohn
+  struct QoSFlowToBeSetupItem
+  {
+    uint8_t    erabId;
+    EpsBearer   erabLevelQosParameters;
+    Ipv4Address transportLayerAddress;
+    uint32_t    smfTeid;    
+  };
+
+
   /**
    * E-RABs Switched in Uplink Item IE, see 3GPP TS 36.413 9.1.5.9
    * 
@@ -113,7 +123,9 @@ public:
    * \param ecgi in practice, the cell Id
    * 
    */
-  virtual void RegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t stmsi, uint16_t ecgi) = 0;
+ virtual void RegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t stmsi, uint16_t ecgi) = 0;
+
+  virtual void N2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t stmsi, uint16_t ecgi) = 0;
 
   /**
     * \brief As per 3GPP TS 23.401 Release 9 V9.5.0 Figure 5.4.4.2-1  eNB sends indication of Bearer Release to AMF
@@ -136,6 +148,9 @@ public:
   virtual void InitialContextSetupResponse (uint64_t amfUeN2Id,
                                             uint16_t enbUeN2Id,
                                             std::list<ErabSetupItem> erabSetupList) = 0;
+
+
+
 
   /**
    * PATH SWITCH REQUEST message, see 3GPP TS 36.413 9.1.5.8
@@ -162,6 +177,8 @@ class NgcN2apSapEnbProvider : public NgcN2apSap
 public: 
    
   virtual void SendRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t stmsi, uint16_t ecgi) = 0;
+
+  virtual void SendN2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t stmsi, uint16_t ecgi) = 0;
 
   virtual void SendErabReleaseIndication (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeReleasedIndication> erabToBeReleaseIndication ) = 0;
 
@@ -211,6 +228,12 @@ public:
   								   uint16_t enbUeN2Id,
 								   uint64_t guti) = 0;
 
+  //smsohn add parameters
+  virtual void N2Request (uint64_t amfUeN2Id,
+                                           uint16_t enbUeN2Id,
+                                           std::list<ErabToBeSetupItem> erabToBeSetupList, uint16_t cause) = 0;
+
+
   /**
    * PATH SWITCH REQUEST ACKNOWLEDGE message, see 3GPP TS 36.413 9.1.5.9
    * 
@@ -236,6 +259,15 @@ public:
                                            uint16_t enbUeN2Id,
                                            std::list<ErabToBeSetupItem> erabToBeSetupList,
                                            uint16_t cellId) = 0;
+
+  //smsohn add parameters
+  virtual void SendN2Request (uint64_t amfUeN2Id,
+                                           uint16_t enbUeN2Id,
+                                           std::list<ErabToBeSetupItem> erabToBeSetupList,
+                                           uint16_t cellId, 
+                                           uint16_t cause) = 0;
+
+
 
   virtual void SendPathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, std::list<ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList) = 0;
 
@@ -263,7 +295,9 @@ public:
   MemberNgcN2apSapAmf (C* owner);
 
   // inherited from NgcN2apSapAmf
-  virtual void RegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi);
+  virtual void RegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi); 
+  virtual void N2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi);
+ 
   virtual void ErabReleaseIndication (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeReleasedIndication> erabToBeReleaseIndication );
 
   virtual void InitialContextSetupResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabSetupItem> erabSetupList);
@@ -315,6 +349,13 @@ void MemberNgcN2apSapAmf<C>::RegistrationComplete (uint64_t amfUeN2Id, uint16_t 
 }
 
 template <class C>
+void MemberNgcN2apSapAmf<C>::N2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi)
+{
+  std::cout<<"N2Message(1,2,3,4) is called" << std::endl;
+  m_owner->DoN2Message (amfUeN2Id, enbUeN2Id, imsi, ecgi);
+}
+
+template <class C>
 void MemberNgcN2apSapAmf<C>::ErabReleaseIndication (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeReleasedIndication> erabToBeReleaseIndication)
 {
   m_owner->DoErabReleaseIndication (amfUeN2Id, enbUeN2Id, erabToBeReleaseIndication);
@@ -346,7 +387,8 @@ public:
   MemberNgcN2apSapEnbProvider (C* owner);
 
   // inherited from MemberNgcN2apSapEnbProvider
-  virtual void SendRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi);
+  virtual void SendRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi); 
+  virtual void SendN2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi);
   virtual void SendErabReleaseIndication (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeReleasedIndication> erabToBeReleaseIndication );
 
   virtual void SendInitialContextSetupResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabSetupItem> erabSetupList);
@@ -375,6 +417,13 @@ template <class C>
 void MemberNgcN2apSapEnbProvider<C>::SendRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi)
 {
   m_owner->DoSendRegistrationRequest (amfUeN2Id, enbUeN2Id, imsi, ecgi);
+}
+
+template <class C>
+void MemberNgcN2apSapEnbProvider<C>::SendN2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi)
+{
+ std::cout << "Hihihihihi" << std::endl;
+  m_owner->DoSendN2Message (amfUeN2Id, enbUeN2Id, imsi, ecgi);
 }
 
 template <class C>
@@ -421,6 +470,10 @@ public:
 
   // inherited from NgcN2apSapEnb
   virtual void InitialContextSetupRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList);
+ 
+  //smsohn add parameters 
+  virtual void N2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList, uint16_t cause);
+  
   virtual void PathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, std::list<ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList);
   // jhlim
   virtual void IdentityRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id);
@@ -458,6 +511,16 @@ void MemberNgcN2apSapEnb<C>::RegistrationAccept (uint64_t amfUeN2Id, uint16_t en
 {
   m_owner->DoRegistrationAccept (amfUeN2Id, enbUeN2Id, guti);
 }
+
+//smsohn add parameters
+template <class C>
+void MemberNgcN2apSapEnb<C>::N2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList, uint16_t cause)
+{
+  m_owner->DoN2Request (amfUeN2Id, enbUeN2Id, erabToBeSetupList, cause);
+}
+
+
+
 template <class C>
 void MemberNgcN2apSapEnb<C>::PathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, std::list<ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList)
 {
@@ -478,6 +541,10 @@ public:
 
   // inherited from NgcN2apSapAmfProvider
   virtual void SendInitialContextSetupRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList, uint16_t cellId);
+  
+  //smsohn add parameters
+  virtual void SendN2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList, uint16_t cellId, uint16_t cause);
+ 
   virtual void SendPathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, std::list<ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList);
   // jhlim
   virtual void SendIdentityRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId, std::string identityRequest);
@@ -516,6 +583,15 @@ void MemberNgcN2apSapAmfProvider<C>::SendRegistrationAccept (uint64_t amfUeN2Id,
 {
   m_owner->DoSendIdentityRequest (amfUeN2Id, enbUeN2Id, cellId);
 }
+
+
+//smsohn add parameters
+template <class C>
+void MemberNgcN2apSapAmfProvider<C>::SendN2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<ErabToBeSetupItem> erabToBeSetupList, uint16_t cellId, uint16_t cause)
+{
+  m_owner->DoSendN2Request (amfUeN2Id, enbUeN2Id, erabToBeSetupList, cellId, cause);
+}
+
 template <class C>
 void MemberNgcN2apSapAmfProvider<C>::SendPathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, std::list<ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList)
 {

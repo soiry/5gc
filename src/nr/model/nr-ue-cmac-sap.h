@@ -127,6 +127,7 @@ public:
    */
   virtual void NotifyRandomAccessSuccessful () = 0;
 
+  virtual void SendServiceRequest () = 0;
   /** 
    * Notify the RRC that the MAC Random Access procedure failed
    * 
