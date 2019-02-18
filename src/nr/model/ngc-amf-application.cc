@@ -266,14 +266,14 @@ NgcAmfApplication::DoN2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t
   msg.uli.gci = gci;
   //std::cout << "sjkang1021---------->" <<std::endl;
 
-  for (std::list<BearerInfo>::iterator bit = it->second->bearersToBeActivated.begin ();
-       bit != it->second->bearersToBeActivated.end ();
+  for (std::list<FlowInfo>::iterator bit = it->second->flowsToBeActivated.begin ();
+       bit != it->second->flowsToBeActivated.end ();
        ++bit)
     {
       NgcN11SapSmf::N2SMInformationToBeCreated n2SMInformation;
-      n2SMInformation.qosFlowId =  bit->bearerId;
-      NS_LOG_INFO("Amf: sending as bearerId " << (uint32_t) bit->bearerId);
-      n2SMInformation.flowLevelQos = bit->bearer; 
+      n2SMInformation.qosFlowId =  bit->flowId;
+      NS_LOG_INFO("Amf: sending as bearerId " << (uint32_t) bit->flowId);
+      n2SMInformation.flowLevelQos = bit->flow; 
       n2SMInformation.tft = bit->tft;
       //std::cout << "sjkang1021---------->" <<std::endl;
       msg.n2SMInformationToBeCreated.push_back (n2SMInformation);

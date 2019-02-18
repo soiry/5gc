@@ -176,6 +176,7 @@ private:
     uint64_t imsi;
     uint16_t cellId;
     std::list<BearerInfo> bearersToBeActivated;
+    std::list<FlowInfo> flowsToBeActivated;
     uint16_t bearerCounter;
   };
 
