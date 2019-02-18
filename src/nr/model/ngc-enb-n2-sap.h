@@ -117,9 +117,12 @@ public:
   {
     uint16_t rnti;   /**< the RNTI identifying the UE for which the
 			DataRadioBearer is to be created */ 
-    EpsBearer bearer; /**< the characteristics of the bearer to be set
-                         up */
+    EpsBearer bearer; /**< the characteristics of the bearer to be setup */
+    EpsBearer flow; //smsohn added
+
     uint8_t bearerId; /**< the EPS Bearer Identifier */
+    uint8_t flowId; //smsohn added 
+
     uint32_t    gtpTeid; /**< N2-bearer GTP tunnel endpoint identifier, see 36.423 9.2.1 */
     Ipv4Address transportLayerAddress; /**< IP Address of the SMF, see 36.423 9.2.1 */
   };

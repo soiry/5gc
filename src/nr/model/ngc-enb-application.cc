@@ -415,8 +415,8 @@ NgcEnbApplication::DoN2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::lis
       
       struct NgcEnbN2SapUser::DataRadioBearerSetupRequestParameters params;
       params.rnti = rnti;
-      params.bearer = erabIt->erabLevelQosParameters;
-      params.bearerId = erabIt->erabId;
+      params.flow = erabIt->erabLevelQosParameters;
+      params.flowId = erabIt->erabId;
       params.gtpTeid = erabIt->smfTeid;
       m_n2SapUser->DataRadioBearerSetupRequest (params);
       //smsohn TODO: DataRadioBearerSetupRequest
