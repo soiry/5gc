@@ -27,6 +27,7 @@
 #define QOS_FLOW
 
 #include <ns3/uinteger.h>
+#include "eps-bearer.h"
  
 namespace ns3 {
 
@@ -34,34 +35,7 @@ namespace ns3 {
  * 3GPP TS 36.143 9.2.1.18 GBR QoS Information
  *
  */
-struct GbrQosInformation
-{
-  /** 
-   * Default constructor, inizializes member variables to zero or equivalent
-   */
-  GbrQosInformation ();
 
-  uint64_t gbrDl;  /**< Guaranteed Bit Rate (bit/s) in downlink */
-  uint64_t gbrUl;  /**< Guaranteed Bit Rate (bit/s) in uplink */
-  uint64_t mbrDl;  /**< Maximum Bit Rate (bit/s) in downlink */
-  uint64_t mbrUl;  /**< Maximum Bit Rate (bit/s) in uplink */
-};
-
-
-/**
- * 3GPP 23.203 Section 6.1.7.3 Allocation and Retention Priority characteristics
- *
- */
-struct AllocationRetentionPriority
-{
-  /** 
-   * Default constructor, inizializes member variables to zero or equivalent
-   */
-  AllocationRetentionPriority ();
-  uint8_t priorityLevel;     // /< 1-15; 1 = highest
-  bool preemptionCapability; // /< true if bearer can preempt others
-  bool preemptionVulnerability; // true if bearer can be preempted by others
-};
 
 /**
  * This class contains the specification of EPS Bearers.

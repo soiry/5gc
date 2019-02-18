@@ -124,9 +124,9 @@ NgcAmf::AddBearer (uint64_t imsi, Ptr<NgcTft> tft, EpsBearer bearer)
 // N2-AP SAP AMF forwarded methods
 
 void 
-NgcAmf::DoInitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t gci)
+NgcAmf::DoRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t gci)
 {
-  std::cout<<"NgcAmf::DoinitialUeMessage (" << amfUeN2Id << ", " << enbUeN2Id << ", " << imsi << ", " << gci << ") is called"<<std::endl;
+  std::cout<<"NgcAmf::DoregistrationRequest (" << amfUeN2Id << ", " << enbUeN2Id << ", " << imsi << ", " << gci << ") is called"<<std::endl;
 
   NS_LOG_FUNCTION (this << amfUeN2Id << enbUeN2Id << imsi << gci);
   std::map<uint64_t, Ptr<UeInfo> >::iterator it = m_ueInfoMap.find (imsi);
@@ -148,6 +148,19 @@ NgcAmf::DoInitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t ims
   m_n11SapSmf->CreateSessionRequest (msg);
 }
 
+// hmlee
+void
+NgcAmf::DoNsmfPDUSessionUpdateSMContext ()
+{
+	// Need implementation in SMF
+}
+
+// hmlee
+void
+NgcAmf::DoNsmfPDUSessionReleaseSMContext ()
+{
+	// Need implementation in SMF
+}
 void
 NgcAmf::DoN2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t gci)
 {
@@ -337,6 +350,28 @@ void NgcAmf::RemoveBearer (Ptr<UeInfo> ueInfo, uint8_t epsBearerId)
           break;
         }
     }
+}
+
+// jhlim
+void
+NgcAmf::DoIdentityRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId)
+{
+  NS_LOG_FUNCTION (this);
+}
+void
+NgcAmf::DoIdentityResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id)
+{
+  NS_LOG_FUNCTION (this);
+}
+void
+NgcAmf::DoRegistrationAccept (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId, uint64_t guti)
+{
+  NS_LOG_FUNCTION (this);
+}
+void
+NgcAmf::DoRegistrationComplete (uint64_t amfUeN2Id, uint16_t enbUeN2Id)
+{
+  NS_LOG_FUNCTION (this);
 }
 
 } // namespace ns3

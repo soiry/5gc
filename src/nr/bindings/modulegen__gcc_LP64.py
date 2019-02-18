@@ -216,6 +216,7 @@ def register_types(module):
     module.add_class('NgcX2SapUser', parent=root_module['ns3::NgcX2Sap'])
     ## eps-bearer.h (module 'nr'): ns3::EpsBearer [struct]
     module.add_class('EpsBearer') ##
+    module.add_class('QosFlow') ##yjshin
     ## eps-bearer.h (module 'nr'): ns3::EpsBearer::Qci [enumeration]
     module.add_enum('Qci', ['GBR_CONV_VOICE', 'GBR_CONV_VIDEO', 'GBR_GAMING', 'GBR_NON_CONV_VIDEO', 'NGBR_IMS', 'NGBR_VIDEO_TCP_OPERATOR', 'NGBR_VOICE_VIDEO_GAMING', 'NGBR_VIDEO_TCP_PREMIUM', 'NGBR_VIDEO_TCP_DEFAULT'], outer_class=root_module['ns3::EpsBearer'])
     ## nr-common.h (module 'nr'): ns3::NrEutranMeasurementMapping [class]

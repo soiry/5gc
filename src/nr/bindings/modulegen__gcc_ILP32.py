@@ -219,7 +219,6 @@ def register_types(module):
     module.add_class('QosFlow') ##yjshin
     ## eps-bearer.h (module 'nr'): ns3::EpsBearer::Qci [enumeration]
     module.add_enum('Qci', ['GBR_CONV_VOICE', 'GBR_CONV_VIDEO', 'GBR_GAMING', 'GBR_NON_CONV_VIDEO', 'NGBR_IMS', 'NGBR_VIDEO_TCP_OPERATOR', 'NGBR_VOICE_VIDEO_GAMING', 'NGBR_VIDEO_TCP_PREMIUM', 'NGBR_VIDEO_TCP_DEFAULT'], outer_class=root_module['ns3::EpsBearer'])
-    module.add_enum('Qci', ['GBR_CONV_VOICE', 'GBR_CONV_VIDEO', 'GBR_GAMING', 'GBR_NON_CONV_VIDEO', 'NGBR_IMS', 'NGBR_VIDEO_TCP_OPERATOR', 'NGBR_VOICE_VIDEO_GAMING', 'NGBR_VIDEO_TCP_PREMIUM', 'NGBR_VIDEO_TCP_DEFAULT'], outer_class=root_module['ns3::QosFlow'])
     ## nr-common.h (module 'nr'): ns3::NrEutranMeasurementMapping [class]
     module.add_class('NrEutranMeasurementMapping')
     ## event-id.h (module 'core'): ns3::EventId [class]
@@ -1008,7 +1007,7 @@ def register_types(module):
     ## ngc-x2-header.h (module 'nr'): ns3::NgcX2Header [class]
     module.add_class('NgcX2Header', parent=root_module['ns3::Header'])
     ## ngc-x2-header.h (module 'nr'): ns3::NgcX2Header::ProcedureCode_t [enumeration]
-    module.add_enum('ProcedureCode_t', ['HandoverPreparation', 'LoadIndication', 'SnS##yjshintatusTransfer', 'UeContextRelease', 'ResourceStatusReporting'], outer_class=root_module['ns3::NgcX2Header'])
+    module.add_enum('ProcedureCode_t', ['HandoverPreparation', 'LoadIndication', 'SnStatusTransfer', 'UeContextRelease', 'ResourceStatusReporting'], outer_class=root_module['ns3::NgcX2Header'])
     ## ngc-x2-header.h (module 'nr'): ns3::NgcX2Header::TypeOfMessage_t [enumeration]
     module.add_enum('TypeOfMessage_t', ['InitiatingMessage', 'SuccessfulOutcome', 'UnsuccessfulOutcome'], outer_class=root_module['ns3::NgcX2Header'])
     ## ngc-x2-header.h (module 'nr'): ns3::NgcX2LoadInformationHeader [class]

@@ -137,9 +137,9 @@ NgcN2APHeader::SetNumberOfIes (uint32_t numberOfIes)
 
 /////////////////////////////////////////////////////////////////////
 
-NS_OBJECT_ENSURE_REGISTERED (NgcN2APInitialUeMessageHeader);
+NS_OBJECT_ENSURE_REGISTERED (NgcN2APRegistrationRequestHeader);
 
-NgcN2APInitialUeMessageHeader::NgcN2APInitialUeMessageHeader ()
+NgcN2APRegistrationRequestHeader::NgcN2APRegistrationRequestHeader ()
   : m_numberOfIes (1 + 1 + 1 + 1 + 1 + 1 + 1),
     m_headerLength (3 + 2 + 6 + 4 + 2 + 9 + 9),
     m_stmsi (0xfffffffa),
@@ -149,7 +149,7 @@ NgcN2APInitialUeMessageHeader::NgcN2APInitialUeMessageHeader ()
 {
 }
 
-NgcN2APInitialUeMessageHeader::~NgcN2APInitialUeMessageHeader ()
+NgcN2APRegistrationRequestHeader::~NgcN2APRegistrationRequestHeader ()
 { 
   m_numberOfIes = 0;
   m_headerLength = 0;
@@ -160,30 +160,30 @@ NgcN2APInitialUeMessageHeader::~NgcN2APInitialUeMessageHeader ()
 }
 
 TypeId
-NgcN2APInitialUeMessageHeader::GetTypeId (void)
+NgcN2APRegistrationRequestHeader::GetTypeId (void)
 {
-  static TypeId tid = TypeId ("ns3::NgcN2APInitialUeMessageHeader")
+  static TypeId tid = TypeId ("ns3::NgcN2APRegistrationRequestHeader")
     .SetParent<Header> ()
     .SetGroupName("Nr")
-    .AddConstructor<NgcN2APInitialUeMessageHeader> ()
+    .AddConstructor<NgcN2APRegistrationRequestHeader> ()
   ;
   return tid;
 }
 
 TypeId
-NgcN2APInitialUeMessageHeader::GetInstanceTypeId (void) const
+NgcN2APRegistrationRequestHeader::GetInstanceTypeId (void) const
 {
   return GetTypeId ();
 }
 
 uint32_t
-NgcN2APInitialUeMessageHeader::GetSerializedSize (void) const
+NgcN2APRegistrationRequestHeader::GetSerializedSize (void) const
 {
   return m_headerLength;
 }
 
 void
-NgcN2APInitialUeMessageHeader::Serialize (Buffer::Iterator start) const
+NgcN2APRegistrationRequestHeader::Serialize (Buffer::Iterator start) const
 {
   Buffer::Iterator i = start;
 
@@ -213,7 +213,7 @@ NgcN2APInitialUeMessageHeader::Serialize (Buffer::Iterator start) const
 }
 
 uint32_t
-NgcN2APInitialUeMessageHeader::Deserialize (Buffer::Iterator start)
+NgcN2APRegistrationRequestHeader::Deserialize (Buffer::Iterator start)
 {
   Buffer::Iterator i = start;
 
@@ -260,7 +260,7 @@ NgcN2APInitialUeMessageHeader::Deserialize (Buffer::Iterator start)
 }
 
 void
-NgcN2APInitialUeMessageHeader::Print (std::ostream &os) const
+NgcN2APRegistrationRequestHeader::Print (std::ostream &os) const
 {
   os << "AmfUeN2apId = " << m_amfUeN2Id;
   os << " EnbUeN2Id = " << m_enbUeN2Id;
@@ -269,61 +269,61 @@ NgcN2APInitialUeMessageHeader::Print (std::ostream &os) const
 }
 
 uint64_t 
-NgcN2APInitialUeMessageHeader::GetAmfUeN2Id () const 
+NgcN2APRegistrationRequestHeader::GetAmfUeN2Id () const 
 {
   return m_amfUeN2Id;
 }
 
 void 
-NgcN2APInitialUeMessageHeader::SetAmfUeN2Id (uint64_t amfUeN2Id) 
+NgcN2APRegistrationRequestHeader::SetAmfUeN2Id (uint64_t amfUeN2Id) 
 {
   m_amfUeN2Id = amfUeN2Id;
 }
 
 uint16_t 
-NgcN2APInitialUeMessageHeader::GetEnbUeN2Id () const
+NgcN2APRegistrationRequestHeader::GetEnbUeN2Id () const
 {
   return m_enbUeN2Id;
 }
 
 void 
-NgcN2APInitialUeMessageHeader::SetEnbUeN2Id (uint16_t enbUeN2Id)
+NgcN2APRegistrationRequestHeader::SetEnbUeN2Id (uint16_t enbUeN2Id)
 {
   m_enbUeN2Id = enbUeN2Id;
 }
 
 uint64_t 
-NgcN2APInitialUeMessageHeader::GetSTmsi () const 
+NgcN2APRegistrationRequestHeader::GetSTmsi () const 
 {
   return m_stmsi;
 }
 
 void 
-NgcN2APInitialUeMessageHeader::SetSTmsi (uint64_t stmsi) 
+NgcN2APRegistrationRequestHeader::SetSTmsi (uint64_t stmsi) 
 {
   m_stmsi = stmsi;
 }
 
 uint16_t 
-NgcN2APInitialUeMessageHeader::GetEcgi () const 
+NgcN2APRegistrationRequestHeader::GetEcgi () const 
 {
   return m_ecgi;
 }
 
 void 
-NgcN2APInitialUeMessageHeader::SetEcgi (uint16_t ecgi)
+NgcN2APRegistrationRequestHeader::SetEcgi (uint16_t ecgi)
 {
   m_ecgi = ecgi;
 }
 
 uint32_t
-NgcN2APInitialUeMessageHeader::GetLengthOfIes () const
+NgcN2APRegistrationRequestHeader::GetLengthOfIes () const
 {
   return m_headerLength;
 }
 
 uint32_t
-NgcN2APInitialUeMessageHeader::GetNumberOfIes () const
+NgcN2APRegistrationRequestHeader::GetNumberOfIes () const
 {
   return m_numberOfIes;
 }
@@ -1253,6 +1253,18 @@ void
 NgcN2APInitialContextSetupRequestHeader::SetEnbUeN2Id (uint16_t enbUeN2Id)
 {
   m_enbUeN2Id = enbUeN2Id;
+}
+// jhlim
+uint64_t 
+NgcN2APInitialContextSetupRequestHeader::GetGuti () const
+{
+  return m_guti;
+}
+
+void 
+NgcN2APInitialContextSetupRequestHeader::SetGuti (uint64_t guti)
+{
+  m_guti = guti;
 }
 
 std::list<NgcN2apSap::ErabToBeSetupItem>

@@ -726,6 +726,7 @@ NrUeRrc::DoNotifyRadioLinkFailure (double lastSinrValue)
   NS_LOG_DEBUG("Rlf");
 }
 
+/*
 void
 NrUeRrc::DoNotifyRandomAccessSuccessful ()
 {
@@ -744,6 +745,77 @@ NrUeRrc::DoNotifyRandomAccessSuccessful ()
         msg.isMc = m_isSecondaryRRC ; //sjkang // 28G connection
         msg.isMc_2=m_isThirdRrc;// 73G connection
         m_rrcSapUser->SendRrcConnectionRequest (msg);
+        m_connectionTimeout = Simulator::Schedule (m_t300,
+                                                   &NrUeRrc::ConnectionTimeout,
+                                                   this);
+      }
+      break;
+
+    case CONNECTED_HANDOVER:
+      {
+
+    	  NrRrcSap::RrcConnectionReconfigurationCompleted msg;
+        msg.rrcTransactionIdentifier = m_lastRrcTransactionIdentifier;
+        m_rrcSapUser->SendRrcConnectionReconfigurationCompleted (msg);
+
+        // The following is not needed
+        //if(m_isSecondaryRRC)
+        //{
+        //  m_asSapUser->NotifyHandoverSuccessful (m_rnti, m_cellId); // this triggers MC reconfiguration         
+        //}
+
+        // 3GPP TS 36.331 section 5.5.6.1 Measurements related actions upon handover
+        std::map<uint8_t, NrRrcSap::MeasIdToAddMod>::iterator measIdIt;
+        for (measIdIt = m_varMeasConfig.measIdList.begin ();
+             measIdIt != m_varMeasConfig.measIdList.end ();
+             ++measIdIt)
+          {
+            VarMeasReportListClear (measIdIt->second.measId);
+          }
+
+        SwitchToState (CONNECTED_NORMALLY);
+        m_handoverEndOkTrace (m_imsi, m_cellId, m_rnti);
+        if(m_isSecondaryRRC) // an handover for secondary cells has happened. 
+        // this trace is used to keep a consistent trace of the cell to which the UE is connected
+        {
+          NS_LOG_UNCOND("DoNotifyRandomAccessSuccessful at time " << Simulator::Now().GetSeconds());
+          m_switchToMmWaveTrace(m_imsi, m_cellId, m_rnti);
+        }
+      }
+      break;
+
+    default:
+      NS_FATAL_ERROR ("unexpected event in state " << ToString (m_state));
+      break; 
+    }
+}
+*/
+
+void
+NrUeRrc::DoNotifyRandomAccessSuccessful ()
+{
+  NS_LOG_FUNCTION (this << m_imsi << ToString (m_state));
+  m_randomAccessSuccessfulTrace (m_imsi, m_cellId, m_rnti);
+
+  switch (m_state)
+    {
+    case IDLE_RANDOM_ACCESS:
+      {
+        // we just received a RAR with a T-C-RNTI and an UL grant
+        // send RRC connection request as message 3 of the random access procedure 
+        SwitchToState (IDLE_CONNECTING);
+        NrRrcSap::RrcConnectionRequest msg;
+        msg.ueIdentity = m_imsi;
+        msg.isMc = m_isSecondaryRRC ; //sjkang // 28G connection
+        msg.isMc_2=m_isThirdRrc;// 73G connection
+        
+        // hmlee
+        /*
+        msg.registrationType = registrationType;
+        msg.GUTI = guti;
+        */
+
+        m_rrcSapUser->SendRrcConnectionRequest (msg); 
         m_connectionTimeout = Simulator::Schedule (m_t300,
                                                    &NrUeRrc::ConnectionTimeout,
                                                    this);
@@ -1280,6 +1352,26 @@ if ((unsigned)(msg.HandoverCase)==0)//sjkang  // mmWave Stack of UE
 else{  //this is the case of handover
 	m_asSapUser->SendRrcReconfigurationMessageforHandover(msg);//sjkang
 }
+}
+
+// jhlim
+void
+NrUeRrc::DoRecvRrcIdentityRequest (NrRrcSap::RrcIdentityRequest msg)
+{
+  NS_LOG_FUNCTION (this << " RNTI " << m_rnti << ToString(m_state));
+  std::cout << "UE receives RRC identity request message from source eNB at time  "<<Simulator::Now().GetSeconds()<< std::endl;
+  
+  NrRrcSap::RrcIdentityResponse msg2;
+  m_rrcSapUser->SendRrcIdentityResponse (msg2);
+}
+void
+NrUeRrc::DoRecvRrcRegistrationAccept (NrRrcSap::RrcRegistrationAccept msg)
+{
+  NS_LOG_FUNCTION (this << " RNTI " << m_rnti << ToString(m_state));
+  std::cout << "UE receives RRC registration accept message from source eNB at time  "<<Simulator::Now().GetSeconds()<< std::endl;
+  
+  NrRrcSap::RrcRegistrationComplete msg2;
+  m_rrcSapUser->SendRrcRegistrationComplete (msg2);
 }
 
 void 

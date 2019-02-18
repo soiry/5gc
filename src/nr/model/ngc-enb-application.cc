@@ -127,7 +127,7 @@ NgcEnbApplication::SetN2apSapAmf (NgcN2apSapEnbProvider * s)
 	m_n2apSapEnbProvider = s;
 }
 
-/* jhlim */
+// jhlim 
 void
 NgcEnbApplication::SetN2apSapAmf (NgcN2apSapAmf * s)
 {
@@ -141,20 +141,75 @@ NgcEnbApplication::GetN2apSapEnb ()
   return m_n2apSapEnb;
 }
 
+bool
+NgcEnbApplication::is5gGuti(uint64_t imsi)
+{
+	return false;
+}
+
+std::string
+NgcEnbApplication::GetCmState(uint64_t imsi)
+{
+	std::string state = "CM-IDLE"; // UE doesn't have a connected AMF.
+	return state;
+}
+
+/* jhlim */
+NgcN2apSapAmf*
+NgcEnbApplication::GetUeConnectedAmf(uint64_t imsi)
+{
+	// find AMF included in imsi(5G-GUTI).
+	return m_n2apSapAmf;
+}
+
+NgcN2apSapAmf*
+NgcEnbApplication::DoAmfSelection(uint64_t imsi)
+{
+	std::string state = GetCmState(imsi);
+	NS_ASSERT_MSG((state != "CM-CONNECTED") && (state != "CM-IDLE"), "UE's CM-STATE has wrong value.");
+	if(state == "CM-CONNECTED") {
+		return GetUeConnectedAmf(imsi);
+	}
+	else { // state "CM-IDLE")
+		return m_n2apSapAmf;
+	}
+}
+
+/* jhlim: In 5G, one of AMFs is selected.
+		 But in lena, only one AMF is registered by Enb  */
 void 
-NgcEnbApplication::DoInitialUeMessage (uint64_t imsi, uint16_t rnti)
+NgcEnbApplication::DoRegistrationRequest (uint64_t imsi, uint16_t rnti)
 {
   NS_LOG_FUNCTION (this);
   // side effect: create entry if not exist
   m_imsiRntiMap[imsi] = rnti;
-  //m_n2apSapAmf->InitialUeMessage (imsi, rnti, imsi, m_cellId); // jhlim
+
+  /* jhlim: 2. AMF Selection */
   if(m_n2apSapEnbProvider == NULL)
-	  m_n2apSapAmf->InitialUeMessage (imsi, rnti, imsi, m_cellId);
+	  m_n2apSapAmf = DoAmfSelection(imsi);
+	  
+  /* jhlim: forwards the Registration Request to an AMF */
+
+  if(m_n2apSapEnbProvider == NULL)
+	  m_n2apSapAmf->RegistrationRequest (imsi, rnti, imsi, m_cellId);
   else
-	  m_n2apSapEnbProvider->SendInitialUeMessage (imsi, rnti, imsi, m_cellId); // TODO if more than one AMF is used, extend this call
+	  m_n2apSapEnbProvider->SendRegistrationRequest (imsi, rnti, imsi, m_cellId); // TODO if more than one AMF is used, extend this call
 
 }
 
+// jhlim
+void
+NgcEnbApplication::DoIdentityResponse (uint64_t imsi, uint16_t rnti)
+{
+  NS_LOG_FUNCTION (this);
+
+  m_imsiRntiMap[imsi] = rnti;
+
+  if(m_n2apSapEnbProvider == NULL)
+	  m_n2apSapAmf->IdentityResponse (imsi, rnti);
+  else
+	  m_n2apSapEnbProvider->SendIdentityResponse (imsi, rnti); // TODO if more than one AMF is used, extend this call
+}
 void 
 NgcEnbApplication::DoN2Message (uint64_t imsi, uint16_t rnti)
 {
@@ -171,11 +226,16 @@ NgcEnbApplication::DoN2Message (uint64_t imsi, uint16_t rnti)
 
 /* jhlim */
 void
-NgcEnbApplication::DoInitialUeMessage (uint64_t imsi, uint16_t rnti, int dummy)
+NgcEnbApplication::DoRegistrationComplete (uint64_t imsi, uint16_t rnti)
 {
-	NS_LOG_FUNCTION (this);
-	m_imsiRntiMap[imsi] = rnti;
-	m_n2apSapAmf->InitialUeMessage (imsi, rnti, imsi, m_cellId);
+  NS_LOG_FUNCTION (this);
+
+  m_imsiRntiMap[imsi] = rnti;
+
+  if(m_n2apSapEnbProvider == NULL)
+	  m_n2apSapAmf->RegistrationComplete (imsi, rnti);
+  else
+	  m_n2apSapEnbProvider->SendRegistrationComplete (imsi, rnti);
 }
 
 void
@@ -309,6 +369,33 @@ NgcEnbApplication::DoInitialContextSetupRequest (uint64_t amfUeN2Id, uint16_t en
     }
 }
 
+//jhlim
+void 
+NgcEnbApplication::DoIdentityRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id)
+{
+  NS_LOG_FUNCTION (this);
+  NS_LOG_INFO("In EnpEnbApplication DoIdentityRequest");
+
+  uint64_t imsi = amfUeN2Id;
+  std::map<uint64_t, uint16_t>::iterator imsiIt = m_imsiRntiMap.find (imsi);
+  uint16_t rnti = imsiIt->second;
+  struct NgcEnbN2SapUser::IdentityRequestParameters params;
+  params.rnti = rnti;
+  m_n2SapUser->IdentityRequest(params);
+}
+void 
+NgcEnbApplication::DoRegistrationAccept (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t guti)
+{
+  NS_LOG_FUNCTION (this);
+  NS_LOG_INFO("In EnpEnbApplication DoRegistrationAccept");
+
+  uint64_t imsi = amfUeN2Id;
+  std::map<uint64_t, uint16_t>::iterator imsiIt = m_imsiRntiMap.find (imsi);
+  uint16_t rnti = imsiIt->second;
+  struct NgcEnbN2SapUser::RegistrationAcceptParameters params;
+  params.rnti = rnti;
+  m_n2SapUser->RegistrationAccept(params);
+}
 //smsohn 
 void 
 NgcEnbApplication::DoN2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSapEnb::ErabToBeSetupItem> erabToBeSetupList, uint16_t cause)
@@ -341,7 +428,6 @@ NgcEnbApplication::DoN2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::lis
 
     }
 }
-
 
 void 
 NgcEnbApplication::DoPathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t gci, std::list<NgcN2apSapEnb::ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList)

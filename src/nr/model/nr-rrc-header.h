@@ -600,6 +600,56 @@ private:
   NrRrcSap::AsConfig m_asConfig;
 };
 
+// jhlim
+class RrcIdentityRequestHeader : public RrcDlDcchMessage
+{
+public:
+  RrcIdentityRequestHeader ();
+  ~RrcIdentityRequestHeader ();
+/*
+  void PreSerialize () const;
+  uint32_t Deserialize (Buffer::Iterator bIterator);
+  void Print (std::ostream &os) const;
+*/
+
+  void SetMessage (NrRrcSap::RrcIdentityRequest msg);
+//  NrRrcSap::RrcIdentityRequest GetMessage () const;
+
+};
+class RrcIdentityResponseHeader : public RrcDlDcchMessage
+{
+public:
+  RrcIdentityResponseHeader ();
+  ~RrcIdentityResponseHeader ();
+/*
+  void PreSerialize () const;
+  uint32_t Deserialize (Buffer::Iterator bIterator);
+  void Print (std::ostream &os) const;
+*/
+
+  void SetMessage (NrRrcSap::RrcIdentityResponse msg);
+//  NrRrcSap::RrcIdentityRequest GetMessage () const;
+
+};
+class RrcRegistrationAcceptHeader : public RrcDlDcchMessage
+{
+public:
+  RrcRegistrationAcceptHeader ();
+  ~RrcRegistrationAcceptHeader ();
+
+  void SetMessage (NrRrcSap::RrcRegistrationAccept msg);
+
+};
+class RrcRegistrationCompleteHeader : public RrcDlDcchMessage
+{
+public:
+  RrcRegistrationCompleteHeader ();
+  ~RrcRegistrationCompleteHeader ();
+
+  void SetMessage (NrRrcSap::RrcRegistrationComplete msg);
+
+};
+
 /**
 * This class manages the serialization/deserialization of RRCConnectionReestablishmentRequest IE
 */

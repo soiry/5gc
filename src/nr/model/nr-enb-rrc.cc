@@ -519,6 +519,21 @@ UeManager::SetupDataRadioBearer (EpsBearer bearer, uint8_t bearerId, uint32_t gt
   drbInfo->m_isMc_2 =false;
   ScheduleRrcConnectionReconfiguration ();
 }
+//jhlim
+void
+UeManager::IdentityRequest (NgcEnbN2SapUser::IdentityRequestParameters params)
+{
+ NS_LOG_FUNCTION (this << (uint32_t) m_rnti);
+
+ ScheduleRrcIdentityRequest ();
+}
+void
+UeManager::RegistrationAccept (NgcEnbN2SapUser::RegistrationAcceptParameters params)
+{
+ NS_LOG_FUNCTION (this << (uint32_t) m_rnti);
+
+ ScheduleRrcRegistrationAccept ();
+}
 
 void
 UeManager::RecordDataRadioBearersToBeStarted ()
@@ -647,6 +662,24 @@ UeManager::ScheduleRrcConnectionReconfiguration ()
       NS_FATAL_ERROR ("method unexpected in state " << ToString (m_state));
       break;
     }
+}
+
+//jhlim
+void 
+UeManager::ScheduleRrcIdentityRequest ()
+{
+  NS_LOG_FUNCTION (this << ToString(m_state));
+  std::cout << "Enb will send identity request message to UE " <<m_rnti << std::endl;
+  NrRrcSap::RrcIdentityRequest msg = BuildRrcIdentityRequest ();
+  m_rrc->m_rrcSapUser->SendRrcIdentityRequest (m_rnti, msg);
+}
+void 
+UeManager::ScheduleRrcRegistrationAccept ()
+{
+  NS_LOG_FUNCTION (this << ToString(m_state));
+  std::cout << "Enb will send registration accept message to UE " <<m_rnti << std::endl;
+  NrRrcSap::RrcRegistrationAccept msg = BuildRrcRegistrationAccept ();
+  m_rrc->m_rrcSapUser->SendRrcRegistrationAccept (m_rnti, msg);
 }
 
 void 
@@ -1662,8 +1695,25 @@ UeManager::CompleteSetupUe (NrEnbRrcSapProvider::CompleteSetupUeParameters param
   m_srb1->m_pdcp->SetNrPdcpSapUser (params.srb1SapUser);
 }
 
+// jhlim: annotation
+/*
 void
-UeManager::RecvRrcConnectionRequest (NrRrcSap::RrcConnectionRequest msg) //sjkang1015
+UeManager::SelectAmf ()
+{
+	uint64_t amfId;
+	bool valid;
+	// GUTI includes valid AMF information
+	if (valid) {
+		return amfId;
+	}
+	// GUTI does not include valid AMF information
+	else {
+		return amfId;
+	}
+}
+*/
+void
+UeManager::RecvRrcConnectionRequest (NrRrcSap::RrcConnectionRequest msg)
 {
   NS_LOG_FUNCTION (this<<"nr-enb-rrc::UeManager"<< ToString(m_state));
   switch (m_state)
@@ -1679,10 +1729,22 @@ UeManager::RecvRrcConnectionRequest (NrRrcSap::RrcConnectionRequest msg) //sjkan
             m_rrc->RegisterImsiToRnti(m_imsi, m_rnti);
             m_rrc->m_mmWaveCellSetupCompleted[m_imsi] = false;
             NS_LOG_DEBUG("For imsi " << m_imsi << " m_rrc->m_mmWaveCellSetupCompleted[m_imsi] " << m_rrc->m_mmWaveCellSetupCompleted[m_imsi]);
+
+			// hmlee
+			/*
+			m_isRegistrationType = msg.registrationType;
+			m_isGuti = msg.GUTI;
+			if (!m_isRegistrationType && !m_isGuti)
+			{
+				std::cout << "RegistrationRequest is called" << std::endl;
+				m_rrc->m_n2SapProvider->RegistrationRequest (m_isRegistrationType, m_isGuti);
+			}
+			*/
+
             if (!m_isMc_2 && !m_isMc && m_rrc->m_n2SapProvider != 0)
               {
-				std::cout << "InitialUeMessage is called" << std::endl;
-                m_rrc->m_n2SapProvider->InitialUeMessage (m_imsi, m_rnti);
+				std::cout << "RegistrationRequest is called" << std::endl;
+                m_rrc->m_n2SapProvider->RegistrationRequest (m_imsi, m_rnti);
               }
 
             // send RRC CONNECTION SETUP to UE
@@ -1721,6 +1783,72 @@ UeManager::RecvRrcConnectionRequest (NrRrcSap::RrcConnectionRequest msg) //sjkan
       break;
     }
 }
+
+/*
+void
+UeManager::RecvRrcConnectionRequest (NrRrcSap::RrcConnectionRequest msg) //sjkang1015
+{
+  NS_LOG_FUNCTION (this<<"nr-enb-rrc::UeManager"<< ToString(m_state));
+  switch (m_state)
+    {
+    case INITIAL_RANDOM_ACCESS:
+      {
+        m_connectionRequestTimeout.Cancel ();
+        m_isMc = msg.isMc; //m_isMc Setting
+        m_isMc_2= msg.isMc_2;
+        if (m_rrc->m_admitRrcConnectionRequest == true)
+          {
+            m_imsi = msg.ueIdentity;
+            m_rrc->RegisterImsiToRnti(m_imsi, m_rnti);
+            m_rrc->m_mmWaveCellSetupCompleted[m_imsi] = false;
+            NS_LOG_DEBUG("For imsi " << m_imsi << " m_rrc->m_mmWaveCellSetupCompleted[m_imsi] " << m_rrc->m_mmWaveCellSetupCompleted[m_imsi]);
+
+			// hmlee
+			SelectAmf();
+
+            if (!m_isMc_2 && !m_isMc && m_rrc->m_n2SapProvider != 0)
+              {
+				std::cout << "RegistrationRequest is called" << std::endl;
+                m_rrc->m_n2SapProvider->RegistrationRequest (m_imsi, m_rnti);
+              }
+
+            // send RRC CONNECTION SETUP to UE
+            NrRrcSap::RrcConnectionSetup msg2;
+            msg2.rrcTransactionIdentifier = GetNewRrcTransactionIdentifier ();  ///RRC index
+            msg2.radioResourceConfigDedicated = BuildRadioResourceConfigDedicated ();
+            m_rrc->m_rrcSapUser->SendRrcConnectionSetup (m_rnti, msg2);
+
+            RecordDataRadioBearersToBeStarted ();
+            m_connectionSetupTimeout = Simulator::Schedule (
+                m_rrc->m_connectionSetupTimeoutDuration,
+                &NrEnbRrc::ConnectionSetupTimeout, m_rrc, m_rnti);
+            SwitchToState (CONNECTION_SETUP);
+            std::cout << "Enb " <<m_rrc->GetCellId()<<" receives RRC connection request from UE "<< GetImsi() <<std::endl;
+
+          }
+        else
+          {
+            NS_LOG_INFO ("rejecting connection request for RNTI " << m_rnti);
+
+            // send RRC CONNECTION REJECT to UE
+            NrRrcSap::RrcConnectionReject rejectMsg;
+            rejectMsg.waitTime = 3;
+            m_rrc->m_rrcSapUser->SendRrcConnectionReject (m_rnti, rejectMsg);
+
+            m_connectionRejectedTimeout = Simulator::Schedule (
+                m_rrc->m_connectionRejectedTimeoutDuration,
+                &NrEnbRrc::ConnectionRejectedTimeout, m_rrc, m_rnti);
+            SwitchToState (CONNECTION_REJECTED);
+          }
+      }
+      break;
+
+    default:
+      NS_FATAL_ERROR ("method unexpected in state " << ToString (m_state));
+      break;
+    }
+}
+*/
 
 void
 UeManager::RecvRrcConnectionSetupCompleted (NrRrcSap::RrcConnectionSetupCompleted msg)
@@ -1998,6 +2126,27 @@ UeManager::RecvRrcConnectionReconfigurationCompleted (NrRrcSap::RrcConnectionRec
       break;
     }
 }
+
+//jhlim
+void
+UeManager::RecvRrcIdentityResponse (NrRrcSap::RrcIdentityResponse msg)
+{
+  NS_LOG_FUNCTION (this<<ToString(m_state));
+
+  //send msg to AMF
+  m_rrc->m_n2SapProvider->IdentityResponse (m_imsi, m_rnti);
+
+}
+void
+UeManager::RecvRrcRegistrationComplete (NrRrcSap::RrcRegistrationComplete msg)
+{
+  NS_LOG_FUNCTION (this<<ToString(m_state));
+
+  //send msg to AMF
+  m_rrc->m_n2SapProvider->RegistrationComplete (m_imsi, m_rnti);
+
+}
+
 
 void 
 UeManager::RecvRrcConnectionReestablishmentRequest (NrRrcSap::RrcConnectionReestablishmentRequest msg)
@@ -2613,6 +2762,20 @@ UeManager::BuildRrcConnectionReconfiguration ()
   msg.haveMeasConfig = true;
   msg.measConfig = m_rrc->m_ueMeasConfig;
 
+  return msg;
+}
+
+// jhlim
+NrRrcSap::RrcIdentityRequest
+UeManager::BuildRrcIdentityRequest ()
+{
+  NrRrcSap::RrcIdentityRequest msg;
+  return msg;
+}
+NrRrcSap::RrcRegistrationAccept
+UeManager::BuildRrcRegistrationAccept ()
+{
+  NrRrcSap::RrcRegistrationAccept msg;
   return msg;
 }
 
@@ -4955,6 +5118,22 @@ NrEnbRrc::DoRecvRrcConnectionReconfigurationCompleted (uint16_t rnti, NrRrcSap::
   GetUeManager (rnti)->RecvRrcConnectionReconfigurationCompleted (msg);
 }
 
+// jhlim
+void
+NrEnbRrc::DoRecvRrcIdentityResponse (uint16_t rnti, NrRrcSap::RrcIdentityResponse msg)
+{
+  NS_LOG_FUNCTION (this << rnti);
+  NS_LOG_INFO("Received RRC identity response ");
+  GetUeManager (rnti)->RecvRrcIdentityResponse (msg);
+}
+void
+NrEnbRrc::DoRecvRrcRegistrationComplete (uint16_t rnti, NrRrcSap::RrcRegistrationComplete msg)
+{
+  NS_LOG_FUNCTION (this << rnti);
+  NS_LOG_INFO("Received RRC registration complete ");
+  GetUeManager (rnti)->RecvRrcRegistrationComplete (msg);
+}
+
 void 
 NrEnbRrc::DoRecvRrcConnectionReestablishmentRequest (uint16_t rnti, NrRrcSap::RrcConnectionReestablishmentRequest msg)
 {
@@ -4989,7 +5168,21 @@ NrEnbRrc::DoDataRadioBearerSetupRequest (NgcEnbN2SapUser::DataRadioBearerSetupRe
  	Ptr<UeManager> ueManager = GetUeManager (request.rnti);
    ueManager->SetupDataRadioBearer (request.bearer, request.bearerId, request.gtpTeid, request.transportLayerAddress);
 }
-
+// jhlim
+void
+NrEnbRrc::DoIdentityRequest (NgcEnbN2SapUser::IdentityRequestParameters params)
+{
+  NS_LOG_FUNCTION (this << params.rnti);
+  Ptr<UeManager> ueManager = GetUeManager (params.rnti);
+  ueManager->IdentityRequest (params);
+}
+void
+NrEnbRrc::DoRegistrationAccept (NgcEnbN2SapUser::RegistrationAcceptParameters params)
+{
+  NS_LOG_FUNCTION (this << params.rnti);
+  Ptr<UeManager> ueManager = GetUeManager (params.rnti);
+  ueManager->RegistrationAccept (params);
+}
 void 
 NrEnbRrc::DoPathSwitchRequestAcknowledge (NgcEnbN2SapUser::PathSwitchRequestAcknowledgeParameters params)
 {

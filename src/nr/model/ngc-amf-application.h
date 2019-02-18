@@ -121,6 +121,7 @@ public:
 private:
 
   // N2-AP SAP AMF forwarded methods
+  void DoRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi);
   void DoInitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi);
   void DoN2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi);
   void DoInitialContextSetupResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSapAmf::ErabSetupItem> erabSetupList);
@@ -133,6 +134,17 @@ private:
   void DoCreateSessionResponse (NgcN11SapAmf::CreateSessionResponseMessage msg);
   void DoDeleteBearerRequest (NgcN11SapAmf::DeleteBearerRequestMessage msg);
 
+  // jhlim
+  void NamfCommunicationUeContextTransfer(uint64_t imsi);
+  void NamfCommunicationUeContextTransferResponse(uint64_t imsi, uint64_t context);
+  void NamfCommunicationRegistrationCompleteNotify(uint64_t imsi);
+  bool IsGuti(uint64_t imsi);
+  void DoRegistrationComplete(uint64_t amfUeN2Id, uint16_t enbUeN2Id);
+  void DoIdentityResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id);
+
+  // hmlee
+  void DoNsmfPDUSessionUpdateSMContext();
+  void DoNsmfPDUSessionReleaseSMContext();
 
   /**
    * Hold info on an EPS bearer to be activated

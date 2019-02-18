@@ -133,10 +133,35 @@ NgcAmfApplication::AddBearer (uint64_t imsi, Ptr<NgcTft> tft, EpsBearer bearer)
 }
 
 
-// N2-AP SAP AMF forwarded methods
+/* jhlim */
+void
+NgcAmfApplication::NamfCommunicationUeContextTransfer(uint64_t imsi)
+{
+	uint64_t context = imsi;
+	NamfCommunicationUeContextTransferResponse(imsi, context);
+}
 
+void
+NgcAmfApplication::NamfCommunicationUeContextTransferResponse(uint64_t imsi, uint64_t context)
+{
+	// Now new AMF gets a UE's context from the old AMF.
+}
+
+void
+NgcAmfApplication::NamfCommunicationRegistrationCompleteNotify(uint64_t imsi)
+{
+}
+bool
+NgcAmfApplication::IsGuti(uint64_t imsi)
+{
+	//check whether imsi is GUTI or not.
+	return false;
+}
+
+// N2-AP SAP AMF forwarded methods
+/*
 void 
-NgcAmfApplication::DoInitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t gci)
+NgcAmfApplication::DoRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t gci)
 {
   NS_LOG_FUNCTION (this << amfUeN2Id << enbUeN2Id << imsi << gci);
   std::map<uint64_t, Ptr<UeInfo> >::iterator it = m_ueInfoMap.find (imsi);
@@ -160,6 +185,73 @@ NgcAmfApplication::DoInitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, u
       msg.bearerContextsToBeCreated.push_back (bearerContext);
     }
   m_n11SapSmf->CreateSessionRequest (msg);
+}
+*/
+
+
+/* jhlim: 3. Registration Request
+	Receive N2 message (N2 parameters, Registration Request (as in step 1), and UE access selection and PDU session selection information, UE Context request) */
+void 
+NgcAmfApplication::DoRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t gci)
+{
+  NS_LOG_FUNCTION (this << amfUeN2Id << enbUeN2Id << imsi << gci);
+  std::map<uint64_t, Ptr<UeInfo> >::iterator it = m_ueInfoMap.find (imsi);
+  NS_ASSERT_MSG (it != m_ueInfoMap.end (), "could not find any UE with IMSI " << imsi);
+  it->second->cellId = gci;
+  uint16_t cellId = it->second->cellId;
+  std::string identityRequest;
+
+  // Conditional 4-5.
+  //if(IsGuti(imsi)) 
+  // if GUTI exists, 
+   NamfCommunicationUeContextTransfer(imsi); // call this to Old AMF.  
+  
+  // Conditional 6-7. Identity Request message to UE by NAS signal
+  // if neither UE nor old AMF send SUCI
+  identityRequest = "suci";
+  m_n2apSapAmfProvider->SendIdentityRequest (amfUeN2Id, enbUeN2Id, cellId, identityRequest);
+  
+  // Conditional 8.
+  // if old AMF exists,
+  // NamfCommunicationRegistrationCompleteNotify(imsi);
+
+  // Conditional 9. (same as 6-7)
+  // if PEI is not exists,
+  identityRequest = "pei";
+  m_n2apSapAmfProvider->SendIdentityRequest (amfUeN2Id, enbUeN2Id, cellId, identityRequest);
+  
+  // 11-12. Registration Accept
+  //     (5G-GUTI, Registration Area, PDU Session status, ...)
+  uint64_t guti = 1; // assign 5G-GUTI for UE
+  m_n2apSapAmfProvider->SendRegistrationAccept(amfUeN2Id, enbUeN2Id, cellId, guti);
+}
+
+void
+NgcAmfApplication::DoRegistrationComplete (uint64_t amfUeN2Id, uint16_t enbUeN2Id)
+{
+	NS_LOG_FUNCTION (this);
+	NS_LOG_INFO("Registration Compelete.");
+
+}
+// jhlim
+void 
+NgcAmfApplication::DoIdentityResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id)
+{
+  NS_LOG_FUNCTION (this << amfUeN2Id << enbUeN2Id);
+}
+
+// hmlee
+void
+NgcAmfApplication::DoNsmfPDUSessionUpdateSMContext()
+{
+
+}
+
+// hmlee
+void
+NgcAmfApplication::DoNsmfPDUSessionReleaseSMContext()
+{
+
 }
 
 void 

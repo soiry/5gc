@@ -27,21 +27,6 @@
 namespace ns3 {
 
 
-GbrQosInformation::GbrQosInformation ()
-  : gbrDl (0),
-    gbrUl (0),
-    mbrDl (0),
-    mbrUl (0)
-{
-}
-
-AllocationRetentionPriority::AllocationRetentionPriority ()
-  : priorityLevel (0),
-    preemptionCapability (false),
-    preemptionVulnerability (false)
-{
-}
-
 QosFlow::QosFlow ()
   : qci (NGBR_VIDEO_TCP_DEFAULT)
 {
@@ -58,7 +43,7 @@ QosFlow::QosFlow (Qci x, struct GbrQosInformation y)
 }
 
 bool
-EQosFlow::IsGbr () const
+QosFlow::IsGbr () const
 {
   // 3GPP 23.203 Section 6.1.7.2
   switch (qci)
