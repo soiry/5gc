@@ -147,20 +147,25 @@ public:
 private:
 
   // ENB N2 SAP provider methods
-  void DoInitialUeMessage (uint64_t imsi, uint16_t rnti);
-  void DoN2Message (uint64_t imsi, uint16_t rnti);
+  void DoRegistrationRequest (uint64_t imsi, uint16_t rnti);
+  // jhlim
+  void DoIdentityRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id);
+  void DoIdentityResponse (uint64_t imsi, uint16_t rnti);
+  void DoRegistrationAccept (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t guti);
+  void DoRegistrationComplete (uint64_t imsi, uint16_t rnti);
   void DoPathSwitchRequest (NgcEnbN2SapProvider::PathSwitchRequestParameters params);
   void DoUeContextRelease (uint16_t rnti);
+  void DoN2Message (uint64_t imsi, uint16_t rnti);
+
 
   /* jhlim */
-  void DoInitialUeMessage (uint64_t imsi, uint16_t rnti, int dummy);
   void DoN2Message(uint64_t imsi, uint16_t rnti, int dummy);
   void DoPathSwitchRequest (NgcEnbN2SapProvider::PathSwitchRequestParameters params, int dummy);
 
   // N2-AP SAP ENB methods
   void DoInitialContextSetupRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSapEnb::ErabToBeSetupItem> erabToBeSetupList);
   //smsohn
-  void DoN2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSapEnb::ErabToBeSetupItem> erabToBeSetupList);
+  void DoN2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSapEnb::ErabToBeSetupItem> erabToBeSetupList, uint16_t cause);
   
 
   void DoPathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, std::list<NgcN2apSapEnb::ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList);
@@ -272,6 +277,15 @@ private:
   std::map<uint64_t, uint16_t> m_imsiRntiMap;
 
   uint16_t m_cellId;
+
+  // jhlim
+  bool is5gGuti(uint64_t imsi);
+  std::string GetCmState(uint64_t imsi);
+  NgcN2apSapAmf* GetUeConnectedAmf(uint64_t imsi);
+  NgcN2apSapAmf* DoAmfSelection(uint64_t imsi);
+
+
+
 
 };
 

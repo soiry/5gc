@@ -278,6 +278,10 @@ public:
 
   /// Part of the RRC protocol. Implement the NrEnbRrcSapProvider::CompleteSetupUe interface.
   void CompleteSetupUe (NrEnbRrcSapProvider::CompleteSetupUeParameters params);
+  
+  // hmlee
+  // void RecvRrcIdentityRequest (NrRrcSap::RrcIdentityRequest msg);
+
   /// Part of the RRC protocol. Implement the NrEnbRrcSapProvider::RecvRrcConnectionRequest interface.
   void RecvRrcConnectionRequest (NrRrcSap::RrcConnectionRequest msg);
   /// Part of the RRC protocol. Implement the NrEnbRrcSapProvider::RecvRrcConnectionSetupCompleted interface.
@@ -402,6 +406,17 @@ public:
   void SetDuplicationMode(bool); //sjkang
   void SetRlcBufferForwardMode(uint16_t targetCellID,bool option); //sjkang
 //  void UeContextRelease(NgcX2SapProvider::UeContextReleaseParams); //sjkang
+
+// jhlim
+  void IdentityRequest (NgcEnbN2SapUser::IdentityRequestParameters params);
+  void ScheduleRrcIdentityRequest ();
+  void RegistrationAccept (NgcEnbN2SapUser::RegistrationAcceptParameters params);
+  void ScheduleRrcRegistrationAccept ();
+  void SelectAmf ();
+  void RecvRrcIdentityResponse (NrRrcSap::RrcIdentityResponse msg);
+  void RecvRrcRegistrationComplete (NrRrcSap::RrcRegistrationComplete msg);
+
+
 private:
   //Lossless HO: merge 2 buffers into 1 with increment order.
   std::vector < NrRlcAm::RetxPdu > MergeBuffers(std::vector < NrRlcAm::RetxPdu > first, std::vector < NrRlcAm::RetxPdu > second);
@@ -454,6 +469,10 @@ private:
    * current configuration
    */
   NrRrcSap::RrcConnectionReconfiguration BuildRrcConnectionReconfiguration ();
+
+  // jhlim
+  NrRrcSap::RrcIdentityRequest BuildRrcIdentityRequest ();
+  NrRrcSap::RrcRegistrationAccept BuildRrcRegistrationAccept ();
 
   /** 
    * 
@@ -1088,6 +1107,10 @@ private:
 
   /// Part of the RRC protocol. Forwarding NrEnbRrcSapProvider::CompleteSetupUe interface to UeManager::CompleteSetupUe
   void DoCompleteSetupUe (uint16_t rnti, NrEnbRrcSapProvider::CompleteSetupUeParameters params);
+  
+  // hmlee
+  // DoRecvRrcIdentityRequest (uint16_t rnti, NrRrcSap::RrcIdentityRequest msg);
+
   /// Part of the RRC protocol. Forwarding NrEnbRrcSapProvider::RecvRrcConnectionRequest interface to UeManager::RecvRrcConnectionRequest
   void DoRecvRrcConnectionRequest (uint16_t rnti, NrRrcSap::RrcConnectionRequest msg);
   /// Part of the RRC protocol. Forwarding NrEnbRrcSapProvider::RecvRrcConnectionSetupCompleted interface to UeManager::RecvRrcConnectionSetupCompleted
@@ -1106,6 +1129,12 @@ private:
 
   void DoDataRadioBearerSetupRequest (NgcEnbN2SapUser::DataRadioBearerSetupRequestParameters params);
   void DoPathSwitchRequestAcknowledge (NgcEnbN2SapUser::PathSwitchRequestAcknowledgeParameters params);
+  // jhlim
+  void DoIdentityRequest (NgcEnbN2SapUser::IdentityRequestParameters params);
+  void DoRecvRrcIdentityResponse (uint16_t rnti, NrRrcSap::RrcIdentityResponse msg);
+  void DoRegistrationAccept (NgcEnbN2SapUser::RegistrationAcceptParameters params);
+  void DoRecvRrcRegistrationComplete (uint16_t rnti, NrRrcSap::RrcRegistrationComplete msg);
+  
 
   // X2 SAP methods
 
@@ -1180,6 +1209,8 @@ private:
    * \return the type of RLC that is to be created for the given EPS bearer
    */
   TypeId GetRlcType (EpsBearer bearer);
+
+  void DoRecvIdentityResponse (uint16_t rnti, NrRrcSap::RrcIdentityResponse msg);
 
 
 

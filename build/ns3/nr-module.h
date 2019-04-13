@@ -131,5 +131,7 @@
 #include "nr-ue-rrc.h"
 #include "nr-vendor-specific-parameters.h"
 #include "point-to-point-ngc-helper.h"
+#include "qos-flow-tag.h"
+#include "qos-flow.h"
 #include "tdmt-nr-ff-mac-scheduler.h"
 #endif

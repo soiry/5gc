@@ -115,7 +115,7 @@ public:
 private:
 
   // N2-AP SAP AMF forwarded methods
-  void DoInitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi);
+  void DoRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi); 
   void DoN2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi);
   void DoInitialContextSetupResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSapAmf::ErabSetupItem> erabSetupList);
   void DoPathSwitchRequest (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, std::list<NgcN2apSapAmf::ErabSwitchedInDownlinkItem> erabToBeSwitchedInDownlinkList);
@@ -127,9 +127,18 @@ private:
   //smsohn
   void DoUpdateSMContextResponse (NgcN11SapAmf::UpdateSMContextResponseMessage msg);
  
- void DoCreateSessionResponse (NgcN11SapAmf::CreateSessionResponseMessage msg);
+  void DoCreateSessionResponse (NgcN11SapAmf::CreateSessionResponseMessage msg);
   void DoDeleteBearerRequest (NgcN11SapAmf::DeleteBearerRequestMessage msg);
 
+  // jhlim
+  void DoIdentityRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId);
+  void DoIdentityResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id);
+  void DoRegistrationAccept (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId, uint64_t guti);
+  void DoRegistrationComplete (uint64_t amfUeN2Id, uint16_t enbUeN2Id);
+
+  // hmlee
+  void DoNsmfPDUSessionUpdateSMContext();
+  void DoNsmfPDUSessionReleaseSMContext();
 
   /**
    * Hold info on an EPS bearer to be activated
@@ -164,6 +173,7 @@ private:
     uint64_t imsi;
     uint16_t cellId;
     std::list<BearerInfo> bearersToBeActivated;
+    std::list<FlowInfo> flowsToBeActivated;
     uint16_t bearerCounter;
   };
   /**

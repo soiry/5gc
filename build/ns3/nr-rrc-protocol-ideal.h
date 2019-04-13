@@ -64,7 +64,10 @@ public:
   NrUeRrcSapUser* GetNrUeRrcSapUser ();
   
   void SetUeRrc (Ptr<NrUeRrc> rrc);
-  
+
+  // jhlim
+  void DoSendRrcIdentityResponse (NrRrcSap::RrcIdentityResponse msg);
+  void DoSendRrcRegistrationComplete (NrRrcSap::RrcRegistrationComplete msg);
 
 private:
 
@@ -134,6 +137,10 @@ private:
   NrRrcSap::HandoverPreparationInfo DoDecodeHandoverPreparationInformation (Ptr<Packet> p);
   Ptr<Packet> DoEncodeHandoverCommand (NrRrcSap::RrcConnectionReconfiguration msg);
   NrRrcSap::RrcConnectionReconfiguration DoDecodeHandoverCommand (Ptr<Packet> p);
+
+  // jhlim
+  void DoSendRrcIdentityRequest (uint16_t rnti, NrRrcSap::RrcIdentityRequest msg); // to UE
+  void DoSendRrcRegistrationAccept (uint16_t rnti, NrRrcSap::RrcRegistrationAccept msg); // to UE
 
 
   uint16_t m_rnti;
