@@ -154,6 +154,7 @@ private:
 
   // N11 SAP SMF methods
   void DoCreateSessionRequest (NgcN11SapSmf::CreateSessionRequestMessage msg);
+  void DoUpdateSMContextRequest (NgcN11SapSmf::UpdateSMContextRequestMessage msg);
   void DoModifyBearerRequest (NgcN11SapSmf::ModifyBearerRequestMessage msg);  
 
   void DoDeleteBearerCommand (NgcN11SapSmf::DeleteBearerCommandMessage req);

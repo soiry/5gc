@@ -49,11 +49,15 @@ public:
    * \param imsi 
    * \param rnti 
    */
+
   virtual void RegistrationRequest (uint64_t imsi, uint16_t rnti) = 0;
 
   //jhlim
   virtual void IdentityResponse (uint64_t imsi, uint16_t rnti) = 0;
-  virtual void RegistrationComplete (uint64_t imsi, uint16_t rnti) = 0;
+  virtual void RegistrationComplete (uint64_t imsi, uint16_t rnti) = 0; 
+  
+  virtual void N2Message (uint64_t imsi, uint16_t rnti) = 0;
+  virtual void N2Message (uint64_t imsi, uint16_t rnti, int dummy) = 0; // jhlim for N2apSapAmf
 
   /**
    *  \brief Triggers ngc-enb-application to send ERAB Release Indication message towards AMF
@@ -113,9 +117,12 @@ public:
   {
     uint16_t rnti;   /**< the RNTI identifying the UE for which the
 			DataRadioBearer is to be created */ 
-    EpsBearer bearer; /**< the characteristics of the bearer to be set
-                         up */
+    EpsBearer bearer; /**< the characteristics of the bearer to be setup */
+    EpsBearer flow; //smsohn added
+
     uint8_t bearerId; /**< the EPS Bearer Identifier */
+    uint8_t flowId; //smsohn added 
+
     uint32_t    gtpTeid; /**< N2-bearer GTP tunnel endpoint identifier, see 36.423 9.2.1 */
     Ipv4Address transportLayerAddress; /**< IP Address of the SMF, see 36.423 9.2.1 */
   };
@@ -170,6 +177,10 @@ public:
   // jhlim
   virtual void IdentityResponse (uint64_t imsi, uint16_t rnti);
   virtual void RegistrationComplete (uint64_t imsi, uint16_t rnti);
+ 
+  virtual void N2Message (uint64_t imsi, uint16_t rnti);
+  virtual void N2Message (uint64_t imsi, uint16_t rnti, int dummy);
+
   virtual void DoSendReleaseIndication (uint64_t imsi, uint16_t rnti, uint8_t bearerId);
 
   virtual void PathSwitchRequest (PathSwitchRequestParameters params);
@@ -211,6 +222,14 @@ void MemberNgcEnbN2SapProvider<C>::RegistrationComplete (uint64_t imsi, uint16_t
 }
 
 template <class C>
+void MemberNgcEnbN2SapProvider<C>::N2Message (uint64_t imsi, uint16_t rnti)
+{
+  cout<<"DoInitialUeMessage for Provider is called" << endl;
+  //m_owner->DoInitialUeMessage (imsi, rnti, 0); // jhlim
+  m_owner->DoN2Message (imsi, rnti);
+}
+
+template <class C>
 void MemberNgcEnbN2SapProvider<C>::DoSendReleaseIndication (uint64_t imsi, uint16_t rnti, uint8_t bearerId)
 {
   //m_owner->DoReleaseIndication (imsi, rnti, bearerId, 0); // jhlim
@@ -222,6 +241,14 @@ void MemberNgcEnbN2SapProvider<C>::PathSwitchRequest (PathSwitchRequestParameter
 {
   //m_owner->DoPathSwitchRequest (params, 0); // jhlim
   m_owner->DoPathSwitchRequest (params); // jhlim
+}
+
+
+template <class C>
+void MemberNgcEnbN2SapProvider<C>::N2Message (uint64_t imsi, uint16_t rnti, int dummy)
+{
+  cout<<"DoInitialUeMessage for Amf is called" << endl;
+  m_owner->DoN2Message (imsi, rnti, 0);
 }
 
 /*

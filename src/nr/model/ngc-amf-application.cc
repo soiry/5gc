@@ -255,6 +255,33 @@ NgcAmfApplication::DoNsmfPDUSessionReleaseSMContext()
 }
 
 void 
+NgcAmfApplication::DoN2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t gci)
+{
+  NS_LOG_FUNCTION (this << amfUeN2Id << enbUeN2Id << imsi << gci);
+  std::map<uint64_t, Ptr<UeInfo> >::iterator it = m_ueInfoMap.find (imsi);
+  NS_ASSERT_MSG (it != m_ueInfoMap.end (), "could not find any UE with IMSI " << imsi);
+  it->second->cellId = gci;
+  NgcN11SapSmf::UpdateSMContextRequestMessage msg;
+  msg.imsi = imsi;
+  msg.uli.gci = gci;
+  //std::cout << "sjkang1021---------->" <<std::endl;
+
+  for (std::list<FlowInfo>::iterator bit = it->second->flowsToBeActivated.begin ();
+       bit != it->second->flowsToBeActivated.end ();
+       ++bit)
+    {
+      NgcN11SapSmf::N2SMInformationToBeCreated n2SMInformation;
+      n2SMInformation.qosFlowId =  bit->flowId;
+      NS_LOG_INFO("Amf: sending as bearerId " << (uint32_t) bit->flowId);
+      n2SMInformation.flowLevelQos = bit->flow; 
+      n2SMInformation.tft = bit->tft;
+      //std::cout << "sjkang1021---------->" <<std::endl;
+      msg.n2SMInformationToBeCreated.push_back (n2SMInformation);
+    }
+  m_n11SapSmf->UpdateSMContextRequest (msg);
+}
+
+void 
 NgcAmfApplication::DoInitialContextSetupResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSapAmf::ErabSetupItem> erabSetupList)
 {
   NS_LOG_FUNCTION (this << amfUeN2Id << enbUeN2Id);
@@ -308,6 +335,36 @@ NgcAmfApplication::DoCreateSessionResponse (NgcN11SapAmf::CreateSessionResponseM
   std::map<uint16_t, Ptr<EnbInfo> >::iterator jt = m_enbInfoMap.find (cellId);
   NS_ASSERT_MSG (jt != m_enbInfoMap.end (), "could not find any eNB with CellId " << cellId);
   m_n2apSapAmfProvider->SendInitialContextSetupRequest (amfUeN2Id, enbUeN2Id, erabToBeSetupList, cellId);
+}
+
+//smsohn (DoUpdateSMContextResponse -> SendN2Request)
+void 
+NgcAmfApplication::DoUpdateSMContextResponse (NgcN11SapAmf::UpdateSMContextResponseMessage msg)
+{
+  NS_LOG_FUNCTION (this << msg.teid);
+  uint64_t imsi = msg.teid;
+  std::list<NgcN2apSapEnb::ErabToBeSetupItem> erabToBeSetupList;
+  for (std::list<NgcN11SapAmf::N2SMInformationCreated>::iterator bit = msg.n2SMInformationCreated.begin ();
+       bit != msg.n2SMInformationCreated.end ();
+       ++bit)
+    {
+      NgcN2apSapEnb::ErabToBeSetupItem erab;
+      erab.erabId = bit->qosFlowId;
+      erab.erabLevelQosParameters = bit->flowLevelQos;
+      erab.transportLayerAddress = bit->smfFteid.address;
+      erab.smfTeid = bit->smfFteid.teid;      
+      erabToBeSetupList.push_back (erab);
+    }
+  std::map<uint64_t, Ptr<UeInfo> >::iterator it = m_ueInfoMap.find (imsi);
+  NS_ASSERT_MSG (it != m_ueInfoMap.end (), "could not find any UE with IMSI " << imsi);
+  uint16_t cellId = it->second->cellId;
+  uint16_t enbUeN2Id = it->second->enbUeN2Id;
+  uint64_t amfUeN2Id = it->second->amfUeN2Id;
+  std::map<uint16_t, Ptr<EnbInfo> >::iterator jt = m_enbInfoMap.find (cellId);
+  NS_ASSERT_MSG (jt != m_enbInfoMap.end (), "could not find any eNB with CellId " << cellId);
+
+  uint16_t cause = 0; //smsohn
+  m_n2apSapAmfProvider->SendN2Request (amfUeN2Id, enbUeN2Id, erabToBeSetupList, cellId, cause);
 }
 
 
