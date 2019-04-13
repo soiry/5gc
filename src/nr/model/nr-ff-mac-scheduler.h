@@ -30,7 +30,7 @@ namespace ns3 {
 
 
 class NrFfMacCschedSapUser;
-class FfMacSchedSapUser;
+class NrFfMacSchedSapUser;
 class NrFfMacCschedSapProvider;
 class NrFfMacSchedSapProvider;
 class NrFfrSapProvider;
@@ -94,7 +94,7 @@ public:
    *
    * \param s
    */
-  virtual void SetFfMacSchedSapUser (FfMacSchedSapUser* s) = 0;
+  virtual void SetNrFfMacSchedSapUser (NrFfMacSchedSapUser* s) = 0;
 
   /**
    *

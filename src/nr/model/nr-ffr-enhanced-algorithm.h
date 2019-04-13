@@ -142,7 +142,7 @@ private:
   /*
   * Map of UE's DL CQI A30 received
   */
-  std::map <uint16_t,SbMeasResult_s> m_dlCqi;
+  std::map <uint16_t,NrSbMeasResult_s> m_dlCqi;
   std::map <uint16_t, std::vector<bool> > m_dlRbgAvailableforUe;
 
   uint8_t m_ulCqiThreshold;

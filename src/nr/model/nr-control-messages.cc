@@ -69,14 +69,14 @@ DlDciNrControlMessage::~DlDciNrControlMessage (void)
 }
 
 void
-DlDciNrControlMessage::SetDci (DlDciListElement_s dci)
+DlDciNrControlMessage::SetDci (NrDlDciListElement_s dci)
 {
   m_dci = dci;
 
 }
 
 
-DlDciListElement_s
+NrDlDciListElement_s
 DlDciNrControlMessage::GetDci (void)
 {
   return m_dci;
@@ -98,14 +98,14 @@ UlDciNrControlMessage::~UlDciNrControlMessage (void)
 }
 
 void
-UlDciNrControlMessage::SetDci (UlDciListElement_s dci)
+UlDciNrControlMessage::SetDci (NrUlDciListElement_s dci)
 {
   m_dci = dci;
 
 }
 
 
-UlDciListElement_s
+NrUlDciListElement_s
 UlDciNrControlMessage::GetDci (void)
 {
   return m_dci;
@@ -127,14 +127,14 @@ DlCqiNrControlMessage::~DlCqiNrControlMessage (void)
 }
 
 void
-DlCqiNrControlMessage::SetDlCqi (CqiListElement_s dlcqi)
+DlCqiNrControlMessage::SetDlCqi (NrCqiListElement_s dlcqi)
 {
   m_dlCqi = dlcqi;
 
 }
 
 
-CqiListElement_s
+NrCqiListElement_s
 DlCqiNrControlMessage::GetDlCqi (void)
 {
   return m_dlCqi;
@@ -157,14 +157,14 @@ BsrNrControlMessage::~BsrNrControlMessage (void)
 }
 
 void
-BsrNrControlMessage::SetBsr (MacCeListElement_s bsr)
+BsrNrControlMessage::SetBsr (NrMacCeListElement_s bsr)
 {
   m_bsr = bsr;
 
 }
 
 
-MacCeListElement_s
+NrMacCeListElement_s
 BsrNrControlMessage::GetBsr (void)
 {
   return m_bsr;
@@ -296,13 +296,13 @@ DlHarqFeedbackNrControlMessage::~DlHarqFeedbackNrControlMessage (void)
 }
 
 void
-DlHarqFeedbackNrControlMessage::SetDlHarqFeedback (DlInfoListElement_s m)
+DlHarqFeedbackNrControlMessage::SetDlHarqFeedback (NrDlInfoListElement_s m)
 {
   m_dlInfoListElement = m;
 }
 
 
-DlInfoListElement_s
+NrDlInfoListElement_s
 DlHarqFeedbackNrControlMessage::GetDlHarqFeedback (void)
 {
   return m_dlInfoListElement;

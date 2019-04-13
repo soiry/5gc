@@ -637,6 +637,8 @@ NgcN2apAmf::RecvFromN2apSocket (Ptr<Socket> socket)
   }
   else
   {
+
+	
     NS_ASSERT_MSG (false, "ProcedureCode NOT SUPPORTED!!!");
   }
 }

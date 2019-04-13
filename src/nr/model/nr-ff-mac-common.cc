@@ -23,7 +23,7 @@
 namespace ns3 {
   
 
-VendorSpecificValue::~VendorSpecificValue ()
+NrVendorSpecificValue::~NrVendorSpecificValue ()
 {
   
 }

@@ -76,17 +76,17 @@ public:
     } m_phichResource;
 
 
-    enum NormalExtended_e m_phichDuration;
+    enum NrNormalExtended_e m_phichDuration;
 
     uint8_t m_initialNrOfPdcchOfdmSymbols;
 
-    struct SiConfiguration_s m_siConfiguration;
+    struct NrSiConfiguration_s m_siConfiguration;
 
     uint8_t m_ulBandwidth;
     uint8_t m_dlBandwidth;
 
-    enum NormalExtended_e m_ulCyclicPrefixLength;
-    enum NormalExtended_e m_dlCyclicPrefixLength;
+    enum NrNormalExtended_e m_ulCyclicPrefixLength;
+    enum NrNormalExtended_e m_dlCyclicPrefixLength;
 
     uint8_t m_antennaPortsCount;
 
@@ -121,7 +121,7 @@ public:
       MOD_64QAM
     } m_enable64Qam;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   /**
@@ -133,7 +133,7 @@ public:
     uint16_t  m_rnti;
     bool      m_reconfigureFlag;
     bool      m_drxConfigPresent;
-    struct DrxConfig_s m_drxConfig;
+    struct NrDrxConfig_s m_drxConfig;
     uint16_t  m_timeAlignmentTimer;
 
     enum MeasGapConfigPattern_e
@@ -145,15 +145,15 @@ public:
 
     uint8_t   m_measGapConfigSubframeOffset;
     bool      m_spsConfigPresent;
-    struct SpsConfig_s m_spsConfig;
+    struct NrSpsConfig_s m_spsConfig;
     bool      m_srConfigPresent;
-    struct SrConfig_s m_srConfig;
+    struct NrSrConfig_s m_srConfig;
     bool      m_cqiConfigPresent;
-    struct CqiConfig_s m_cqiConfig;
+    struct NrCqiConfig_s m_cqiConfig;
     uint8_t   m_transmissionMode;
     uint64_t  m_ueAggregatedMaximumBitrateUl;
     uint64_t  m_ueAggregatedMaximumBitrateDl;
-    struct UeCapabilities_s m_ueCapabilities;
+    struct NrUeCapabilities_s m_ueCapabilities;
 
     enum OpenClosedLoop_e
     {
@@ -183,7 +183,7 @@ public:
 
     uint8_t   m_ackNackRepetitionFactor;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   /**
@@ -195,9 +195,9 @@ public:
     uint16_t  m_rnti;
     bool      m_reconfigureFlag;
 
-    std::vector <struct LogicalChannelConfigListElement_s> m_logicalChannelConfigList;
+    std::vector <struct NrLogicalChannelConfigListElement_s> m_logicalChannelConfigList;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   /**
@@ -210,7 +210,7 @@ public:
 
     std::vector <uint8_t> m_logicalChannelIdentity;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   /**
@@ -221,7 +221,7 @@ public:
   {
     uint16_t  m_rnti;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   //
@@ -261,9 +261,9 @@ public:
    */
   struct CschedCellConfigCnfParameters
   {
-    enum Result_e m_result;
+    enum NrResult_e m_result;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   /**
@@ -273,9 +273,9 @@ public:
   struct CschedUeConfigCnfParameters
   {
     uint16_t  m_rnti;
-    enum Result_e m_result;
+    enum NrResult_e m_result;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   /**
@@ -285,11 +285,11 @@ public:
   struct CschedLcConfigCnfParameters
   {
     uint16_t  m_rnti;
-    enum Result_e m_result;
+    enum NrResult_e m_result;
 
     std::vector <uint8_t> m_logicalChannelIdentity;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   /**
@@ -299,11 +299,11 @@ public:
   struct CschedLcReleaseCnfParameters
   {
     uint16_t  m_rnti;
-    enum Result_e m_result;
+    enum NrResult_e m_result;
 
     std::vector <uint8_t> m_logicalChannelIdentity;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   /**
@@ -313,9 +313,9 @@ public:
   struct CschedUeReleaseCnfParameters
   {
     uint16_t  m_rnti;
-    enum Result_e m_result;
+    enum NrResult_e m_result;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   /**
@@ -327,13 +327,13 @@ public:
     uint16_t  m_rnti;
     uint8_t   m_transmissionMode;
     bool      m_spsConfigPresent;
-    struct SpsConfig_s m_spsConfig;
+    struct NrSpsConfig_s m_spsConfig;
     bool      m_srConfigPresent;
-    struct SrConfig_s m_srConfig;
+    struct NrSrConfig_s m_srConfig;
     bool      m_cqiConfigPresent;
-    struct CqiConfig_s m_cqiConfig;
+    struct NrCqiConfig_s m_cqiConfig;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   /**
@@ -345,7 +345,7 @@ public:
     uint8_t   m_prbUtilizationDl;
     uint8_t   m_prbUtilizationUl;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   //

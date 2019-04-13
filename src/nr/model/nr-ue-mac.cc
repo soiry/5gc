@@ -329,9 +329,9 @@ NrUeMac::SendReportBufferStatus (void)
       NS_LOG_INFO ("No BSR report to transmit");
       return; 
     }
-  MacCeListElement_s bsr;
+  NrMacCeListElement_s bsr;
   bsr.m_rnti = m_rnti;
-  bsr.m_macCeType = MacCeListElement_s::BSR;
+  bsr.m_macCeType = NrMacCeListElement_s::BSR;
 
   // BSR is reported for each LCG
   std::map <uint8_t, NrMacSapProvider::ReportBufferStatusParameters>::iterator it;  
@@ -407,7 +407,7 @@ NrUeMac::StartWaitingForRaResponse ()
 }
 
 void 
-NrUeMac::RecvRaResponse (BuildRarListElement_s raResponse)
+NrUeMac::RecvRaResponse (NrBuildRarListElement_s raResponse)
 {
   NS_LOG_FUNCTION (this);
   m_waitingForRaResponse = false;
@@ -571,7 +571,7 @@ NrUeMac::DoReceiveNrControlMessage (Ptr<NrControlMessage> msg)
   if (msg->GetMessageType () == NrControlMessage::UL_DCI)
     {
       Ptr<UlDciNrControlMessage> msg2 = DynamicCast<UlDciNrControlMessage> (msg);
-      UlDciListElement_s dci = msg2->GetDci ();
+      NrUlDciListElement_s dci = msg2->GetDci ();
       if (dci.m_ndi == 1)
         {
           // New transmission -> emtpy pkt buffer queue (for deleting eventual pkts not acked )

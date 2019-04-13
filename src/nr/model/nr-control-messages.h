@@ -99,16 +99,16 @@ public:
   * \brief add a DCI into the message
   * \param dci the dci
   */
-  void SetDci (DlDciListElement_s dci);
+  void SetDci (NrDlDciListElement_s dci);
 
   /**
   * \brief Get dic informations
   * \return dci messages
   */
-  DlDciListElement_s GetDci (void);
+  NrDlDciListElement_s GetDci (void);
 
 private:
-  DlDciListElement_s m_dci;
+  NrDlDciListElement_s m_dci;
 };
 
 
@@ -129,16 +129,16 @@ public:
   * \brief add a DCI into the message
   * \param dci the dci
   */
-  void SetDci (UlDciListElement_s dci);
+  void SetDci (NrUlDciListElement_s dci);
 
   /**
   * \brief Get dic informations
   * \return dci messages
   */
-  UlDciListElement_s GetDci (void);
+  NrUlDciListElement_s GetDci (void);
 
 private:
-  UlDciListElement_s m_dci;
+  NrUlDciListElement_s m_dci;
 };
 
 
@@ -159,16 +159,16 @@ public:
   * \brief add a DL-CQI feedback record into the message.
   * \param dlcqi the DL cqi feedback
   */
-  void SetDlCqi (CqiListElement_s dlcqi);
+  void SetDlCqi (NrCqiListElement_s dlcqi);
 
   /**
   * \brief Get DL cqi informations
   * \return dlcqi messages
   */
-  CqiListElement_s GetDlCqi (void);
+  NrCqiListElement_s GetDlCqi (void);
 
 private:
-  CqiListElement_s m_dlCqi;
+  NrCqiListElement_s m_dlCqi;
 };
 
 
@@ -189,16 +189,16 @@ public:
   * \brief add a BSR feedback record into the message.
   * \param bsr the BSR feedback
   */
-  void SetBsr (MacCeListElement_s bsr);
+  void SetBsr (NrMacCeListElement_s bsr);
 
   /**
   * \brief Get BSR informations
   * \return BSR message
   */
-  MacCeListElement_s GetBsr (void);
+  NrMacCeListElement_s GetBsr (void);
 
 private:
-  MacCeListElement_s m_bsr;
+  NrMacCeListElement_s m_bsr;
 
 };
 
@@ -220,16 +220,16 @@ public:
   * \brief add a DL HARQ feedback record into the message.
   * \param m the DL HARQ feedback
   */
-  void SetDlHarqFeedback (DlInfoListElement_s m);
+  void SetDlHarqFeedback (NrDlInfoListElement_s m);
 
   /**
   * \brief Get DL HARQ informations
   * \return DL HARQ message
   */
-  DlInfoListElement_s GetDlHarqFeedback (void);
+  NrDlInfoListElement_s GetDlHarqFeedback (void);
 
 private:
-  DlInfoListElement_s m_dlInfoListElement;
+  NrDlInfoListElement_s m_dlInfoListElement;
 
 };
 
@@ -296,7 +296,7 @@ public:
   struct Rar
   {
     uint8_t rapId;
-    BuildRarListElement_s rarPayload;
+    NrBuildRarListElement_s rarPayload;
   };
 
   /** 

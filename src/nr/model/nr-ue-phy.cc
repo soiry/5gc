@@ -712,7 +712,7 @@ NrUePhy::CreateDlCqiFeedbackMessage (const SpectrumValue& sinr)
 
   // CREATE DlCqiNrControlMessage
   Ptr<DlCqiNrControlMessage> msg = Create<DlCqiNrControlMessage> ();
-  CqiListElement_s dlcqi;
+  NrCqiListElement_s dlcqi;
   std::vector<int> cqi;
   if (Simulator::Now () > m_p10CqiLast + m_p10CqiPeriocity)
     {
@@ -734,7 +734,7 @@ NrUePhy::CreateDlCqiFeedbackMessage (const SpectrumValue& sinr)
         }
       dlcqi.m_rnti = m_rnti;
       dlcqi.m_ri = 1; // not yet used
-      dlcqi.m_cqiType = CqiListElement_s::P10; // Peridic CQI using PUCCH wideband
+      dlcqi.m_cqiType = NrCqiListElement_s::P10; // Peridic CQI using PUCCH wideband
       NS_ASSERT_MSG (nLayer > 0, " nLayer negative");
       NS_ASSERT_MSG (nLayer < 3, " nLayer limit is 2s");
       for (int i = 0; i < nLayer; i++)
@@ -761,7 +761,7 @@ NrUePhy::CreateDlCqiFeedbackMessage (const SpectrumValue& sinr)
       int rbgSize = GetRbgSize ();
       double cqiSum = 0.0;
       int cqiNum = 0;
-      SbMeasResult_s rbgMeas;
+      NrSbMeasResult_s rbgMeas;
       //NS_LOG_DEBUG (this << " Create A30 CQI feedback, RBG " << rbgSize << " cqiNum " << nbSubChannels << " band "  << (uint16_t)m_dlBandwidth);
       for (int i = 0; i < nbSubChannels; i++)
         {
@@ -775,7 +775,7 @@ NrUePhy::CreateDlCqiFeedbackMessage (const SpectrumValue& sinr)
             {
               // average the CQIs of the different RBGs
               //NS_LOG_DEBUG (this << " RBG CQI "  << (uint16_t) cqiSum / rbgSize);
-              HigherLayerSelected_s hlCqi;
+              NrHigherLayerSelected_s hlCqi;
               hlCqi.m_sbPmi = 0; // not yet used
               for (int i = 0; i < nLayer; i++)
                 {
@@ -788,7 +788,7 @@ NrUePhy::CreateDlCqiFeedbackMessage (const SpectrumValue& sinr)
         }
       dlcqi.m_rnti = m_rnti;
       dlcqi.m_ri = 1; // not yet used
-      dlcqi.m_cqiType = CqiListElement_s::A30; // Aperidic CQI using PUSCH
+      dlcqi.m_cqiType = NrCqiListElement_s::A30; // Aperidic CQI using PUSCH
       //dlcqi.m_wbCqi.push_back ((uint16_t) cqiSum / nbSubChannels);
       dlcqi.m_wbPmi = 0; // not yet used
       dlcqi.m_sbMeasResult = rbgMeas;
@@ -876,7 +876,7 @@ NrUePhy::ReceiveNrControlMessageList (std::list<Ptr<NrControlMessage> > msgList)
         {
           Ptr<DlDciNrControlMessage> msg2 = DynamicCast<DlDciNrControlMessage> (msg);
 
-          DlDciListElement_s dci = msg2->GetDci ();
+          NrDlDciListElement_s dci = msg2->GetDci ();
           if (dci.m_rnti != m_rnti)
             {
               // DCI not for me
@@ -925,7 +925,7 @@ NrUePhy::ReceiveNrControlMessageList (std::list<Ptr<NrControlMessage> > msgList)
         {
           // set the uplink bandwidth according to the UL-CQI
           Ptr<UlDciNrControlMessage> msg2 = DynamicCast<UlDciNrControlMessage> (msg);
-          UlDciListElement_s dci = msg2->GetDci ();
+          NrUlDciListElement_s dci = msg2->GetDci ();
           if (dci.m_rnti != m_rnti)
             {
               // DCI not for me
@@ -1428,7 +1428,7 @@ NrUePhy::SetTxModeGain (uint8_t txMode, double gain)
 
 
 void
-NrUePhy::ReceiveNrDlHarqFeedback (DlInfoListElement_s m)
+NrUePhy::ReceiveNrDlHarqFeedback (NrDlInfoListElement_s m)
 {
   NS_LOG_FUNCTION (this);
   // generate feedback to eNB and send it through ideal PUCCH

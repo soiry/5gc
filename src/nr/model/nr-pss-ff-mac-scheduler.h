@@ -45,11 +45,11 @@ namespace ns3 {
 
 typedef std::vector < uint8_t > DlHarqProcessesStatus_t;
 typedef std::vector < uint8_t > DlHarqProcessesTimer_t;
-typedef std::vector < DlDciListElement_s > DlHarqProcessesDciBuffer_t;
-typedef std::vector < std::vector <struct RlcPduListElement_s> > RlcPduList_t; // vector of the LCs and layers per UE
+typedef std::vector < NrDlDciListElement_s > DlHarqProcessesDciBuffer_t;
+typedef std::vector < std::vector <struct NrRlcPduListElement_s> > RlcPduList_t; // vector of the LCs and layers per UE
 typedef std::vector < RlcPduList_t > DlHarqRlcPduListBuffer_t; // vector of the 8 HARQ processes per UE
 
-typedef std::vector < UlDciListElement_s > UlHarqProcessesDciBuffer_t;
+typedef std::vector < NrUlDciListElement_s > UlHarqProcessesDciBuffer_t;
 typedef std::vector < uint8_t > UlHarqProcessesStatus_t;
 
 
@@ -98,7 +98,7 @@ public:
 
   // inherited from NrFfMacScheduler
   virtual void SetNrFfMacCschedSapUser (NrFfMacCschedSapUser* s);
-  virtual void SetFfMacSchedSapUser (FfMacSchedSapUser* s);
+  virtual void SetNrFfMacSchedSapUser (NrFfMacSchedSapUser* s);
   virtual NrFfMacCschedSapProvider* GetNrFfMacCschedSapProvider ();
   virtual NrFfMacSchedSapProvider* GetNrFfMacSchedSapProvider ();
 
@@ -220,7 +220,7 @@ private:
   /*
   * Map of UE's DL CQI A30 received
   */
-  std::map <uint16_t,SbMeasResult_s> m_a30CqiRxed;
+  std::map <uint16_t,NrSbMeasResult_s> m_a30CqiRxed;
   /*
   * Map of UE's timers on DL CQI A30 received
   */
@@ -248,7 +248,7 @@ private:
 
   // MAC SAPs
   NrFfMacCschedSapUser* m_cschedSapUser;
-  FfMacSchedSapUser* m_schedSapUser;
+  NrFfMacSchedSapUser* m_schedSapUser;
   NrFfMacCschedSapProvider* m_cschedSapProvider;
   NrFfMacSchedSapProvider* m_schedSapProvider;
 
@@ -285,7 +285,7 @@ private:
   std::map <uint16_t, DlHarqProcessesTimer_t> m_dlHarqProcessesTimer;
   std::map <uint16_t, DlHarqProcessesDciBuffer_t> m_dlHarqProcessesDciBuffer;
   std::map <uint16_t, DlHarqRlcPduListBuffer_t> m_dlHarqProcessesRlcPduListBuffer;
-  std::vector <DlInfoListElement_s> m_dlInfoListBuffered; // HARQ retx buffered
+  std::vector <NrDlInfoListElement_s> m_dlInfoListBuffered; // HARQ retx buffered
 
   std::map <uint16_t, uint8_t> m_ulHarqCurrentProcessId;
   //HARQ status
@@ -296,7 +296,7 @@ private:
 
 
   // RACH attributes
-  std::vector <struct RachListElement_s> m_rachList;
+  std::vector <struct NrRachListElement_s> m_rachList;
   std::vector <uint16_t> m_rachAllocationMap;
   uint8_t m_ulGrantMcs; // MCS for UL grant (default 0)
 

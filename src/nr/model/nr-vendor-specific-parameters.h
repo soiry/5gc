@@ -32,7 +32,7 @@ namespace ns3 {
 /**
 * \brief Define the RNTI that has generated the 
 */
-class SrsCqiRntiVsp : public VendorSpecificValue
+class SrsCqiRntiVsp : public NrVendorSpecificValue
 {
   public:
   SrsCqiRntiVsp (uint16_t rnti);

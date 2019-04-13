@@ -223,7 +223,7 @@ public:
   /**
    * \brief PhySpectrum generated a new DL HARQ feedback
    */
-  virtual void ReceiveNrDlHarqFeedback (DlInfoListElement_s mes);
+  virtual void ReceiveNrDlHarqFeedback (NrDlInfoListElement_s mes);
 
   /**
    * \brief Set the HARQ PHY module

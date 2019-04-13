@@ -41,7 +41,7 @@ namespace ns3 {
  * The documentation of this class refers to sections of this Technical Document.
  *
  * You can found an example of the implementation of this interface
- * in the SampleNrFfMacSchedSapProvider and SampleFfMacSchedSapUser classes
+ * in the SampleNrFfMacSchedSapProvider and SampleNrFfMacSchedSapUser classes
  */
 class NrFfMacSchedSapProvider
 {
@@ -66,7 +66,7 @@ public:
     uint16_t  m_rlcRetransmissionHolDelay;
     uint16_t  m_rlcStatusPduSize;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   /**
@@ -76,9 +76,9 @@ public:
   struct SchedDlPagingBufferReqParameters
   {
     uint16_t  m_rnti;
-    std::vector <struct PagingInfoListElement_s> m_pagingInfoList;
+    std::vector <struct NrPagingInfoListElement_s> m_pagingInfoList;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   /**
@@ -88,9 +88,9 @@ public:
   struct SchedDlMacBufferReqParameters
   {
     uint16_t  m_rnti;
-    enum CeBitmap_e m_ceBitmap;
+    enum NrCeBitmap_e m_ceBitmap;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   /**
@@ -100,9 +100,9 @@ public:
   struct SchedDlTriggerReqParameters
   {
     uint16_t  m_sfnSf;
-    std::vector <struct DlInfoListElement_s> m_dlInfoList;
+    std::vector <struct NrDlInfoListElement_s> m_dlInfoList;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   /**
@@ -112,9 +112,9 @@ public:
   struct SchedDlRachInfoReqParameters
   {
     uint16_t  m_sfnSf;
-    std::vector <struct RachListElement_s> m_rachList;
+    std::vector <struct NrRachListElement_s> m_rachList;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   /**
@@ -124,9 +124,9 @@ public:
   struct SchedDlCqiInfoReqParameters
   {
     uint16_t  m_sfnSf;
-    std::vector <struct CqiListElement_s> m_cqiList;
+    std::vector <struct NrCqiListElement_s> m_cqiList;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   /**
@@ -136,9 +136,9 @@ public:
   struct SchedUlTriggerReqParameters
   {
     uint16_t  m_sfnSf;
-    std::vector <struct UlInfoListElement_s> m_ulInfoList;
+    std::vector <struct NrUlInfoListElement_s> m_ulInfoList;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   /**
@@ -151,7 +151,7 @@ public:
     uint16_t  m_rip;
     uint16_t  m_tnp;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   /**
@@ -161,9 +161,9 @@ public:
   struct SchedUlSrInfoReqParameters
   {
     uint16_t  m_sfnSf;
-    std::vector <struct SrListElement_s> m_srList;
+    std::vector <struct NrSrListElement_s> m_srList;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   /**
@@ -173,9 +173,9 @@ public:
   struct SchedUlMacCtrlInfoReqParameters
   {
     uint16_t  m_sfnSf;
-    std::vector <struct MacCeListElement_s> m_macCeList;
+    std::vector <struct NrMacCeListElement_s> m_macCeList;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   /**
@@ -185,9 +185,9 @@ public:
   struct SchedUlCqiInfoReqParameters
   {
     uint16_t  m_sfnSf;
-    struct UlCqi_s m_ulCqi;
+    struct NrUlCqi_s m_ulCqi;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   //
@@ -236,13 +236,13 @@ public:
    */
   struct SchedDlConfigIndParameters
   {
-    std::vector <struct BuildDataListElement_s>      m_buildDataList;
-    std::vector <struct BuildRarListElement_s>       m_buildRarList;
-    std::vector <struct BuildBroadcastListElement_s> m_buildBroadcastList;
+    std::vector <struct NrBuildDataListElement_s>      m_buildDataList;
+    std::vector <struct NrBuildRarListElement_s>       m_buildRarList;
+    std::vector <struct NrBuildBroadcastListElement_s> m_buildBroadcastList;
 
     uint8_t m_nrOfPdcchOfdmSymbols;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   /**
@@ -251,10 +251,10 @@ public:
    */
   struct SchedUlConfigIndParameters
   {
-    std::vector <struct UlDciListElement_s> m_dciList;
-    std::vector <struct PhichListElement_s> m_phichList;
+    std::vector <struct NrUlDciListElement_s> m_dciList;
+    std::vector <struct NrPhichListElement_s> m_phichList;
 
-    std::vector <struct VendorSpecificListElement_s> m_vendorSpecificList;
+    std::vector <struct NrVendorSpecificListElement_s> m_vendorSpecificList;
   };
 
   //

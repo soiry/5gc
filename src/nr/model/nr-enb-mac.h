@@ -51,7 +51,7 @@ class NrEnbMac :   public Object
 {
   friend class EnbMacMemberNrEnbCmacSapProvider;
   friend class EnbMacMemberNrMacSapProvider<NrEnbMac>;
-  friend class EnbMacMemberFfMacSchedSapUser;
+  friend class EnbMacMemberNrFfMacSchedSapUser;
   friend class EnbMacMemberNrFfMacCschedSapUser;
   friend class EnbMacMemberNrEnbPhySapUser;
 
@@ -72,7 +72,7 @@ public:
    * \brief Get the scheduler SAP user
    * \return a pointer to the SAP user of the scheduler
    */
-  FfMacSchedSapUser* GetFfMacSchedSapUser (void);
+  NrFfMacSchedSapUser* GetNrFfMacSchedSapUser (void);
   /**
    * \brief Set the control scheduler SAP provider
    * \param s a pointer to the control scheduler SAP provider
@@ -163,7 +163,7 @@ private:
   * \brief Receive a CE element containing the buffer status report
   * \param bsr the BSR message
   */
-  void ReceiveBsrMessage  (MacCeListElement_s bsr);
+  void ReceiveBsrMessage  (NrMacCeListElement_s bsr);
 
  
   void DoUlCqiReport (NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi);
@@ -195,9 +195,9 @@ private:
   void DoCschedUeConfigUpdateInd (NrFfMacCschedSapUser::CschedUeConfigUpdateIndParameters params);
   void DoCschedCellConfigUpdateInd (NrFfMacCschedSapUser::CschedCellConfigUpdateIndParameters params);
 
-  // forwarded from FfMacSchedSapUser
-  void DoSchedDlConfigInd (FfMacSchedSapUser::SchedDlConfigIndParameters ind);
-  void DoSchedUlConfigInd (FfMacSchedSapUser::SchedUlConfigIndParameters params);
+  // forwarded from NrFfMacSchedSapUser
+  void DoSchedDlConfigInd (NrFfMacSchedSapUser::SchedDlConfigIndParameters ind);
+  void DoSchedUlConfigInd (NrFfMacSchedSapUser::SchedUlConfigIndParameters params);
 
   // forwarded from NrEnbPhySapUser
   void DoSubframeIndication (uint32_t frameNo, uint32_t subframeNo);
@@ -208,25 +208,25 @@ public:
   void DoReceivePhyPdu (Ptr<Packet> p);
 
 private:
-  void DoUlInfoListElementHarqFeeback (UlInfoListElement_s params);
-  void DoDlInfoListElementHarqFeeback (DlInfoListElement_s params);
+  void DoUlInfoListElementHarqFeeback (NrUlInfoListElement_s params);
+  void DoDlInfoListElementHarqFeeback (NrDlInfoListElement_s params);
 
   //            rnti,             lcid, SAP of the RLC instance
   std::map <uint16_t, std::map<uint8_t, NrMacSapUser*> > m_rlcAttached;
 
-  std::vector <CqiListElement_s> m_dlCqiReceived; // DL-CQI received
+  std::vector <NrCqiListElement_s> m_dlCqiReceived; // DL-CQI received
   std::vector <NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters> m_ulCqiReceived; // UL-CQI received
-  std::vector <MacCeListElement_s> m_ulCeReceived; // CE received (BSR up to now)
+  std::vector <NrMacCeListElement_s> m_ulCeReceived; // CE received (BSR up to now)
 
-  std::vector <DlInfoListElement_s> m_dlInfoListReceived; // DL HARQ feedback received
+  std::vector <NrDlInfoListElement_s> m_dlInfoListReceived; // DL HARQ feedback received
 
-  std::vector <UlInfoListElement_s> m_ulInfoListReceived; // UL HARQ feedback received
+  std::vector <NrUlInfoListElement_s> m_ulInfoListReceived; // UL HARQ feedback received
 
 
   /*
   * Map of UE's info element (see 4.3.12 of FF MAC Scheduler API)
   */
-//   std::map <uint16_t,UlInfoListElement_s> m_ulInfoListElements; 
+//   std::map <uint16_t,NrUlInfoListElement_s> m_ulInfoListElements; 
 
 
 
@@ -238,7 +238,7 @@ private:
 
   NrFfMacSchedSapProvider* m_schedSapProvider;
   NrFfMacCschedSapProvider* m_cschedSapProvider;
-  FfMacSchedSapUser* m_schedSapUser;
+  NrFfMacSchedSapUser* m_schedSapUser;
   NrFfMacCschedSapUser* m_cschedSapUser;
 
   // PHY-SAP

@@ -56,36 +56,36 @@
 
 namespace ns3 {
 
-enum Result_e
+enum NrResult_e
 {
-  SUCCESS,
-  FAILURE
+  nr_SUCCESS,
+  nr_FAILURE
 };
 
-enum SetupRelease_e
+enum NrSetupRelease_e
 {
-  setup,
-  release
+  nr_setup,
+  nr_release
 };
 
-enum CeBitmap_e
+enum NrCeBitmap_e
 {
-  TA,
-  DRX,
-  CR
+  nr_TA,
+  nr_DRX,
+  nr_CR
 };
 
-enum NormalExtended_e
+enum NrNormalExtended_e
 {
-  normal,
-  extended
+  nr_normal,
+  nr_extended
 };
 
 
 /**
  * \brief See section 4.3.1 dlDciListElement
  */
-struct DlDciListElement_s
+struct NrDlDciListElement_s
 {
   uint16_t  m_rnti;
   uint32_t  m_rbBitmap;
@@ -127,7 +127,7 @@ struct DlDciListElement_s
 /**
  * \brief See section 4.3.2 ulDciListElement
  */
-struct UlDciListElement_s
+struct NrUlDciListElement_s
 {
   uint16_t  m_rnti;
   uint8_t   m_rbStart;
@@ -151,26 +151,26 @@ struct UlDciListElement_s
 /**
 * \brief Base class for storing the values of vendor specific parameters
 */
-struct VendorSpecificValue : public SimpleRefCount<VendorSpecificValue>
+struct NrVendorSpecificValue : public SimpleRefCount<NrVendorSpecificValue>
 { 
-  virtual ~VendorSpecificValue ();
+  virtual ~NrVendorSpecificValue ();
 
 };
 
 /**
  * \brief See section 4.3.3 vendorSpecifiListElement
  */
-struct VendorSpecificListElement_s
+struct NrVendorSpecificListElement_s
 {
   uint32_t m_type;
   uint32_t m_length;
-  Ptr<VendorSpecificValue> m_value;
+  Ptr<NrVendorSpecificValue> m_value;
 };
 
 /**
  * \brief See section 4.3.4 logicalChannelConfigListElement
  */
-struct LogicalChannelConfigListElement_s
+struct NrLogicalChannelConfigListElement_s
 {
   uint8_t   m_logicalChannelIdentity;
   uint8_t   m_logicalChannelGroup;
@@ -198,7 +198,7 @@ struct LogicalChannelConfigListElement_s
 /**
  * \brief See section 4.3.6 rachListElement
  */
-struct RachListElement_s
+struct NrRachListElement_s
 {
   uint16_t  m_rnti;
   uint16_t  m_estimatedSize;
@@ -207,7 +207,7 @@ struct RachListElement_s
 /**
  * \brief See section 4.3.7 phichListElement
  */
-struct PhichListElement_s
+struct NrPhichListElement_s
 {
   uint16_t  m_rnti;
   enum Phich_e
@@ -219,7 +219,7 @@ struct PhichListElement_s
 /**
  * \brief See section 4.3.9 rlcPDU_ListElement
  */
-struct RlcPduListElement_s
+struct NrRlcPduListElement_s
 {
   uint8_t   m_logicalChannelIdentity;
   uint16_t  m_size;
@@ -228,18 +228,18 @@ struct RlcPduListElement_s
 /**
  * \brief See section 4.3.8 builDataListElement
  */
-struct BuildDataListElement_s
+struct NrBuildDataListElement_s
 {
   uint16_t  m_rnti;
-  struct DlDciListElement_s m_dci;
-  std::vector <enum CeBitmap_e> m_ceBitmap;
-  std::vector < std::vector <struct RlcPduListElement_s> > m_rlcPduList;
+  struct NrDlDciListElement_s m_dci;
+  std::vector <enum NrCeBitmap_e> m_ceBitmap;
+  std::vector < std::vector <struct NrRlcPduListElement_s> > m_rlcPduList;
 };
 
 /**
- * \brief Substitutive structure for specifying BuildRarListElement_s::m_grant field
+ * \brief Substitutive structure for specifying NrBuildRarListElement_s::m_grant field
  */
-struct UlGrant_s
+struct NrUlGrant_s
 {
   uint16_t m_rnti;
   uint8_t m_rbStart;
@@ -255,31 +255,31 @@ struct UlGrant_s
 /**
  * \brief See section 4.3.10 buildRARListElement
  */
-struct BuildRarListElement_s
+struct NrBuildRarListElement_s
 {
   uint16_t  m_rnti;
-  //uint32_t  m_grant; // Substituted with type UlGrant_s
-  UlGrant_s m_grant;
-  struct DlDciListElement_s m_dci;
+  //uint32_t  m_grant; // Substituted with type NrUlGrant_s
+  NrUlGrant_s m_grant;
+  struct NrDlDciListElement_s m_dci;
 };
 
 /**
  * \brief See section 4.3.11 buildBroadcastListElement
  */
-struct BuildBroadcastListElement_s
+struct NrBuildBroadcastListElement_s
 {
   enum Type_e
   {
     BCCH, PCCH
   } m_type;
   uint8_t m_index;
-  struct DlDciListElement_s m_dci;
+  struct NrDlDciListElement_s m_dci;
 };
 
 /**
  * \brief See section 4.3.12 ulInfoListElement
  */
-struct UlInfoListElement_s
+struct NrUlInfoListElement_s
 {
   uint16_t  m_rnti;
   std::vector <uint16_t> m_ulReception;
@@ -293,7 +293,7 @@ struct UlInfoListElement_s
 /**
  * \brief See section 4.3.13 srListElement
  */
-struct SrListElement_s
+struct NrSrListElement_s
 {
   uint16_t  m_rnti;
 };
@@ -301,7 +301,7 @@ struct SrListElement_s
 /**
  * \brief See section 4.3.15 macCEValue
  */
-struct MacCeValue_u
+struct NrMacCeValue_u
 {
   uint8_t   m_phr;
   uint8_t   m_crnti;
@@ -311,20 +311,20 @@ struct MacCeValue_u
 /**
  * \brief See section 4.3.14 macCEListElement
  */
-struct MacCeListElement_s
+struct NrMacCeListElement_s
 {
   uint16_t  m_rnti;
   enum MacCeType_e
   {
     BSR, PHR, CRNTI
   } m_macCeType;
-  struct MacCeValue_u m_macCeValue;
+  struct NrMacCeValue_u m_macCeValue;
 };
 
 /**
  * \brief See section 4.3.16 drxConfig
  */
-struct DrxConfig_s
+struct NrDrxConfig_s
 {
   uint8_t   m_onDurationTimer;
   uint16_t  m_drxInactivityTimer;
@@ -338,7 +338,7 @@ struct DrxConfig_s
 /**
  * \brief See section 4.3.17 spsConfig
  */
-struct SpsConfig_s
+struct NrSpsConfig_s
 {
   uint16_t  m_semiPersistSchedIntervalUl;
   uint16_t  m_semiPersistSchedIntervalDl;
@@ -351,9 +351,9 @@ struct SpsConfig_s
 /**
  * \brief See section 4.3.18 srConfig
  */
-struct SrConfig_s
+struct NrSrConfig_s
 {
-  enum SetupRelease_e m_action;
+  enum NrSetupRelease_e m_action;
   uint8_t   m_schedInterval;
   uint8_t   m_dsrTransMax;
 };
@@ -361,9 +361,9 @@ struct SrConfig_s
 /**
  * \brief See section 4.3.19 cqiConfig
  */
-struct CqiConfig_s
+struct NrCqiConfig_s
 {
-  enum SetupRelease_e m_action;
+  enum NrSetupRelease_e m_action;
   uint16_t  m_cqiSchedInterval;
   uint8_t   m_riSchedInterval;
 };
@@ -371,7 +371,7 @@ struct CqiConfig_s
 /**
  * \brief See section 4.3.20 ueCapabilities
  */
-struct UeCapabilities_s
+struct NrUeCapabilities_s
 {
   bool      m_halfDuplex;
   bool      m_intraSfHopping;
@@ -383,7 +383,7 @@ struct UeCapabilities_s
 /**
  * \brief See section 4.3.22 siMessageListElement
  */
-struct SiMessageListElement_s
+struct NrSiMessageListElement_s
 {
   uint16_t  m_periodicity;
   uint16_t  m_length;
@@ -392,18 +392,18 @@ struct SiMessageListElement_s
 /**
  * \brief See section 4.3.21 siConfiguration
  */
-struct SiConfiguration_s
+struct NrSiConfiguration_s
 {
   uint16_t  m_sfn;
   uint16_t  m_sib1Length;
   uint8_t   m_siWindowLength;
-  std::vector <struct SiMessageListElement_s> m_siMessageList;
+  std::vector <struct NrSiMessageListElement_s> m_siMessageList;
 };
 
 /**
  * \brief See section 4.3.23 dlInfoListElement
  */
-struct DlInfoListElement_s
+struct NrDlInfoListElement_s
 {
   uint16_t  m_rnti;
   uint8_t   m_harqProcessId;
@@ -417,7 +417,7 @@ struct DlInfoListElement_s
 /**
  * \brief See section 4.3.28 bwPart
  */
-struct BwPart_s
+struct NrBwPart_s
 {
   uint8_t   m_bwPartIndex;
   uint8_t   m_sb;
@@ -427,7 +427,7 @@ struct BwPart_s
 /**
  * \brief See section 4.3.27 higherLayerSelected
  */
-struct HigherLayerSelected_s
+struct NrHigherLayerSelected_s
 {
   uint8_t   m_sbPmi;
   std::vector <uint8_t> m_sbCqi;
@@ -436,7 +436,7 @@ struct HigherLayerSelected_s
 /**
  * \brief See section 4.3.26 ueSelected
  */
-struct UeSelected_s
+struct NrUeSelected_s
 {
   std::vector <uint8_t> m_sbList;
   uint8_t   m_sbPmi;
@@ -446,17 +446,17 @@ struct UeSelected_s
 /**
  * \brief See section 4.3.25 sbMeasResult
  */
-struct SbMeasResult_s
+struct NrSbMeasResult_s
 {
-  struct UeSelected_s           m_ueSelected;
-  std::vector <struct HigherLayerSelected_s> m_higherLayerSelected;
-  struct BwPart_s               m_bwPart;
+  struct NrUeSelected_s           m_ueSelected;
+  std::vector <struct NrHigherLayerSelected_s> m_higherLayerSelected;
+  struct NrBwPart_s               m_bwPart;
 };
 
 /**
  * \brief See section 4.3.24 cqiListElement
  */
-struct CqiListElement_s
+struct NrCqiListElement_s
 {
   uint16_t  m_rnti;
   uint8_t   m_ri;
@@ -467,13 +467,13 @@ struct CqiListElement_s
   std::vector <uint8_t> m_wbCqi;
   uint8_t   m_wbPmi;
 
-  struct SbMeasResult_s m_sbMeasResult;
+  struct NrSbMeasResult_s m_sbMeasResult;
 };
 
 /**
  * \brief See section 4.3.29 ulCQI
  */
-struct UlCqi_s
+struct NrUlCqi_s
 {
   std::vector <uint16_t> m_sinr;
   enum Type_e
@@ -489,7 +489,7 @@ struct UlCqi_s
 /**
  * \brief See section 4.3.30 pagingInfoListElement
  */
-struct PagingInfoListElement_s
+struct NrPagingInfoListElement_s
 {
   uint8_t   m_pagingIndex;
   uint16_t  m_pagingMessageSize;

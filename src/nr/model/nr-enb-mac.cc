@@ -137,10 +137,10 @@ EnbMacMemberNrEnbCmacSapProvider::AllocateNcRaPreamble (uint16_t rnti)
 }
 
 
-class EnbMacMemberFfMacSchedSapUser : public FfMacSchedSapUser
+class EnbMacMemberNrFfMacSchedSapUser : public NrFfMacSchedSapUser
 {
 public:
-  EnbMacMemberFfMacSchedSapUser (NrEnbMac* mac);
+  EnbMacMemberNrFfMacSchedSapUser (NrEnbMac* mac);
 
 
   virtual void SchedDlConfigInd (const struct SchedDlConfigIndParameters& params);
@@ -150,14 +150,14 @@ private:
 };
 
 
-EnbMacMemberFfMacSchedSapUser::EnbMacMemberFfMacSchedSapUser (NrEnbMac* mac)
+EnbMacMemberNrFfMacSchedSapUser::EnbMacMemberNrFfMacSchedSapUser (NrEnbMac* mac)
   : m_mac (mac)
 {
 }
 
 
 void
-EnbMacMemberFfMacSchedSapUser::SchedDlConfigInd (const struct SchedDlConfigIndParameters& params)
+EnbMacMemberNrFfMacSchedSapUser::SchedDlConfigInd (const struct SchedDlConfigIndParameters& params)
 {
   m_mac->DoSchedDlConfigInd (params);
 }
@@ -165,7 +165,7 @@ EnbMacMemberFfMacSchedSapUser::SchedDlConfigInd (const struct SchedDlConfigIndPa
 
 
 void
-EnbMacMemberFfMacSchedSapUser::SchedUlConfigInd (const struct SchedUlConfigIndParameters& params)
+EnbMacMemberNrFfMacSchedSapUser::SchedUlConfigInd (const struct SchedUlConfigIndParameters& params)
 {
   m_mac->DoSchedUlConfigInd (params);
 }
@@ -253,8 +253,8 @@ public:
   virtual void ReceiveNrControlMessage (Ptr<NrControlMessage> msg);
   virtual void ReceiveRachPreamble (uint32_t prachId);
   virtual void UlCqiReport (NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi);
-  virtual void UlInfoListElementHarqFeeback (UlInfoListElement_s params);
-  virtual void DlInfoListElementHarqFeeback (DlInfoListElement_s params);
+  virtual void UlInfoListElementHarqFeeback (NrUlInfoListElement_s params);
+  virtual void DlInfoListElementHarqFeeback (NrDlInfoListElement_s params);
 
 private:
   NrEnbMac* m_mac;
@@ -296,13 +296,13 @@ EnbMacMemberNrEnbPhySapUser::UlCqiReport (NrFfMacSchedSapProvider::SchedUlCqiInf
 }
 
 void
-EnbMacMemberNrEnbPhySapUser::UlInfoListElementHarqFeeback (UlInfoListElement_s params)
+EnbMacMemberNrEnbPhySapUser::UlInfoListElementHarqFeeback (NrUlInfoListElement_s params)
 {
   m_mac->DoUlInfoListElementHarqFeeback (params);
 }
 
 void
-EnbMacMemberNrEnbPhySapUser::DlInfoListElementHarqFeeback (DlInfoListElement_s params)
+EnbMacMemberNrEnbPhySapUser::DlInfoListElementHarqFeeback (NrDlInfoListElement_s params)
 {
   m_mac->DoDlInfoListElementHarqFeeback (params);
 }
@@ -354,7 +354,7 @@ NrEnbMac::NrEnbMac ()
   NS_LOG_FUNCTION (this);
   m_macSapProvider = new EnbMacMemberNrMacSapProvider<NrEnbMac> (this);
   m_cmacSapProvider = new EnbMacMemberNrEnbCmacSapProvider (this);
-  m_schedSapUser = new EnbMacMemberFfMacSchedSapUser (this);
+  m_schedSapUser = new EnbMacMemberNrFfMacSchedSapUser (this);
   m_cschedSapUser = new EnbMacMemberNrFfMacCschedSapUser (this);
   m_enbPhySapUser = new EnbMacMemberNrEnbPhySapUser (this);
 }
@@ -389,8 +389,8 @@ NrEnbMac::SetNrFfMacSchedSapProvider (NrFfMacSchedSapProvider* s)
   m_schedSapProvider = s;
 }
 
-FfMacSchedSapUser*
-NrEnbMac::GetFfMacSchedSapUser (void)
+NrFfMacSchedSapUser*
+NrEnbMac::GetNrFfMacSchedSapUser (void)
 {
   return m_schedSapUser;
 }
@@ -507,7 +507,7 @@ NrEnbMac::DoSubframeIndication (uint32_t frameNo, uint32_t subframeNo)
                   NS_LOG_INFO ("preambleId " << (uint32_t) it->first << ": allocated T-C-RNTI " << (uint32_t) rnti << ", sending RAR");
                 }
 
-              RachListElement_s rachLe;
+              NrRachListElement_s rachLe;
               rachLe.m_rnti = rnti;
               rachLe.m_estimatedSize = 144; // to be confirmed
               rachInfoReqParams.m_rachList.push_back (rachLe);
@@ -637,11 +637,11 @@ NrEnbMac::DoReceiveRachPreamble  (uint8_t rapId)
 void
 NrEnbMac::DoUlCqiReport (NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi)
 { 
-  if (ulcqi.m_ulCqi.m_type == UlCqi_s::PUSCH)
+  if (ulcqi.m_ulCqi.m_type == NrUlCqi_s::PUSCH)
     {
       NS_LOG_DEBUG (this << " eNB rxed an PUSCH UL-CQI");
     }
-  else if (ulcqi.m_ulCqi.m_type == UlCqi_s::SRS)
+  else if (ulcqi.m_ulCqi.m_type == NrUlCqi_s::SRS)
     {
       NS_LOG_DEBUG (this << " eNB rxed an SRS UL-CQI");
     }
@@ -654,7 +654,7 @@ NrEnbMac::ReceiveDlCqiNrControlMessage  (Ptr<DlCqiNrControlMessage> msg)
 {
   NS_LOG_FUNCTION (this << msg);
 
-  CqiListElement_s dlcqi = msg->GetDlCqi ();
+  NrCqiListElement_s dlcqi = msg->GetDlCqi ();
   NS_LOG_LOGIC (this << "Enb Received DL-CQI rnti" << dlcqi.m_rnti);
   NS_ASSERT (dlcqi.m_rnti != 0);
   m_dlCqiReceived.push_back (dlcqi);
@@ -663,7 +663,7 @@ NrEnbMac::ReceiveDlCqiNrControlMessage  (Ptr<DlCqiNrControlMessage> msg)
 
 
 void
-NrEnbMac::ReceiveBsrMessage  (MacCeListElement_s bsr)
+NrEnbMac::ReceiveBsrMessage  (NrMacCeListElement_s bsr)
 {
   NS_LOG_FUNCTION (this);
 
@@ -680,22 +680,22 @@ NrEnbMac::DoReceivePhyPdu (Ptr<Packet> p)
 
   // store info of the packet received
 
-//   std::map <uint16_t,UlInfoListElement_s>::iterator it;
+//   std::map <uint16_t,NrUlInfoListElement_s>::iterator it;
 //   u_int rnti = tag.GetRnti ();
 //  u_int lcid = tag.GetLcid ();
 //   it = m_ulInfoListElements.find (tag.GetRnti ());
 //   if (it == m_ulInfoListElements.end ())
 //     {
 //       // new RNTI
-//       UlInfoListElement_s ulinfonew;
+//       NrUlInfoListElement_s ulinfonew;
 //       ulinfonew.m_rnti = tag.GetRnti ();
 //       // always allocate full size of ulReception vector, initializing all elements to 0
 //       ulinfonew.m_ulReception.assign (MAX_LC_LIST+1, 0);
 //       // set the element for the current LCID
 //       ulinfonew.m_ulReception.at (tag.GetLcid ()) = p->GetSize ();
-//       ulinfonew.m_receptionStatus = UlInfoListElement_s::Ok;
+//       ulinfonew.m_receptionStatus = NrUlInfoListElement_s::Ok;
 //       ulinfonew.m_tpc = 0; // Tx power control not implemented at this stage
-//       m_ulInfoListElements.insert (std::pair<uint16_t, UlInfoListElement_s > (tag.GetRnti (), ulinfonew));
+//       m_ulInfoListElements.insert (std::pair<uint16_t, NrUlInfoListElement_s > (tag.GetRnti (), ulinfonew));
 // 
 //     }
 //   else
@@ -705,7 +705,7 @@ NrEnbMac::DoReceivePhyPdu (Ptr<Packet> p)
 //       // allocated previously.
 //       NS_ASSERT_MSG ((*it).second.m_ulReception.at (tag.GetLcid ()) == 0, "would overwrite previously written ulReception element");
 //       (*it).second.m_ulReception.at (tag.GetLcid ()) = p->GetSize ();
-//       (*it).second.m_receptionStatus = UlInfoListElement_s::Ok;
+//       (*it).second.m_receptionStatus = NrUlInfoListElement_s::Ok;
 //     }
 
 
@@ -824,11 +824,11 @@ NrEnbMac::DoAddLc (NrEnbCmacSapProvider::LcInfo lcinfo, NrMacSapUser* msu)
       params.m_rnti = lcinfo.rnti;
       params.m_reconfigureFlag = false;
 
-      struct LogicalChannelConfigListElement_s lccle;
+      struct NrLogicalChannelConfigListElement_s lccle;
       lccle.m_logicalChannelIdentity = lcinfo.lcId;
       lccle.m_logicalChannelGroup = lcinfo.lcGroup;
-      lccle.m_direction = LogicalChannelConfigListElement_s::DIR_BOTH;
-      lccle.m_qosBearerType = lcinfo.isGbr ? LogicalChannelConfigListElement_s::QBT_GBR : LogicalChannelConfigListElement_s::QBT_NON_GBR;
+      lccle.m_direction = NrLogicalChannelConfigListElement_s::DIR_BOTH;
+      lccle.m_qosBearerType = lcinfo.isGbr ? NrLogicalChannelConfigListElement_s::QBT_GBR : NrLogicalChannelConfigListElement_s::QBT_NON_GBR;
       lccle.m_qci = lcinfo.qci;
       lccle.m_eRabMaximulBitrateUl = lcinfo.mbrUl;
       lccle.m_eRabMaximulBitrateDl = lcinfo.mbrDl;
@@ -969,7 +969,7 @@ NrEnbMac::DoReportBufferStatus (NrMacSapProvider::ReportBufferStatusParameters p
 
 
 void
-NrEnbMac::DoSchedDlConfigInd (FfMacSchedSapUser::SchedDlConfigIndParameters ind)
+NrEnbMac::DoSchedDlConfigInd (NrFfMacSchedSapUser::SchedDlConfigIndParameters ind)
 {
   NS_LOG_FUNCTION (this);
   // Create DL PHY PDU
@@ -1096,7 +1096,7 @@ NrEnbMac::DoSchedDlConfigInd (FfMacSchedSapUser::SchedDlConfigIndParameters ind)
 
 
 void
-NrEnbMac::DoSchedUlConfigInd (FfMacSchedSapUser::SchedUlConfigIndParameters ind)
+NrEnbMac::DoSchedUlConfigInd (NrFfMacSchedSapUser::SchedUlConfigIndParameters ind)
 {
   NS_LOG_FUNCTION (this);
 
@@ -1177,14 +1177,14 @@ NrEnbMac::DoCschedCellConfigUpdateInd (NrFfMacCschedSapUser::CschedCellConfigUpd
 }
 
 void
-NrEnbMac::DoUlInfoListElementHarqFeeback (UlInfoListElement_s params)
+NrEnbMac::DoUlInfoListElementHarqFeeback (NrUlInfoListElement_s params)
 {
   NS_LOG_FUNCTION (this);
   m_ulInfoListReceived.push_back (params);
 }
 
 void
-NrEnbMac::DoDlInfoListElementHarqFeeback (DlInfoListElement_s params)
+NrEnbMac::DoDlInfoListElementHarqFeeback (NrDlInfoListElement_s params)
 {
   NS_LOG_FUNCTION (this);
   // Update HARQ buffer
@@ -1192,14 +1192,14 @@ NrEnbMac::DoDlInfoListElementHarqFeeback (DlInfoListElement_s params)
   NS_ASSERT (it != m_miDlHarqProcessesPackets.end ());
   for (uint8_t layer = 0; layer < params.m_harqStatus.size (); layer++)
     {
-      if (params.m_harqStatus.at (layer) == DlInfoListElement_s::ACK)
+      if (params.m_harqStatus.at (layer) == NrDlInfoListElement_s::ACK)
         {
           // discard buffer
           Ptr<PacketBurst> emptyBuf = CreateObject <PacketBurst> ();
           (*it).second.at (layer).at (params.m_harqProcessId) = emptyBuf;
           NS_LOG_DEBUG (this << " HARQ-ACK UE " << params.m_rnti << " harqId " << (uint16_t)params.m_harqProcessId << " layer " << (uint16_t)layer);
         }
-      else if (params.m_harqStatus.at (layer) == DlInfoListElement_s::NACK)
+      else if (params.m_harqStatus.at (layer) == NrDlInfoListElement_s::NACK)
         {
           NS_LOG_DEBUG (this << " HARQ-NACK UE " << params.m_rnti << " harqId " << (uint16_t)params.m_harqProcessId << " layer " << (uint16_t)layer);
         }

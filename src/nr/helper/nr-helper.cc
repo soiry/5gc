@@ -492,11 +492,11 @@ NrHelper::InstallSingleEnbDevice (Ptr<Node> n)
   rrc->SetNrHandoverManagementSapProvider (handoverAlgorithm->GetNrHandoverManagementSapProvider ());
   handoverAlgorithm->SetNrHandoverManagementSapUser (rrc->GetNrHandoverManagementSapUser ());
 
-  mac->SetFfMacSchedSapProvider (sched->GetFfMacSchedSapProvider ());
-  mac->SetFfMacCschedSapProvider (sched->GetFfMacCschedSapProvider ());
+  mac->SetNrFfMacSchedSapProvider (sched->GetNrFfMacSchedSapProvider ());
+  mac->SetNrFfMacCschedSapProvider (sched->GetNrFfMacCschedSapProvider ());
 
-  sched->SetFfMacSchedSapUser (mac->GetFfMacSchedSapUser ());
-  sched->SetFfMacCschedSapUser (mac->GetFfMacCschedSapUser ());
+  sched->SetNrFfMacSchedSapUser (mac->GetNrFfMacSchedSapUser ());
+  sched->SetNrFfMacCschedSapUser (mac->GetNrFfMacCschedSapUser ());
 
   phy->SetNrEnbPhySapUser (mac->GetNrEnbPhySapUser ());
   mac->SetNrEnbPhySapProvider (phy->GetNrEnbPhySapProvider ());

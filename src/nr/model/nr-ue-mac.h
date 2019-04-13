@@ -108,7 +108,7 @@ private:
   void RandomlySelectAndSendRaPreamble ();
   void SendRaPreamble (bool contention);
   void StartWaitingForRaResponse ();
-  void RecvRaResponse (BuildRarListElement_s raResponse);
+  void RecvRaResponse (NrBuildRarListElement_s raResponse);
   void RaResponseTimeout (bool contention);
   void SendReportBufferStatus (void);
   void RefreshHarqProcessesPacketBuffer (void);

@@ -279,7 +279,7 @@ public:
   /**
   * \brief PhySpectrum generated a new UL HARQ feedback
   */
-  virtual void ReceiveNrUlHarqFeedback (UlInfoListElement_s mes);
+  virtual void ReceiveNrUlHarqFeedback (NrUlInfoListElement_s mes);
 
   void SetHarqPhyModule (Ptr<NrHarqPhy> harq);
 

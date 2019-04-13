@@ -115,7 +115,7 @@ public:
    *
    * \param params
    */
-  virtual void UlInfoListElementHarqFeeback (UlInfoListElement_s params) = 0;
+  virtual void UlInfoListElementHarqFeeback (NrUlInfoListElement_s params) = 0;
 
 
   /**
@@ -123,7 +123,7 @@ public:
    *
    * \param params
    */
-  virtual void DlInfoListElementHarqFeeback (DlInfoListElement_s params) = 0;
+  virtual void DlInfoListElementHarqFeeback (NrDlInfoListElement_s params) = 0;
 
 };
 

@@ -132,13 +132,13 @@ typedef Callback< void, uint16_t, Ptr<SpectrumValue> > NrPhyRxPssCallback;
 * This method is used by the NrSpectrumPhy to notify the PHY about
 * the status of a certain DL HARQ process
 */
-typedef Callback< void, DlInfoListElement_s > NrPhyDlHarqFeedbackCallback;
+typedef Callback< void, NrDlInfoListElement_s > NrPhyDlHarqFeedbackCallback;
 
 /**
 * This method is used by the NrSpectrumPhy to notify the PHY about
 * the status of a certain UL HARQ process
 */
-typedef Callback< void, UlInfoListElement_s > NrPhyUlHarqFeedbackCallback;
+typedef Callback< void, NrUlInfoListElement_s > NrPhyUlHarqFeedbackCallback;
 
 
 

@@ -540,7 +540,7 @@ NrEnbPhy::ReceiveNrControlMessageList (std::list<Ptr<NrControlMessage> > msgList
         case NrControlMessage::DL_CQI:
           {
             Ptr<DlCqiNrControlMessage> dlcqiMsg = DynamicCast<DlCqiNrControlMessage> (*it);
-            CqiListElement_s dlcqi = dlcqiMsg->GetDlCqi ();
+            NrCqiListElement_s dlcqi = dlcqiMsg->GetDlCqi ();
             // check whether the UE is connected
             if (m_ueAttached.find (dlcqi.m_rnti) != m_ueAttached.end ())
               {
@@ -551,7 +551,7 @@ NrEnbPhy::ReceiveNrControlMessageList (std::list<Ptr<NrControlMessage> > msgList
         case NrControlMessage::BSR:
           {
             Ptr<BsrNrControlMessage> bsrMsg = DynamicCast<BsrNrControlMessage> (*it);
-            MacCeListElement_s bsr = bsrMsg->GetBsr ();
+            NrMacCeListElement_s bsr = bsrMsg->GetBsr ();
             // check whether the UE is connected
             if (m_ueAttached.find (bsr.m_rnti) != m_ueAttached.end ())
               {
@@ -562,7 +562,7 @@ NrEnbPhy::ReceiveNrControlMessageList (std::list<Ptr<NrControlMessage> > msgList
         case NrControlMessage::DL_HARQ:
           {
             Ptr<DlHarqFeedbackNrControlMessage> dlharqMsg = DynamicCast<DlHarqFeedbackNrControlMessage> (*it);
-            DlInfoListElement_s dlharq = dlharqMsg->GetDlHarqFeedback ();
+            NrDlInfoListElement_s dlharq = dlharqMsg->GetDlHarqFeedback ();
             // check whether the UE is connected
             if (m_ueAttached.find (dlharq.m_rnti) != m_ueAttached.end ())
               {
@@ -725,9 +725,9 @@ NrEnbPhy::StartSubFrame (void)
                     {
                       NS_FATAL_ERROR (" RAR delay is not yet implemented");
                     }
-                  UlGrant_s ulGrant = it->rarPayload.m_grant;
+                  NrUlGrant_s ulGrant = it->rarPayload.m_grant;
                   // translate the UL grant in a standard UL-DCI and queue it
-                  UlDciListElement_s dci;
+                  NrUlDciListElement_s dci;
                   dci.m_rnti = ulGrant.m_rnti;
                   dci.m_rbStart = ulGrant.m_rbStart;
                   dci.m_rbLen = ulGrant.m_rbLen;
@@ -871,7 +871,7 @@ NrEnbPhy::CreatePuschCqiReport (const SpectrumValue& sinr)
   NS_LOG_FUNCTION (this << sinr);
   Values::const_iterator it;
   NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi;
-  ulcqi.m_ulCqi.m_type = UlCqi_s::PUSCH;
+  ulcqi.m_ulCqi.m_type = NrUlCqi_s::PUSCH;
   int i = 0;
   for (it = sinr.ConstValuesBegin (); it != sinr.ConstValuesEnd (); it++)
     {
@@ -972,7 +972,7 @@ NrEnbPhy::CreateSrsCqiReport (const SpectrumValue& sinr)
   NS_LOG_FUNCTION (this << sinr);
   Values::const_iterator it;
   NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi;
-  ulcqi.m_ulCqi.m_type = UlCqi_s::SRS;
+  ulcqi.m_ulCqi.m_type = NrUlCqi_s::SRS;
   int i = 0;
   double srsSum = 0.0;
   for (it = sinr.ConstValuesBegin (); it != sinr.ConstValuesEnd (); it++)
@@ -987,7 +987,7 @@ NrEnbPhy::CreateSrsCqiReport (const SpectrumValue& sinr)
     }
   // Insert the user generated the srs as a vendor specific parameter
   NS_LOG_DEBUG (this << " ENB RX UL-CQI of " << m_srsUeOffset.at (m_currentSrsOffset));
-  VendorSpecificListElement_s vsp;
+  NrVendorSpecificListElement_s vsp;
   vsp.m_type = SRS_CQI_RNTI_VSP;
   vsp.m_length = sizeof(SrsCqiRntiVsp);
   Ptr<SrsCqiRntiVsp> rnti  = Create <SrsCqiRntiVsp> (m_srsUeOffset.at (m_currentSrsOffset));
@@ -1113,7 +1113,7 @@ NrEnbPhy::SetHarqPhyModule (Ptr<NrHarqPhy> harq)
 
 
 void
-NrEnbPhy::ReceiveNrUlHarqFeedback (UlInfoListElement_s mes)
+NrEnbPhy::ReceiveNrUlHarqFeedback (NrUlInfoListElement_s mes)
 {
   NS_LOG_FUNCTION (this);
   // forward to scheduler

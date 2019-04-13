@@ -634,11 +634,11 @@ NrFfrEnhancedAlgorithm::DoReportDlCqiInfo (const struct NrFfMacSchedSapProvider:
   m_dlCqi.clear ();
   for (unsigned int i = 0; i < params.m_cqiList.size (); i++)
     {
-      if ( params.m_cqiList.at (i).m_cqiType == CqiListElement_s::A30 )
+      if ( params.m_cqiList.at (i).m_cqiType == NrCqiListElement_s::A30 )
         {
           NS_LOG_INFO ("subband CQI reporting high layer configured");
           // subband CQI reporting high layer configured
-          std::map <uint16_t,SbMeasResult_s>::iterator it;
+          std::map <uint16_t,NrSbMeasResult_s>::iterator it;
           uint16_t rnti = params.m_cqiList.at (i).m_rnti;
 
           std::map< uint16_t, uint8_t >::iterator ueIt = m_ues.find (rnti);
@@ -658,7 +658,7 @@ NrFfrEnhancedAlgorithm::DoReportDlCqiInfo (const struct NrFfMacSchedSapProvider:
           if (it == m_dlCqi.end ())
             {
               // create the new entry
-              m_dlCqi.insert ( std::pair<uint16_t, SbMeasResult_s > (rnti, params.m_cqiList.at (i).m_sbMeasResult) );
+              m_dlCqi.insert ( std::pair<uint16_t, NrSbMeasResult_s > (rnti, params.m_cqiList.at (i).m_sbMeasResult) );
             }
           else
             {
@@ -674,7 +674,7 @@ NrFfrEnhancedAlgorithm::DoReportDlCqiInfo (const struct NrFfMacSchedSapProvider:
 
   uint32_t rbgSize = GetRbgSize (m_dlBandwidth);
   m_dlRbgAvailableforUe.clear ();
-  std::map <uint16_t,SbMeasResult_s>::iterator it;
+  std::map <uint16_t,NrSbMeasResult_s>::iterator it;
   for (it = m_dlCqi.begin (); it != m_dlCqi.end (); it++)
     {
       uint16_t rnti = it->first;
@@ -735,7 +735,7 @@ void
 NrFfrEnhancedAlgorithm::DoReportUlCqiInfo (const struct NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params)
 {
   NS_LOG_FUNCTION (this);
-  if (params.m_ulCqi.m_type == UlCqi_s::SRS)
+  if (params.m_ulCqi.m_type == NrUlCqi_s::SRS)
     {
       // get the RNTI from vendor specific parameters
       uint16_t rnti = 0;
