@@ -524,7 +524,6 @@ void
 UeManager::IdentityRequest (NgcEnbN2SapUser::IdentityRequestParameters params)
 {
  NS_LOG_FUNCTION (this << (uint32_t) m_rnti);
-
  ScheduleRrcIdentityRequest ();
 }
 void

@@ -29,7 +29,7 @@
 #include <ns3/eps-bearer.h>
 #include <ns3/ngc-tft.h>
 #include <list>
-
+#include <stdio.h>
 
 namespace ns3 {
 
@@ -514,7 +514,8 @@ void MemberNgcN2apSapAmfProvider<C>::SendIdentityRequest (uint64_t amfUeN2Id, ui
 template <class C>
 void MemberNgcN2apSapAmfProvider<C>::SendRegistrationAccept (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint16_t cellId, uint64_t guti)
 {
-  m_owner->DoSendIdentityRequest (amfUeN2Id, enbUeN2Id, cellId);
+  //m_owner->DoSendIdentityRequest (amfUeN2Id, enbUeN2Id, cellId);
+  m_owner->DoSendRegistrationAccept (amfUeN2Id, enbUeN2Id, cellId, guti);
 }
 template <class C>
 void MemberNgcN2apSapAmfProvider<C>::SendPathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, std::list<ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList)

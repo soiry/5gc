@@ -138,12 +138,14 @@ void
 NgcAmfApplication::NamfCommunicationUeContextTransfer(uint64_t imsi)
 {
 	uint64_t context = imsi;
+	printf("Namf_Communication_UEContextTransfer\n");
 	NamfCommunicationUeContextTransferResponse(imsi, context);
 }
 
 void
 NgcAmfApplication::NamfCommunicationUeContextTransferResponse(uint64_t imsi, uint64_t context)
 {
+	printf("Namf_Communication_UEContextTransfer response\n");
 	// Now new AMF gets a UE's context from the old AMF.
 }
 
@@ -208,21 +210,26 @@ NgcAmfApplication::DoRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id
   
   // Conditional 6-7. Identity Request message to UE by NAS signal
   // if neither UE nor old AMF send SUCI
+  /* 
   identityRequest = "suci";
+  printf("suci IdentityRequest\n");
   m_n2apSapAmfProvider->SendIdentityRequest (amfUeN2Id, enbUeN2Id, cellId, identityRequest);
-  
+  */
   // Conditional 8.
   // if old AMF exists,
   // NamfCommunicationRegistrationCompleteNotify(imsi);
 
   // Conditional 9. (same as 6-7)
   // if PEI is not exists,
+  /*
   identityRequest = "pei";
+  printf("pei IdentityRequest\n");
   m_n2apSapAmfProvider->SendIdentityRequest (amfUeN2Id, enbUeN2Id, cellId, identityRequest);
-  
+  */
   // 11-12. Registration Accept
   //     (5G-GUTI, Registration Area, PDU Session status, ...)
   uint64_t guti = 1; // assign 5G-GUTI for UE
+  printf("AMF sends registration accept\n");
   m_n2apSapAmfProvider->SendRegistrationAccept(amfUeN2Id, enbUeN2Id, cellId, guti);
 }
 

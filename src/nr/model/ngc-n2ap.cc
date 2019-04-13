@@ -210,7 +210,6 @@ NgcN2apEnb::RecvFromN2apSocket (Ptr<Socket> socket)
 
 	NS_LOG_LOGIC ("amfUeN2apId " << amfUeN2apId);
 	NS_LOG_LOGIC ("enbUeN2apId " << enbUeN2apId);
-
 	m_n2apSapUser->IdentityRequest(amfUeN2apId, enbUeN2apId);
   }
   else if (procedureCode == NgcN2APHeader::RegistrationAccept) /* jhlim: for signal 11. */
@@ -233,7 +232,8 @@ NgcN2apEnb::RecvFromN2apSocket (Ptr<Socket> socket)
   }
   else
   {
-    NS_ASSERT_MSG (false, "ProcedureCode NOT SUPPORTED!!!");
+	printf("header value: %d\n", procedureCode);
+    NS_ASSERT_MSG (false, "ProcedureCode NOT SUPPORTED!!!!!");
   }
 }
 
@@ -635,10 +635,47 @@ NgcN2apAmf::RecvFromN2apSocket (Ptr<Socket> socket)
 
     m_n2apSapUser->ErabReleaseIndication (amfUeN2Id, enbUeN2Id, erabToBeReleaseIndication);
   }
+  else if (procedureCode == NgcN2APHeader::IdentityResponse)
+  {
+    NS_LOG_LOGIC ("Recv N2ap message: IDENTITY RESPONSE");
+    NgcN2APInitialContextSetupResponseHeader reqHeader; // fix to Identity response header.
+	
+    packet->RemoveHeader(reqHeader);
+    NS_LOG_INFO ("N2ap Identity Response header " << reqHeader);
+
+    uint64_t amfUeN2Id = reqHeader.GetAmfUeN2Id();
+    uint16_t enbUeN2Id = reqHeader.GetEnbUeN2Id();
+    //uint64_t stmsi = registrationRequest.GetSTmsi();
+    //uint16_t ecgi = registrationRequest.GetEcgi();
+
+
+    NS_LOG_LOGIC("amfUeN2apId = " << amfUeN2Id);
+    NS_LOG_LOGIC("enbUeN2apId = " << enbUeN2Id);
+    //NS_LOG_LOGIC("stmsi = " << stmsi);
+    //NS_LOG_LOGIC("ecgi = " << ecgi);
+
+    // TODO check if ASSERT is needed
+
+    m_n2apSapUser->IdentityResponse(amfUeN2Id, enbUeN2Id);
+  }
+  else if (procedureCode == NgcN2APHeader::RegistrationComplete) /* jhlim: for signal 12. */
+  {
+	NS_LOG_LOGIC ("Recv N2ap message: REGISTRATION COMPLETE ");
+	NgcN2APInitialContextSetupResponseHeader reqHeader; // fix to registration complete header.
+	packet->RemoveHeader(reqHeader);
+	NS_LOG_INFO ("N2ap Registration Complete header " << reqHeader);
+
+	uint64_t amfUeN2Id = reqHeader.GetAmfUeN2Id();
+	uint16_t enbUeN2Id = reqHeader.GetEnbUeN2Id();
+
+	NS_LOG_LOGIC ("amfUeN2apId " << amfUeN2Id);
+	NS_LOG_LOGIC ("enbUeN2apId " << enbUeN2Id);
+
+	m_n2apSapUser->RegistrationComplete(amfUeN2Id, enbUeN2Id);
+  }
   else
   {
 
-	
     NS_ASSERT_MSG (false, "ProcedureCode NOT SUPPORTED!!!");
   }
 }
