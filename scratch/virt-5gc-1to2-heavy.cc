@@ -1,7 +1,23 @@
+/* -*-  Mode: C++; c-file-style: "gnu"; indent-tabs-mode:nil; -*- */
 /*
-	Sample file for Virt-5gc module.
-	Simulate heavy load scenario (scale in/out frequently happened)
-*/
+ * Copyright (c) 2011 Centre Tecnologic de Telecomunicacions de Catalunya (CTTC)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation;
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ * Author: Jaume Nin <jaume.nin@cttc.cat>
+ */
+
 #include "ns3/core-module.h"
 #include "ns3/network-module.h"
 #include "ns3/ipv4-global-routing-helper.h"
@@ -9,6 +25,7 @@
 #include "ns3/applications-module.h"
 #include "ns3/point-to-point-helper.h"
 #include "ns3/config-store.h"
+//#include "ns3/gtk-config-store.h"
 #include "ns3/virt-5gc-module.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,7 +36,7 @@
 
 using namespace ns3;
 
-int additionalNodes = 6;
+int additionalNodes = 0;
 uint16_t numberOfNodes;
 uint16_t totalNodeN;
 bool firstCall = true;
@@ -27,15 +44,152 @@ Ptr<OutputStreamWrapper> rttStream;
 Ptr<OutputStreamWrapper> cwndStream;
 Ptr<OutputStreamWrapper> thputStream;
 
-// graph plotting
+/*
+static void
+Rx (Ptr<OutputStreamWrapper> stream, uint16_t i, Ptr<const Packet> packet, const Address &from){
+  packetRxTime[i] = Simulator::Now().GetSeconds();
+  if (lastPacketRxTime[i] == packetRxTime[i]){
+    instantPacketSize[i] += packet->GetSize();
+    return;
+  }
+  else{
+    sumPacketSize[i] += instantPacketSize[i];
+    *stream->GetStream () << lastPacketRxTime[i] << "\t" << instantPacketSize[i] << "\t" << sumPacketSize[i]
+    		<< std::endl;
+    lastPacketRxTime[i] =  packetRxTime[i];
+    instantPacketSize[i] = packet->GetSize();
+  }
+}
+*/
+
+class MyApp : public Application
+{
+public:
+
+  MyApp ();
+  virtual ~MyApp();
+  void ChangeDataRate (DataRate rate);
+  void Setup (Ptr<Socket> socket, Address address, uint32_t packetSize, uint32_t nPackets, DataRate dataRate);
+
+
+
+private:
+  virtual void StartApplication (void);
+  virtual void StopApplication (void);
+
+  void ScheduleTx (void);
+  void SendPacket (void);
+
+  Ptr<Socket>     m_socket;
+  Address         m_peer;
+  uint32_t        m_packetSize;
+  uint32_t        m_nPackets;
+  DataRate        m_dataRate;
+  EventId         m_sendEvent;
+  bool            m_running;
+  uint32_t        m_packetsSent;
+};
+
+MyApp::MyApp ()
+  : m_socket (0),
+    m_peer (),
+    m_packetSize (0),
+    m_nPackets (0),
+    m_dataRate (0),
+    m_sendEvent (),
+    m_running (false),
+    m_packetsSent (0)
+{
+}
+
+MyApp::~MyApp()
+{
+  m_socket = 0;
+}
+
+void
+MyApp::Setup (Ptr<Socket> socket, Address address, uint32_t packetSize, uint32_t nPackets, DataRate dataRate)
+{
+  m_socket = socket;
+  m_peer = address;
+  m_packetSize = packetSize;
+  m_nPackets = nPackets;
+  m_dataRate = dataRate;
+}
+
+void
+MyApp::ChangeDataRate (DataRate rate)
+{
+  m_dataRate = rate;
+}
+
+void
+MyApp::StartApplication (void)
+{
+  m_running = true;
+  m_packetsSent = 0;
+  m_socket->Bind ();
+  m_socket->Connect (m_peer);
+  SendPacket ();
+}
+
+void
+MyApp::StopApplication (void)
+{
+  m_running = false;
+
+  if (m_sendEvent.IsRunning ())
+    {
+      Simulator::Cancel (m_sendEvent);
+    }
+
+  if (m_socket)
+    {
+      m_socket->Close ();
+    }
+}
+
+void
+MyApp::SendPacket (void)
+{
+  Ptr<Packet> packet = Create<Packet> (m_packetSize);
+  MyAppTag tag (Simulator::Now ());
+
+  m_socket->Send (packet);
+    if (++m_packetsSent < m_nPackets)
+  {
+      ScheduleTx ();
+  }
+}
+
+
+
+void
+MyApp::ScheduleTx (void)
+{
+  if (m_running)
+  {
+    Time tNext (Seconds (m_packetSize * 8 / static_cast<double> (m_dataRate.GetBitRate ())));
+    m_sendEvent = Simulator::Schedule (tNext, &MyApp::SendPacket, this);
+  }
+}
+
 void
 Graph()
 {
-	usleep(2000000);
-	system("gnuplot result_graph.gp\n");
+	usleep(10000000);
+	system("gnuplot result_graph_tmp.gp\n");
 }
 
-// for RTT logging of each connection
+void
+Graphh()
+{
+  std::thread t(&Graph);
+  t.join();
+}
+
+
+
 void
 RttTracer (std::string node, Time oldval, Time newval)
 {
@@ -56,11 +210,11 @@ TraceRtt (std::string rtt_tr_file_name)
 	for (uint16_t i = 0; i < numberOfNodes; i++) {
 		node = std::to_string(i);
 		tmp_path = path + node + "/RTT";
+		std::cout << tmp_path << std::endl;
 		Config::ConnectWithoutContext(tmp_path, MakeBoundCallback (&RttTracer, node));
 	}
 }
 
-// for CWND logging of each connection
 void
 CwndTracer (std::string node, uint32_t oldval, uint32_t newval)
 {
@@ -85,7 +239,6 @@ TraceCwnd (std::string cwnd_tr_file_name)
 	}
 }
 
-// for throughput logging of each connection
 void
 CalcThroughput (Ptr<Application> sinkApp, int lastTotalRx, int node)
 {
@@ -115,14 +268,15 @@ CalcThroughput (Ptr<Application> sinkApp, int lastTotalRx, int node)
 	double throughput = ((sink->GetTotalRx() - lastTotalRx) / delay) * (double)(8/1e6);
 	lastTotalRx = sink->GetTotalRx();
 
+/*
 	if (firstCall) {
 		*thputStream->GetStream() << "# Time Node Throughput(goodput)" << std::endl;
 		firstCall = false;
 	}
-
+*/
 	*thputStream->GetStream() << currTime.GetSeconds() << ", " << node << ", " << throughput << std::endl;
 
-	Simulator::Schedule(Seconds(1), &CalcThroughput, sinkApp, lastTotalRx, node);
+	Simulator::Schedule(MilliSeconds(1000), &CalcThroughput, sinkApp, lastTotalRx, node);
 }
 
 void setFlowWeight(void)
@@ -131,8 +285,8 @@ void setFlowWeight(void)
 
   std::ofstream writeFile(filePath.data());
   if (writeFile.is_open()) {
-    writeFile << "10\n";
     writeFile << "20\n";
+    writeFile << "10\n";
     writeFile.close();
   }
 }
@@ -141,9 +295,11 @@ int
 main (int argc, char *argv[])
 {
 
-  double simTime = 25.0;
+  //uint16_t numberOfNodes;
+  double simTime = 15.0;
   double distance = 30.0;
   double interPacketInterval = 50;
+  //std::string rttFile;
 
   // Command line arguments
   CommandLine cmd;
@@ -151,7 +307,8 @@ main (int argc, char *argv[])
   cmd.AddValue("simTime", "Total duration of the simulation [s])", simTime);
   cmd.AddValue("distance", "Distance between eNBs [m]", distance);
   cmd.AddValue("interPacketInterval", "Inter packet interval [ms])", interPacketInterval);
-  
+ 
+  //cmd.AddValue("rtt_tr_name", "Name of output trace file", rttFile);
   cmd.Parse(argc, argv);
 
   std::string format ("Virt5gc");
@@ -184,9 +341,10 @@ main (int argc, char *argv[])
 
   // parse again so you can override default values from the command line
   cmd.Parse(argc, argv);
-  Ptr<LteHelper> lteHelper = virt5gcHelper->GetLteHelper();
-  Ptr<OvsPointToPointEpcHelper> epcHelper = virt5gcHelper->GetEpcHelper();
-  Ptr<Node> pgw = epcHelper->GetPgwNode ();
+  Ptr<NrHelper> nrHelper = virt5gcHelper->GetNrHelper();
+  Ptr<PointToPointNgcHelper> ngcHelper = virt5gcHelper->GetNgcHelper();
+  //Ptr<OvsPointToPointEpcHelper> epcHelper = virt5gcHelper->GetEpcHelper();
+  Ptr<Node> pgw = ngcHelper->GetUpfNode ();
 
    // Create a single RemoteHost
   NodeContainer remoteHostContainer;
@@ -218,42 +376,50 @@ main (int argc, char *argv[])
   enbNodes = virt5gcHelper->GetEnbNodes();
 
   numberOfNodes = ueNodes.GetN();
+  //numberOfNodes = 3;
   totalNodeN = ueNodes.GetN() + enbNodes.GetN();
 
   // Install LTE Devices to the nodes
-  NetDeviceContainer enbLteDevs = virt5gcHelper->GetEnbDevs();
-  NetDeviceContainer ueLteDevs = virt5gcHelper->GetUeDevs();
+  NetDeviceContainer enbNrDevs = virt5gcHelper->GetEnbDevs();
+  NetDeviceContainer ueNrDevs = virt5gcHelper->GetUeDevs();
 
   // Install the IP stack on the UEs
   internet.Install (ueNodes);
   Ipv4InterfaceContainer ueIpIface;
-  ueIpIface = epcHelper->AssignUeIpv4Address (NetDeviceContainer (ueLteDevs));
+  ueIpIface = ngcHelper->AssignUeIpv4Address (NetDeviceContainer (ueNrDevs));
   // Assign IP address to UEs, and install applications
   for (uint32_t u = 0; u < ueNodes.GetN (); ++u)
     {
       Ptr<Node> ueNode = ueNodes.Get (u);
       // Set the default gateway for the UE
       Ptr<Ipv4StaticRouting> ueStaticRouting = ipv4RoutingHelper.GetStaticRouting (ueNode->GetObject<Ipv4> ());
-      ueStaticRouting->SetDefaultRoute (epcHelper->GetUeDefaultGatewayAddress (), 1);
+      ueStaticRouting->SetDefaultRoute (ngcHelper->GetUeDefaultGatewayAddress (), 1);
     }
 
   
-  lteHelper->Attach (ueLteDevs.Get(0), enbLteDevs.Get(0));
-  lteHelper->Attach (ueLteDevs.Get(1), enbLteDevs.Get(0));
- 
+/*
+  for (uint32_t i = 0; i < numberOfNodes; i++) {
+  	  lteHelper->Attach (ueLteDevs.Get(i), enbLteDevs.Get(i));
+  }
+*/
+  std::cout << "Attachment Start\n";
+  nrHelper->Attach (ueNrDevs.Get(0), enbNrDevs.Get(0));
+  nrHelper->Attach (ueNrDevs.Get(1), enbNrDevs.Get(0));
+
+  std::cout <<"Attachment End\n";
 
   uint16_t dlPort = 3000;
-  int start = 1.0;
+  //int start = 1.0;
   std::list<ApplicationContainer> appList;
-
+/*
   for (uint32_t u = 0; u < numberOfNodes; u++)
   {
   	  Ptr<Node> ue = ueNodes.Get(u);
 
 	  ++dlPort;
-
+	
 	  Ipv4Address ueipaddress = ueIpIface.GetAddress(u);
-	  
+
 	  BulkSendHelper source ("ns3::TcpSocketFactory", InetSocketAddress (ueipaddress, dlPort));
 	  source.SetAttribute ("MaxBytes", UintegerValue (0));
 	  source.SetAttribute("SendSize", UintegerValue (1024));
@@ -271,32 +437,57 @@ main (int argc, char *argv[])
 	  
 	 
 	  Ptr<EpcTft> tft = Create<EpcTft> ();
-	  EpcTft::PacketFilter dlpf;
+	  EpcTft::PacketFiilter dlpf;
 	  dlpf.localPortStart = dlPort;
-	  dlpf.remotePortEnd = dlPort;
+wdlpf.remotePortEnd = dlPort;
 	  tft->Add(dlpf);
 
 	  EpsBearer bearer (EpsBearer::NGBR_VIDEO_TCP_OPERATOR);
 	  lteHelper->ActivateDedicatedEpsBearer (ueLteDevs.Get(u), bearer, tft);
    }
+*/
 
- 
+  ApplicationContainer clientApps;
+  ApplicationContainer serverApps;
+
+  std::cout << "App Start\n";
+  for (uint32_t u=0; u < numberOfNodes; u++) {
+	  PacketSinkHelper dlPacketSinkHelper ("ns3::UdpSocketFactory", InetSocketAddress (Ipv4Address::GetAny (), dlPort));
+	  serverApps.Add (dlPacketSinkHelper.Install (ueNodes.Get(u)));
+	  Ptr<MyApp> app = CreateObject<MyApp> ();
+	  Ptr<Socket> ns3UdpSocket = Socket::CreateSocket (remoteHost, UdpSocketFactory::GetTypeId ());
+	  Address sinkAddress (InetSocketAddress (ueIpIface.GetAddress (u), dlPort));
+	  app->Setup (ns3UdpSocket, sinkAddress, 1400, 5000000, DataRate ("5Mbps"));
+	  remoteHost->AddApplication (app);
+
+	  app->SetStartTime (Seconds (0.1+u*0.2));
+	  app->SetStopTime (Seconds (simTime));
+
+  }
+  std::cout << "App End\n";
+
   Simulator::Stop(Seconds(simTime));
-  //lteHelper->EnableTraces (); 
+  nrHelper->EnableTraces (); 
 
   std::string thput_tr_file_name = "Virt5gc-throughput.data";
   AsciiTraceHelper ascii;
   thputStream = ascii.CreateFileStream (thput_tr_file_name.c_str());
-  std::list<ApplicationContainer>::iterator itor = appList.begin();
+  //std::list<ApplicationContainer>::iterator itor = appList.begin();
 
   //LogComponentEnable ("Config", LOG_LEVEL_ALL);
 
   Simulator::Schedule (Seconds (1 + numberOfNodes*0.2), &TraceRtt, "Virt5gc-rtt.data");
-  Simulator::Schedule (Seconds (1 + numberOfNodes*0.2), &TraceCwnd, "Virt5gc-cwnd.data"); 
-  for (uint32_t i = 0; i < numberOfNodes; i++, itor++) {
-	  Simulator::Schedule (Seconds (1 + numberOfNodes*0.2), &CalcThroughput, (*itor).Get(0), 0, i);
-  }
 
+  Simulator::Schedule (Seconds (1 + numberOfNodes*0.2), &TraceCwnd, "Virt5gc-cwnd.data"); 
+  for (uint32_t i = 0; i < numberOfNodes; i++) {
+	  Simulator::Schedule (Seconds (1 + numberOfNodes*0.2), &CalcThroughput, serverApps.Get(i), 0, i);
+  }
+  *thputStream->GetStream() << "# Time Node Throughput(goodput)" << std::endl;
+  *thputStream->GetStream() << "0.0, 0, 0.0" << std::endl;
+  *thputStream->GetStream() << "0.0, 1, 0.0" << std::endl;
+	
+
+//  Simulator::Schedule (Seconds (1.5 +numberOfNodes*0.2), &Graphh);
   std::thread t(&Graph);
 
   Simulator::Run();
