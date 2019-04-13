@@ -208,7 +208,7 @@ public:
   * \param sinr SINR values vector
   * \return UL CQI feedback in the format usable by an FF MAC scheduler
   */
-  FfMacSchedSapProvider::SchedUlCqiInfoReqParameters CreatePuschCqiReport (const SpectrumValue& sinr);
+  NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters CreatePuschCqiReport (const SpectrumValue& sinr);
 
   /**
   * \brief Create the UL CQI feedback from SINR values perceived at
@@ -216,7 +216,7 @@ public:
   * \param sinr SINR values vector
   * \return UL CQI feedback in the format usable by an FF MAC scheduler
   */
-  FfMacSchedSapProvider::SchedUlCqiInfoReqParameters CreateSrsCqiReport (const SpectrumValue& sinr);
+  NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters CreateSrsCqiReport (const SpectrumValue& sinr);
 
   /**
   * \brief Send the PDCCH and PCFICH in the first 3 symbols

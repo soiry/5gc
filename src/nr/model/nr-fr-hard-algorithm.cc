@@ -328,14 +328,14 @@ NrFrHardAlgorithm::DoIsUlRbgAvailableForUe (int rbId, uint16_t rnti)
 }
 
 void
-NrFrHardAlgorithm::DoReportDlCqiInfo (const struct FfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params)
+NrFrHardAlgorithm::DoReportDlCqiInfo (const struct NrFfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params)
 {
   NS_LOG_FUNCTION (this);
   NS_LOG_WARN ("Method should not be called, because it is empty");
 }
 
 void
-NrFrHardAlgorithm::DoReportUlCqiInfo (const struct FfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params)
+NrFrHardAlgorithm::DoReportUlCqiInfo (const struct NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params)
 {
   NS_LOG_FUNCTION (this);
   NS_LOG_WARN ("Method should not be called, because it is empty");

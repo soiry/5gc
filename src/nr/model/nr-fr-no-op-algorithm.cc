@@ -143,14 +143,14 @@ NrFrNoOpAlgorithm::DoIsUlRbgAvailableForUe (int i, uint16_t rnti)
 }
 
 void
-NrFrNoOpAlgorithm::DoReportDlCqiInfo (const struct FfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params)
+NrFrNoOpAlgorithm::DoReportDlCqiInfo (const struct NrFfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params)
 {
   NS_LOG_FUNCTION (this);
   NS_LOG_WARN ("Method should not be called, because it is empty");
 }
 
 void
-NrFrNoOpAlgorithm::DoReportUlCqiInfo (const struct FfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params)
+NrFrNoOpAlgorithm::DoReportUlCqiInfo (const struct NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params)
 {
   NS_LOG_FUNCTION (this);
   NS_LOG_WARN ("Method should not be called, because it is empty");

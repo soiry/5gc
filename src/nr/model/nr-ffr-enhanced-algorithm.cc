@@ -20,7 +20,7 @@
  */
 
 #include "nr-ffr-enhanced-algorithm.h"
-#include "ns3/ff-mac-common.h"
+#include "ns3/nr-ff-mac-common.h"
 #include "ns3/nr-common.h"
 #include "ns3/nr-vendor-specific-parameters.h"
 #include <ns3/log.h>
@@ -627,7 +627,7 @@ NrFfrEnhancedAlgorithm::DoIsUlRbgAvailableForUe (int rbgId, uint16_t rnti)
 }
 
 void
-NrFfrEnhancedAlgorithm::DoReportDlCqiInfo (const struct FfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params)
+NrFfrEnhancedAlgorithm::DoReportDlCqiInfo (const struct NrFfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params)
 {
   NS_LOG_FUNCTION (this);
 
@@ -732,7 +732,7 @@ NrFfrEnhancedAlgorithm::DoReportDlCqiInfo (const struct FfMacSchedSapProvider::S
 }
 
 void
-NrFfrEnhancedAlgorithm::DoReportUlCqiInfo (const struct FfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params)
+NrFfrEnhancedAlgorithm::DoReportUlCqiInfo (const struct NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params)
 {
   NS_LOG_FUNCTION (this);
   if (params.m_ulCqi.m_type == UlCqi_s::SRS)

@@ -47,12 +47,12 @@ NS_OBJECT_ENSURE_REGISTERED (NrFdBetFfMacScheduler);
 
 
 
-class FdBetSchedulerMemberCschedSapProvider : public FfMacCschedSapProvider
+class FdBetSchedulerMemberCschedSapProvider : public NrFfMacCschedSapProvider
 {
 public:
   FdBetSchedulerMemberCschedSapProvider (NrFdBetFfMacScheduler* scheduler);
 
-  // inherited from FfMacCschedSapProvider
+  // inherited from NrFfMacCschedSapProvider
   virtual void CschedCellConfigReq (const struct CschedCellConfigReqParameters& params);
   virtual void CschedUeConfigReq (const struct CschedUeConfigReqParameters& params);
   virtual void CschedLcConfigReq (const struct CschedLcConfigReqParameters& params);
@@ -107,12 +107,12 @@ FdBetSchedulerMemberCschedSapProvider::CschedUeReleaseReq (const struct CschedUe
 
 
 
-class FdBetSchedulerMemberSchedSapProvider : public FfMacSchedSapProvider
+class FdBetSchedulerMemberSchedSapProvider : public NrFfMacSchedSapProvider
 {
 public:
   FdBetSchedulerMemberSchedSapProvider (NrFdBetFfMacScheduler* scheduler);
 
-  // inherited from FfMacSchedSapProvider
+  // inherited from NrFfMacSchedSapProvider
   virtual void SchedDlRlcBufferReq (const struct SchedDlRlcBufferReqParameters& params);
   virtual void SchedDlPagingBufferReq (const struct SchedDlPagingBufferReqParameters& params);
   virtual void SchedDlMacBufferReq (const struct SchedDlMacBufferReqParameters& params);
@@ -273,7 +273,7 @@ NrFdBetFfMacScheduler::GetTypeId (void)
 
 
 void
-NrFdBetFfMacScheduler::SetFfMacCschedSapUser (FfMacCschedSapUser* s)
+NrFdBetFfMacScheduler::SetNrFfMacCschedSapUser (NrFfMacCschedSapUser* s)
 {
   m_cschedSapUser = s;
 }
@@ -284,14 +284,14 @@ NrFdBetFfMacScheduler::SetFfMacSchedSapUser (FfMacSchedSapUser* s)
   m_schedSapUser = s;
 }
 
-FfMacCschedSapProvider*
-NrFdBetFfMacScheduler::GetFfMacCschedSapProvider ()
+NrFfMacCschedSapProvider*
+NrFdBetFfMacScheduler::GetNrFfMacCschedSapProvider ()
 {
   return m_cschedSapProvider;
 }
 
-FfMacSchedSapProvider*
-NrFdBetFfMacScheduler::GetFfMacSchedSapProvider ()
+NrFfMacSchedSapProvider*
+NrFdBetFfMacScheduler::GetNrFfMacSchedSapProvider ()
 {
   return m_schedSapProvider;
 }
@@ -309,20 +309,20 @@ NrFdBetFfMacScheduler::GetNrFfrSapUser ()
 }
 
 void
-NrFdBetFfMacScheduler::DoCschedCellConfigReq (const struct FfMacCschedSapProvider::CschedCellConfigReqParameters& params)
+NrFdBetFfMacScheduler::DoCschedCellConfigReq (const struct NrFfMacCschedSapProvider::CschedCellConfigReqParameters& params)
 {
   NS_LOG_FUNCTION (this);
   // Read the subset of parameters used
   m_cschedCellConfig = params;
   m_rachAllocationMap.resize (m_cschedCellConfig.m_ulBandwidth, 0);
-  FfMacCschedSapUser::CschedUeConfigCnfParameters cnf;
+  NrFfMacCschedSapUser::CschedUeConfigCnfParameters cnf;
   cnf.m_result = SUCCESS;
   m_cschedSapUser->CschedUeConfigCnf (cnf);
   return;
 }
 
 void
-NrFdBetFfMacScheduler::DoCschedUeConfigReq (const struct FfMacCschedSapProvider::CschedUeConfigReqParameters& params)
+NrFdBetFfMacScheduler::DoCschedUeConfigReq (const struct NrFfMacCschedSapProvider::CschedUeConfigReqParameters& params)
 {
   NS_LOG_FUNCTION (this << " RNTI " << params.m_rnti << " txMode " << (uint16_t)params.m_transmissionMode);
   std::map <uint16_t,uint8_t>::iterator it = m_uesTxMode.find (params.m_rnti);
@@ -361,7 +361,7 @@ NrFdBetFfMacScheduler::DoCschedUeConfigReq (const struct FfMacCschedSapProvider:
 }
 
 void
-NrFdBetFfMacScheduler::DoCschedLcConfigReq (const struct FfMacCschedSapProvider::CschedLcConfigReqParameters& params)
+NrFdBetFfMacScheduler::DoCschedLcConfigReq (const struct NrFfMacCschedSapProvider::CschedLcConfigReqParameters& params)
 {
   NS_LOG_FUNCTION (this << " New LC, rnti: "  << params.m_rnti);
 
@@ -391,13 +391,13 @@ NrFdBetFfMacScheduler::DoCschedLcConfigReq (const struct FfMacCschedSapProvider:
 }
 
 void
-NrFdBetFfMacScheduler::DoCschedLcReleaseReq (const struct FfMacCschedSapProvider::CschedLcReleaseReqParameters& params)
+NrFdBetFfMacScheduler::DoCschedLcReleaseReq (const struct NrFfMacCschedSapProvider::CschedLcReleaseReqParameters& params)
 {
   NS_LOG_FUNCTION (this);
   for (uint16_t i = 0; i < params.m_logicalChannelIdentity.size (); i++)
     {
-      std::map<NrFlowId_t, FfMacSchedSapProvider::SchedDlRlcBufferReqParameters>::iterator it = m_rlcBufferReq.begin ();
-      std::map<NrFlowId_t, FfMacSchedSapProvider::SchedDlRlcBufferReqParameters>::iterator temp;
+      std::map<NrFlowId_t, NrFfMacSchedSapProvider::SchedDlRlcBufferReqParameters>::iterator it = m_rlcBufferReq.begin ();
+      std::map<NrFlowId_t, NrFfMacSchedSapProvider::SchedDlRlcBufferReqParameters>::iterator temp;
       while (it!=m_rlcBufferReq.end ())
         {
           if (((*it).first.m_rnti == params.m_rnti) && ((*it).first.m_lcId == params.m_logicalChannelIdentity.at (i)))
@@ -416,7 +416,7 @@ NrFdBetFfMacScheduler::DoCschedLcReleaseReq (const struct FfMacCschedSapProvider
 }
 
 void
-NrFdBetFfMacScheduler::DoCschedUeReleaseReq (const struct FfMacCschedSapProvider::CschedUeReleaseReqParameters& params)
+NrFdBetFfMacScheduler::DoCschedUeReleaseReq (const struct NrFfMacCschedSapProvider::CschedUeReleaseReqParameters& params)
 {
   NS_LOG_FUNCTION (this);
 
@@ -432,8 +432,8 @@ NrFdBetFfMacScheduler::DoCschedUeReleaseReq (const struct FfMacCschedSapProvider
   m_flowStatsDl.erase  (params.m_rnti);
   m_flowStatsUl.erase  (params.m_rnti);
   m_ceBsrRxed.erase (params.m_rnti);
-  std::map<NrFlowId_t, FfMacSchedSapProvider::SchedDlRlcBufferReqParameters>::iterator it = m_rlcBufferReq.begin ();
-  std::map<NrFlowId_t, FfMacSchedSapProvider::SchedDlRlcBufferReqParameters>::iterator temp;
+  std::map<NrFlowId_t, NrFfMacSchedSapProvider::SchedDlRlcBufferReqParameters>::iterator it = m_rlcBufferReq.begin ();
+  std::map<NrFlowId_t, NrFfMacSchedSapProvider::SchedDlRlcBufferReqParameters>::iterator temp;
   while (it!=m_rlcBufferReq.end ())
     {
       if ((*it).first.m_rnti == params.m_rnti)
@@ -457,12 +457,12 @@ NrFdBetFfMacScheduler::DoCschedUeReleaseReq (const struct FfMacCschedSapProvider
 
 
 void
-NrFdBetFfMacScheduler::DoSchedDlRlcBufferReq (const struct FfMacSchedSapProvider::SchedDlRlcBufferReqParameters& params)
+NrFdBetFfMacScheduler::DoSchedDlRlcBufferReq (const struct NrFfMacSchedSapProvider::SchedDlRlcBufferReqParameters& params)
 {
   NS_LOG_FUNCTION (this << params.m_rnti << (uint32_t) params.m_logicalChannelIdentity);
   // API generated by RLC for updating RLC parameters on a LC (tx and retx queues)
 
-  std::map <NrFlowId_t, FfMacSchedSapProvider::SchedDlRlcBufferReqParameters>::iterator it;
+  std::map <NrFlowId_t, NrFfMacSchedSapProvider::SchedDlRlcBufferReqParameters>::iterator it;
 
   NrFlowId_t flow (params.m_rnti, params.m_logicalChannelIdentity);
 
@@ -470,7 +470,7 @@ NrFdBetFfMacScheduler::DoSchedDlRlcBufferReq (const struct FfMacSchedSapProvider
 
   if (it == m_rlcBufferReq.end ())
     {
-      m_rlcBufferReq.insert (std::pair <NrFlowId_t, FfMacSchedSapProvider::SchedDlRlcBufferReqParameters> (flow, params));
+      m_rlcBufferReq.insert (std::pair <NrFlowId_t, NrFfMacSchedSapProvider::SchedDlRlcBufferReqParameters> (flow, params));
     }
   else
     {
@@ -481,7 +481,7 @@ NrFdBetFfMacScheduler::DoSchedDlRlcBufferReq (const struct FfMacSchedSapProvider
 }
 
 void
-NrFdBetFfMacScheduler::DoSchedDlPagingBufferReq (const struct FfMacSchedSapProvider::SchedDlPagingBufferReqParameters& params)
+NrFdBetFfMacScheduler::DoSchedDlPagingBufferReq (const struct NrFfMacSchedSapProvider::SchedDlPagingBufferReqParameters& params)
 {
   NS_LOG_FUNCTION (this);
   NS_FATAL_ERROR ("method not implemented");
@@ -489,7 +489,7 @@ NrFdBetFfMacScheduler::DoSchedDlPagingBufferReq (const struct FfMacSchedSapProvi
 }
 
 void
-NrFdBetFfMacScheduler::DoSchedDlMacBufferReq (const struct FfMacSchedSapProvider::SchedDlMacBufferReqParameters& params)
+NrFdBetFfMacScheduler::DoSchedDlMacBufferReq (const struct NrFfMacSchedSapProvider::SchedDlMacBufferReqParameters& params)
 {
   NS_LOG_FUNCTION (this);
   NS_FATAL_ERROR ("method not implemented");
@@ -514,7 +514,7 @@ NrFdBetFfMacScheduler::GetRbgSize (int dlbandwidth)
 int
 NrFdBetFfMacScheduler::LcActivePerFlow (uint16_t rnti)
 {
-  std::map <NrFlowId_t, FfMacSchedSapProvider::SchedDlRlcBufferReqParameters>::iterator it;
+  std::map <NrFlowId_t, NrFfMacSchedSapProvider::SchedDlRlcBufferReqParameters>::iterator it;
   int lcActive = 0;
   for (it = m_rlcBufferReq.begin (); it != m_rlcBufferReq.end (); it++)
     {
@@ -642,7 +642,7 @@ NrFdBetFfMacScheduler::RefreshHarqProcesses ()
 
 
 void
-NrFdBetFfMacScheduler::DoSchedDlTriggerReq (const struct FfMacSchedSapProvider::SchedDlTriggerReqParameters& params)
+NrFdBetFfMacScheduler::DoSchedDlTriggerReq (const struct NrFfMacSchedSapProvider::SchedDlTriggerReqParameters& params)
 {
   NS_LOG_FUNCTION (this << " Frame no. " << (params.m_sfnSf >> 4) << " subframe no. " << (0xF & params.m_sfnSf));
   // API generated by RLC for triggering the scheduling of a DL subframe
@@ -1212,7 +1212,7 @@ NrFdBetFfMacScheduler::DoSchedDlTriggerReq (const struct FfMacSchedSapProvider::
       newDci.m_rbBitmap = rbgMask; // (32 bit bitmap see 7.1.6 of 36.213)
 
       // create the rlc PDUs -> equally divide resources among actives LCs
-      std::map <NrFlowId_t, FfMacSchedSapProvider::SchedDlRlcBufferReqParameters>::iterator itBufReq;
+      std::map <NrFlowId_t, NrFfMacSchedSapProvider::SchedDlRlcBufferReqParameters>::iterator itBufReq;
       for (itBufReq = m_rlcBufferReq.begin (); itBufReq != m_rlcBufferReq.end (); itBufReq++)
         {
           if (((*itBufReq).first.m_rnti == (*itMap).first)
@@ -1317,7 +1317,7 @@ NrFdBetFfMacScheduler::DoSchedDlTriggerReq (const struct FfMacSchedSapProvider::
 }
 
 void
-NrFdBetFfMacScheduler::DoSchedDlRachInfoReq (const struct FfMacSchedSapProvider::SchedDlRachInfoReqParameters& params)
+NrFdBetFfMacScheduler::DoSchedDlRachInfoReq (const struct NrFfMacSchedSapProvider::SchedDlRachInfoReqParameters& params)
 {
   NS_LOG_FUNCTION (this);
 
@@ -1327,7 +1327,7 @@ NrFdBetFfMacScheduler::DoSchedDlRachInfoReq (const struct FfMacSchedSapProvider:
 }
 
 void
-NrFdBetFfMacScheduler::DoSchedDlCqiInfoReq (const struct FfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params)
+NrFdBetFfMacScheduler::DoSchedDlCqiInfoReq (const struct NrFfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params)
 {
   NS_LOG_FUNCTION (this);
 
@@ -1419,7 +1419,7 @@ NrFdBetFfMacScheduler::EstimateUlSinr (uint16_t rnti, uint16_t rb)
 }
 
 void
-NrFdBetFfMacScheduler::DoSchedUlTriggerReq (const struct FfMacSchedSapProvider::SchedUlTriggerReqParameters& params)
+NrFdBetFfMacScheduler::DoSchedUlTriggerReq (const struct NrFfMacSchedSapProvider::SchedUlTriggerReqParameters& params)
 {
   NS_LOG_FUNCTION (this << " UL - Frame no. " << (params.m_sfnSf >> 4) << " subframe no. " << (0xF & params.m_sfnSf) << " size " << params.m_ulInfoList.size ());
 
@@ -1802,21 +1802,21 @@ NrFdBetFfMacScheduler::DoSchedUlTriggerReq (const struct FfMacSchedSapProvider::
 }
 
 void
-NrFdBetFfMacScheduler::DoSchedUlNoiseInterferenceReq (const struct FfMacSchedSapProvider::SchedUlNoiseInterferenceReqParameters& params)
+NrFdBetFfMacScheduler::DoSchedUlNoiseInterferenceReq (const struct NrFfMacSchedSapProvider::SchedUlNoiseInterferenceReqParameters& params)
 {
   NS_LOG_FUNCTION (this);
   return;
 }
 
 void
-NrFdBetFfMacScheduler::DoSchedUlSrInfoReq (const struct FfMacSchedSapProvider::SchedUlSrInfoReqParameters& params)
+NrFdBetFfMacScheduler::DoSchedUlSrInfoReq (const struct NrFfMacSchedSapProvider::SchedUlSrInfoReqParameters& params)
 {
   NS_LOG_FUNCTION (this);
   return;
 }
 
 void
-NrFdBetFfMacScheduler::DoSchedUlMacCtrlInfoReq (const struct FfMacSchedSapProvider::SchedUlMacCtrlInfoReqParameters& params)
+NrFdBetFfMacScheduler::DoSchedUlMacCtrlInfoReq (const struct NrFfMacSchedSapProvider::SchedUlMacCtrlInfoReqParameters& params)
 {
   NS_LOG_FUNCTION (this);
 
@@ -1860,7 +1860,7 @@ NrFdBetFfMacScheduler::DoSchedUlMacCtrlInfoReq (const struct FfMacSchedSapProvid
 }
 
 void
-NrFdBetFfMacScheduler::DoSchedUlCqiInfoReq (const struct FfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params)
+NrFdBetFfMacScheduler::DoSchedUlCqiInfoReq (const struct NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params)
 {
   NS_LOG_FUNCTION (this);
 // retrieve the allocation for this subframe
@@ -2093,7 +2093,7 @@ NrFdBetFfMacScheduler::RefreshUlCqiMaps (void)
 void
 NrFdBetFfMacScheduler::UpdateDlRlcBufferInfo (uint16_t rnti, uint8_t lcid, uint16_t size)
 {
-  std::map<NrFlowId_t, FfMacSchedSapProvider::SchedDlRlcBufferReqParameters>::iterator it;
+  std::map<NrFlowId_t, NrFfMacSchedSapProvider::SchedDlRlcBufferReqParameters>::iterator it;
   NrFlowId_t flow (rnti, lcid);
   it = m_rlcBufferReq.find (flow);
   if (it != m_rlcBufferReq.end ())
@@ -2171,7 +2171,7 @@ void
 NrFdBetFfMacScheduler::TransmissionModeConfigurationUpdate (uint16_t rnti, uint8_t txMode)
 {
   NS_LOG_FUNCTION (this << " RNTI " << rnti << " txMode " << (uint16_t)txMode);
-  FfMacCschedSapUser::CschedUeConfigUpdateIndParameters params;
+  NrFfMacCschedSapUser::CschedUeConfigUpdateIndParameters params;
   params.m_rnti = rnti;
   params.m_transmissionMode = txMode;
   m_cschedSapUser->CschedUeConfigUpdateInd (params);

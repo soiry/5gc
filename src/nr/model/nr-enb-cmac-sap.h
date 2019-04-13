@@ -23,7 +23,7 @@
 #define NR_ENB_CMAC_SAP_H
 
 #include <ns3/packet.h>
-#include <ns3/ff-mac-common.h>
+#include <ns3/nr-ff-mac-common.h>
 #include <ns3/eps-bearer.h>
 #include <ns3/nr-common.h>
 

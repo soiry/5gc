@@ -18,13 +18,13 @@
  * Author: Manuel Requena <manuel.requena@cttc.es>
  */
 
-#ifndef FF_MAC_CSCHED_SAP_H
-#define FF_MAC_CSCHED_SAP_H
+#ifndef NR_FF_MAC_CSCHED_SAP_H
+#define NR_FF_MAC_CSCHED_SAP_H
 
 #include <stdint.h>
 #include <vector>
 
-#include "ff-mac-common.h"
+#include "nr-ff-mac-common.h"
 
 namespace ns3 {
 
@@ -40,12 +40,12 @@ namespace ns3 {
  * The documentation of this class refers to sections of this Technical Document.
  *
  * You can found an example of the implementation of this interface
- * in the SampleFfMacCschedSapProvider and SampleFfMacCschedSapuser classes
+ * in the SampleNrFfMacCschedSapProvider and SampleFfMacCschedSapuser classes
  */
-class FfMacCschedSapProvider
+class NrFfMacCschedSapProvider
 {
 public:
-  virtual ~FfMacCschedSapProvider ();
+  virtual ~NrFfMacCschedSapProvider ();
 
   /**
    * Parameters of the API primitives
@@ -246,10 +246,10 @@ private:
 };
 
 
-class FfMacCschedSapUser
+class NrFfMacCschedSapUser
 {
 public:
-  virtual ~FfMacCschedSapUser ();
+  virtual ~NrFfMacCschedSapUser ();
 
   /**
    * Parameters of the API primitives
@@ -372,4 +372,4 @@ private:
 
 } // end namespace ns3
 
-#endif /* FF_MAC_CSCHED_SAP_H */
+#endif /* NR_FF_MAC_CSCHED_SAP_H */

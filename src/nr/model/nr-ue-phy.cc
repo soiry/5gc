@@ -39,7 +39,7 @@
 #include "nr-spectrum-value-helper.h"
 #include "nr-amc.h"
 #include "nr-ue-mac.h"
-#include "ff-mac-common.h"
+#include "nr-ff-mac-common.h"
 #include "nr-chunk-processor.h"
 #include <ns3/nr-common.h>
 #include <ns3/pointer.h>

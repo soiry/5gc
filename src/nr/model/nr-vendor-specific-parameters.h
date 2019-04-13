@@ -21,7 +21,7 @@
 #ifndef NR_VENDOR_SPECIFIC_PARAMETERS
 #define NR_VENDOR_SPECIFIC_PARAMETERS
 
-#include <ns3/ff-mac-common.h>
+#include <ns3/nr-ff-mac-common.h>
 
 
 #define SRS_CQI_RNTI_VSP 1

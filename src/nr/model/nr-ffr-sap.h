@@ -23,7 +23,7 @@
 #define NR_FFR_SAP_H
 
 #include <ns3/nr-rrc-sap.h>
-#include <ns3/ff-mac-sched-sap.h>
+#include <ns3/nr-ff-mac-sched-sap.h>
 #include <map>
 
 namespace ns3 {
@@ -98,12 +98,12 @@ public:
   /**
    * \brief ReportDlCqiInfo
    */
-  virtual void ReportDlCqiInfo (const struct FfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params) = 0;
+  virtual void ReportDlCqiInfo (const struct NrFfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params) = 0;
 
   /**
    * \brief ReportUlCqiInfo
    */
-  virtual void ReportUlCqiInfo (const struct FfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params) = 0;
+  virtual void ReportUlCqiInfo (const struct NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params) = 0;
 
   /**
    * \brief ReportUlCqiInfo
@@ -153,8 +153,8 @@ public:
   virtual bool IsDlRbgAvailableForUe (int i, uint16_t rnti);
   virtual std::vector <bool> GetAvailableUlRbg ();
   virtual bool IsUlRbgAvailableForUe (int i, uint16_t rnti);
-  virtual void ReportDlCqiInfo (const struct FfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params);
-  virtual void ReportUlCqiInfo (const struct FfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params);
+  virtual void ReportDlCqiInfo (const struct NrFfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params);
+  virtual void ReportUlCqiInfo (const struct NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params);
   virtual void ReportUlCqiInfo ( std::map <uint16_t, std::vector <double> > ulCqiMap );
   virtual uint8_t GetTpc (uint16_t rnti);
   virtual uint8_t GetMinContinuousUlBandwidth ();
@@ -202,14 +202,14 @@ MemberNrFfrSapProvider<C>::IsUlRbgAvailableForUe (int i, uint16_t rnti)
 
 template <class C>
 void
-MemberNrFfrSapProvider<C>::ReportDlCqiInfo (const struct FfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params)
+MemberNrFfrSapProvider<C>::ReportDlCqiInfo (const struct NrFfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params)
 {
   m_owner->DoReportDlCqiInfo (params);
 }
 
 template <class C>
 void
-MemberNrFfrSapProvider<C>::ReportUlCqiInfo (const struct FfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params)
+MemberNrFfrSapProvider<C>::ReportUlCqiInfo (const struct NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params)
 {
   m_owner->DoReportUlCqiInfo (params);
 }

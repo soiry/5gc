@@ -29,10 +29,10 @@ namespace ns3 {
 
 
 
-class FfMacCschedSapUser;
+class NrFfMacCschedSapUser;
 class FfMacSchedSapUser;
-class FfMacCschedSapProvider;
-class FfMacSchedSapProvider;
+class NrFfMacCschedSapProvider;
+class NrFfMacSchedSapProvider;
 class NrFfrSapProvider;
 class NrFfrSapUser;
 
@@ -85,7 +85,7 @@ public:
    *
    * \param s
    */
-  virtual void SetFfMacCschedSapUser (FfMacCschedSapUser* s) = 0;
+  virtual void SetNrFfMacCschedSapUser (NrFfMacCschedSapUser* s) = 0;
 
   /**
    *
@@ -100,13 +100,13 @@ public:
    *
    * \return the Provider part of the FfMacCschedSap provided by the Scheduler
    */
-  virtual FfMacCschedSapProvider* GetFfMacCschedSapProvider () = 0;
+  virtual NrFfMacCschedSapProvider* GetNrFfMacCschedSapProvider () = 0;
 
   /**
    *
    * \return the Provider part of the FfMacSchedSap provided by the Scheduler
    */
-  virtual FfMacSchedSapProvider* GetFfMacSchedSapProvider () = 0;
+  virtual NrFfMacSchedSapProvider* GetNrFfMacSchedSapProvider () = 0;
 
   //FFR SAPs
   /**

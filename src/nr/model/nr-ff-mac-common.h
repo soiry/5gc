@@ -18,8 +18,8 @@
  * Author: Manuel Requena <manuel.requena@cttc.es>
  */
 
-#ifndef FF_MAC_COMMON_H
-#define FF_MAC_COMMON_H
+#ifndef NR_FF_MAC_COMMON_H
+#define NR_FF_MAC_COMMON_H
 
 #include <ns3/simple-ref-count.h>
 #include <ns3/ptr.h>
@@ -498,4 +498,4 @@ struct PagingInfoListElement_s
 
 } // namespace ns3
 
-#endif /* FF_MAC_COMMON_H */
+#endif /* NR_FF_MAC_COMMON_H */

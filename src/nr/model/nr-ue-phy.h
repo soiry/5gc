@@ -24,7 +24,7 @@
 
 
 #include <ns3/nr-phy.h>
-#include <ns3/ff-mac-common.h>
+#include <ns3/nr-ff-mac-common.h>
 
 #include <ns3/nr-control-messages.h>
 #include <ns3/nr-amc.h>

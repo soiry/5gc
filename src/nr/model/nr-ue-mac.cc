@@ -34,7 +34,7 @@
 #include "nr-ue-mac.h"
 #include "nr-ue-net-device.h"
 #include "nr-radio-bearer-tag.h"
-#include <ns3/ff-mac-common.h>
+#include <ns3/nr-ff-mac-common.h>
 #include <ns3/nr-control-messages.h>
 #include <ns3/simulator.h>
 #include <ns3/nr-common.h>

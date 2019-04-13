@@ -18,13 +18,13 @@
  * Author: Manuel Requena <manuel.requena@cttc.es>
  */
 
-#ifndef FF_MAC_SCHED_SAP_H
-#define FF_MAC_SCHED_SAP_H
+#ifndef NR_FF_MAC_SCHED_SAP_H
+#define NR_FF_MAC_SCHED_SAP_H
 
 #include <stdint.h>
 #include <vector>
 
-#include "ff-mac-common.h"
+#include "nr-ff-mac-common.h"
 
 
 namespace ns3 {
@@ -41,12 +41,12 @@ namespace ns3 {
  * The documentation of this class refers to sections of this Technical Document.
  *
  * You can found an example of the implementation of this interface
- * in the SampleFfMacSchedSapProvider and SampleFfMacSchedSapUser classes
+ * in the SampleNrFfMacSchedSapProvider and SampleFfMacSchedSapUser classes
  */
-class FfMacSchedSapProvider
+class NrFfMacSchedSapProvider
 {
 public:
-  virtual ~FfMacSchedSapProvider ();
+  virtual ~NrFfMacSchedSapProvider ();
 
   /**
    * Parameters of the API primitives
@@ -221,10 +221,10 @@ private:
 };
 
 
-class FfMacSchedSapUser
+class NrFfMacSchedSapUser
 {
 public:
-  virtual ~FfMacSchedSapUser ();
+  virtual ~NrFfMacSchedSapUser ();
 
   /**
    * Parameters of the API primitives
@@ -271,4 +271,4 @@ private:
 
 } // namespace ns3
 
-#endif /* FF_MAC_SCHED_SAP_H */
+#endif /* NR_FF_MAC_SCHED_SAP_H */

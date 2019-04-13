@@ -831,7 +831,7 @@ NrEnbPhy::GenerateCtrlCqiReport (const SpectrumValue& sinr)
   // avoid processing SRSs sent with an old SRS configuration index
   if (Simulator::Now () > m_srsStartTime)
     {
-      FfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi = CreateSrsCqiReport (sinr);
+      NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi = CreateSrsCqiReport (sinr);
       m_enbPhySapUser->UlCqiReport (ulcqi);
     }
 }
@@ -840,7 +840,7 @@ void
 NrEnbPhy::GenerateDataCqiReport (const SpectrumValue& sinr)
 {
   NS_LOG_FUNCTION (this << sinr);
-  FfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi = CreatePuschCqiReport (sinr);
+  NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi = CreatePuschCqiReport (sinr);
   m_enbPhySapUser->UlCqiReport (ulcqi);
 }
 
@@ -865,12 +865,12 @@ NrEnbPhy::ReportRsReceivedPower (const SpectrumValue& power)
 
 
 
-FfMacSchedSapProvider::SchedUlCqiInfoReqParameters
+NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters
 NrEnbPhy::CreatePuschCqiReport (const SpectrumValue& sinr)
 {
   NS_LOG_FUNCTION (this << sinr);
   Values::const_iterator it;
-  FfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi;
+  NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi;
   ulcqi.m_ulCqi.m_type = UlCqi_s::PUSCH;
   int i = 0;
   for (it = sinr.ConstValuesBegin (); it != sinr.ConstValuesEnd (); it++)
@@ -966,12 +966,12 @@ NrEnbPhy::DoSetPa (uint16_t rnti, double pa)
 
 }
 
-FfMacSchedSapProvider::SchedUlCqiInfoReqParameters
+NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters
 NrEnbPhy::CreateSrsCqiReport (const SpectrumValue& sinr)
 {
   NS_LOG_FUNCTION (this << sinr);
   Values::const_iterator it;
-  FfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi;
+  NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi;
   ulcqi.m_ulCqi.m_type = UlCqi_s::SRS;
   int i = 0;
   double srsSum = 0.0;

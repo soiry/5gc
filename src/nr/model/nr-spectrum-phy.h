@@ -38,7 +38,7 @@
 #include <ns3/nr-interference.h>
 #include "ns3/random-variable-stream.h"
 #include <map>
-#include <ns3/ff-mac-common.h>
+#include <ns3/nr-ff-mac-common.h>
 #include <ns3/nr-harq-phy.h>
 #include <ns3/nr-common.h>
 

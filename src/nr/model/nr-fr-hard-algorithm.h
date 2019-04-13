@@ -69,8 +69,8 @@ protected:
   virtual bool DoIsDlRbgAvailableForUe (int i, uint16_t rnti);
   virtual std::vector <bool> DoGetAvailableUlRbg ();
   virtual bool DoIsUlRbgAvailableForUe (int i, uint16_t rnti);
-  virtual void DoReportDlCqiInfo (const struct FfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params);
-  virtual void DoReportUlCqiInfo (const struct FfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params);
+  virtual void DoReportDlCqiInfo (const struct NrFfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params);
+  virtual void DoReportUlCqiInfo (const struct NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params);
   virtual void DoReportUlCqiInfo ( std::map <uint16_t, std::vector <double> > ulCqiMap );
   virtual uint8_t DoGetTpc (uint16_t rnti);
   virtual uint8_t DoGetMinContinuousUlBandwidth ();

@@ -28,8 +28,8 @@
 #include <ns3/nr-common.h>
 #include <ns3/nr-mac-sap.h>
 #include <ns3/nr-enb-cmac-sap.h>
-#include <ns3/ff-mac-csched-sap.h>
-#include <ns3/ff-mac-sched-sap.h>
+#include <ns3/nr-ff-mac-csched-sap.h>
+#include <ns3/nr-ff-mac-sched-sap.h>
 #include <ns3/nr-enb-phy-sap.h>
 #include "ns3/traced-value.h"
 #include "ns3/trace-source-accessor.h"
@@ -52,7 +52,7 @@ class NrEnbMac :   public Object
   friend class EnbMacMemberNrEnbCmacSapProvider;
   friend class EnbMacMemberNrMacSapProvider<NrEnbMac>;
   friend class EnbMacMemberFfMacSchedSapUser;
-  friend class EnbMacMemberFfMacCschedSapUser;
+  friend class EnbMacMemberNrFfMacCschedSapUser;
   friend class EnbMacMemberNrEnbPhySapUser;
 
 public:
@@ -67,7 +67,7 @@ public:
    * \brief Set the scheduler SAP provider
    * \param s a pointer SAP provider of the FF packet scheduler
    */
-  void SetFfMacSchedSapProvider (FfMacSchedSapProvider* s);
+  void SetNrFfMacSchedSapProvider (NrFfMacSchedSapProvider* s);
   /**
    * \brief Get the scheduler SAP user
    * \return a pointer to the SAP user of the scheduler
@@ -77,12 +77,12 @@ public:
    * \brief Set the control scheduler SAP provider
    * \param s a pointer to the control scheduler SAP provider
    */
-  void SetFfMacCschedSapProvider (FfMacCschedSapProvider* s);
+  void SetNrFfMacCschedSapProvider (NrFfMacCschedSapProvider* s);
   /**
    * \brief Get the control scheduler SAP user
    * \return a pointer to the control scheduler SAP user
    */
-  FfMacCschedSapUser* GetFfMacCschedSapUser (void);
+  NrFfMacCschedSapUser* GetNrFfMacCschedSapUser (void);
 
 
 
@@ -166,7 +166,7 @@ private:
   void ReceiveBsrMessage  (MacCeListElement_s bsr);
 
  
-  void DoUlCqiReport (FfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi);
+  void DoUlCqiReport (NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi);
 
 
 
@@ -187,13 +187,13 @@ private:
 
 
   // forwarded from FfMacCchedSapUser
-  void DoCschedCellConfigCnf (FfMacCschedSapUser::CschedCellConfigCnfParameters params);
-  void DoCschedUeConfigCnf (FfMacCschedSapUser::CschedUeConfigCnfParameters params);
-  void DoCschedLcConfigCnf (FfMacCschedSapUser::CschedLcConfigCnfParameters params);
-  void DoCschedLcReleaseCnf (FfMacCschedSapUser::CschedLcReleaseCnfParameters params);
-  void DoCschedUeReleaseCnf (FfMacCschedSapUser::CschedUeReleaseCnfParameters params);
-  void DoCschedUeConfigUpdateInd (FfMacCschedSapUser::CschedUeConfigUpdateIndParameters params);
-  void DoCschedCellConfigUpdateInd (FfMacCschedSapUser::CschedCellConfigUpdateIndParameters params);
+  void DoCschedCellConfigCnf (NrFfMacCschedSapUser::CschedCellConfigCnfParameters params);
+  void DoCschedUeConfigCnf (NrFfMacCschedSapUser::CschedUeConfigCnfParameters params);
+  void DoCschedLcConfigCnf (NrFfMacCschedSapUser::CschedLcConfigCnfParameters params);
+  void DoCschedLcReleaseCnf (NrFfMacCschedSapUser::CschedLcReleaseCnfParameters params);
+  void DoCschedUeReleaseCnf (NrFfMacCschedSapUser::CschedUeReleaseCnfParameters params);
+  void DoCschedUeConfigUpdateInd (NrFfMacCschedSapUser::CschedUeConfigUpdateIndParameters params);
+  void DoCschedCellConfigUpdateInd (NrFfMacCschedSapUser::CschedCellConfigUpdateIndParameters params);
 
   // forwarded from FfMacSchedSapUser
   void DoSchedDlConfigInd (FfMacSchedSapUser::SchedDlConfigIndParameters ind);
@@ -215,7 +215,7 @@ private:
   std::map <uint16_t, std::map<uint8_t, NrMacSapUser*> > m_rlcAttached;
 
   std::vector <CqiListElement_s> m_dlCqiReceived; // DL-CQI received
-  std::vector <FfMacSchedSapProvider::SchedUlCqiInfoReqParameters> m_ulCqiReceived; // UL-CQI received
+  std::vector <NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters> m_ulCqiReceived; // UL-CQI received
   std::vector <MacCeListElement_s> m_ulCeReceived; // CE received (BSR up to now)
 
   std::vector <DlInfoListElement_s> m_dlInfoListReceived; // DL HARQ feedback received
@@ -236,10 +236,10 @@ private:
   NrEnbCmacSapUser* m_cmacSapUser;
 
 
-  FfMacSchedSapProvider* m_schedSapProvider;
-  FfMacCschedSapProvider* m_cschedSapProvider;
+  NrFfMacSchedSapProvider* m_schedSapProvider;
+  NrFfMacCschedSapProvider* m_cschedSapProvider;
   FfMacSchedSapUser* m_schedSapUser;
-  FfMacCschedSapUser* m_cschedSapUser;
+  NrFfMacCschedSapUser* m_cschedSapUser;
 
   // PHY-SAP
   NrEnbPhySapProvider* m_enbPhySapProvider;

@@ -307,14 +307,14 @@ NrFfrDistributedAlgorithm::DoIsUlRbgAvailableForUe (int rbId, uint16_t rnti)
 }
 
 void
-NrFfrDistributedAlgorithm::DoReportDlCqiInfo (const struct FfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params)
+NrFfrDistributedAlgorithm::DoReportDlCqiInfo (const struct NrFfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params)
 {
   NS_LOG_FUNCTION (this);
   NS_LOG_WARN ("Method should not be called, because it is empty");
 }
 
 void
-NrFfrDistributedAlgorithm::DoReportUlCqiInfo (const struct FfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params)
+NrFfrDistributedAlgorithm::DoReportUlCqiInfo (const struct NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params)
 {
   NS_LOG_FUNCTION (this);
   NS_LOG_WARN ("Method should not be called, because it is empty");

@@ -172,10 +172,10 @@ EnbMacMemberFfMacSchedSapUser::SchedUlConfigInd (const struct SchedUlConfigIndPa
 
 
 
-class EnbMacMemberFfMacCschedSapUser : public FfMacCschedSapUser
+class EnbMacMemberNrFfMacCschedSapUser : public NrFfMacCschedSapUser
 {
 public:
-  EnbMacMemberFfMacCschedSapUser (NrEnbMac* mac);
+  EnbMacMemberNrFfMacCschedSapUser (NrEnbMac* mac);
 
   virtual void CschedCellConfigCnf (const struct CschedCellConfigCnfParameters& params);
   virtual void CschedUeConfigCnf (const struct CschedUeConfigCnfParameters& params);
@@ -190,49 +190,49 @@ private:
 };
 
 
-EnbMacMemberFfMacCschedSapUser::EnbMacMemberFfMacCschedSapUser (NrEnbMac* mac)
+EnbMacMemberNrFfMacCschedSapUser::EnbMacMemberNrFfMacCschedSapUser (NrEnbMac* mac)
   : m_mac (mac)
 {
 }
 
 void
-EnbMacMemberFfMacCschedSapUser::CschedCellConfigCnf (const struct CschedCellConfigCnfParameters& params)
+EnbMacMemberNrFfMacCschedSapUser::CschedCellConfigCnf (const struct CschedCellConfigCnfParameters& params)
 {
   m_mac->DoCschedCellConfigCnf (params);
 }
 
 void
-EnbMacMemberFfMacCschedSapUser::CschedUeConfigCnf (const struct CschedUeConfigCnfParameters& params)
+EnbMacMemberNrFfMacCschedSapUser::CschedUeConfigCnf (const struct CschedUeConfigCnfParameters& params)
 {
   m_mac->DoCschedUeConfigCnf (params);
 }
 
 void
-EnbMacMemberFfMacCschedSapUser::CschedLcConfigCnf (const struct CschedLcConfigCnfParameters& params)
+EnbMacMemberNrFfMacCschedSapUser::CschedLcConfigCnf (const struct CschedLcConfigCnfParameters& params)
 {
   m_mac->DoCschedLcConfigCnf (params);
 }
 
 void
-EnbMacMemberFfMacCschedSapUser::CschedLcReleaseCnf (const struct CschedLcReleaseCnfParameters& params)
+EnbMacMemberNrFfMacCschedSapUser::CschedLcReleaseCnf (const struct CschedLcReleaseCnfParameters& params)
 {
   m_mac->DoCschedLcReleaseCnf (params);
 }
 
 void
-EnbMacMemberFfMacCschedSapUser::CschedUeReleaseCnf (const struct CschedUeReleaseCnfParameters& params)
+EnbMacMemberNrFfMacCschedSapUser::CschedUeReleaseCnf (const struct CschedUeReleaseCnfParameters& params)
 {
   m_mac->DoCschedUeReleaseCnf (params);
 }
 
 void
-EnbMacMemberFfMacCschedSapUser::CschedUeConfigUpdateInd (const struct CschedUeConfigUpdateIndParameters& params)
+EnbMacMemberNrFfMacCschedSapUser::CschedUeConfigUpdateInd (const struct CschedUeConfigUpdateIndParameters& params)
 {
   m_mac->DoCschedUeConfigUpdateInd (params);
 }
 
 void
-EnbMacMemberFfMacCschedSapUser::CschedCellConfigUpdateInd (const struct CschedCellConfigUpdateIndParameters& params)
+EnbMacMemberNrFfMacCschedSapUser::CschedCellConfigUpdateInd (const struct CschedCellConfigUpdateIndParameters& params)
 {
   m_mac->DoCschedCellConfigUpdateInd (params);
 }
@@ -252,7 +252,7 @@ public:
   virtual void SubframeIndication (uint32_t frameNo, uint32_t subframeNo);
   virtual void ReceiveNrControlMessage (Ptr<NrControlMessage> msg);
   virtual void ReceiveRachPreamble (uint32_t prachId);
-  virtual void UlCqiReport (FfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi);
+  virtual void UlCqiReport (NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi);
   virtual void UlInfoListElementHarqFeeback (UlInfoListElement_s params);
   virtual void DlInfoListElementHarqFeeback (DlInfoListElement_s params);
 
@@ -290,7 +290,7 @@ EnbMacMemberNrEnbPhySapUser::ReceiveRachPreamble (uint32_t prachId)
 }
 
 void
-EnbMacMemberNrEnbPhySapUser::UlCqiReport (FfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi)
+EnbMacMemberNrEnbPhySapUser::UlCqiReport (NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi)
 {
   m_mac->DoUlCqiReport (ulcqi);
 }
@@ -355,7 +355,7 @@ NrEnbMac::NrEnbMac ()
   m_macSapProvider = new EnbMacMemberNrMacSapProvider<NrEnbMac> (this);
   m_cmacSapProvider = new EnbMacMemberNrEnbCmacSapProvider (this);
   m_schedSapUser = new EnbMacMemberFfMacSchedSapUser (this);
-  m_cschedSapUser = new EnbMacMemberFfMacCschedSapUser (this);
+  m_cschedSapUser = new EnbMacMemberNrFfMacCschedSapUser (this);
   m_enbPhySapUser = new EnbMacMemberNrEnbPhySapUser (this);
 }
 
@@ -384,7 +384,7 @@ NrEnbMac::DoDispose ()
 
 
 void
-NrEnbMac::SetFfMacSchedSapProvider (FfMacSchedSapProvider* s)
+NrEnbMac::SetNrFfMacSchedSapProvider (NrFfMacSchedSapProvider* s)
 {
   m_schedSapProvider = s;
 }
@@ -396,13 +396,13 @@ NrEnbMac::GetFfMacSchedSapUser (void)
 }
 
 void
-NrEnbMac::SetFfMacCschedSapProvider (FfMacCschedSapProvider* s)
+NrEnbMac::SetNrFfMacCschedSapProvider (NrFfMacCschedSapProvider* s)
 {
   m_cschedSapProvider = s;
 }
 
-FfMacCschedSapUser*
-NrEnbMac::GetFfMacCschedSapUser (void)
+NrFfMacCschedSapUser*
+NrEnbMac::GetNrFfMacCschedSapUser (void)
 {
   return m_cschedSapUser;
 }
@@ -462,7 +462,7 @@ NrEnbMac::DoSubframeIndication (uint32_t frameNo, uint32_t subframeNo)
   // Send Dl-CQI info to the scheduler
   if (m_dlCqiReceived.size () > 0)
     {
-      FfMacSchedSapProvider::SchedDlCqiInfoReqParameters dlcqiInfoReq;
+      NrFfMacSchedSapProvider::SchedDlCqiInfoReqParameters dlcqiInfoReq;
       dlcqiInfoReq.m_sfnSf = ((0x3FF & frameNo) << 4) | (0xF & subframeNo);
 
       int cqiNum = m_dlCqiReceived.size ();
@@ -478,7 +478,7 @@ NrEnbMac::DoSubframeIndication (uint32_t frameNo, uint32_t subframeNo)
   if (!m_receivedRachPreambleCount.empty ())
     {
       // process received RACH preambles and notify the scheduler
-      FfMacSchedSapProvider::SchedDlRachInfoReqParameters rachInfoReqParams;
+      NrFfMacSchedSapProvider::SchedDlRachInfoReqParameters rachInfoReqParams;
       NS_ASSERT (subframeNo > 0 && subframeNo <= 10); // subframe in 1..10
       for (std::map<uint8_t, uint32_t>::const_iterator it = m_receivedRachPreambleCount.begin ();
            it != m_receivedRachPreambleCount.end ();
@@ -530,7 +530,7 @@ NrEnbMac::DoSubframeIndication (uint32_t frameNo, uint32_t subframeNo)
     {
       dlSchedSubframeNo = dlSchedSubframeNo + m_macChTtiDelay;
     }
-  FfMacSchedSapProvider::SchedDlTriggerReqParameters dlparams;
+  NrFfMacSchedSapProvider::SchedDlTriggerReqParameters dlparams;
   dlparams.m_sfnSf = ((0x3FF & dlSchedFrameNo) << 4) | (0xF & dlSchedSubframeNo);
 
   // Forward DL HARQ feebacks collected during last TTI
@@ -546,7 +546,7 @@ NrEnbMac::DoSubframeIndication (uint32_t frameNo, uint32_t subframeNo)
 
   // --- UPLINK ---
   // Send UL-CQI info to the scheduler
-  std::vector <FfMacSchedSapProvider::SchedUlCqiInfoReqParameters>::iterator itCqi;
+  std::vector <NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters>::iterator itCqi;
   for (uint16_t i = 0; i < m_ulCqiReceived.size (); i++)
     {
       if (subframeNo > 1)
@@ -564,7 +564,7 @@ NrEnbMac::DoSubframeIndication (uint32_t frameNo, uint32_t subframeNo)
   // Send BSR reports to the scheduler
   if (m_ulCeReceived.size () > 0)
     {
-      FfMacSchedSapProvider::SchedUlMacCtrlInfoReqParameters ulMacReq;
+      NrFfMacSchedSapProvider::SchedUlMacCtrlInfoReqParameters ulMacReq;
       ulMacReq.m_sfnSf = ((0x3FF & frameNo) << 4) | (0xF & subframeNo);
       ulMacReq.m_macCeList.insert (ulMacReq.m_macCeList.begin (), m_ulCeReceived.begin (), m_ulCeReceived.end ());
       m_ulCeReceived.erase (m_ulCeReceived.begin (), m_ulCeReceived.end ());
@@ -585,7 +585,7 @@ NrEnbMac::DoSubframeIndication (uint32_t frameNo, uint32_t subframeNo)
     {
       ulSchedSubframeNo = ulSchedSubframeNo + (m_macChTtiDelay + UL_PUSCH_TTIS_DELAY);
     }
-  FfMacSchedSapProvider::SchedUlTriggerReqParameters ulparams;
+  NrFfMacSchedSapProvider::SchedUlTriggerReqParameters ulparams;
   ulparams.m_sfnSf = ((0x3FF & ulSchedFrameNo) << 4) | (0xF & ulSchedSubframeNo);
 
   // Forward DL HARQ feebacks collected during last TTI
@@ -635,7 +635,7 @@ NrEnbMac::DoReceiveRachPreamble  (uint8_t rapId)
 }
 
 void
-NrEnbMac::DoUlCqiReport (FfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi)
+NrEnbMac::DoUlCqiReport (NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi)
 { 
   if (ulcqi.m_ulCqi.m_type == UlCqi_s::PUSCH)
     {
@@ -735,7 +735,7 @@ void
 NrEnbMac::DoConfigureMac (uint8_t ulBandwidth, uint8_t dlBandwidth)
 {
   NS_LOG_FUNCTION (this << " ulBandwidth=" << (uint16_t) ulBandwidth << " dlBandwidth=" << (uint16_t) dlBandwidth);
-  FfMacCschedSapProvider::CschedCellConfigReqParameters params;
+  NrFfMacCschedSapProvider::CschedCellConfigReqParameters params;
   // Configure the subset of parameters used by FfMacScheduler
   params.m_ulBandwidth = ulBandwidth;
   params.m_dlBandwidth = dlBandwidth;
@@ -755,7 +755,7 @@ NrEnbMac::DoAddUe (uint16_t rnti)
                                 (rnti, empty));
   NS_ASSERT_MSG (ret.second, "element already present, RNTI already existed");
 
-  FfMacCschedSapProvider::CschedUeConfigReqParameters params;
+  NrFfMacCschedSapProvider::CschedUeConfigReqParameters params;
   params.m_rnti = rnti;
   params.m_transmissionMode = 0; // set to default value (SISO) for avoiding random initialization (valgrind error)
 
@@ -786,7 +786,7 @@ void
 NrEnbMac::DoRemoveUe (uint16_t rnti)
 {
   NS_LOG_FUNCTION (this << " rnti=" << rnti);
-  FfMacCschedSapProvider::CschedUeReleaseReqParameters params;
+  NrFfMacCschedSapProvider::CschedUeReleaseReqParameters params;
   params.m_rnti = rnti;
   m_cschedSapProvider->CschedUeReleaseReq (params);
   m_rlcAttached.erase (rnti);
@@ -820,7 +820,7 @@ NrEnbMac::DoAddLc (NrEnbCmacSapProvider::LcInfo lcinfo, NrMacSapUser* msu)
   // 4.3.4 logicalChannelConfigListElement
   if (lcinfo.lcId != 0)
     {
-      struct FfMacCschedSapProvider::CschedLcConfigReqParameters params;
+      struct NrFfMacCschedSapProvider::CschedLcConfigReqParameters params;
       params.m_rnti = lcinfo.rnti;
       params.m_reconfigureFlag = false;
 
@@ -855,7 +855,7 @@ NrEnbMac::DoReleaseLc (uint16_t rnti, uint8_t lcid)
   std::map <uint16_t, std::map<uint8_t, NrMacSapUser*> >::iterator rntiIt = m_rlcAttached.find (rnti);
   rntiIt->second.erase (lcid);
 
-  struct FfMacCschedSapProvider::CschedLcReleaseReqParameters params;
+  struct NrFfMacCschedSapProvider::CschedLcReleaseReqParameters params;
   params.m_rnti = rnti;
   params.m_logicalChannelIdentity.push_back (lcid);
   m_cschedSapProvider->CschedLcReleaseReq (params);
@@ -867,7 +867,7 @@ NrEnbMac::DoUeUpdateConfigurationReq (NrEnbCmacSapProvider::UeConfig params)
   NS_LOG_FUNCTION (this);
 
   // propagates to scheduler
-  FfMacCschedSapProvider::CschedUeConfigReqParameters req;
+  NrFfMacCschedSapProvider::CschedUeConfigReqParameters req;
   req.m_rnti = params.m_rnti;
   req.m_transmissionMode = params.m_transmissionMode;
   req.m_reconfigureFlag = true;
@@ -949,7 +949,7 @@ void
 NrEnbMac::DoReportBufferStatus (NrMacSapProvider::ReportBufferStatusParameters params)
 {
   NS_LOG_FUNCTION (this);
-  FfMacSchedSapProvider::SchedDlRlcBufferReqParameters req;
+  NrFfMacSchedSapProvider::SchedDlRlcBufferReqParameters req;
   req.m_rnti = params.rnti;
   req.m_logicalChannelIdentity = params.lcid;
   req.m_rlcTransmissionQueueSize = params.txQueueSize;
@@ -1128,19 +1128,19 @@ NrEnbMac::DoSchedUlConfigInd (FfMacSchedSapUser::SchedUlConfigIndParameters ind)
 
 
 void
-NrEnbMac::DoCschedCellConfigCnf (FfMacCschedSapUser::CschedCellConfigCnfParameters params)
+NrEnbMac::DoCschedCellConfigCnf (NrFfMacCschedSapUser::CschedCellConfigCnfParameters params)
 {
   NS_LOG_FUNCTION (this);
 }
 
 void
-NrEnbMac::DoCschedUeConfigCnf (FfMacCschedSapUser::CschedUeConfigCnfParameters params)
+NrEnbMac::DoCschedUeConfigCnf (NrFfMacCschedSapUser::CschedUeConfigCnfParameters params)
 {
   NS_LOG_FUNCTION (this);
 }
 
 void
-NrEnbMac::DoCschedLcConfigCnf (FfMacCschedSapUser::CschedLcConfigCnfParameters params)
+NrEnbMac::DoCschedLcConfigCnf (NrFfMacCschedSapUser::CschedLcConfigCnfParameters params)
 {
   NS_LOG_FUNCTION (this);
   // Call the CSCHED primitive
@@ -1148,19 +1148,19 @@ NrEnbMac::DoCschedLcConfigCnf (FfMacCschedSapUser::CschedLcConfigCnfParameters p
 }
 
 void
-NrEnbMac::DoCschedLcReleaseCnf (FfMacCschedSapUser::CschedLcReleaseCnfParameters params)
+NrEnbMac::DoCschedLcReleaseCnf (NrFfMacCschedSapUser::CschedLcReleaseCnfParameters params)
 {
   NS_LOG_FUNCTION (this);
 }
 
 void
-NrEnbMac::DoCschedUeReleaseCnf (FfMacCschedSapUser::CschedUeReleaseCnfParameters params)
+NrEnbMac::DoCschedUeReleaseCnf (NrFfMacCschedSapUser::CschedUeReleaseCnfParameters params)
 {
   NS_LOG_FUNCTION (this);
 }
 
 void
-NrEnbMac::DoCschedUeConfigUpdateInd (FfMacCschedSapUser::CschedUeConfigUpdateIndParameters params)
+NrEnbMac::DoCschedUeConfigUpdateInd (NrFfMacCschedSapUser::CschedUeConfigUpdateIndParameters params)
 {
   NS_LOG_FUNCTION (this);
   // propagates to RRC
@@ -1171,7 +1171,7 @@ NrEnbMac::DoCschedUeConfigUpdateInd (FfMacCschedSapUser::CschedUeConfigUpdateInd
 }
 
 void
-NrEnbMac::DoCschedCellConfigUpdateInd (FfMacCschedSapUser::CschedCellConfigUpdateIndParameters params)
+NrEnbMac::DoCschedCellConfigUpdateInd (NrFfMacCschedSapUser::CschedCellConfigUpdateIndParameters params)
 {
   NS_LOG_FUNCTION (this);
 }

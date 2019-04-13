@@ -24,7 +24,7 @@
 
 #include <ns3/ptr.h>
 #include <ns3/simple-ref-count.h>
-#include <ns3/ff-mac-common.h>
+#include <ns3/nr-ff-mac-common.h>
 #include <ns3/nr-rrc-sap.h>
 #include <list>
 

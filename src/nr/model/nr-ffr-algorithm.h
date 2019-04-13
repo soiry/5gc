@@ -25,7 +25,7 @@
 #include <ns3/object.h>
 #include <ns3/nr-rrc-sap.h>
 #include <ns3/ngc-x2-sap.h>
-#include <ns3/ff-mac-sched-sap.h>
+#include <ns3/nr-ff-mac-sched-sap.h>
 #include <map>
 
 namespace ns3 {
@@ -172,14 +172,14 @@ protected:
    * \param params
    *
    */
-  virtual void DoReportDlCqiInfo (const struct FfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params) = 0;
+  virtual void DoReportDlCqiInfo (const struct NrFfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params) = 0;
 
   /**
    * \brief DoReportUlCqiInfo
    * \param params
    *
    */
-  virtual void DoReportUlCqiInfo (const struct FfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params) = 0;
+  virtual void DoReportUlCqiInfo (const struct NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params) = 0;
 
   /**
    * \brief DoReportUlCqiInfo

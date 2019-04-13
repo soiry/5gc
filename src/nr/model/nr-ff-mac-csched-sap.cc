@@ -18,16 +18,15 @@
  * Author: Manuel Requena <manuel.requena@cttc.es>
  */
 
-#include "ff-mac-sched-sap.h"
+#include "nr-ff-mac-csched-sap.h"
 
 namespace ns3 {
 
-
-FfMacSchedSapProvider::~FfMacSchedSapProvider ()
+NrFfMacCschedSapProvider::~NrFfMacCschedSapProvider ()
 {
 }
 
-FfMacSchedSapUser::~FfMacSchedSapUser ()
+NrFfMacCschedSapUser::~NrFfMacCschedSapUser ()
 {
 }
 

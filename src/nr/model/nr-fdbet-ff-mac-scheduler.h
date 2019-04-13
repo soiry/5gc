@@ -23,8 +23,8 @@
 #define FDBET_FF_MAC_SCHEDULER_H
 
 #include <ns3/nr-common.h>
-#include <ns3/ff-mac-csched-sap.h>
-#include <ns3/ff-mac-sched-sap.h>
+#include <ns3/nr-ff-mac-csched-sap.h>
+#include <ns3/nr-ff-mac-sched-sap.h>
 #include <ns3/nr-ff-mac-scheduler.h>
 #include <vector>
 #include <map>
@@ -89,10 +89,10 @@ public:
   static TypeId GetTypeId (void);
 
   // inherited from NrFfMacScheduler
-  virtual void SetFfMacCschedSapUser (FfMacCschedSapUser* s);
+  virtual void SetNrFfMacCschedSapUser (NrFfMacCschedSapUser* s);
   virtual void SetFfMacSchedSapUser (FfMacSchedSapUser* s);
-  virtual FfMacCschedSapProvider* GetFfMacCschedSapProvider ();
-  virtual FfMacSchedSapProvider* GetFfMacSchedSapProvider ();
+  virtual NrFfMacCschedSapProvider* GetNrFfMacCschedSapProvider ();
+  virtual NrFfMacSchedSapProvider* GetNrFfMacSchedSapProvider ();
 
   // FFR SAPs
   virtual void SetNrFfrSapProvider (NrFfrSapProvider* s);
@@ -109,42 +109,42 @@ private:
   // (See 4.1 for description of the primitives)
   //
 
-  void DoCschedCellConfigReq (const struct FfMacCschedSapProvider::CschedCellConfigReqParameters& params);
+  void DoCschedCellConfigReq (const struct NrFfMacCschedSapProvider::CschedCellConfigReqParameters& params);
 
-  void DoCschedUeConfigReq (const struct FfMacCschedSapProvider::CschedUeConfigReqParameters& params);
+  void DoCschedUeConfigReq (const struct NrFfMacCschedSapProvider::CschedUeConfigReqParameters& params);
 
-  void DoCschedLcConfigReq (const struct FfMacCschedSapProvider::CschedLcConfigReqParameters& params);
+  void DoCschedLcConfigReq (const struct NrFfMacCschedSapProvider::CschedLcConfigReqParameters& params);
 
-  void DoCschedLcReleaseReq (const struct FfMacCschedSapProvider::CschedLcReleaseReqParameters& params);
+  void DoCschedLcReleaseReq (const struct NrFfMacCschedSapProvider::CschedLcReleaseReqParameters& params);
 
-  void DoCschedUeReleaseReq (const struct FfMacCschedSapProvider::CschedUeReleaseReqParameters& params);
+  void DoCschedUeReleaseReq (const struct NrFfMacCschedSapProvider::CschedUeReleaseReqParameters& params);
 
   //
   // Implementation of the SCHED API primitives
   // (See 4.2 for description of the primitives)
   //
 
-  void DoSchedDlRlcBufferReq (const struct FfMacSchedSapProvider::SchedDlRlcBufferReqParameters& params);
+  void DoSchedDlRlcBufferReq (const struct NrFfMacSchedSapProvider::SchedDlRlcBufferReqParameters& params);
 
-  void DoSchedDlPagingBufferReq (const struct FfMacSchedSapProvider::SchedDlPagingBufferReqParameters& params);
+  void DoSchedDlPagingBufferReq (const struct NrFfMacSchedSapProvider::SchedDlPagingBufferReqParameters& params);
 
-  void DoSchedDlMacBufferReq (const struct FfMacSchedSapProvider::SchedDlMacBufferReqParameters& params);
+  void DoSchedDlMacBufferReq (const struct NrFfMacSchedSapProvider::SchedDlMacBufferReqParameters& params);
 
-  void DoSchedDlTriggerReq (const struct FfMacSchedSapProvider::SchedDlTriggerReqParameters& params);
+  void DoSchedDlTriggerReq (const struct NrFfMacSchedSapProvider::SchedDlTriggerReqParameters& params);
 
-  void DoSchedDlRachInfoReq (const struct FfMacSchedSapProvider::SchedDlRachInfoReqParameters& params);
+  void DoSchedDlRachInfoReq (const struct NrFfMacSchedSapProvider::SchedDlRachInfoReqParameters& params);
 
-  void DoSchedDlCqiInfoReq (const struct FfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params);
+  void DoSchedDlCqiInfoReq (const struct NrFfMacSchedSapProvider::SchedDlCqiInfoReqParameters& params);
 
-  void DoSchedUlTriggerReq (const struct FfMacSchedSapProvider::SchedUlTriggerReqParameters& params);
+  void DoSchedUlTriggerReq (const struct NrFfMacSchedSapProvider::SchedUlTriggerReqParameters& params);
 
-  void DoSchedUlNoiseInterferenceReq (const struct FfMacSchedSapProvider::SchedUlNoiseInterferenceReqParameters& params);
+  void DoSchedUlNoiseInterferenceReq (const struct NrFfMacSchedSapProvider::SchedUlNoiseInterferenceReqParameters& params);
 
-  void DoSchedUlSrInfoReq (const struct FfMacSchedSapProvider::SchedUlSrInfoReqParameters& params);
+  void DoSchedUlSrInfoReq (const struct NrFfMacSchedSapProvider::SchedUlSrInfoReqParameters& params);
 
-  void DoSchedUlMacCtrlInfoReq (const struct FfMacSchedSapProvider::SchedUlMacCtrlInfoReqParameters& params);
+  void DoSchedUlMacCtrlInfoReq (const struct NrFfMacSchedSapProvider::SchedUlMacCtrlInfoReqParameters& params);
 
-  void DoSchedUlCqiInfoReq (const struct FfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params);
+  void DoSchedUlCqiInfoReq (const struct NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters& params);
 
 
   int GetRbgSize (int dlbandwidth);
@@ -186,7 +186,7 @@ private:
   /*
    * Vectors of UE's LC info
   */
-  std::map <NrFlowId_t, FfMacSchedSapProvider::SchedDlRlcBufferReqParameters> m_rlcBufferReq;
+  std::map <NrFlowId_t, NrFfMacSchedSapProvider::SchedDlRlcBufferReqParameters> m_rlcBufferReq;
 
 
   /*
@@ -239,17 +239,17 @@ private:
   std::map <uint16_t,uint32_t> m_ceBsrRxed;
 
   // MAC SAPs
-  FfMacCschedSapUser* m_cschedSapUser;
+  NrFfMacCschedSapUser* m_cschedSapUser;
   FfMacSchedSapUser* m_schedSapUser;
-  FfMacCschedSapProvider* m_cschedSapProvider;
-  FfMacSchedSapProvider* m_schedSapProvider;
+  NrFfMacCschedSapProvider* m_cschedSapProvider;
+  NrFfMacSchedSapProvider* m_schedSapProvider;
 
   // FFR SAPs
   NrFfrSapUser* m_ffrSapUser;
   NrFfrSapProvider* m_ffrSapProvider;
 
   // Internal parameters
-  FfMacCschedSapProvider::CschedCellConfigReqParameters m_cschedCellConfig;
+  NrFfMacCschedSapProvider::CschedCellConfigReqParameters m_cschedCellConfig;
 
 
   double m_timeWindow;

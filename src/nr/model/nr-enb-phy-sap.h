@@ -24,8 +24,8 @@
 #define NR_ENB_PHY_SAP_H
 
 #include <ns3/packet.h>
-#include <ns3/ff-mac-common.h>
-#include <ns3/ff-mac-sched-sap.h>
+#include <ns3/nr-ff-mac-common.h>
+#include <ns3/nr-ff-mac-sched-sap.h>
 
 namespace ns3 {
 
@@ -108,7 +108,7 @@ public:
    * \brief Returns to MAC level the UL-CQI evaluated
    * \param ulcqi the UL-CQI (see FF MAC API 4.3.29)
    */
-  virtual void UlCqiReport (FfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi) = 0;
+  virtual void UlCqiReport (NrFfMacSchedSapProvider::SchedUlCqiInfoReqParameters ulcqi) = 0;
 
   /**
    * Notify the HARQ on the UL tranmission status

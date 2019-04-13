@@ -34,8 +34,8 @@
 
 #include <ns3/nr-enb-cmac-sap.h>
 #include <ns3/nr-mac-sap.h>
-#include <ns3/ff-mac-sched-sap.h>
-#include <ns3/ff-mac-csched-sap.h>
+#include <ns3/nr-ff-mac-sched-sap.h>
+#include <ns3/nr-ff-mac-csched-sap.h>
 #include <ns3/nr-pdcp-sap.h>
 #include <ns3/ngc-x2-sap.h>
 #include <ns3/ngc-enb-n2-sap.h>
