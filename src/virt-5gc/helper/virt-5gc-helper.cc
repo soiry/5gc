@@ -40,7 +40,7 @@ namespace ns3 {
 
 		if (m_fileType == "Virt5gc")
 		{
-			NS_LOG_INFO("Creating Lte5g formated data input.");
+			NS_LOG_INFO("Creating 5G formated data input.");
 			m_inputModel = CreateObject<Virt5gc> ();
 		}
 		else
