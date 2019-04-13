@@ -143,7 +143,6 @@ NrUeRrcProtocolReal::DoSendRrcConnectionRequest (NrRrcSap::RrcConnectionRequest 
   // eNB we are currently attached to
   m_rnti = m_rrc->GetRnti ();
   SetEnbRrcSapProvider ();
-
   Simulator::Schedule (RRC_REAL_MSG_DELAY, 
                        &NrEnbRrcSapProvider::RecvRrcConnectionRequest,
                        m_enbRrcSapProvider,

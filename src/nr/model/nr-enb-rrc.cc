@@ -1716,6 +1716,7 @@ void
 UeManager::RecvRrcConnectionRequest (NrRrcSap::RrcConnectionRequest msg)
 {
   NS_LOG_FUNCTION (this<<"nr-enb-rrc::UeManager"<< ToString(m_state));
+ 
   switch (m_state)
     {
     case INITIAL_RANDOM_ACCESS:
