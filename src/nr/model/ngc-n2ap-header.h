@@ -54,6 +54,8 @@ public:
 
   enum ProcedureCode_t {
     RegistrationRequest        = 71,
+    InitialUeMessage        = 71,
+    N2Message               = 73,
     PathSwitchRequest       = 58,
     ErabReleaseIndication   = 37,
     InitialContextSetupResponse = 43,
@@ -62,7 +64,9 @@ public:
 	IdentityRequest = 77,
 	IdentityResponse = 78,
 	RegistrationAccept = 79,
-	RegistrationComplete = 80
+	RegistrationComplete = 80,
+
+    N2Request		    = 42
   };
 
 
@@ -113,6 +117,44 @@ private:
   uint16_t          m_ecgi;
 };
 
+// Header for N2 message
+class NgcN2APN2MessageHeader : public Header
+{
+public:
+  NgcN2APN2MessageHeader ();
+  virtual ~NgcN2APN2MessageHeader ();
+
+  static TypeId GetTypeId (void);
+  virtual TypeId GetInstanceTypeId (void) const;
+  virtual uint32_t GetSerializedSize (void) const;
+  virtual void Serialize (Buffer::Iterator start) const;
+  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual void Print (std::ostream &os) const;
+
+
+  uint64_t GetAmfUeN2Id () const;
+  void SetAmfUeN2Id (uint64_t amfUeN2Id);
+
+  uint16_t GetEnbUeN2Id () const;
+  void SetEnbUeN2Id (uint16_t enbUeN2Id);
+
+  uint64_t GetSTmsi () const;
+  void SetSTmsi (uint64_t stmsi);
+
+  uint16_t GetEcgi () const;
+  void SetEcgi (uint16_t ecgi);
+
+  uint32_t GetLengthOfIes () const;
+  uint32_t GetNumberOfIes () const;
+
+private:
+  uint32_t          m_numberOfIes;
+  uint32_t          m_headerLength;
+  uint64_t          m_stmsi;
+  uint64_t          m_amfUeN2Id;
+  uint16_t          m_enbUeN2Id;
+  uint16_t          m_ecgi;
+};
 
 
 class NgcN2APErabReleaseIndicationHeader : public Header
@@ -260,6 +302,41 @@ private:
   uint64_t			m_guti; // jhlim
   std::list<NgcN2apSap::ErabToBeSetupItem> m_erabsToBeSetupList;
 };
+
+class NgcN2APN2RequestHeader : public Header
+{
+public:
+  NgcN2APN2RequestHeader ();
+  virtual ~NgcN2APN2RequestHeader ();
+  
+  static TypeId GetTypeId (void);
+  virtual TypeId GetInstanceTypeId (void) const;
+  virtual uint32_t GetSerializedSize (void) const;
+  virtual void Serialize (Buffer::Iterator start) const;
+  virtual uint32_t Deserialize (Buffer::Iterator start);
+  virtual void Print (std::ostream &os) const;
+
+  
+  uint64_t GetAmfUeN2Id () const;
+  void SetAmfUeN2Id (uint64_t amfUeN2Id);
+  
+  uint16_t GetEnbUeN2Id () const;
+  void SetEnbUeN2Id (uint16_t enbUeN2Id);
+  
+  std::list<NgcN2apSap::ErabToBeSetupItem> GetErabToBeSetupItem () const;
+  void SetErabToBeSetupItem (std::list<NgcN2apSap::ErabToBeSetupItem> erabToBeSetupList);
+  
+  uint32_t GetLengthOfIes () const;
+  uint32_t GetNumberOfIes () const;
+
+private:
+  uint32_t          m_numberOfIes;
+  uint32_t          m_headerLength;
+  uint16_t          m_enbUeN2Id;
+  uint64_t          m_amfUeN2Id;
+  std::list<NgcN2apSap::ErabToBeSetupItem> m_erabsToBeSetupList;
+};
+
 
 class NgcN2APPathSwitchRequestAcknowledgeHeader : public Header
 {

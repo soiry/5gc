@@ -328,6 +328,197 @@ NgcN2APRegistrationRequestHeader::GetNumberOfIes () const
   return m_numberOfIes;
 }
 
+NS_OBJECT_ENSURE_REGISTERED (NgcN2APN2MessageHeader);
+
+NgcN2APN2MessageHeader::NgcN2APN2MessageHeader ()
+  : m_numberOfIes (1 + 1 + 1 + 1 + 1 + 1 + 1),
+    m_headerLength (3 + 2 + 6 + 4 + 2 + 9 + 9),
+    m_stmsi (0xfffffffa),
+    m_amfUeN2Id (0xfffffffa),
+    m_enbUeN2Id (0xfffa),
+    m_ecgi (0xfffa)
+{
+}
+
+NgcN2APN2MessageHeader::~NgcN2APN2MessageHeader ()
+{ 
+  m_numberOfIes = 0;
+  m_headerLength = 0;
+  m_stmsi = 0xfffffffb;
+  m_enbUeN2Id = 0xfffb;
+  m_ecgi = 0xfffb;
+  m_amfUeN2Id = 0xfffffffb;
+}
+
+TypeId
+NgcN2APN2MessageHeader::GetTypeId (void)
+{
+  static TypeId tid = TypeId ("ns3::NgcN2APN2MessageHeader")
+    .SetParent<Header> ()
+    .SetGroupName("Nr")
+    .AddConstructor<NgcN2APN2MessageHeader> ()
+  ;
+  return tid;
+}
+
+TypeId
+NgcN2APN2MessageHeader::GetInstanceTypeId (void) const
+{
+  return GetTypeId ();
+}
+
+uint32_t
+NgcN2APN2MessageHeader::GetSerializedSize (void) const
+{
+  return m_headerLength;
+}
+
+void
+NgcN2APN2MessageHeader::Serialize (Buffer::Iterator start) const
+{
+  Buffer::Iterator i = start;
+
+  // message type is already in NgcN2APHeader
+  i.WriteHtonU16 (m_enbUeN2Id);     // m_enbUeN2Id
+  i.WriteU8 (0);                    // criticality = REJECT
+
+  i.WriteU8 (0);                    // NAS PDU, not implemented
+  i.WriteU8 (0);                    // criticality = REJECT
+
+  i.WriteU32 (0);                   // TAI, not implemented
+  i.WriteU8 (0);
+  i.WriteU8 (0);                    // criticality = REJECT
+
+  i.WriteHtonU16 (m_ecgi);          // E-UTRAN CGI, it should have a different size
+  i.WriteU8 (1 << 6);               // criticality = IGNORE
+
+  i.WriteU8 (0);                    // RRC Establishment cause
+  i.WriteU8 (1 << 6);               // criticality = IGNORE
+
+  i.WriteU64 (m_stmsi);             // S-TMSI
+  i.WriteU8 (0);                    // criticality = REJECT
+
+  i.WriteU64 (m_amfUeN2Id);         // amfUeN2Id, not in the standard?
+  i.WriteU8 (0);                    // criticality = REJECT
+
+}
+
+uint32_t
+NgcN2APN2MessageHeader::Deserialize (Buffer::Iterator start)
+{
+  Buffer::Iterator i = start;
+
+  m_headerLength = 0;
+  m_numberOfIes = 0;
+
+  m_enbUeN2Id = i.ReadNtohU16 ();
+  i.ReadU8 ();
+  m_headerLength += 3;
+  m_numberOfIes++;
+
+  i.ReadU8();
+  i.ReadU8();
+  m_headerLength += 2;
+  m_numberOfIes++;
+
+  i.ReadU32 ();                   // TAI, not implemented
+  i.ReadU8 ();
+  i.ReadU8 ();                    
+  m_headerLength += 6;
+  m_numberOfIes++;
+
+  m_ecgi = i.ReadNtohU16 ();    // E-UTRAN CGI, it should have a different size
+  i.ReadU8();
+  m_headerLength += 3;
+  m_numberOfIes++;
+
+  i.ReadU8();
+  i.ReadU8();
+  m_headerLength += 2;
+  m_numberOfIes++;
+
+  m_stmsi = i.ReadU64 ();             // S-TMSI
+  i.ReadU8 ();      
+  m_headerLength += 9;
+  m_numberOfIes++;
+
+  m_amfUeN2Id = i.ReadU64 ();             // AMF UE ID
+  i.ReadU8 ();      
+  m_headerLength += 9;
+  m_numberOfIes++;
+
+  return GetSerializedSize();
+}
+
+void
+NgcN2APN2MessageHeader::Print (std::ostream &os) const
+{
+  os << "AmfUeN2apId = " << m_amfUeN2Id;
+  os << " EnbUeN2Id = " << m_enbUeN2Id;
+  os << " ECGI = " << m_ecgi;
+  os << " S-TMSI = " << m_stmsi;
+}
+
+uint64_t 
+NgcN2APN2MessageHeader::GetAmfUeN2Id () const 
+{
+  return m_amfUeN2Id;
+}
+
+void 
+NgcN2APN2MessageHeader::SetAmfUeN2Id (uint64_t amfUeN2Id) 
+{
+  m_amfUeN2Id = amfUeN2Id;
+}
+
+uint16_t 
+NgcN2APN2MessageHeader::GetEnbUeN2Id () const
+{
+  return m_enbUeN2Id;
+}
+
+void 
+NgcN2APN2MessageHeader::SetEnbUeN2Id (uint16_t enbUeN2Id)
+{
+  m_enbUeN2Id = enbUeN2Id;
+}
+
+uint64_t 
+NgcN2APN2MessageHeader::GetSTmsi () const 
+{
+  return m_stmsi;
+}
+
+void 
+NgcN2APN2MessageHeader::SetSTmsi (uint64_t stmsi) 
+{
+  m_stmsi = stmsi;
+}
+
+uint16_t 
+NgcN2APN2MessageHeader::GetEcgi () const 
+{
+  return m_ecgi;
+}
+
+void 
+NgcN2APN2MessageHeader::SetEcgi (uint16_t ecgi)
+{
+  m_ecgi = ecgi;
+}
+
+uint32_t
+NgcN2APN2MessageHeader::GetLengthOfIes () const
+{
+  return m_headerLength;
+}
+
+uint32_t
+NgcN2APN2MessageHeader::GetNumberOfIes () const
+{
+  return m_numberOfIes;
+}
+
 /////////////////////////////////////////////////////////////////////
 
 NS_OBJECT_ENSURE_REGISTERED (NgcN2APErabReleaseIndicationHeader);
@@ -1100,6 +1291,226 @@ NgcN2APInitialContextSetupRequestHeader::GetNumberOfIes () const
 {
   return m_numberOfIes;
 }
+/////////////////////////////////////////////////////////////////////
+
+
+NS_OBJECT_ENSURE_REGISTERED (NgcN2APN2RequestHeader);
+
+NgcN2APN2RequestHeader::NgcN2APN2RequestHeader ()
+  : m_numberOfIes (1 + 1 + 1),
+    m_headerLength (9 + 3 + 9 + 4 + 1),
+    m_enbUeN2Id (0xfffa),
+    m_amfUeN2Id (0xfffffffa)
+{
+  m_erabsToBeSetupList.clear();
+}
+
+NgcN2APN2RequestHeader::~NgcN2APN2RequestHeader ()
+{ 
+  m_numberOfIes = 0;
+  m_headerLength = 0;
+  m_enbUeN2Id = 0xfffb;
+  m_amfUeN2Id = 0xfffffffb;
+  m_erabsToBeSetupList.clear();
+}
+
+TypeId
+NgcN2APN2RequestHeader::GetTypeId (void)
+{
+  static TypeId tid = TypeId ("ns3::NgcN2APN2RequestHeader")
+    .SetParent<Header> ()
+    .SetGroupName("Nr")
+    .AddConstructor<NgcN2APN2RequestHeader> ()
+  ;
+  return tid;
+}
+
+TypeId
+NgcN2APN2RequestHeader::GetInstanceTypeId (void) const
+{
+  return GetTypeId ();
+}
+
+uint32_t
+NgcN2APN2RequestHeader::GetSerializedSize (void) const
+{
+  return m_headerLength;
+}
+
+void
+NgcN2APN2RequestHeader::Serialize (Buffer::Iterator start) const
+{
+  Buffer::Iterator i = start;
+
+  // message type is already in NgcN2APHeader
+  i.WriteU64 (m_amfUeN2Id);         // amfUeN2Id
+  i.WriteU8 (1 << 6);               // criticality = IGNORE
+
+  i.WriteHtonU16 (m_enbUeN2Id);     // m_enbUeN2Id
+  i.WriteU8 (1 << 6);               // criticality = IGNORE
+
+  i.WriteHtonU64 (0);               // aggregate maximum bitrate, not implemented
+  i.WriteU8 (0);
+
+  std::list <NgcN2apSap::ErabToBeSetupItem>::size_type sz = m_erabsToBeSetupList.size (); 
+  i.WriteHtonU32 (sz);              // number of bearers
+  for (std::list <NgcN2apSap::ErabToBeSetupItem>::const_iterator l_iter = m_erabsToBeSetupList.begin(); l_iter != m_erabsToBeSetupList.end(); ++l_iter) // content of m_erabsToBeSetupList
+    {
+      i.WriteU8 (l_iter->erabId);
+      i.WriteHtonU16 (l_iter->erabLevelQosParameters.qci);
+      i.WriteHtonU64 (l_iter->erabLevelQosParameters.gbrQosInfo.gbrDl);
+      i.WriteHtonU64 (l_iter->erabLevelQosParameters.gbrQosInfo.gbrUl);
+      i.WriteHtonU64 (l_iter->erabLevelQosParameters.gbrQosInfo.mbrDl);
+      i.WriteHtonU64 (l_iter->erabLevelQosParameters.gbrQosInfo.mbrUl);
+      i.WriteU8 (l_iter->erabLevelQosParameters.arp.priorityLevel);
+      i.WriteU8 (l_iter->erabLevelQosParameters.arp.preemptionCapability);
+      i.WriteU8 (l_iter->erabLevelQosParameters.arp.preemptionVulnerability);
+      i.WriteHtonU32 (l_iter->transportLayerAddress.Get ());
+      i.WriteHtonU32 (l_iter->smfTeid);
+
+      i.WriteU8(0); // a criticaloty each, REJECT
+    }
+  i.WriteU8 (0);               // criticality = REJECT
+
+  //TODO 9.2.140, 9.2.1.41
+
+}
+
+uint32_t
+NgcN2APN2RequestHeader::Deserialize (Buffer::Iterator start)
+{
+  Buffer::Iterator i = start;
+
+  m_headerLength = 0;
+  m_numberOfIes = 0;
+
+  m_amfUeN2Id = i.ReadU64 ();         // amfUeN2Id
+  i.ReadU8 ();                 
+  m_headerLength += 9;
+  m_numberOfIes++;
+
+  m_enbUeN2Id = i.ReadNtohU16 ();     // m_enbUeN2Id
+  i.ReadU8 ();           
+  m_headerLength += 3;
+  m_numberOfIes++;
+
+  i.ReadU64 ();               // aggregate maximum bitrate, not implemented
+  i.ReadU8 ();
+  m_headerLength += 9;
+  m_numberOfIes++;
+
+  int sz = i.ReadNtohU32(); // number of bearers
+  m_headerLength += 4;
+
+  for (int j = 0; j < (int) sz; j++) // content of m_erabToBeSetupList
+  {
+    NgcN2apSap::ErabToBeSetupItem erabItem;
+    erabItem.erabId = i.ReadU8 ();
+ 
+    erabItem.erabLevelQosParameters = EpsBearer ((EpsBearer::Qci) i.ReadNtohU16 ());
+    erabItem.erabLevelQosParameters.gbrQosInfo.gbrDl = i.ReadNtohU64 ();
+    erabItem.erabLevelQosParameters.gbrQosInfo.gbrUl = i.ReadNtohU64 ();
+    erabItem.erabLevelQosParameters.gbrQosInfo.mbrDl = i.ReadNtohU64 ();
+    erabItem.erabLevelQosParameters.gbrQosInfo.mbrUl = i.ReadNtohU64 ();
+    erabItem.erabLevelQosParameters.arp.priorityLevel = i.ReadU8 ();
+    erabItem.erabLevelQosParameters.arp.preemptionCapability = i.ReadU8 ();
+    erabItem.erabLevelQosParameters.arp.preemptionVulnerability = i.ReadU8 ();
+
+    erabItem.transportLayerAddress = Ipv4Address (i.ReadNtohU32 ());
+    erabItem.smfTeid = i.ReadNtohU32 ();
+
+    i.ReadU8 ();
+
+    m_erabsToBeSetupList.push_back (erabItem);
+    m_headerLength += 46;
+  }
+  i.ReadU8();
+  m_headerLength += 1;
+  m_numberOfIes++;
+  
+  return GetSerializedSize();
+}
+
+void
+NgcN2APN2RequestHeader::Print (std::ostream &os) const
+{
+  os << " AmfUeN2Id = " << m_amfUeN2Id;
+  os << " EnbUeN2Id = " << m_enbUeN2Id;
+  os << " NumOfBearers = " << m_erabsToBeSetupList.size ();
+
+  std::list <NgcN2apSap::ErabToBeSetupItem>::size_type sz = m_erabsToBeSetupList.size ();
+  if (sz > 0)
+    {
+      os << " [";
+    }
+  int j = 0;  
+  for (std::list <NgcN2apSap::ErabToBeSetupItem>::const_iterator l_iter = m_erabsToBeSetupList.begin(); l_iter != m_erabsToBeSetupList.end(); ++l_iter) // content of m_erabsToBeSetupList
+  {
+    os << l_iter->erabId;
+    if (j < (int) sz - 1)
+      {
+        os << ", ";
+      }
+    else
+      {
+        os << "]";
+      }
+    j++;  
+  }
+}
+
+uint64_t 
+NgcN2APN2RequestHeader::GetAmfUeN2Id () const 
+{
+  return m_amfUeN2Id;
+}
+
+void 
+NgcN2APN2RequestHeader::SetAmfUeN2Id (uint64_t amfUeN2Id) 
+{
+  m_amfUeN2Id = amfUeN2Id;
+}
+
+uint16_t 
+NgcN2APN2RequestHeader::GetEnbUeN2Id () const
+{
+  return m_enbUeN2Id;
+}
+
+void 
+NgcN2APN2RequestHeader::SetEnbUeN2Id (uint16_t enbUeN2Id)
+{
+  m_enbUeN2Id = enbUeN2Id;
+}
+
+std::list<NgcN2apSap::ErabToBeSetupItem>
+NgcN2APN2RequestHeader::GetErabToBeSetupItem () const 
+{
+  return m_erabsToBeSetupList;
+}
+
+void 
+NgcN2APN2RequestHeader::SetErabToBeSetupItem (std::list<NgcN2apSap::ErabToBeSetupItem> erabSetupList)
+{
+  m_headerLength += erabSetupList.size()*47;
+  m_erabsToBeSetupList = erabSetupList;
+}
+
+uint32_t
+NgcN2APN2RequestHeader::GetLengthOfIes () const
+{
+  return m_headerLength;
+}
+
+uint32_t
+NgcN2APN2RequestHeader::GetNumberOfIes () const
+{
+  return m_numberOfIes;
+}
+
+
+
+
 /////////////////////////////////////////////////////////////////////
 
 NS_OBJECT_ENSURE_REGISTERED (NgcN2APPathSwitchRequestAcknowledgeHeader);

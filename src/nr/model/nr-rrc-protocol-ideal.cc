@@ -104,8 +104,7 @@ NrUeRrcProtocolIdeal::DoSendRrcConnectionRequest (NrRrcSap::RrcConnectionRequest
   // initialize the RNTI and get the EnbNrRrcSapProvider for the
   // eNB we are currently attached to
   m_rnti = m_rrc->GetRnti ();
-  SetEnbRrcSapProvider ();
-    
+  SetEnbRrcSapProvider (); 
   Simulator::Schedule (RRC_IDEAL_MSG_DELAY, 
                        &NrEnbRrcSapProvider::RecvRrcConnectionRequest,
                        m_enbRrcSapProvider,

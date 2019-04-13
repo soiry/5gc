@@ -1715,6 +1715,7 @@ void
 UeManager::RecvRrcConnectionRequest (NrRrcSap::RrcConnectionRequest msg)
 {
   NS_LOG_FUNCTION (this<<"nr-enb-rrc::UeManager"<< ToString(m_state));
+ 
   switch (m_state)
     {
     case INITIAL_RANDOM_ACCESS:
@@ -5165,7 +5166,7 @@ void
 NrEnbRrc::DoDataRadioBearerSetupRequest (NgcEnbN2SapUser::DataRadioBearerSetupRequestParameters request)
 {
  	Ptr<UeManager> ueManager = GetUeManager (request.rnti);
-   ueManager->SetupDataRadioBearer (request.bearer, request.bearerId, request.gtpTeid, request.transportLayerAddress);
+   ueManager->SetupDataRadioBearer (request.flow, request.flowId, request.gtpTeid, request.transportLayerAddress);
 }
 // jhlim
 void

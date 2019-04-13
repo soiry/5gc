@@ -420,6 +420,7 @@ NrUeMac::RecvRaResponse (NrBuildRarListElement_s raResponse)
   // preambles are sent no one is received, so there is no need
   // for contention resolution
   m_cmacSapUser->NotifyRandomAccessSuccessful (); //sjkang
+  // m_cmacSapUser->SendServiceRequest (); //yjshin
   // trigger tx opportunity for Message 3 over LC 0
   // this is needed since Message 3's UL GRANT is in the RAR, not in UL-DCIs
   const uint8_t lc0Lcid = 0;

@@ -298,6 +298,51 @@ NgcSmfUpfApplication::DoCreateSessionRequest (NgcN11SapSmf::CreateSessionRequest
 }
 
 void 
+NgcSmfUpfApplication::DoUpdateSMContextRequest (NgcN11SapSmf::UpdateSMContextRequestMessage req)
+{
+  NS_LOG_FUNCTION (this << req.imsi);
+  std::map<uint64_t, Ptr<UeInfo> >::iterator ueit = m_ueInfoByImsiMap.find (req.imsi);
+  NS_ASSERT_MSG (ueit != m_ueInfoByImsiMap.end (), "unknown IMSI " << req.imsi); 
+  uint16_t cellId = req.uli.gci;
+  std::map<uint16_t, EnbInfo>::iterator enbit = m_enbInfoByCellId.find (cellId);
+  NS_ASSERT_MSG (enbit != m_enbInfoByCellId.end (), "unknown CellId " << cellId); 
+  Ipv4Address enbAddr = enbit->second.enbAddr;
+  ueit->second->SetEnbAddr (enbAddr);
+
+  NgcN11SapAmf::UpdateSMContextResponseMessage res;
+  res.teid = req.imsi; // trick to avoid the need for allocating TEIDs on the N11 interface
+
+  for (std::list<NgcN11SapSmf::N2SMInformationToBeCreated>::iterator bit = req.n2SMInformationToBeCreated.begin ();
+       bit != req.n2SMInformationToBeCreated.end ();
+       ++bit)
+    {
+      // simple sanity check. If you ever need more than 4M teids
+      // throughout your simulation, you'll need to implement a smarter teid
+      // management algorithm. 
+      NS_ABORT_IF (m_teidCount == 0xFFFFFFFF);
+      uint32_t teid = ++m_teidCount;  
+      ueit->second->AddBearer (bit->tft, bit->qosFlowId, teid);
+
+      
+      NgcN11SapAmf::N2SMInformationCreated n2SMInformation;
+      n2SMInformation.smfFteid.teid = teid;
+      n2SMInformation.smfFteid.address = enbit->second.smfAddr;
+      n2SMInformation.qosFlowId =  bit->qosFlowId; 
+      n2SMInformation.flowLevelQos = bit->flowLevelQos; 
+      n2SMInformation.tft = bit->tft;
+/*
+      NgcN11SapAmf::BearerContextCreated bearerContext;
+      bearerContext.smfFteid.teid = teid;
+      bearerContext.smfFteid.address = enbit->second.smfAddr;
+      bearerContext.epsBearerId =  bit->epsBearerId; 
+      bearerContext.bearerLevelQos = bit->bearerLevelQos; 
+      bearerContext.tft = bit->tft;*/
+      res.n2SMInformationCreated.push_back (n2SMInformation);
+    }
+  m_n11SapAmf->UpdateSMContextResponse (res);
+  
+}
+void 
 NgcSmfUpfApplication::DoModifyBearerRequest (NgcN11SapSmf::ModifyBearerRequestMessage req)
 {
   NS_LOG_FUNCTION (this << req.teid);

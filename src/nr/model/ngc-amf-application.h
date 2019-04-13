@@ -122,13 +122,16 @@ private:
 
   // N2-AP SAP AMF forwarded methods
   void DoRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi);
+  void DoInitialUeMessage (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi);
+  void DoN2Message (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t imsi, uint16_t ecgi);
   void DoInitialContextSetupResponse (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSapAmf::ErabSetupItem> erabSetupList);
   void DoPathSwitchRequest (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t cgi, std::list<NgcN2apSapAmf::ErabSwitchedInDownlinkItem> erabToBeSwitchedInDownlinkList);
   void DoErabReleaseIndication (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSapAmf::ErabToBeReleasedIndication> erabToBeReleaseIndication);
 
   // N11 SAP AMF forwarded methods
-  void DoCreateSessionResponse (NgcN11SapAmf::CreateSessionResponseMessage msg);
   void DoModifyBearerResponse (NgcN11SapAmf::ModifyBearerResponseMessage msg);
+  void DoUpdateSMContextResponse (NgcN11SapAmf::UpdateSMContextResponseMessage msg);
+  void DoCreateSessionResponse (NgcN11SapAmf::CreateSessionResponseMessage msg);
   void DoDeleteBearerRequest (NgcN11SapAmf::DeleteBearerRequestMessage msg);
 
   // jhlim
@@ -153,6 +156,14 @@ private:
     EpsBearer bearer;
     uint8_t bearerId;
   };
+
+  //yjshin
+  struct FlowInfo
+  {
+    Ptr<NgcTft> tft;
+    EpsBearer flow; //Todo
+    uint8_t flowId;
+  };
   
   /**
    * Hold info on a UE
@@ -165,6 +176,7 @@ private:
     uint64_t imsi;
     uint16_t cellId;
     std::list<BearerInfo> bearersToBeActivated;
+    std::list<FlowInfo> flowsToBeActivated;
     uint16_t bearerCounter;
   };
 
@@ -179,6 +191,9 @@ private:
    * \param ueInfo UE information pointer
    * \param epsBearerId Bearer Id which need to be removed corresponding to UE
    */
+
+
+
   void RemoveBearer (Ptr<UeInfo> ueInfo, uint8_t epsBearerId);
 
   /**

@@ -138,6 +138,15 @@ NgcEnbApplication1::DoInitialUeMessage (uint64_t imsi, uint16_t rnti)
 }
 
 void 
+NgcEnbApplication1::DoN2Message (uint64_t imsi, uint16_t rnti)
+{
+  NS_LOG_FUNCTION (this);
+  // side effect: create entry if not exist
+  m_imsiRntiMap[imsi] = rnti;
+  m_n2apSapAmf->N2Message (imsi, rnti, imsi, m_cellId);
+}
+
+void 
 NgcEnbApplication1::DoPathSwitchRequest (NgcEnbN2SapProvider::PathSwitchRequestParameters params)
 {
   NS_LOG_FUNCTION (this);
@@ -221,6 +230,41 @@ NgcEnbApplication1::DoInitialContextSetupRequest (uint64_t amfUeN2Id, uint16_t e
 
     }
 }
+
+//smsohn
+void 
+NgcEnbApplication1::DoN2Request (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSapEnb::ErabToBeSetupItem> erabToBeSetupList)
+{
+  NS_LOG_FUNCTION (this);
+  
+  for (std::list<NgcN2apSapEnb::ErabToBeSetupItem>::iterator erabIt = erabToBeSetupList.begin ();
+       erabIt != erabToBeSetupList.end ();
+       ++erabIt)
+    {
+      // request the RRC to setup a radio bearer
+
+      uint64_t imsi = amfUeN2Id;
+      std::map<uint64_t, uint16_t>::iterator imsiIt = m_imsiRntiMap.find (imsi);
+      NS_ASSERT_MSG (imsiIt != m_imsiRntiMap.end (), "unknown IMSI");
+      uint16_t rnti = imsiIt->second;
+      
+      struct NgcEnbN2SapUser::DataRadioBearerSetupRequestParameters params;
+      params.rnti = rnti;
+      params.flow = erabIt->erabLevelQosParameters;
+      params.flowId = erabIt->erabId;
+      params.gtpTeid = erabIt->smfTeid;
+      m_n2SapUser->DataRadioBearerSetupRequest (params);
+      //smsohn TODO:DataRadioBearerSetupRequest
+
+      EpsFlowId_t rbid (rnti, erabIt->erabId);
+      // side effect: create entries if not exist
+      m_rbidTeidMap[rnti][erabIt->erabId] = params.gtpTeid;
+      m_teidRbidMap[params.gtpTeid] = rbid;
+
+    }
+}
+
+
 
 void 
 NgcEnbApplication1::DoPathSwitchRequestAcknowledge (uint64_t enbUeN2Id, uint64_t amfUeN2Id, uint16_t gci, std::list<NgcN2apSapEnb::ErabSwitchedInUplinkItem> erabToBeSwitchedInUplinkList)
