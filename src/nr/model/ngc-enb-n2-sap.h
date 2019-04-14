@@ -309,6 +309,8 @@ MemberNgcEnbN2SapUser<C>::MemberNgcEnbN2SapUser ()
 template <class C>
 void MemberNgcEnbN2SapUser<C>::DataRadioBearerSetupRequest (DataRadioBearerSetupRequestParameters params)
 {
+  printf("[jhlim] ngc-enb-n2-sap.h	DataRadioBearerSetupRequest\n");
+  printf("				params.bearerId: %d\n", params.bearerId);
   m_owner->DoDataRadioBearerSetupRequest (params);
 }
 // jhlim

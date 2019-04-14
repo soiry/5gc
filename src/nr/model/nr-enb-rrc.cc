@@ -3464,6 +3464,7 @@ NrEnbRrc::HasUeManager (uint16_t rnti) const
 Ptr<UeManager>
 NrEnbRrc::GetUeManager (uint16_t rnti)
 {
+  printf("[jhlim] nr-enb-rrc.cc	GetUeManager\n"); 
   NS_LOG_FUNCTION (this << (uint32_t) rnti);
   NS_ASSERT (0 != rnti);
   std::map<uint16_t, Ptr<UeManager> >::iterator it = m_ueMap.find (rnti);
@@ -5167,8 +5168,9 @@ void
 NrEnbRrc::DoDataRadioBearerSetupRequest (NgcEnbN2SapUser::DataRadioBearerSetupRequestParameters request)
 {
  	Ptr<UeManager> ueManager = GetUeManager (request.rnti);
-	printf("[jhlim] nr-enb-rrc.cc	DoDataRadioBearerSetupRequest\n");	
-   ueManager->SetupDataRadioBearer (request.flow, request.flowId, request.gtpTeid, request.transportLayerAddress);
+	printf("[jhlim] nr-enb-rrc.cc	DoDataRadioBearerSetupRequest\n");
+	printf("\n\nbearId: %d\n\n", request.bearerId);
+   ueManager->SetupDataRadioBearer (request.flow, request.bearerId, request.gtpTeid, request.transportLayerAddress);
 }
 // jhlim
 void
@@ -5662,6 +5664,7 @@ NrEnbRrc::DoSendLoadInformation (NgcX2Sap::LoadInformationParams params)
 uint16_t
 NrEnbRrc::AddUe (UeManager::State state)
 {
+  printf("[jhlim] nr-enb-rrc.cc	AddUe\n"); 
   NS_LOG_FUNCTION (this << m_cellId);
   bool found = false;
   uint16_t rnti;
