@@ -5660,7 +5660,6 @@ NrEnbRrc::DoSendLoadInformation (NgcX2Sap::LoadInformationParams params)
 uint16_t
 NrEnbRrc::AddUe (UeManager::State state)
 {
-  printf("[jhlim] nr-enb-rrc.cc	AddUe\n"); 
   NS_LOG_FUNCTION (this << m_cellId);
   bool found = false;
   uint16_t rnti;
