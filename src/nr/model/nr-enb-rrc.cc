@@ -406,11 +406,12 @@ void
 UeManager::SetupDataRadioBearer (EpsBearer bearer, uint8_t bearerId, uint32_t gtpTeid, Ipv4Address transportLayerAddress) 
 {
   NS_LOG_FUNCTION (this << (uint32_t) m_rnti);
-  std::cout << "SetupDataRadioBearer " <<std::endl;
+  std::cout << "nr SetupDataRadioBearer " <<std::endl;
   Ptr<NrDataRadioBearerInfo> drbInfo = CreateObject<NrDataRadioBearerInfo> ();
   uint8_t drbid = AddDataRadioBearerInfo (drbInfo);
   uint8_t lcid = Drbid2Lcid (drbid); 
   uint8_t bid = Drbid2Bid (drbid);
+  printf("[jhlim] nr-enb-rrc.cc	SetupDataRadioBearer\n"); 
   NS_ASSERT_MSG ( bearerId == 0 || bid == bearerId, "bearer ID mismatch (" << (uint32_t) bid << " != " << (uint32_t) bearerId << ", the assumption that ID are allocated in the same way by AMF and RRC is not valid any more");
   drbInfo->m_epsBearerIdentity = bid;
   drbInfo->m_drbIdentity = drbid;
@@ -5166,6 +5167,7 @@ void
 NrEnbRrc::DoDataRadioBearerSetupRequest (NgcEnbN2SapUser::DataRadioBearerSetupRequestParameters request)
 {
  	Ptr<UeManager> ueManager = GetUeManager (request.rnti);
+	printf("[jhlim] nr-enb-rrc.cc	DoDataRadioBearerSetupRequest\n");	
    ueManager->SetupDataRadioBearer (request.flow, request.flowId, request.gtpTeid, request.transportLayerAddress);
 }
 // jhlim

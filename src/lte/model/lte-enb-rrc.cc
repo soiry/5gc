@@ -406,7 +406,7 @@ void
 UeManager::SetupDataRadioBearer (EpsBearer bearer, uint8_t bearerId, uint32_t gtpTeid, Ipv4Address transportLayerAddress) 
 {
   NS_LOG_FUNCTION (this << (uint32_t) m_rnti);
-  std::cout << "SetupDataRadioBearer " <<std::endl;
+  std::cout << "lte SetupDataRadioBearer " <<std::endl;
   Ptr<LteDataRadioBearerInfo> drbInfo = CreateObject<LteDataRadioBearerInfo> ();
   uint8_t drbid = AddDataRadioBearerInfo (drbInfo);
   uint8_t lcid = Drbid2Lcid (drbid); 

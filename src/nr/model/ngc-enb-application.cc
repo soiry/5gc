@@ -342,6 +342,7 @@ void
 NgcEnbApplication::DoInitialContextSetupRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, std::list<NgcN2apSapEnb::ErabToBeSetupItem> erabToBeSetupList)
 { //sjkang1021
   NS_LOG_FUNCTION (this);
+  printf("[jhlim] ngc-enb-application.cc	DoInitialContextSetupRequest\n");
   NS_LOG_INFO("In EnpEnbApplication DoInitialContextSetupRequest size of the erabToBeSetupList is " << erabToBeSetupList.size());
 
   for (std::list<NgcN2apSapEnb::ErabToBeSetupItem>::iterator erabIt = erabToBeSetupList.begin ();
