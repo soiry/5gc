@@ -191,9 +191,15 @@ NgcEnbApplication::DoRegistrationRequest (uint64_t imsi, uint16_t rnti)
   /* jhlim: forwards the Registration Request to an AMF */
 
   if(m_n2apSapEnbProvider == NULL)
+  {
+  	  printf("[jhlim] ngc-enb-application.cc	It's Not a Provider.\n"); 
 	  m_n2apSapAmf->RegistrationRequest (imsi, rnti, imsi, m_cellId);
+  }
   else
+  {
+  	  printf("[jhlim] ngc-enb-application.cc	It's a Provider.\n"); 
 	  m_n2apSapEnbProvider->SendRegistrationRequest (imsi, rnti, imsi, m_cellId); // TODO if more than one AMF is used, extend this call
+  }
 
 }
 

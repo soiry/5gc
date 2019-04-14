@@ -602,6 +602,7 @@ LteEnbRrc::DoSendReleaseDataRadioBearer (uint64_t imsi, uint16_t rnti, uint8_t b
 void 
 UeManager::ScheduleRrcConnectionReconfiguration ()
 {
+  printf("[jhlim] lte-enb-rrc.cc ScheduleRrcConnectionReconfiguration ()\n"); 
   NS_LOG_FUNCTION (this << ToString(m_state));
   switch (m_state)
     {
