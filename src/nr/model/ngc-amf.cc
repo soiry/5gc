@@ -145,7 +145,6 @@ NgcAmf::DoRegistrationRequest (uint64_t amfUeN2Id, uint16_t enbUeN2Id, uint64_t 
       bearerContext.tft = bit->tft;
       msg.bearerContextsToBeCreated.push_back (bearerContext);
     }
-  printf("[jhlim] ngc-amf.cc	DoRegistrationRequest->CreateSessionRequest\n"); 
   m_n11SapSmf->CreateSessionRequest (msg);
 }
 
