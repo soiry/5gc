@@ -272,6 +272,7 @@ CalcThroughput (Ptr<Application> sinkApp, int lastTotalRx, int node)
 	double throughput = ((sink->GetTotalRx() - lastTotalRx) / delay) * (double)(8/1e6);
 	lastTotalRx = sink->GetTotalRx();
 
+	std::cout << "throughput: " << throughput << "\n";
 /*
 	if (firstCall) {
 		*thputStream->GetStream() << "# Time Node Throughput(goodput)" << std::endl;
