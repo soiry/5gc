@@ -6,9 +6,9 @@
 
 #include "ns3/object.h"
 #include "ns3/node-container.h"
-#include "ns3/nr-helper.h"
-#include "ns3/ngc-helper.h"
-#include "ns3/nr-module.h"
+#include "ns3/lte-helper.h"
+#include "ns3/epc-helper.h"
+#include "ns3/lte-module.h"
 #include "ns3/position-allocator.h"
 #include "ns3/mobility-module.h"
 #include "ns3/trace-helper.h"
@@ -41,8 +41,8 @@ namespace ns3 {
 			void InitVirt5gc (void);
 			NodeContainer GetEnbNodes (void);
 			NodeContainer GetUeNodes (void);
-			Ptr<NrHelper> GetNrHelper (void);
-			Ptr<PointToPointNgcHelper> GetNgcHelper (void);
+			Ptr<LteHelper> GetNrHelper (void);
+			Ptr<PointToPointEpcHelper> GetNgcHelper (void);
 			//Ptr<OvsPointToPointEpcHelper> GetEpcHelper (void);	
 			
 			void Read (void);
@@ -76,8 +76,8 @@ namespace ns3 {
 			NodeContainer ueNodes;
 			NetDeviceContainer enbDevs;
 			NetDeviceContainer ueDevs;
-			Ptr<NrHelper> nrHelper;
-			Ptr<PointToPointNgcHelper> ngcHelper;
+			Ptr<LteHelper> nrHelper;
+			Ptr<PointToPointEpcHelper> ngcHelper;
 			//Ptr<OvsPointToPointEpcHelper> epcHelper;
 			std::list<Virt5gcVm> vmList;
 			std::list<std::pair<int, int>> vm_nodeList;

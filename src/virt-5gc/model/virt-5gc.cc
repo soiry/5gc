@@ -196,10 +196,10 @@ namespace ns3 {
 		uint16_t i;
 		std::string tmp;
 
-		nrHelper = CreateObject<NrHelper> ();
+		nrHelper = CreateObject<LteHelper> ();
 		//epcHelper = CreateObject<OvsPointToPointEpcHelper> ();
-		ngcHelper = CreateObject<PointToPointNgcHelper> ();
-		nrHelper->SetNgcHelper(ngcHelper);
+		ngcHelper = CreateObject<PointToPointEpcHelper> ();
+		nrHelper->SetEpcHelper(ngcHelper);
 
 		/* Generate Nr components (PGW/SGW, eNB, UE)
 		 * MME is not implemented yet
@@ -805,14 +805,14 @@ namespace ns3 {
 		return ueNodes;
 	}
 
-	Ptr<NrHelper>
+	Ptr<LteHelper>
 	Virt5gc::GetNrHelper (void)
 	{
 		return nrHelper;
 	}
 
 	//Ptr<OvsPointToPointEpcHelper>
-	Ptr<PointToPointNgcHelper>
+	Ptr<PointToPointEpcHelper>
 	Virt5gc::GetNgcHelper (void)
 	{
 		return ngcHelper;

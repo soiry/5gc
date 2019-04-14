@@ -263,8 +263,12 @@ CalcThroughput (Ptr<Application> sinkApp, int lastTotalRx, int node)
 			Time addedDelay = (endTime - currTime);
 			delay += addedDelay.GetSeconds();
 		}
+
+		//std::cout << "delay: " << delay << "\n";
 	}
-	
+
+	//std::cout << "sink->GetTotalRx() " << sink->GetTotalRx() << "\n";
+	//std::cout << "lastTotalRx " << lastTotalRx << "\n";
 	double throughput = ((sink->GetTotalRx() - lastTotalRx) / delay) * (double)(8/1e6);
 	lastTotalRx = sink->GetTotalRx();
 
@@ -341,10 +345,10 @@ main (int argc, char *argv[])
 
   // parse again so you can override default values from the command line
   cmd.Parse(argc, argv);
-  Ptr<NrHelper> nrHelper = virt5gcHelper->GetNrHelper();
-  Ptr<PointToPointNgcHelper> ngcHelper = virt5gcHelper->GetNgcHelper();
+  Ptr<LteHelper> nrHelper = virt5gcHelper->GetNrHelper();
+  Ptr<PointToPointEpcHelper> ngcHelper = virt5gcHelper->GetNgcHelper();
   //Ptr<OvsPointToPointEpcHelper> epcHelper = virt5gcHelper->GetEpcHelper();
-  Ptr<Node> pgw = ngcHelper->GetUpfNode ();
+  Ptr<Node> pgw = ngcHelper->GetPgwNode ();
 
    // Create a single RemoteHost
   NodeContainer remoteHostContainer;
